@@ -33,9 +33,11 @@
 *.su
 
 # Latex garbage
+*.aux
 *.log
 *.blg
-*.gz
+*.bbl
+*.synctex.gz
 *.tdo
 *.thm
 *.toc
