@@ -31,3 +31,11 @@
 # Debug files
 *.dSYM/
 *.su
+
+# Latex garbage
+*.log
+*.blg
+*.gz
+*.tdo
+*.thm
+*.toc
