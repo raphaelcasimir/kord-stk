@@ -1,0 +1,27 @@
+
+
+Introduction
+	Explain some problem where a rocket is useful. ISS, sattelites, space exploration.
+	Something about issues with a stick with rockets in one end. How do you steer and make sure it ends up the right place.
+	Find problems that needs to be fixed in order to have a succesful launch.
+	
+Problem analysis
+	Look into all the aspects of a succesful launch, controlwise. Spin control, tilt control (What's it called?).
+	Explain how the control is similar to the inverse pendulum problem.
+	
+Problem statement
+	Limit ourselves to 1 control problem.
+	How do we solve the inverse pendulum problem.
+	
+Specification
+	I don't know what goes here?!?
+	
+Product design
+	Modeling
+		First we need to model the system, how it works etc.
+	Control
+		Make the actual control system
+
+Test
+
+Conclusion
