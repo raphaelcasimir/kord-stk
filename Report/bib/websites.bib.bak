@@ -1,0 +1,24 @@
+% This file was created with JabRef 2.10.
+% Encoding: UTF8
+
+@Misc{web:PWMfreq,
+  Title                    = {Speed Controllers},
+  Author                   = {Paul Hills},
+  Lastvisit                = {20 December 2016},
+  Url                      = {http://homepages.which.net/~paul.hills/SpeedControl/SpeedControllersBody.html},
+  Year                     = {2005},
+  Lastupdate               = {5 Ocotober 2005},
+  Owner                    = {Mads},
+  Timestamp                = {2016.12.20}
+}
+
+@Misc{web:rocketnasa,
+	Title                    = {rocket},
+	Author                   = {Tom Benson},
+	Lastvisit                = {14 February 2017},
+	Url                      = {https://spaceflightsystems.grc.nasa.gov/education/rocket/rktstabc.html},
+	Year                     = {2014},
+	Lastupdate               = {22 October 2015},
+	Owner                    = {Maxime},
+	Timestamp                = {2017.2.14}
+}
