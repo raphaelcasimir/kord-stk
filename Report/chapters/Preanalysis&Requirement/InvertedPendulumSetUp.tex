@@ -97,7 +97,7 @@ Something about D'Alembert's law in equation \eqref{eq:Jsthetas}.
 Inserting $F_p$ into equation \eqref{eq:Jsthetas} gives equation \eqref{eq:JsLong}
 \begin{flalign}
 \hspace{30pt} & J_s\ddot{\theta}_s=\frac{l_s}{2}\left(F_x\cos(\theta_s)+F_y\sin(\theta_s)\right)-b_{as}\dot{\theta}_{as} &&& \text{[N$\cdot$m]} \notag \\
-& J_s\ddot{\theta}_s = \frac{l_s}{2}M_s \Big( -l_a\ddot{\theta}_s\left(\cos(\theta_a)\cos(\theta_s)+\sin(\theta_a)\sin(\theta_s)\right) && \notag \\
+& J_s\ddot{\theta}_s = \frac{l_s}{2}M_s \Big( -l_a\ddot{\theta}_a\left(\cos(\theta_a)\cos(\theta_s)+\sin(\theta_a)\sin(\theta_s)\right) && \notag \\
 & \phantom{========} +l_a\dot{\theta}_a^2\left(\sin(\theta_a)\cos(\theta_s)-\cos(\theta_a)\sin(\theta_s)\right)  &&& \notag \\
 & \phantom{========} -\frac{l_s}{2}\ddot{\theta}_s\left(\cos(\theta_s)\cos(\theta_s)+\sin(\theta_s)\sin(\theta_s)\right) &&& \notag \\
 & \phantom{========} +\frac{l_s}{2}\dot{\theta}_s^2\left(\sin(\theta_s)\cos(\theta_s)-\cos(\theta_s)\sin(\theta_s)\right) &&& \notag \\
@@ -112,6 +112,31 @@ Using the trigonometric properties in equation \eqref{eq:trigprop}, equation \eq
 \end{flalign}
 
 \begin{flalign}
-& J_s\ddot{\theta}_s = \frac{l_s}{2}M_s \Big( -l_a\ddot{\theta}_s \cos(\theta_a-\theta_s)+l_a\dot{\theta}_a^2 \sin(\theta_a-\theta_s)  &&& \notag \\
+\hspace{30pt} & J_s\ddot{\theta}_s = \frac{l_s}{2}M_s \Big( -l_a\ddot{\theta}_a \cos(\theta_a-\theta_s)+l_a\dot{\theta}_a^2 \sin(\theta_a-\theta_s)  &&& \notag \\
 & \phantom{========} -\frac{l_s}{2}\ddot{\theta}_s +g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as} &&& \text{[N$\cdot$m]} \label{eq:JsShort}
+\end{flalign}
+
+Linearization using first order taylor approximation [insert ref to note in google drive]. Something about multiple variables.
+\begin{flalign}
+\hspace{30pt} & f\left(\theta_a, \dot{\theta}_a, \ddot{\theta}_a, \theta_s, \ddot{\theta}_s\right) \approx f\left(\bar{\theta}_a, 0, 0, \bar{\theta}_s, 0\right) + \left. \frac{\partial f}{\partial \theta_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\theta}_a &&& \notag \\
+& \phantom{===========.} + \left. \frac{\partial f}{\partial \dot{\theta}_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\dot{\theta}}_a + \left. \frac{\partial f}{\partial \ddot{\theta}_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\ddot{\theta}}_a &&& \notag \\
+& \phantom{===========.} + \left. \frac{\partial f}{\partial \theta_s}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\theta}_s + \left. \frac{\partial f}{\partial \ddot{\theta}_s}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\ddot{\theta}}_s &&& \text{[$\cdot$]}\label{eq:1stTaylor}
+\end{flalign}
+
+The 3 terms with sin or cos in equation \eqref{eq:JsShort} will be approximated individually using equation \eqref{eq:1stTaylor} remembering that $\bar{\theta}=\bar{\dot{\theta}}=\bar{\ddot{\theta}}=0$.
+\begin{flalign}
+\hspace{30pt} & -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right) \approx 0 + l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a &&& \notag \\ 
+& \phantom{============} -l_a\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\ddot{\theta}}_a - l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s &&& \notag \\
+& -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right) \approx -l_a\hat{\ddot{\theta}}_a
+\end{flalign} %\bar{\ddot{\theta}}_s
+
+\begin{flalign}
+\hspace{30pt} & l_a\dot{\theta}_a^2\sin\left(\theta_a-\theta_s\right) \approx 0 + l_a\bar{\dot{\theta}}_a^2\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a &&& \notag \\
+& \phantom{==========.} + 2l_a\bar{\dot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\dot{\theta}}_a-l_a\bar{\dot{\theta}}_a^2\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s &&& \notag \\
+& l_a\dot{\theta}_a^2\sin\left(\bar{\theta}_a-\bar{\theta}_s\right) \approx 0
+\end{flalign}
+
+\begin{flalign}
+\hspace{30pt} & g\sin\left(\theta_s\right) \approx g\sin\left(\bar{\theta}_s\right) +g\cos\left(\bar{\theta}_s\right)\hat{\theta}_s &&& \notag \\
+& g\sin\left(\theta_s\right) \approx g\hat{\theta}_s &&& \notag
 \end{flalign}
