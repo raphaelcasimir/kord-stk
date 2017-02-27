@@ -19,7 +19,6 @@ For this project an inverted pendulum set up is given. It consists of:
 \autoref{fig:InvertedPendulumSetUp} is a diagram of the set up when fully assembled. The DC motor moves the arm via the gears, a noteworthy fact is that out the four gears three are of the same size. This means that two gears do not have any influence on the torque and the angular velocity of the arm.
 
 \section{Modelling of the Arm and Stick}
-put the modelling section there
 
 %%%%%%%%%%%%% Equation template %%%%%%%%%%%%%%%
 %\begin{flalign}
@@ -35,7 +34,16 @@ put the modelling section there
 %\end{tabular}
 %\end{description}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+The goal of this section is to have a mathematical model for the behaviour of the angle of the stick in relation to the angle of the arm on the motor. The angles, constants and forces used to describe the system are seen on figure \ref{fig:ArmStick}.
+\todo[inline,author=Jacob]{I'd like to somehow describe the process first instead of just going along randomly and suddenly ending up with the model. "We want to achieve this so we do that" etc.}
+\begin{figure}[htbp]
+\centering
+%\includegraphics[width=\textwidth]{•}
+\caption{Diagram of the angles and forces acting on the arm and the stick.}
+\label{fig:ArmStick}
+\end{figure}
+\todo[inline,author=Jacob]{How do I draw this. What program?!?}
+All forces, constants and variables that relates to the arm and stick are denoted by a subscripted $a$ and $s$ respectively. The force effecting the center of mass of the stick in the x and y directions is found by equation \eqref{eq:FxFy} using Newton's 2nd law of motion.
 \begin{flalign}
 \hspace{30pt} & F_x=\ddot{x}_sM_s &&& \text{[N]} \notag \\
 & F_y=\ddot{y}_sM_s &&& \text{[N]} \label{eq:FxFy} 
@@ -46,10 +54,10 @@ put the modelling section there
 & $F_x$ & is the force in the x direction. & [N]  \\
 & $F_y$ & is the force in the y direction. & [N]  \\
 & $x_s$ & is the position of the center of mass of the stick in the x direction. & [m] \\
-& $y_s$ & is the position of the center of mass of the stick in the y direction. & [m]
+& $y_s$ & is the position of the center of mass of the stick in the y direction. & [m] 
 \end{tabular}
 \end{description}
-text
+The position of the center of mass of the stick in the x and y direction is found by equation \eqref{eq:xsys}.
 \begin{flalign}
 \hspace{30pt} & x_s=-l_a\sin (\theta_a)-\frac{l_s}{2} \sin (\theta_s) &&& \text{[m]} \notag \\
 & y_s = l_a\cos (\theta_a)+\frac{l_s}{2} \cos(\theta_s) &&& \text{[m]} \label{eq:xsys} 
@@ -59,11 +67,11 @@ text
   \begin{tabular}{p{30pt}lp{250pt}l}
 & $l_a$ & is the length of the arm. & [m]  \\
 & $l_s$ & is the length of the stick. & [m]  \\
-& $\theta_a$ & is the angle between the arm and the y-axis. & [$^\circ$]  \\
-& $\theta_s$ & is the angle between the stick and the y-axis. & [$^\circ$]
+& $\theta_a$ & is the angle from the arm to the y-axis measured in a clockwise direction. & [$^\circ$]  \\
+& $\theta_s$ & is the angle from the stick to the y-axis measured in a clockwise direction. & [$^\circ$]
 \end{tabular}
 \end{description}
-The derivative of $x_s$ and $y_s$ is found in equation \eqref{eq:diffxy}.
+The derivatives of $x_s$ and $y_s$ is found in equation \eqref{eq:diffxy}.
 \begin{flalign}
 \hspace{30pt} & \dot{x}_s=-l_a\dot{\theta}_a\cos(\theta_a)-\frac{l_s}{2}\dot{\theta}_s\cos(\theta_s) &&& \text{[m/s]} \notag \\
 & \ddot{x}_s=-l_a\ddot{\theta}_a\cos(\theta_a)+l_a\dot{\theta}_a^2\sin(\theta_a)-\frac{l_s}{2}\ddot{\theta}_s\cos(\theta_s)+\frac{l_s}{2}\dot{\theta}_s^2\sin(\theta_s) &&& \text{[m/s$^2$]} \notag \\
@@ -78,10 +86,16 @@ The forces perpendicular to the stick at the center of mass is found by equation
 & F_p = F_{px}+F_{py} &&& \text{[N]} \label{eq:perpFxFy}
 \end{flalign}
 
-Something about D'Alembert's law in equation \eqref{eq:Jsthetas}.
+The forces perpendicular to the stick can be used to describe the torque of the stick rotating around $(x_a,y_a)$. The torques around this point can be seen on figure \ref{} and is described by equation \eqref{eq:Jsthetas} using D'Alembert's law.
+\begin{figure}[htbp]
+\centering
+%\includegraphics[width=\textwidth]{•}
+\caption{Diagram of the torques around the point $(x_a,y_a)$.}
+\label{fig:stickTorques}
+\end{figure}
 \begin{flalign}
-\hspace{30pt} & J_s\ddot{\theta}_s=F_p\frac{l_s}{2}-\tau_f &&& \text{[N$\cdot$m]} \notag \\
-& \tau_f =b_{as}\dot{\theta}_{as} &&& \text{[N$\cdot$m]} \label{eq:Jsthetas}
+\hspace{30pt} & J_s\ddot{\theta}_s=F_p\frac{l_s}{2}-\tau_f &&& \text{[N$\cdot$m]} \label{eq:Jsthetas} \\
+& \tau_f =b_{as}\dot{\theta}_{as} &&& \text{[N$\cdot$m]} \notag
 \end{flalign}
 \begin{description}
   \item[\hspace{30pt}\textnormal{where:}]\hfill \\
@@ -94,7 +108,7 @@ Something about D'Alembert's law in equation \eqref{eq:Jsthetas}.
 \end{description}
 \todo[author=Jacob, inline]{The units doesn't seem to match up.}
 
-Inserting $F_p$ into equation \eqref{eq:Jsthetas} gives equation \eqref{eq:JsLong}
+Inserting $F_p$ into equation \eqref{eq:Jsthetas} gives equation \eqref{eq:JsLong}.
 \begin{flalign}
 \hspace{30pt} & J_s\ddot{\theta}_s=\frac{l_s}{2}\left(F_x\cos(\theta_s)+F_y\sin(\theta_s)\right)-b_{as}\dot{\theta}_{as} &&& \text{[N$\cdot$m]} \notag \\
 & J_s\ddot{\theta}_s = \frac{l_s}{2}M_s \Big( -l_a\ddot{\theta}_a\left(\cos(\theta_a)\cos(\theta_s)+\sin(\theta_a)\sin(\theta_s)\right) && \notag \\
@@ -104,26 +118,32 @@ Inserting $F_p$ into equation \eqref{eq:Jsthetas} gives equation \eqref{eq:JsLon
 & \phantom{========}  +g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as} &&& \text{[N$\cdot$m]} \label{eq:JsLong}
 \end{flalign}
 
-Using the trigonometric properties in equation \eqref{eq:trigprop}, equation \eqref{eq:JsLong} is shortened to equation \eqref{eq:JsShort}.
+Using the trigonometric properties in equation \eqref{eq:trigprop}, equation \eqref{eq:JsLong} is reduced to equation \eqref{eq:JsShort}.
 \begin{flalign}
 \hspace{30pt} & \cos(\theta_a)\cos(\theta_s)\pm \sin(\theta_a)\sin(\theta_s)=\cos(\theta_a \mp \theta_s) &&& \notag \\
 & \sin(\theta_a)\cos(\theta_s)\pm \cos(\theta_a)\sin(\theta_s) = \sin(\theta_a \pm \theta_s) &&& \notag \\ 
 & \cos(\theta_s)^2+\sin(\theta_s)^2=1 &&& \label{eq:trigprop}
 \end{flalign}
-
 \begin{flalign}
 \hspace{30pt} & J_s\ddot{\theta}_s = \frac{l_s}{2}M_s \Big( -l_a\ddot{\theta}_a \cos(\theta_a-\theta_s)+l_a\dot{\theta}_a^2 \sin(\theta_a-\theta_s)  &&& \notag \\
 & \phantom{========} -\frac{l_s}{2}\ddot{\theta}_s +g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as} &&& \text{[N$\cdot$m]} \label{eq:JsShort}
 \end{flalign}
 
-Linearization using first order taylor approximation [insert ref to note in google drive]. Something about multiple variables.
+This is the nonlinear mathematical model for the system. This will be linearized in order to perform a Laplace transformation. The linearization is made with a 1st order Taylor approximation \textbf{[insert ref to note in google drive]}. The 1st order Taylor approximation of an equation with multiple variables is seen in equation \eqref{eq:1stTaylor}.
 \begin{flalign}
 \hspace{30pt} & f\left(\theta_a, \dot{\theta}_a, \ddot{\theta}_a, \theta_s, \ddot{\theta}_s\right) \approx f\left(\bar{\theta}_a, 0, 0, \bar{\theta}_s, 0\right) + \left. \frac{\partial f}{\partial \theta_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\theta}_a &&& \notag \\
 & \phantom{===========.} + \left. \frac{\partial f}{\partial \dot{\theta}_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\dot{\theta}}_a + \left. \frac{\partial f}{\partial \ddot{\theta}_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\ddot{\theta}}_a &&& \notag \\
 & \phantom{===========.} + \left. \frac{\partial f}{\partial \theta_s}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\theta}_s + \left. \frac{\partial f}{\partial \ddot{\theta}_s}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\ddot{\theta}}_s &&& \text{[$\cdot$]}\label{eq:1stTaylor}
 \end{flalign}
+\begin{description}
+  \item[\hspace{30pt}\textnormal{where:}]\hfill \\
+  \begin{tabular}{p{30pt}lp{250pt}l}
+& $\bar{\theta}$ & denotes the angle in a operating point & [$^\circ$]  \\
+& $\hat{\theta}$ & denotes the angle of the small signal variances & [$^\circ$] 
+\end{tabular}
+\end{description}
 
-The 3 terms with sin or cos in equation \eqref{eq:JsShort} will be approximated individually using equation \eqref{eq:1stTaylor} remembering that $\bar{\theta}=\bar{\dot{\theta}}=\bar{\ddot{\theta}}=0$.
+The 3 terms with sin or cos in equation \eqref{eq:JsShort} will be approximated individually using equation \eqref{eq:1stTaylor}, remembering that $\bar{\theta}=\bar{\dot{\theta}}=\bar{\ddot{\theta}}=0$ as the angle of the operating point is a constant 0.
 \begin{flalign}
 \hspace{30pt} & -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right) \approx 0 + l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a &&& \notag \\ 
 & \phantom{============} -l_a\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\ddot{\theta}}_a - l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s &&& \notag \\
@@ -141,15 +161,17 @@ The 3 terms with sin or cos in equation \eqref{eq:JsShort} will be approximated 
 
 Inserting the linearized terms in equation \eqref{eq:JsShort} and using the moment of inertia for a rotating stick, $J_s=\frac{1}{12}M_sl_s^2$, the linearized model becomes \eqref{eq:JsFinal}.
 \begin{flalign}
-\hspace{30pt} & \frac{1}{12}M_sl_s^2\ddot{\theta}_s=\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a-\frac{l_s}{2}\ddot{\theta}_s+g\theta_s\right)-b_{as}\dot{\theta}_{as} &&& \notag \\
-& \frac{1}{12}M_sl_s^2\ddot{\theta}_s+\frac{1}{4}M_sl_s^2\ddot{\theta}_s=\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a+g\theta_s\right)-b_{as}\dot{\theta}_{as} &&& \notag \\
-& \frac{1}{3}M_sl_s^2\ddot{\theta}_s=\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a+g\theta_s\right)-b_{as}\dot{\theta}_{as} &&& \notag \\
-& \ddot{\theta}_s=\frac{3}{2l_s}\left(-l_a\ddot{\theta}_a-\frac{l_s}{2}\ddot{\theta}_s+g\theta_s\right)-\frac{3b_{as}\left(\dot{\theta}_s-\dot{\theta}_a\right)}{M_sl_s^2} &&& \text{[N$\cdot$m]} \label{eq:JsFinal}
+\hspace{30pt} & \frac{1}{12}M_sl_s^2\hat{\ddot{\theta}}_s=\frac{l_s}{2}M_s\left(-l_a\hat{\ddot{\theta}}_a-\frac{l_s}{2}\hat{\ddot{\theta}}_s+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as} &&& \notag \\
+& \frac{1}{12}M_sl_s^2\hat{\ddot{\theta}}_s+\frac{1}{4}M_sl_s^2\hat{\ddot{\theta}}_s=\frac{l_s}{2}M_s\left(-l_a\hat{\ddot{\theta}}_a+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as} &&& \notag \\
+& \frac{1}{3}M_sl_s^2\hat{\ddot{\theta}}_s=\frac{l_s}{2}M_s\left(-l_a\hat{\ddot{\theta}}_a+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as} &&& \notag \\
+& \hat{\ddot{\theta}}_s=\frac{3}{2l_s}\left(-l_a\hat{\ddot{\theta}}_a-\frac{l_s}{2}\hat{\ddot{\theta}}_s+g\hat{\theta}_s\right)-\frac{3b_{as}\left(\hat{\dot{\theta}}_s-\hat{\dot{\theta}}_a\right)}{M_sl_s^2} &&& \text{[N$\cdot$m]} \label{eq:JsFinal}
 \end{flalign}
 
-Laplace transform
+The linearized model is now Laplace transformed in equation \eqref{eq:tfArmStick} in order to find the transfer function.
 \begin{flalign}
 \hspace{30pt} & s^2\Theta_s=\frac{3}{2l_s}\left(-s^2l_a\Theta_a+g\Theta_s\right)-s\frac{3b_{as}}{M_sl_s^2}\Theta_s+s\frac{3b_{as}}{M_sl_s^2}\Theta_a &&& \notag \\
 & \Theta_s\left(s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}\right)=\Theta_a\left(-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s\right) &&& \notag \\
-& \frac{\Theta_s}{\Theta_a}=-\frac{\frac{3l_a}{2l_s}s^2-\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}}
+& \frac{\Theta_s}{\Theta_a}=-\frac{\frac{3l_a}{2l_s}s^2-\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}} &&& \label{eq:tfArmStick}
 \end{flalign}
+
+A linearized model in the Laplace domain for the arm and the stick has been derived and the model for the gears is now derived.
