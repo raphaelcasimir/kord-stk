@@ -18,7 +18,7 @@ For this project an inverted pendulum set up is given. It consists of:
 
 \autoref{fig:InvertedPendulumSetUp} is a diagram of the set up when fully assembled. The DC motor moves the arm via the gears, a noteworthy fact is that out the four gears three are of the same size. This means that two gears do not have any influence on the torque and the angular velocity of the arm.
 
-\section{Inverted pendulum modelling}
+\section{Modelling of the Arm and Stick}
 put the modelling section there
 
 %%%%%%%%%%%%% Equation template %%%%%%%%%%%%%%%
@@ -127,16 +127,29 @@ The 3 terms with sin or cos in equation \eqref{eq:JsShort} will be approximated 
 \begin{flalign}
 \hspace{30pt} & -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right) \approx 0 + l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a &&& \notag \\ 
 & \phantom{============} -l_a\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\ddot{\theta}}_a - l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s &&& \notag \\
-& -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right) \approx -l_a\hat{\ddot{\theta}}_a
+& -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right) \approx -l_a\hat{\ddot{\theta}}_a &&&
 \end{flalign} %\bar{\ddot{\theta}}_s
-
 \begin{flalign}
 \hspace{30pt} & l_a\dot{\theta}_a^2\sin\left(\theta_a-\theta_s\right) \approx 0 + l_a\bar{\dot{\theta}}_a^2\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a &&& \notag \\
 & \phantom{==========.} + 2l_a\bar{\dot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\dot{\theta}}_a-l_a\bar{\dot{\theta}}_a^2\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s &&& \notag \\
-& l_a\dot{\theta}_a^2\sin\left(\bar{\theta}_a-\bar{\theta}_s\right) \approx 0
+& l_a\dot{\theta}_a^2\sin\left(\bar{\theta}_a-\bar{\theta}_s\right) \approx 0 &&&
 \end{flalign}
-
 \begin{flalign}
 \hspace{30pt} & g\sin\left(\theta_s\right) \approx g\sin\left(\bar{\theta}_s\right) +g\cos\left(\bar{\theta}_s\right)\hat{\theta}_s &&& \notag \\
-& g\sin\left(\theta_s\right) \approx g\hat{\theta}_s &&& \notag
+& g\sin\left(\theta_s\right) \approx g\hat{\theta}_s &&& 
+\end{flalign}
+
+Inserting the linearized terms in equation \eqref{eq:JsShort} and using the moment of inertia for a rotating stick, $J_s=\frac{1}{12}M_sl_s^2$, the linearized model becomes \eqref{eq:JsFinal}.
+\begin{flalign}
+\hspace{30pt} & \frac{1}{12}M_sl_s^2\ddot{\theta}_s=\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a-\frac{l_s}{2}\ddot{\theta}_s+g\theta_s\right)-b_{as}\dot{\theta}_{as} &&& \notag \\
+& \frac{1}{12}M_sl_s^2\ddot{\theta}_s+\frac{1}{4}M_sl_s^2\ddot{\theta}_s=\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a+g\theta_s\right)-b_{as}\dot{\theta}_{as} &&& \notag \\
+& \frac{1}{3}M_sl_s^2\ddot{\theta}_s=\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a+g\theta_s\right)-b_{as}\dot{\theta}_{as} &&& \notag \\
+& \ddot{\theta}_s=\frac{3}{2l_s}\left(-l_a\ddot{\theta}_a-\frac{l_s}{2}\ddot{\theta}_s+g\theta_s\right)-\frac{3b_{as}\left(\dot{\theta}_s-\dot{\theta}_a\right)}{M_sl_s^2} &&& \text{[N$\cdot$m]} \label{eq:JsFinal}
+\end{flalign}
+
+Laplace transform
+\begin{flalign}
+\hspace{30pt} & s^2\Theta_s=\frac{3}{2l_s}\left(-s^2l_a\Theta_a+g\Theta_s\right)-s\frac{3b_{as}}{M_sl_s^2}\Theta_s+s\frac{3b_{as}}{M_sl_s^2}\Theta_a &&& \notag \\
+& \Theta_s\left(s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}\right)=\Theta_a\left(-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s\right) &&& \notag \\
+& \frac{\Theta_s}{\Theta_a}=-\frac{\frac{3l_a}{2l_s}s^2-\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}}
 \end{flalign}
