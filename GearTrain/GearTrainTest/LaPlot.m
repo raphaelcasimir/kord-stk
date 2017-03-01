@@ -15,7 +15,7 @@ grid;
 
 
 %% Finfing tau
-AfterStep=20.470600000000000; %value deduced by the mean of the end values
+AfterStep=20.470600000000000; %value deduced by the mean of the end values used brushing function of matlab to get the data
 BeforeStep=-0.357100000000000; %value deduced by the mean of the values before the step
 
 Step=AfterStep-BeforeStep;
