@@ -46,7 +46,8 @@ The goal of this section is to have a mathematical model for the behaviour of th
 All forces, constants and variables that relates to the arm and stick are denoted by a subscripted $a$ and $s$ respectively. The force effecting the center of mass of the stick in the x and y directions is found by equation \eqref{eq:FxFy} using Newton's 2nd law of motion.
 \begin{flalign}
 \hspace{30pt} & F_x=\ddot{x}_sM_s &&& \text{[N]} \notag \\
-& F_y=\ddot{y}_sM_s &&& \text{[N]} \label{eq:FxFy} 
+& F_y-gM_s=\ddot{y}_sM_s &&& \text{[N]} \label{eq:FxFy} \\
+& F_y=\left(\ddot{y}_s+g\right)M_s &&& \notag
 \end{flalign}
 \begin{description}
   \item[\hspace{30pt}\textnormal{where:}]\hfill \\
