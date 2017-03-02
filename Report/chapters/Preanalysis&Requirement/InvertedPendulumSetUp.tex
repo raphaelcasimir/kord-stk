@@ -46,8 +46,8 @@ The goal of this section is to have a mathematical model for the behaviour of th
 All forces, constants and variables that relates to the arm and stick are denoted by a subscripted $a$ and $s$ respectively. The force effecting the center of mass of the stick in the x and y directions is found by equation \eqref{eq:FxFy} using Newton's 2nd law of motion.
 \begin{flalign}
 \hspace{30pt} & F_x=\ddot{x}_sM_s &&& \text{[N]} \notag \\
-& F_y-gM_s=\ddot{y}_sM_s &&& \text{[N]} \label{eq:FxFy} \\
-& F_y=\left(\ddot{y}_s+g\right)M_s &&& \notag
+& F_y-gM_s=\ddot{y}_sM_s &&& \text{[N]} \notag \\
+& F_y=\left(\ddot{y}_s+g\right)M_s &&& \text{[N]} \label{eq:FxFy}
 \end{flalign}
 \begin{description}
   \item[\hspace{30pt}\textnormal{where:}]\hfill \\
@@ -80,14 +80,14 @@ The derivatives of $x_s$ and $y_s$ is found in equation \eqref{eq:diffxy}.
 & \ddot{y}_s=-l_a\ddot{\theta}_a\sin(\theta_a)-l_a\dot{\theta}_a^2\cos(\theta_a)-\frac{l_s}{2}\ddot{\theta}_s\sin(\theta_s)-\frac{l_s}{2}\dot{\theta}_s^2\cos(\theta_s) &&& \text{[m/s$^2$]} \label{eq:diffxy} 
 \end{flalign}
 
-The forces perpendicular to the stick at the center of mass is found by equation \eqref{eq:perpFxFy}.
+The forces $F_x$ and $F_y$ will have an equal and opposite reaction in the joint where the arm and the stick are held together. These forces can be decomposed into perpendicular and parallel forces at that point. The parallel forces are negligible when assuming the arm is perfectly solid and unable to stretch or compress. The perpendicular forces is found by equation \eqref{eq:perpFxFy} and are seen on figure \ref{}.
 \begin{flalign}
 \hspace{30pt} & F_{px}=F_x\cos(\theta_s) &&& \text{[N]} \notag \\
 & F_{py}=F_y\sin(\theta_s) &&& \text{[N]} \notag \\
 & F_p = F_{px}+F_{py} &&& \text{[N]} \label{eq:perpFxFy}
 \end{flalign}
 
-The forces perpendicular to the stick can be used to describe the torque of the stick rotating around $(x_a,y_a)$. The torques around this point can be seen on figure \ref{} and is described by equation \eqref{eq:Jsthetas} using D'Alembert's law.
+The perpendicular force at the joint can be used to describe the torque of the stick rotating around the center of mass of the stick, $(x_s,y_s)$. The torques around this point is also seen on figure \ref{} and is described by equation \eqref{eq:Jsthetas} using D'Alembert's law.
 \begin{figure}[htbp]
 \centering
 %\includegraphics[width=\textwidth]{•}
@@ -139,7 +139,7 @@ This is the nonlinear mathematical model for the system. This will be linearized
 \begin{description}
   \item[\hspace{30pt}\textnormal{where:}]\hfill \\
   \begin{tabular}{p{30pt}lp{250pt}l}
-& $\bar{\theta}$ & denotes the angle in a operating point & [$^\circ$]  \\
+& $\bar{\theta}$ & denotes the angle in an operating point & [$^\circ$]  \\
 & $\hat{\theta}$ & denotes the angle of the small signal variances & [$^\circ$] 
 \end{tabular}
 \end{description}
