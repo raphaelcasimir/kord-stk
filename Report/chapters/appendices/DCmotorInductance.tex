@@ -50,7 +50,7 @@ This test consists of having the motor shaft locked while a step is applied. The
 \section*{Data processing}
 When the shaft is locked and a step is applied the DC motor's electric equation can be resumed as in \autoref{eq:LaEquation}.
 \begin{equation}
-	F(s)=\frac{I_a(s)}{U_a(s)}=\frac{\frac{1}{R_a}}{\frac{L_a}{R_a}\cdot s+1} \addunit{1}
+	F(s)=\frac{I_a(s)}{U_a(s)}=\frac{\frac{1}{R_a}}{\frac{L_a}{R_a} s+1} \addunit{1}
 	\label{eq:LaEquation}
 \end{equation}
 \startexplain
@@ -63,14 +63,14 @@ When the shaft is locked and a step is applied the DC motor's electric equation 
 When a unit step response is applied to the system \autoref{eq:LaEquation} becomes \autoref{eq:LaEquationStep}.
 
 \begin{equation}
-F(s)=\frac{\frac{1}{R_a}}{\frac{L_a}{R_a}\cdot s+1}\cdot\frac{1}{s}=\frac{-\frac{1}{R_a}}{s+\frac{R_a}{L_a}}+\frac{1}{R_a\cdot s} \addunit{1}
+F(s)=\frac{\frac{1}{R_a}}{\frac{L_a}{R_a} s+1}\frac{1}{s}=\frac{-\frac{1}{R_a}}{s+\frac{R_a}{L_a}}+\frac{1}{R_a s} \addunit{1}
 \label{eq:LaEquationStep}
 \end{equation}
 
 \autoref{eq:LaEquationStep} is then put in the continuous time domain to get \autoref{eq:LaEquationStepTime}.
 
 \begin{equation}
-f(t)= \frac{1}{R_a}\cdot \left(1-e^{-\frac{R_a}{L_a}\cdot t}\right) \addunit{1}
+f(t)= \frac{1}{R_a} \left(1-e^{-\frac{R_a}{L_a} t}\right) \addunit{1}
 \label{eq:LaEquationStepTime}
 \end{equation}
 
@@ -82,12 +82,9 @@ Since the value of the current at the settling value is \SI{20.471}{\ampere}. Th
 
 \begin{subequations} \label{eq:LaEq}
 	\begin{flalign}
-	&t = \SI{0.00190}{\second} \\
-	&L_a=t \cdot R_a \\
-	&\frac{1}{R_a}\cdot \left(1-e^{-\frac{R_a}{L_a}\cdot \tau}\right)=20.471\cdot  \addunit{\second} \\
-	&L_a=\SI{817}{\micro\henry}
+		&\frac{1}{R_a} \left(1-e^{-\frac{R_a}{L_a} \tau}\right)=20.471 \cdot 0.63212055882 \addunit{\second} \\
+		&t = \SI{0.00190}{\second} \\
+		&L_a=tR_a \\
+		&L_a=\SI{817}{\micro\henry}
 	\end{flalign}
 \end{subequations}
-\startexplain
-\explain{test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test}{1}
-\stopexplain
