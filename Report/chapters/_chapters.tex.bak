@@ -7,13 +7,16 @@
 
 \input{chapters/"Preanalysis&Requirement"/RocketAnalyse.tex}
 
+\input{chapters/"Preanalysis&Requirement"/Delimitation.tex}
+
 \input{chapters/"Preanalysis&Requirement"/InvertedPendulumSetUp.tex}
 
 \input{chapters/"Modelling"/DCMotorModelling.tex}
 
-\input{chapters/"Modelling"/RocketModelling.tex}
+\input{chapters/"Modeling"/RocketModeling.tex}
+
+\input{chapters/"Preanalysis&Requirement"/Requirements.tex}
 
 \part{Design}\label{pt:design} 
-%
 
 \part{Test \& conclusion}\label{pt:test_conclusion} 
