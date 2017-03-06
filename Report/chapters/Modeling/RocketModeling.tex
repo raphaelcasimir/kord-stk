@@ -20,7 +20,7 @@ In this project, the trajectory of the rocket is on the zenith axis, or y axis, 
 
 Equation of the sum of all forces on the rocket in flight \eqref{eq:F_total}:
 \begin{equation}
-F_total = m*a = F_thrust  F_drag - F_gravity \addunit{newton} \label{eq:F_total}
+F_total = m*a = F_thrust  F_drag - F_gravity \si{\newton} \label{eq:F_total}
 \end{equation}
 \startexplain
 \explain{$F_total$ is the sum of all force}{\si{\newton}}
@@ -31,7 +31,7 @@ F_total = m*a = F_thrust  F_drag - F_gravity \addunit{newton} \label{eq:F_total}
 
 The drag force can be expressed by equation \eqref{eq:F_drag}:
 \begin{equation}
- F_drag = \frac{1}{2} \cdot C_d \cdot \rho \cdot A \cdot v^2 \addunit{\newton} \label{eq:F_drag}
+ F_drag = \frac{1}{2} \cdot C_d \cdot \rho \cdot A \cdot v^2 \si{\newton} \label{eq:F_drag}
 \end{equation}
 \startexplain
 \explain{$C_d$ is the coefficient of drag}{\si{1}}
@@ -44,7 +44,7 @@ The coefficient of drag and the cross sectionnal area vary depending on the shap
 
 The gravity force equation is \eqref{eq:F_gravity}:
 \begin{equation}
-F_gravity = m \cdot g \addunit{\newton} \label{eq:F_gravity}
+F_gravity = m \cdot g \si{\newton} \label{eq:F_gravity}
 \end{equation}
 \startexplain
 \explain{$m$ is the mass of the rocket}{\si{\kilo\gram}}
@@ -56,7 +56,7 @@ F_gravity = m \cdot g \addunit{\newton} \label{eq:F_gravity}
 
 The thrust force is \eqref{eq:F_thrust}:
 \begin{equation}
-F_thrust = v_e \cdot \ddot{m} + A (P_e -P_0) \adduunit{\newton} \label{eq:F_thrust}
+F_thrust = v_e \cdot \ddot{m} + A (P_e -P_0) \si{\newton} \label{eq:F_thrust}
 \end{equation}
 \startexplain
 \explain{$v_e$ is the velocity of the gimbaled thruster}{\si{\meter\perp\second}}
@@ -70,7 +70,7 @@ F_thrust = v_e \cdot \ddot{m} + A (P_e -P_0) \adduunit{\newton} \label{eq:F_thru
 The thruster pression and velocity is divided into two equation, respectively ahead and behind the propeller nozzle: P_o \eqref{eq:P_o} and P_e \eqref{eq:P_e}.
 
 \begin{equation}
-P_0 = p_0 + 0.5 \cdot \rho \cdot(v_o)^2 \adduunit{\kilo\gram\per\meter\per\second\squared} \label{eq:P_o}
+P_0 = p_0 + 0.5 \cdot \rho \cdot(v_o)^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_o}
 \end{equation}
 \startexplain
 \explain{$p_o$ is the static pressure}{\kilo\gram\per\meter\per\second\squared}}
@@ -78,7 +78,7 @@ P_0 = p_0 + 0.5 \cdot \rho \cdot(v_o)^2 \adduunit{\kilo\gram\per\meter\per\secon
 \stopexplain
 
 \begin{equation}
-P_e = p_o + 0.5 \cdot \rho \cdot(v_e)^2 \adduunit{\kilo\gram\per\meter\per\second\squared} \label{eq:P_e}
+P_e = p_o + 0.5 \cdot \rho \cdot(v_e)^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_e}
 \end{equation}
 \startexplain
 \explain{$v_e$ is the exit velocity of the gimbaled thruster}{\si{\meter\perp\second}}
