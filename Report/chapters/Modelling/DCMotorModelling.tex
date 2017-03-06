@@ -83,12 +83,33 @@ First, both the electrical and the mechanical equations of the motor need to be 
 	\end{flalign}
 \end{subequations}
 
-The current is isolated in \autoref{eq:ElectricalLaplace}:
+The current, I(s), is isolated in \autoref{eq:ElectricalLaplace}:
 \begin{equation}
-	I(s)=\frac{U_m(s)-K_e\cdot\omega(s)}{R_m+L_m s}
+	I(s)=\frac{U_m(s)-K_e\cdot\omega(s)}{R_m+sL_m}
+	\label{eq:MotorCurrent}
 \end{equation}
 
+Then \autoref{eq:MotorCurrent} is inserted in \autoref{eq:MechanicalLaplace}:
+\begin{equation}
+	s\cdot J_{m} \cdot \omega_{m}(s) = K_{t} \frac{U_m(s)-K_e\cdot\omega(s)}{R_m+sL_m} - \tau_{l} - B_{m} \cdot \omega_{m}(s)
+	\label{eq:Iinserted}	
+\end{equation}
 
+\autoref{eq:Iinserted} is simplified to find an expression for $\omega_m$: 
+
+\begin{subequations}
+	\begin{flalign}
+		&\omega_m(s) \left(sJ_m + \frac{K_tK_e}{R_m + sL_m} + B_m \right) = \frac{K_tU_m(s) - \tau_l(R_m + sL_m)}{R_m + sL_m} \\	
+		&\omega_m(s) = \frac{K_tU_m(s) - \tau_l(R_m + sL_m)}{R_m + sL_m} \cdot \frac{R_m + sL-m}{sJ_m(R_m + sL_m) + B_m(R_m + sL_m) + K_tK_e} \\
+		&\omega_m(s) = \frac{K_tU_m(s) - \tau_l(R_m + sL_m)}{(J_mL_m)s^2 + (J_mR_m + B_mL_m)s + B_mR_m + K_tK_e} \label{eq:DCMotorTFWithLoad}
+	\end{flalign}
+\end{subequations}
+\autoref{eq:DCMotorTFWithLoad} is the transfer function of the DC-motor from a voltage $U_m(s)$ to an angular velocity $\omega_m$. This equation will be used for the rest of the modeling. 
+
+For the test of the DC-motor, there is no load. The torque of the load becomes zero, thus changing the expression of $\omega_m$: 
+\begin{equation}
+	\omega_m(s) = \frac{K_tU_m(s)}{(J_mL_m)s^2 + (J_mR_m + B_mL_m)s + B_mR_m + K_tK_e}
+\end{equation}
 
 
 
