@@ -1,5 +1,5 @@
 \chapter{Preliminary Analysis of a Rocket}
-The following chapter describes the functionality and structure behind a rocket. The goal is to determine which factors that leads to instability in flight and launch of a rocket. 
+The following chapter describes the functionality,  and structure behind a rocket. The goal is to determine which factors that leads to instability in flight and launch of a rocket. 
 
 
 
@@ -20,11 +20,11 @@ The model is seen cf. figure \ref{fig:RocketStructure}.
 %https://spaceflightsystems.grc.nasa.gov/education/rocket/rockpart.html
 
 \textbf{Payload System}\\
-Most rockets has some form of a payload system. The goal of the payload system is to carry different objects to its wanted destination. The payload can be everything from satellites and astronauts to fireworks depending on the purpose of the rocket. The payload should be considered when looking at the stability of the rocket, because incorrect weight distribution in the rocket, could lead to aerodynamic and structural instability. 
+Most rockets has some form of payload system. The goal of the payload system is to carry different objects to its wanted destination. The payload can be everything from satellites and astronauts to fireworks depending on the purpose of the rocket. The payload should be considered when looking at the stability of the rocket, because incorrect weight distribution in the rocket, could lead to aerodynamic and structural instability. 
 
 
 \textbf{Guidance System}\\
-All rockets that has the goal to be directed or controlled includes a guidance system. The guidance system consist of a processors, sensors, radars, and  a form of wireless communication. Its purpose is to control the stability, direction and rotation of the rocket during launch and in flight. The guidance system is developed based on the understanding of forces acting rocket and its motion. The guidance system in moderne rockets often actuate on the propulsion and nozzle system to correct rotation and direction of the rocket.
+All rockets that has the goal to be directed or controlled includes a guidance system. The guidance system consist of a processors, sensors, radars, and  a form of wireless communication. Its purpose is to control the stability, direction and rotation of the rocket during launch and in flight. The guidance system is developed based on the understanding of forces acting rocket and its motion. The guidance system in modern rockets often actuate on the propulsion and nozzle system to correct rotation and direction of the rocket.
 
 \textbf{Propulsion System}\\
 The propulsion system of a rocket is the part which thrust the rocket. Thrust is the the main force that makes the rocket launch and fly. All propulsion systems is based on Newton's third law. This means that a propulsion system should be able make a combustion which produces a downwards force high enough to launch the structural system of the rocket.
@@ -36,10 +36,38 @@ A solid rocket engine has premixed oxidizer and fuel which becomes the propellan
 
 \textbf{Structural System}\\
 Close to all full scale rockets consist of a structural system. The system consist of the cylindrical body/frame, a nose cone with the payload system and the fins that ensures a stable aerodynamic profile. Though most newer full scales rocket does not rely only on aerodynamics to ensure stability\cite{web:RocketStructure}.
-\bigbreak   
 
-The correct combination of the system modules should ensure a stable flight. \todo{Write something about instability based on the introduction.} 
 
+The correct combination of the system modules and design should ensure a stable flight, but as described cf. section \ref{sec:Introduction} it is shown that most rockets would benefit from a control system to ensure directional stability. Further investigation of the stability of rocket is proceeded. 
+
+
+\subsection{Stability of a Rocket}
+\graphicspath{{figures/"Preanalysis&Requirement"/RocketStability/}}
+A rocket often has a target, either if it is space travelling or just collecting orbit data on earth, but in order to succeed it has to be stable \cite{web:rocketnasa}. The flight direction of a rocket can changed due to disturbances as wind and thrust instabilities.   
+
+Stability can be defined within many categories. In the case of a rocket the stability is considered as the directional and flight stability.  
+
+\autoref{fig:unstableRocketTrajectory} describes a example of a chaotic path for a badly designed rocket. Where the center and gravity and pressure is incorrect placed on the unstable rocket, which make it deviate from its goal trajectory.  
+
+\begin{figure} [htbp]
+	\centering
+	\includegraphics[width=0.7\linewidth]{UnstableRocketTrajectory}
+	\caption{Example of the path for an unstable rocket \cite{web:rocketnasa}.}
+	\label{fig:unstableRocketTrajectory}
+\end{figure}
+
+Center of gravity and pressure is related to the forces acting on the rocket. An analysis of these forces is proceeded. \autoref{fig:RocketForceSummary} describes the different situations a rocket encounters during its flight and describes the forces applied in these cases.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.7\linewidth]{ForceSummaryRocket}
+	\caption{Summary of forces applied to a rocket during its flight \cite{web:rocketnasa}.}
+	\label{fig:RocketForceSummary}
+\end{figure}
+\\
+In \autoref{fig:RocketForceSummary} two points can be seen on the rockets. One is CP the Center of Pressure where the lift and the drag force apply \cite{web:rocketnasa} to a rocket. The other one is CG the Center of Gravity, which is the point which the rocket rotate around \cite{web:rocketnasa}. Due to this characteristics the torque applied by the lift and the drag is dependent of the relative positioning between the CG and the CP. Since a rocket tilts due to a torque applied by external forces such as the wind, then lift and the drag has to be oriented so it counters these forces. In order to do so the CG has to be above the CP \cite{web:rocketnasa}.
+This means depending of the position of the CP compared to the CG the rocket flight will be either stable or unstable. That is why in simpler rockets without any control system, its design is made so that CP is indeed above CG.
+
+This preliminary analysis makes gives the possibility to further examine on how to control the stability of a rocket.
 %All based on https://spaceflightsystems.grc.nasa.gov/education/rocket/rockpart.html
 
 \input{chapters/"Preanalysis&Requirement"/RocketStability.tex}
