@@ -1,85 +1,87 @@
-\chapter{Rocket Analyzing}
+%\chapter{Rocket Analyzing}
+%
+%section{Take into note that this is a not even a real draft}
+%The purpose of the system is to guarantee a stable flight to the rocket.
+%
+%The modelling of the flight of a rocket can be divided into two equations: velocity and rotation. In this project, the desired trajectory of the rocket flight is considered to be on the zenith axis. This results in a vertical flight, with then a velocity on the same axis as the trajectory.The rocket's rotation is a circular motion on the bottom-to-nose axis. This create a centripetal force.
+%
+%The displacement angle (gimbal angle) is the difference between the actual flight direction, or bottom-to-nose axis, and the zenith axis. Gimbaled thrust are controllable thrusters used to create a torque and reduce the gimbal angle. 
+%
+%In an inverted pendulum, the objective is to keep the stick in horizontal position. The angle difference between the horzental and the actual axis of the stick is measured in order to then create a compensation torque with the arm.
+%
+%The arm has the same task as the gimbaled thruster, and the horizontal axis is equivalent to the zenith axis.
+%The input of the closed loop is the gimbal angle (angle difference between actual flight direction and zenith axis). The output is the new gimbal angle. In the inverted pendulum, the input and output are also the angle differences, between the horizontal and the actual axis of the stick. 
+%
+%
+%Figure of closed loop model of rocket
+%
+%
+%In this project, the trajectory of the rocket is on the zenith axis, or y axis, which implies the impact of the lift on the rocket is negligible.
+%
+%Equation of the sum of all forces on the rocket in flight \eqref{eq:F_total}:
+%\begin{equation}
+%F_total = m*a = F_thrust  F_drag - F_gravity \si{\newton} \label{eq:F_total}
+%\end{equation}
+%\startexplain
+%\explain{$F_total$ is the sum of all force}{\si{\newton}}
+%\explain{$F_thrust$ is the force created by the gimbaled thruster}{\si{\newton}}
+%\explain{$F_drag$ is the drag force on the rocket}{\si{\newton}}
+%\explain{$F_gravity$ is the gravity applied on the rocket}{\si{\newton}}
+%\stopexplain
+%
+%The drag force can be expressed by equation \eqref{eq:F_drag}:
+%\begin{equation}
+% F_drag = \frac{1}{2} \cdot C_d \cdot \rho \cdot A \cdot v^2 \si{\newton} \label{eq:F_drag}
+%\end{equation}
+%\startexplain
+%\explain{$C_d$ is the coefficient of drag}{\si{1}}
+%\explain{$\rho$ is the air density}{\si{\kilo\gram\per\meter\cubed}}
+%\explain{$A$ is the cross sectionnal area of the rocket}{\si{\meter\squared}}
+%\explain{$v$ is the velocity of the rocket}{\si{\meter\per\second}}
+%\stopexplain
+%	
+%The coefficient of drag and the cross sectionnal area vary depending on the shape of the rocket. Altitude and humidity in the air can impact the air density. Parasit drag can appear due to the surface material or pressure drag.
+%
+%The gravity force equation is \eqref{eq:F_gravity}:
+%\begin{equation}
+%F_gravity = m \cdot g \si{\newton} \label{eq:F_gravity}
+%\end{equation}
+%\startexplain
+%\explain{$m$ is the mass of the rocket}{\si{\kilo\gram}}
+%\explain{$g$ is the gravitational acceleration}{\si{\meter\per\second\squared}}
+%\explain{$A$ is the cross sectionnal area of the rocket}{\si{\meter\squared}}
+%\explain{$v$ is the velocity of the rocket}{\si{\meter\per\second}}
+%\stopexplain
+%	
+%
+%The thrust force is \eqref{eq:F_thrust}:
+%\begin{equation}
+%F_thrust = v_e \cdot \ddot{m} + A (P_e -P_0) \si{\newton} \label{eq:F_thrust}
+%\end{equation}
+%\startexplain
+%\explain{$v_e$ is the velocity of the gimbaled thruster}{\si{\meter\perp\second}}
+%\explain{$\ddot{m}$ is the mass flow rate}{\si{\kilo\gram\per\second}}
+%\explain{$A$ is the nozzle exit area}{\si{\meter\squared}}
+%\explain{$P_e$ is the pressure of the nozzle exit}{\si{\kilo\gram\per\meter\per\second\squared}}
+%\explain{$P_o$ is the free stream pressure}{\si{\kilo\gram\per\meter\per\second\squared}}
+%\stopexplain
+%
+%
+%The thruster pression and velocity is divided into two equation, respectively ahead and behind the propeller nozzle: P_o \eqref{eq:P_o} and P_e \eqref{eq:P_e}.
+%
+%\begin{equation}
+%P_0 = p_0 + 0.5 \cdot \rho \cdot(v_o)^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_o}
+%\end{equation}
+%\startexplain
+%\explain{$p_o$ is the static pressure}{\kilo\gram\per\meter\per\second\squared}}
+%\explain{$v_o$ is the velocity of the rocket}{\si{\meter\per\second}}
+%\stopexplain
+%
+%\begin{equation}
+%P_e = p_o + 0.5 \cdot \rho \cdot(v_e)^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_e}
+%\end{equation}
+%\startexplain
+%\explain{$v_e$ is the exit velocity of the gimbaled thruster}{\si{\meter\perp\second}}
+%\stopexplain
 
-section{Take into note that this is a not even a real draft}
-The purpose of the system is to guarantee a stable flight to the rocket.
 
-The modelling of the flight of a rocket can be divided into two equations: velocity and rotation. In this project, the desired trajectory of the rocket flight is considered to be on the zenith axis. This results in a vertical flight, with then a velocity on the same axis as the trajectory.The rocket's rotation is a circular motion on the bottom-to-nose axis. This create a centripetal force.
-
-The displacement angle (gimbal angle) is the difference between the actual flight direction, or bottom-to-nose axis, and the zenith axis. Gimbaled thrust are controllable be used to create a torque and reduce the gimbal angle. 
-
-In an inverted pendulum, the objective is to keep the stick in horizontal position. The angle difference between the horzental and the actual axis of the stick is measured in order to then create a compensation torque with the arm.
-
-The arm as the same task as the gimbal thrust, and the horizontal axis is equivalent to the zenith axis.
-The input of the closed loop is the gimbal angle (angle differencebetween actual flight direction and zenith axis) and the output is also the gimbaled angle. In the inverted pendulum, the input and output are also the angle differences (horizontal et actual axis). 
-
-
-
-Figure of model of rocket
-
-In this project, the trajectory of the rocket is on the zenith axis, or y axis, which implies the impact of the lift on the rocket is negligible.
-
-Equation of the sum of all forces on the rocket in flight \eqref{eq:F_total}:
-\begin{equation}
-F_total = m*a = F_thrust  F_drag - F_gravity \si{\newton} \label{eq:F_total}
-\end{equation}
-\startexplain
-\explain{$F_total$ is the sum of all force}{\si{\newton}}
-\explain{$F_thrust$ is the force created by the gimbaled thruster}{\si{\newton}}
-\explain{$F_drag$ is the drag force on the rocket}{\si{\newton}}
-\explain{$F_gravity$ is the gravity applied on the rocket}{\si{\newton}}
-\stopexplain
-
-The drag force can be expressed by equation \eqref{eq:F_drag}:
-\begin{equation}
- F_drag = \frac{1}{2} \cdot C_d \cdot \rho \cdot A \cdot v^2 \si{\newton} \label{eq:F_drag}
-\end{equation}
-\startexplain
-\explain{$C_d$ is the coefficient of drag}{\si{1}}
-\explain{$\rho$ is the air density}{\si{\kilo\gram\per\meter\cubed}}
-\explain{$A$ is the cross sectionnal area of the rocket}{\si{\meter\squared}}
-\explain{$v$ is the velocity of the rocket}{\si{\meter\per\second}}
-\stopexplain
-	
-The coefficient of drag and the cross sectionnal area vary depending on the shape of the rocket. Altitude and humidity in the air can impact the air density. Parasit drag can appear due to the surface material or pressure drag.
-
-The gravity force equation is \eqref{eq:F_gravity}:
-\begin{equation}
-F_gravity = m \cdot g \si{\newton} \label{eq:F_gravity}
-\end{equation}
-\startexplain
-\explain{$m$ is the mass of the rocket}{\si{\kilo\gram}}
-\explain{$g$ is the gravitational acceleration}{\si{\meter\per\second\squared}}
-\explain{$A$ is the cross sectionnal area of the rocket}{\si{\meter\squared}}
-\explain{$v$ is the velocity of the rocket}{\si{\meter\per\second}}
-\stopexplain
-	
-
-The thrust force is \eqref{eq:F_thrust}:
-\begin{equation}
-F_thrust = v_e \cdot \ddot{m} + A (P_e -P_0) \si{\newton} \label{eq:F_thrust}
-\end{equation}
-\startexplain
-\explain{$v_e$ is the velocity of the gimbaled thruster}{\si{\meter\perp\second}}
-\explain{$\ddot{m}$ is the mass flow rate}{\si{\kilo\gram\per\second}}
-\explain{$A$ is the nozzle exit area}{\si{\meter\squared}}
-\explain{$P_e$ is the pressure of the nozzle exit}{\si{\kilo\gram\per\meter\per\second\squared}}
-\explain{$P_o$ is the free stream pressure}{\si{\kilo\gram\per\meter\per\second\squared}}
-\stopexplain
-
-
-The thruster pression and velocity is divided into two equation, respectively ahead and behind the propeller nozzle: P_o \eqref{eq:P_o} and P_e \eqref{eq:P_e}.
-
-\begin{equation}
-P_0 = p_0 + 0.5 \cdot \rho \cdot(v_o)^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_o}
-\end{equation}
-\startexplain
-\explain{$p_o$ is the static pressure}{\kilo\gram\per\meter\per\second\squared}}
-\explain{$v_o$ is the velocity of the rocket}{\si{\meter\per\second}}
-\stopexplain
-
-\begin{equation}
-P_e = p_o + 0.5 \cdot \rho \cdot(v_e)^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_e}
-\end{equation}
-\startexplain
-\explain{$v_e$ is the exit velocity of the gimbaled thruster}{\si{\meter\perp\second}}
-\stopexplain
