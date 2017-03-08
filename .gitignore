@@ -41,4 +41,5 @@
 *.tdo
 *.thm
 *.toc
+*.tex.bak
 Report/master.pdf
