@@ -1,4 +1,4 @@
-\part{Pre-analysis \& requirements}\label{pt:preanalysis_req} 
+\part{Pre-analysis \& requirements}\label{pt:preanalysis_req}
 %
 \input{chapters/"Preanalysis&Requirement"/Introduction.tex}
 %
@@ -11,9 +11,11 @@
 
 \input{chapters/"Preanalysis&Requirement"/InvertedPendulumSetUp.tex}
 
-\input{chapters/"Modelling"/DCMotorModelling.tex}
+\input{chapters/"Modeling"/DCMotorModelling.tex}
 
-\input{chapters/"Modeling"/RocketModeling.tex}
+\input{chapters/"Modeling"/GearModeling.tex}
+
+%\input{chapters/"Modeling"/RocketModeling.tex}
 
 \input{chapters/"Preanalysis&Requirement"/Requirements.tex}
 
