@@ -8,9 +8,48 @@ Three transfer functions are going to be determined in this section. First, the 
 
 
 \subsection{Relation between $\Omega_m$ and $\Theta_a$}
-Ratio between small wheel x, $n_x$, and big wheel x, $N_x$ is the same:
+
+\begin{figure}[htbp]
+	\centering
+ 	\includegraphics[width=1\textwidth]{figures/FigureIsComing.PNG} 
+ 	\caption{Part of the gear structure. The whole gear system consists of three of them.}
+ 	\label{fig:GearPart}
+\end{figure}
+
+
+From \autoref{fig:GearPart}, considering the small wheel as the one connected to the motor, if the motor shaft turns, the belt joining the small and the big wheel will make them turn the same distance:
 \begin{equation}
-	\frac{n_x}{N_x} = \frac{n_{motor}}{N_{w_1}}
+	\theta_m r_m = \theta_w r_w
+\end{equation}
+
+This expression is then differentiated to find the relation with the angular velocities:
+\begin{equation}
+	\omega_m r_m = \omega_w r_w
+	\label{eq:AngularVelRelation}
+\end{equation}
+
+The gear ratio is defined as: 
+\begin{equation}
+	N = \frac{r}{R}
+\end{equation}
+
+As the gear system is composed by three similar connected wheels structures like shown in \autoref{fig:GearPart}, the ratio between small wheel x, $r_x$, and big wheel x, $R_x$ is the same:
+\begin{equation}
+	\frac{r_x}{R_x} = \frac{r_{motor}}{R_{w_1}} = \frac{r_{w_1}}{R_{w_2}} = \frac{r_{w_2}}{R_{w_3}} = N
+\end{equation}
+
+Knowing this and since $\omega_m$ is transferred through three gears, the relation between the angular velocity of the motor $\omega_m$ and the angle of the arm $\theta_a$ is found following the principle of \autoref{eq:AngularVelRelation}:
+\begin{subequations} \label{eq:tech_ToA}
+	\begin{flalign}
+		&\dot{\theta_a}(t) = N^3 \omega_m(t) \\
+		&\dot{\theta_a}(t) = N^3 \int_{0}^{t}\omega_m(v) dv \\
+		&\mathscr{L}\{\dot{\theta_a}(t)\} = \Theta_a(s) = N^3 \cdot \frac{1}{s} \Omega_m(s)
+	\end{flalign}
+\end{subequations}
+
+The transfer function from the motor's angle velocity to the angle of the arm is:
+\begin{equation}
+	\frac{\Theta_a(s)}{\Omega_m(s)} =  \frac{N^3}{s}
 \end{equation}
 
 \subsection{Linear Model}

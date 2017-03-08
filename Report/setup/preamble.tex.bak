@@ -87,12 +87,15 @@
 % Defines new environments such as equation,
 % align and split 
 \usepackage{amsmath}
+\usepackage{amsfonts}
 % Adds new math symbols
 \usepackage{amssymb}
 % Use theorems in your document
 % The ntheorem package is also used for the example environment
 % When using thmmarks, amsmath must be an option as well. Otherwise \eqref doesn't work anymore.
 \usepackage[framed,amsmath,thmmarks]{ntheorem}
+% Laplace Transform sign
+\usepackage{mathrsfs}
 
 % Tilføjer \degree symbol
 \usepackage{textcomp}
