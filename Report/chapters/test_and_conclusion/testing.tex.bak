@@ -1,0 +1,3 @@
+\graphicspath{{figures/test/}}
+
+\chapter{Testing}\label{ch:testing}

@@ -1,0 +1,121 @@
+\section{Modeling of the DC-Motor}
+
+The purpose of this section is to establish a dynamic model of the DC-motor. This model will result in a transfer function from a voltage input, \textit{Um}, to an angular velocity output, \textit{$\omega_m$}. It will be done by modeling the electrical and the mechanical part of the motor and then putting them together to find the transfer function of the motor.
+
+\subsection*{Electrical Model of the Motor}
+The electrical circuit of the motor is presented in \autoref{fig:MotorCircuit}.
+
+\begin{figure}[htbp]
+	\centering
+ 	\includegraphics[width=1\textwidth]{figures/FigureIsComing.PNG} 
+ 	\caption{Electric circuit of a DC-Motor}
+ 	\label{fig:MotorCircuit}
+\end{figure}
+
+Using Kirchhoff's voltage law, the electric model of the DC-motor is found:
+\begin{subequations} \label{eq:tech_ToA}
+	\begin{flalign}
+		&U_m = R_m \cdot i + L_m \frac{di}{dt} + e \\
+		&e = K_e \cdot \omega_m 
+	\end{flalign}
+\end{subequations}
+
+\startexplain
+	\explain{$U_m$ is the voltage output of the generator}{\si{\volt}}
+	\explain{$R_m$ is the resistance of the DC-motor}{\si{\ohm}}
+	\explain{$L_m$ is the inductance of the DC-motor}{\si{\henry}}
+	\explain{$i$ is the current in the DC-motor}{\si{\ampere}}
+	\explain{$e$ is the electromotive force}{\si{\volt}}
+	\explain{$K_e$ is the motor velocity constant}{\si{\volt\second\per\radian}}
+	\explain{$\omega_m$ is the angular velocity of the motor}{\si{\radian\per\second}}
+\stopexplain
+
+\subsection*{Mechanical Model of the Motor}
+The mechanical circuit of the motor is presented in \autoref{fig:MotorBodyDiagram}.
+
+\begin{figure}[htbp]
+	\centering
+ 	\includegraphics[width=1\textwidth]{figures/FigureIsComing.PNG} 
+ 	\caption{Electric circuit of a DC-Motor}
+ 	\label{fig:MotorBodyDiagram}
+\end{figure}
+
+When applied to a rotational movement, Newton's second law of motion state that the sum of the torques applied to an object equals the moment of inertia times the angular acceleration of this object. From \autoref{fig:MotorBodyDiagram}, the equation for the mechanical part of the motor is found:
+
+\begin{equation}
+	J_{m} \frac{d\omega_{m}}{dt} = \tau_{m} - \tau_{l} - \tau_f
+	\label{eq:MotorMechanical}
+\end{equation}
+
+\startexplain
+	\explain{$J_m$ is the moment of inertia of the motor}{\si{\kilo\gram\per\meter\squared}}
+	\explain{$\omega_m$ is the angular velocity of the DC-motor}{\si{\radian\per\second}}
+	\explain{$\tau_m$ is the torque of the DC-motor}{\si{\newton\meter}}
+	\explain{$\tau_l$ is the torque of the load}{\si{\newton\meter}}
+	\explain{$\tau_f$ is the torque of the friction}{\si{\newton\meter}}
+\stopexplain
+
+The motor's torque and the friction's torque, respectively $\tau_m$ and $\tau_f$, are defined as:
+
+\begin{subequations}
+	\begin{flalign}
+		&\tau_m = K_t \cdot i \label{eq:MotorTorque}\\	
+		&\tau_f = B_{m}\cdot\omega_{m}	\label{eq:FrictionTorque}
+	\end{flalign}
+\end{subequations}
+
+\startexplain
+	\explain{$K_t$ is the motor torque constant}{\si{\kilo\gram\per\meter\squared}}
+	\explain{$B_m$ is the viscous friction coefficient}{\si{\newton\meter\second\per\radian}}
+\stopexplain
+
+Inserting Equations \eqref{eq:MotorTorque} and \eqref{eq:MotorMechanical} into \autoref{eq:MotorMechanical}:
+\begin{equation}
+	J_{m} \cdot \frac{d\omega_{m}}{dt} = K_{t} \cdot i - \tau_{l} - B_{m} \cdot \omega_{m}
+\end{equation}
+
+\subsection*{Mechanical Model of the Motor}
+First, both the electrical and the mechanical equations of the motor need to be Laplace-transformed:
+\begin{subequations}
+	\begin{flalign}
+		&U_{m}(s) = R_{m} \cdot I(s) + s \cdot L_{m} \cdot I(s) + K_{e} \cdot \omega_{m}(s) \label{eq:ElectricalLaplace}\\	
+		&s\cdot J_{m} \cdot \omega_{m}(s) = K_{t} \cdot I(s) - \tau_{l} - B_{m} \cdot \omega_{m}(s)	\label{eq:MechanicalLaplace}
+	\end{flalign}
+\end{subequations}
+
+The current, I(s), is isolated in \autoref{eq:ElectricalLaplace}:
+\begin{equation}
+	I(s)=\frac{U_m(s)-K_e\cdot\omega(s)}{R_m+sL_m}
+	\label{eq:MotorCurrent}
+\end{equation}
+
+Then \autoref{eq:MotorCurrent} is inserted in \autoref{eq:MechanicalLaplace}:
+\begin{equation}
+	s\cdot J_{m} \cdot \omega_{m}(s) = K_{t} \frac{U_m(s)-K_e\cdot\omega(s)}{R_m+sL_m} - \tau_{l} - B_{m} \cdot \omega_{m}(s)
+	\label{eq:Iinserted}	
+\end{equation}
+
+\autoref{eq:Iinserted} is simplified to find an expression for $\omega_m$: 
+
+\begin{subequations}
+	\begin{flalign}
+		&\omega_m(s) \left(sJ_m + \frac{K_tK_e}{R_m + sL_m} + B_m \right) = \frac{K_tU_m(s) - \tau_l(R_m + sL_m)}{R_m + sL_m} \\	
+		&\omega_m(s) = \frac{K_tU_m(s) - \tau_l(R_m + sL_m)}{R_m + sL_m} \cdot \frac{R_m + sL-m}{sJ_m(R_m + sL_m) + B_m(R_m + sL_m) + K_tK_e} \\
+		&\omega_m(s) = \frac{K_tU_m(s) - \tau_l(R_m + sL_m)}{(J_mL_m)s^2 + (J_mR_m + B_mL_m)s + B_mR_m + K_tK_e} \label{eq:DCMotorTFWithLoad}
+	\end{flalign}
+\end{subequations}
+\autoref{eq:DCMotorTFWithLoad} is the transfer function of the DC-motor from a voltage $U_m(s)$ to an angular velocity $\omega_m$. This equation will be used for the rest of the modeling. 
+
+For the test of the DC-motor, there is no load. The torque of the load becomes zero, thus changing the expression of $\omega_m$: 
+\begin{equation}
+	\omega_m(s) = \frac{K_tU_m(s)}{(J_mL_m)s^2 + (J_mR_m + B_mL_m)s + B_mR_m + K_tK_e}
+\end{equation}
+
+
+
+
+
+
+
+
+
