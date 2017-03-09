@@ -41,9 +41,9 @@ As the gear system is composed by three similar connected wheels structures like
 Knowing this and since $\omega_m$ is transferred through three gears, the relation between the angular velocity of the motor $\omega_m$ and the angle of the arm $\theta_a$ is found following the principle of \autoref{eq:AngularVelRelation}:
 \begin{subequations} \label{eq:tech_ToA}
 	\begin{flalign}
-		&\dot{\theta_a}(t) = N^3 \omega_m(t) \\
-		&\dot{\theta_a}(t) = N^3 \int_{0}^{t}\omega_m(v) dv \\
-		&\mathscr{L}\{\dot{\theta_a}(t)\} = \Theta_a(s) = N^3 \cdot \frac{1}{s} \Omega_m(s)
+		&\dot{\theta}_a(t) = N^3 \omega_m(t) \\
+		&\dot{\theta}_a(t) = N^3 \int_{0}^{t}\omega_m(v) dv \\
+		&\mathscr{L}\{\dot{\theta}_a(t)\} = \Theta_a(s) = N^3 \cdot \frac{1}{s} \Omega_m(s)
 	\end{flalign}
 \end{subequations}
 
@@ -69,6 +69,58 @@ As said in \autoref{sec:ModGearSys} $\tau_l(s)$ is the torque of the load. In th
 It is necessary then to derive $\tau_f$ and $\tau_{as}$ to see if they are requiring linearization.
 
 \subsubsection*{Determining $\tau_{f}$}
+The gear train is composed by three identical belt and pulley system. \autoref{fig:Belt&Pulley} corresponds to the first system between the motor and the first wheel. 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/FigureIsComing.PNG}
+    \caption{Body diagram of a belt and pulley system}
+    \label{fig:Belt&Pulley}
+\end{figure}
+
+\startexplain
+\explain{$J_m$ is the moment of inertia of the motor}{\si{\kilogram\meter\squared}}
+\explain{$J_w$ is the moment of inertia of the wheel}{\si{\kilogram\meter\squared}}
+\explain{$\omega_m$ is the motor's angular velocity}{\si{\meter\per\second}}
+\explain{$\tau_m$ is the torque of the motor}{\si{\newton\meter}}
+\explain{$F_1$ is the force transferred from the motor to the wheel}{\si{\newton}}
+\explain{$r$ is the radius of the motor's wheel}{\si{\meter}}
+\explain{$R$ is the radius of the wheel}{\si{\meter}}
+\explain{$\tau_f$ is the torque of the gear train friction}{\si{\newton\meter}}
+\explain{$\tau_L$ is the torque of the wheel's load}{\si{\newton\meter}}
+\explain{$b_w$ is the viscous friction coefficient of the wheel}{\si{\newton\meter\per\radian\per\second}}
+\stopexplain
+
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/FigureIsComing.PNG}
+    \caption{Body diagram of the motor wheel}
+    \label{fig:BodyDiagramsMotorWheel}
+\end{figure}
+
+Using the previously stated $2^{nd}$ law of motion, the mechanical equation for the motor wheel can be found from \autoref{fig:BodyDiagramMotorWheel}:
+
+\begin{equation}
+    J_m \dot{\omega}_m = \tau_m + F_1r - \tau_f
+\end{equation}
+
+For the body diagram for the wheel in \autoref{fig:BodyDiagramsMotorWheel}:
+\begin{equation}
+	J_w\dot{\omega}_w = -F_1R -\tau_L -b_w\omega_w
+\end{equation}
+
+Looking at the whole gear train, $tau_f$ represents the total friction and $\tau_L$ corresponds to the torque transferred to the next wheel. Which gives for wheels 1, 2 and 3:
+
+\begin{subequations} 
+	\begin{flalign}
+		&J_w\dot{\omega}_{w_1} = -F_1R -F_2r -b_{w_1}\omega_{w_1} \\
+		&J_w\dot{\omega}_{w_2} = -F_2R -F_3r -b_{w_2}\omega_{w_2} \\
+		&J_w\dot{\omega}_{w_3}= -F_3R -b_{w_3}\omega_{w_3}
+	\end{flalign}
+\end{subequations}
+
+
 
 \subsubsection*{Determining $\tau_{as}$}
 
