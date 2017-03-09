@@ -4,15 +4,63 @@ The following chapter describes requirements and specifications that is determin
 As described earlier the goal of both systems is to react to deviations from its stable position. The goal of the rocket is the launch and fly stable and straight versus the inverted pendulum where the goal is to balance the stick in vertical upwards position.  
 
 Both systems will be described with physical and control requirements in separate sections. The physical requirements will be set based on the limits of the models. Where the requirements for the controllers will be set based on the approximations of best possible control parameters for each model.  
-The controller requirements will be approximated based on speed, precision and stability. Each parameter would affect each other, and therefore a discussion of the best combination of them will be considered.
+The controller requirements will be approximated based on speed, precision and stability, which means that following control parameters would be set for:
+
+\begin{itemize}[noitemsep]
+\item Settling Time
+\item Overshoot
+\item Rise Time
+\item Steady State Error
+\end{itemize}
+
+Each parameter would affect each other, and therefore a discussion of the best combination of them will be considered.
 
 \subsection{Requirements for the Inverted Pendulum}
+The requirements is based on figure \ref{fig:InvertedPendulumSetUp} where the angle relations and positions is described between the arm and stick.
+
+ 
+Physical requirements:
+
+
+The control position of the arm must not exceed $\pm$ 45$^{\circ}$. \todo{Maybe less is better, so that it isn't to different from rocket.}
+
+
+Deviation from the upright position of the stick must not exceed $\pm$ 5 $^{\circ}$ when considered balanced.\todo{Might be changed based on resolution and precision of potentiometer}
+
+
+The system should be able to regain balance if an angle impulse of 10 $^{\circ}$ is applied, in form of a push on the stick.\todo{}  
+
+
+The arms recovery angle of the stick, when dropped from upwards position, should be minimum $\pm$15 $^{\circ}$ \todo{Probably not necessary to consider.}
+
+
+Control requirements:
 
 
 
 \subsection{Requirements for the Rocket}
-TBD
-The rocket should fly.
+Based on the capability 
+The physical dimensions of the rocket can not exceed:
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+\hline
+Parameter    & Value & Unit  \\ \hline
+Length       & 0.25  & m     \\
+Width        & 0.25  & m     \\
+Height       & 0.5   & m     \\
+Total volume & 0.03  & m$^3$ \\
+Weight       & 0.3   & kg   
+\end{tabular}
+\caption{Maximum size and weight of the rocket.}
+\label{RocketDimensions}
+\end{table}
+
+
+Deviation from the predetermined trajectory of the rocket must not exceed $\pm$10 $^{\circ}$.\todo{Might be changed based on resolution and precision of gyroscope, and quantified.}
+
+
+The system should be able to regain its stability and direction if an angle impulse of 10 $^{\circ}$ is applied, in form of a external disturbance, on the rocket.  
 
 
 \section{Acceptance Test Specification}	
