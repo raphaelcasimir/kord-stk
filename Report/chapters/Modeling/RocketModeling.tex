@@ -1,120 +1,122 @@
-							%\chapter{Rocket Analysis}
-%
-		%section{Take into note that this is a not even a real draft}
+							\chapter{Rocket Analysis}
+
+		\section{Take into note that this is a not even a real draft}
 		
-	%section{ Rocket Description}
+	\section{ Rocket Description}
 
-%same as in chapter 5 for the inverted pendulum description
-%For this project a rocket is built. IT consists of:
-%a thruster
-%a sensor - gyroscope, blablabla
-%a controller - an arduino
-%a rocket body connected to the thruster with a liberty of movement of one degree
+same as in chapter 5 for the inverted pendulum description
+For this project a rocket is built. It consists of:
+\begin{itemize}
+\item a thruster
+\item a sensor - gyroscope, blablabla
+\item a controller - an arduino
+\item a rocket body connected to the thruster with a liberty of movement of one degree
+\end{itemize}
 
-	%section{Inverted pendulum and rocket}
-%The goal of this section is to demonstrate the similarities between the inverted pendulum and the rocket stabilization processes, and to define a mathematical model and control loop of the behavior of the angle of the rocket body and the angle of the thruster.
+	\section{Inverted pendulum and rocket}
+The goal of this section is to demonstrate the similarities between the inverted pendulum and the rocket stabilization processes, and to define a mathematical model and control loop of the behavior of the angle of the rocket body and the angle of the thruster.
 
-%The purpose of the system is to guarantee a stable flight to the rocket.
-%The modelling of the flight of a rocket can be divided into two equations: velocity and rotation. In this project, the desired trajectory of the rocket flight is considered to be on the zenith axis. This results in a vertical flight, with then a velocity on the same axis as the trajectory.The rocket's rotation is a circular motion on the bottom-to-nose axis. This create a centripetal force.
-%
-%The displacement angle (gimbal angle) is the difference between the actual flight direction, or bottom-to-nose axis, and the zenith axis. Gimbaled thrust are controllable thrusters used to create a torque and reduce the gimbal angle. 
-%
-%In an inverted pendulum, the objective is to keep the stick in horizontal position. The angle difference between the horizontal and the actual axis of the stick is measured in order to then create a compensation torque with the arm. The arm has the same task as the gimbaled thruster, and the horizontal axis is equivalent to the zenith axis.
+The purpose of the system is to guarantee a stable flight to the rocket.
+The modelling of the flight of a rocket can be divided into two equations: velocity and rotation. In this project, the desired trajectory of the rocket flight is considered to be on the zenith axis. This results in a vertical flight, with then a velocity on the same axis as the trajectory.The rocket's rotation is a circular motion on the bottom-to-nose axis. This create a centripetal force.
 
-%In the inverted pendulum at the desired initial position, the acceleration of the arm is negligible. This implies that the arm only produces a force on the axis going through the center of gravity of the arm and parallel to the lenght of the arm. This is equivalent to the rocket process where the thruster applies a force on the axis going through the center of gravity of the arm and parallel to the lenght of the thruster. 
+The displacement angle (gimbal angle) is the difference between the actual flight direction, or bottom-to-nose axis, and the zenith axis. Gimbaled thrust are controllable thrusters used to create a torque and reduce the gimbal angle. 
 
-% Sketch of rocket + IP at initial position
+In an inverted pendulum, the objective is to keep the stick in horizontal position. The angle difference between the horizontal and the actual axis of the stick is measured in order to then create a compensation torque with the arm. The arm has the same task as the gimbaled thruster, and the horizontal axis is equivalent to the zenith axis.
 
-%Therefor the rocket and the inverted pendulum processes are equivalent for a small displacement angle range. The inverted pendulum is then studied in this project as a first approach to the understanding of rocket in-flight stabilization process.
+At the desired initial position of the inverted pendulum, the acceleration of the arm is negligible. This implies that the arm only produces a force on the axis going through the center of gravity of the arm and parallel to the lenght of the arm. This is equivalent to the rocket process where the thruster applies a force on the axis going through the center of gravity of the arm and parallel to the lenght of the thruster. 
 
-%The control loop of the rocket system is described in figure ...
-%
-%Figure of closed loop model of rocket
-%
-%The input of the closed loop is the gimbal angle (angle difference between actual flight direction and zenith axis). The output is the new gimbal angle. In the inverted pendulum, the input and output are also the angle differences, between the horizontal and the actual axis of the stick. 
+ Sketch of rocket + IP at initial position
 
-%By admiting that the inverted pendulum and the rocket processes are similar the equations found in Section 5.2 Modelling of the Arm and Stick can be applied to the rocket, with the rocket body as the stick and the gimbaled thruster as the arm. However the gravity center of the rocket body is not located in its center. Therefore la and \frac{ls}{2} become respectively lt, for the thruster, and lbg, for the lenght from the bottom of the rocket body to its gravity center. The equations describing the forces, with a for arm and s for stick respectively replaced by t for thruster and b for rocket body, are:
+Therefore the rocket and the inverted pendulum processes are equivalent for a small displacement angle range. The inverted pendulum is then studied in this project as a first approach to the understanding of rocket in-flight stabilization process.
 
-%Transfer function as in part "modeling of stick".
+The control loop of the rocket system is described in figure ...
 
-	%section{Modeling of the rocket body and stick}
+Figure of closed loop model of rocket
+
+The input of the closed loop is the gimbal angle (angle difference between actual flight direction and zenith axis). The output is the new gimbal angle. In the inverted pendulum, the input and output are also the angle differences, between the horizontal and the actual axis of the stick. 
+
+By admiting that the inverted pendulum and the rocket processes are similar the equations found in Section 5.2 Modelling of the Arm and Stick can be applied to the rocket, with the rocket body as the stick and the gimbaled thruster as the arm. However the gravity center of the rocket body is not located in its center. Therefore $la$ and $\frac{ls}{2}$ become respectively $lt$, for the thruster, and $lbg$, for the lenght from the bottom of the rocket body to its center of mass. The equations describing the forces, with $a$ for arm and $s$ for stick respectively replaced by $t$ for thruster and $b$ for rocket body, are:
+
+Transfer function as in part "modeling of stick".
+
+	\section{Modeling of the rocket body and stick}
 	
-%The purpose of this section is to have a mathematical model for the different forces applied on the rocket in flight. 
+The purpose of this section is to have a mathematical model for the different forces applied on the rocket in flight. 
 
-%In this project, the trajectory of the rocket is on the zenith axis, or y axis, which implies the impact of the lift on the rocket is negligible. The sum of theforces applied to the rocket in flight can then be described by equation \eqref{eq:F_total}:
-%
-%\begin{equation}
-%F_total = m*a = F_thrust  F_drag - F_gravity \si{\newton} \label{eq:F_total}
-%\end{equation}
-%\startexplain
-%\explain{$F_total$ is the sum of all force}{\si{\newton}}
-%\explain{$F_thrust$ is the force created by the gimbaled thruster}{\si{\newton}}
-%\explain{$F_drag$ is the drag force on the rocket}{\si{\newton}}
-%\explain{$F_gravity$ is the gravity applied on the rocket}{\si{\newton}}
-%\stopexplain
-%
-%The drag force can be expressed by equation \eqref{eq:F_drag}:
-%\begin{equation}
-% F_drag = \frac{1}{2} \cdot C_d \cdot \rho \cdot A \cdot v^2 \si{\newton} \label{eq:F_drag}
-%\end{equation}
-%\startexplain
-%\explain{$C_d$ is the coefficient of drag}{\si{1}}
-%\explain{$\rho$ is the air density}{\si{\kilo\gram\per\meter\cubed}}
-%\explain{$A$ is the cross sectionnal area of the rocket}{\si{\meter\squared}}
-%\explain{$v$ is the velocity of the rocket}{\si{\meter\per\second}}
-%\stopexplain
-%	
-%The coefficient of drag and the cross sectionnal area vary depending on the shape of the rocket. Altitude and humidity in the air can impact the air density. Parasit drag can appear due to the surface material or pressure drag.
-%
-%The gravity force equation is \eqref{eq:F_gravity}:
-%\begin{equation}
-%F_gravity = m \cdot g \si{\newton} \label{eq:F_gravity}
-%\end{equation}
-%\startexplain
-%\explain{$m$ is the mass of the rocket}{\si{\kilo\gram}}
-%\explain{$g$ is the gravitational acceleration}{\si{\meter\per\second\squared}}
-%\explain{$A$ is the cross sectionnal area of the rocket}{\si{\meter\squared}}
-%\explain{$v$ is the velocity of the rocket}{\si{\meter\per\second}}
-%\stopexplain
-%	
-%
-%The thrust force is \eqref{eq:F_thrust}:
-%\begin{equation}
-%F_thrust = v_e \cdot \ddot{m} + A (P_e -P_0) \si{\newton} \label{eq:F_thrust}
-%\end{equation}
-%\startexplain
-%\explain{$v_e$ is the velocity of the gimbaled thruster}{\si{\meter\perp\second}}
-%\explain{$\ddot{m}$ is the mass flow rate}{\si{\kilo\gram\per\second}}
-%\explain{$A$ is the nozzle exit area}{\si{\meter\squared}}
-%\explain{$P_e$ is the pressure of the nozzle exit}{\si{\kilo\gram\per\meter\per\second\squared}}
-%\explain{$P_o$ is the free stream pressure}{\si{\kilo\gram\per\meter\per\second\squared}}
-%\stopexplain
-%
-%
-%The thruster pression and velocity is divided into two equation, respectively ahead and behind the propeller nozzle: P_o \eqref{eq:P_o} and P_e \eqref{eq:P_e}.
-%
-%\begin{equation}
-%P_0 = p_0 + 0.5 \cdot \rho \cdot(v_o)^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_o}
-%\end{equation}
-%\startexplain
-%\explain{$p_o$ is the static pressure}{\kilo\gram\per\meter\per\second\squared}}
-%\explain{$v_o$ is the velocity of the rocket}{\si{\meter\per\second}}
-%\stopexplain
-%
-%\begin{equation}
-%P_e = p_o + 0.5 \cdot \rho \cdot(v_e)^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_e}
-%\end{equation}
-%\startexplain
-%\explain{$v_e$ is the exit velocity of the gimbaled thruster}{\si{\meter\perp\second}}
-%\stopexplain
+In this project, the trajectory of the rocket is on the zenith axis, or y axis, which implies the impact of the lift on the rocket is negligible. The sum of the forces applied to the rocket in flight can then be described by equation \eqref{eq:F_total}:
 
-%Therefor, there is three different cases of truster pression:
-%\begin{equation}
-%P_e = P_a
-%P_e > P_a
-%P_e < P_a
-%\end{equation}
-% insert sketch of the different cases
+\begin{equation}
+F_total = m*a = F_thrust  F_drag - F_gravity \si{\newton} \label{eq:F_total}
+\end{equation}
+\startexplain
+\explain{$F_total$ is the sum of all force}{\si{\newton}}
+\explain{$F_thrust$ is the force created by the gimbaled thruster}{\si{\newton}}
+\explain{$F_drag$ is the drag force on the rocket}{\si{\newton}}
+\explain{$F_gravity$ is the gravity applied on the rocket}{\si{\newton}}
+\stopexplain
+
+The drag force can be expressed by equation \eqref{eq:F_drag}:
+\begin{equation}
+F_drag = \frac{1}{2} \cdot C_d \cdot \rho \cdot A \cdot v^2 \si{\newton} \label{eq:F_drag}
+\end{equation}
+\startexplain
+\explain{$C_d$ is the coefficient of drag}{\si{1}}
+\explain{$\rho$ is the air density}{\si{\kilo\gram\per\meter\cubed}}
+\explain{$A$ is the cross sectionnal area of the rocket}{\si{\meter\squared}}
+\explain{$v$ is the velocity of the rocket}{\si{\meter\per\second}}
+\stopexplain
+	
+The coefficient of drag and the cross sectionnal area vary depending on the shape of the rocket. Altitude and humidity in the air can impact the air density. Parasit drag can appear due to the surface material or pressure drag.
+
+The gravity force equation is \eqref{eq:F_gravity}:
+\begin{equation}
+F_gravity = m \cdot g \si{\newton} \label{eq:F_gravity}
+\end{equation}
+\startexplain
+\explain{$m$ is the mass of the rocket}{\si{\kilo\gram}}
+\explain{$g$ is the gravitational acceleration}{\si{\meter\per\second\squared}}
+\explain{$A$ is the cross sectionnal area of the rocket}{\si{\meter\squared}}
+\explain{$v$ is the velocity of the rocket}{\si{\meter\per\second}}
+\stopexplain
+	
+
+The thrust force is \eqref{eq:F_thrust}:
+\begin{equation}
+F_thrust = v_e \cdot \ddot{m} + A (P_e -P_0) \si{\newton} \label{eq:F_thrust}
+\end{equation}
+\startexplain
+\explain{$v_e$ is the velocity of the gimbaled thruster}{\si{\meter\per\second}}
+\explain{$\ddot{m}$ is the mass flow rate}{\si{\kilo\gram\per\second}}
+\explain{$A$ is the nozzle exit area}{\si{\meter\squared}}
+\explain{$P_e$ is the pressure of the nozzle exit}{\si{\kilo\gram\per\meter\per\second\squared}}
+\explain{$P_o$ is the free stream pressure}{\si{\kilo\gram\per\meter\per\second\squared}}
+\stopexplain
+
+
+The thruster pression and velocity is divided into two equation, respectively ahead and behind the propeller nozzle: $P_o$ \eqref{eq:P_o} and $P_e$ \eqref{eq:P_e}.
+
+\begin{equation}
+P_0 = p_0 + 0.5 \cdot \rho \cdot(v_o)^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_o}
+\end{equation}
+\startexplain
+\explain{$p_o$ is the static pressure}{\si{\kilo\gram\per\meter\per\second\squared}}
+\explain{$v_o$ is the velocity of the rocket}{\si{\meter\per\second}}
+\stopexplain
+
+\begin{equation}
+P_e = p_o + 0.5 \cdot \rho \cdot(v_e)^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_e}
+\end{equation}
+\startexplain
+\explain{$v_e$ is the exit velocity of the gimbaled thruster}{\si{\meter\per\second}}
+\stopexplain
+
+Therefore, there is three different cases of truster pression:
+\begin{equation}
+P_e = P_a
+P_e > P_a
+P_e < P_a
+\end{equation}
+ insert sketch of the different cases
 
 
 
