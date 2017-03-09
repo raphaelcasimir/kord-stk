@@ -5,13 +5,15 @@
 	\section{ Rocket Description}
 
 same as in chapter 5 for the inverted pendulum description
-For this project a rocket is built. IT consists of:
-a thruster
-a sensor - gyroscope, blablabla
-a controller - an arduino
-a rocket body connected to the thruster with a liberty of movement of one degree
+For this project a rocket is built. It consists of:
+\begin{itemize}
+\item a thruster
+\item a sensor - gyroscope, blablabla
+\item a controller - an arduino
+\item a rocket body connected to the thruster with a liberty of movement of one degree
+\end{itemize}
 
-	section{Inverted pendulum and rocket}
+	\section{Inverted pendulum and rocket}
 The goal of this section is to demonstrate the similarities between the inverted pendulum and the rocket stabilization processes, and to define a mathematical model and control loop of the behavior of the angle of the rocket body and the angle of the thruster.
 
 The purpose of the system is to guarantee a stable flight to the rocket.
@@ -21,11 +23,11 @@ The displacement angle (gimbal angle) is the difference between the actual fligh
 
 In an inverted pendulum, the objective is to keep the stick in horizontal position. The angle difference between the horizontal and the actual axis of the stick is measured in order to then create a compensation torque with the arm. The arm has the same task as the gimbaled thruster, and the horizontal axis is equivalent to the zenith axis.
 
-In the inverted pendulum at the desired initial position, the acceleration of the arm is negligible. This implies that the arm only produces a force on the axis going through the center of gravity of the arm and parallel to the lenght of the arm. This is equivalent to the rocket process where the thruster applies a force on the axis going through the center of gravity of the arm and parallel to the lenght of the thruster. 
+At the desired initial position of the inverted pendulum, the acceleration of the arm is negligible. This implies that the arm only produces a force on the axis going through the center of gravity of the arm and parallel to the lenght of the arm. This is equivalent to the rocket process where the thruster applies a force on the axis going through the center of gravity of the arm and parallel to the lenght of the thruster. 
 
  Sketch of rocket + IP at initial position
 
-Therefor the rocket and the inverted pendulum processes are equivalent for a small displacement angle range. The inverted pendulum is then studied in this project as a first approach to the understanding of rocket in-flight stabilization process.
+Therefore the rocket and the inverted pendulum processes are equivalent for a small displacement angle range. The inverted pendulum is then studied in this project as a first approach to the understanding of rocket in-flight stabilization process.
 
 The control loop of the rocket system is described in figure ...
 
@@ -33,7 +35,7 @@ Figure of closed loop model of rocket
 
 The input of the closed loop is the gimbal angle (angle difference between actual flight direction and zenith axis). The output is the new gimbal angle. In the inverted pendulum, the input and output are also the angle differences, between the horizontal and the actual axis of the stick. 
 
-By admiting that the inverted pendulum and the rocket processes are similar the equations found in Section 5.2 Modelling of the Arm and Stick can be applied to the rocket, with the rocket body as the stick and the gimbaled thruster as the arm. However the gravity center of the rocket body is not located in its center. Therefore $la$ and $\frac{ls}{2}$ become respectively $lt$, for the thruster, and $lbg$, for the lenght from the bottom of the rocket body to its gravity center. The equations describing the forces, with $a$ for arm and $s$ for stick respectively replaced by t for thruster and b for rocket body, are:
+By admiting that the inverted pendulum and the rocket processes are similar the equations found in Section 5.2 Modelling of the Arm and Stick can be applied to the rocket, with the rocket body as the stick and the gimbaled thruster as the arm. However the gravity center of the rocket body is not located in its center. Therefore $la$ and $\frac{ls}{2}$ become respectively $lt$, for the thruster, and $lbg$, for the lenght from the bottom of the rocket body to its center of mass. The equations describing the forces, with $a$ for arm and $s$ for stick respectively replaced by $t$ for thruster and $b$ for rocket body, are:
 
 Transfer function as in part "modeling of stick".
 
@@ -41,7 +43,7 @@ Transfer function as in part "modeling of stick".
 	
 The purpose of this section is to have a mathematical model for the different forces applied on the rocket in flight. 
 
-In this project, the trajectory of the rocket is on the zenith axis, or y axis, which implies the impact of the lift on the rocket is negligible. The sum of theforces applied to the rocket in flight can then be described by equation \eqref{eq:F_total}:
+In this project, the trajectory of the rocket is on the zenith axis, or y axis, which implies the impact of the lift on the rocket is negligible. The sum of the forces applied to the rocket in flight can then be described by equation \eqref{eq:F_total}:
 
 \begin{equation}
 F_total = m*a = F_thrust  F_drag - F_gravity \si{\newton} \label{eq:F_total}
@@ -108,7 +110,7 @@ P_e = p_o + 0.5 \cdot \rho \cdot(v_e)^2 \si{\kilo\gram\per\meter\per\second\squa
 \explain{$v_e$ is the exit velocity of the gimbaled thruster}{\si{\meter\per\second}}
 \stopexplain
 
-Therefor, there is three different cases of truster pression:
+Therefore, there is three different cases of truster pression:
 \begin{equation}
 P_e = P_a
 P_e > P_a
