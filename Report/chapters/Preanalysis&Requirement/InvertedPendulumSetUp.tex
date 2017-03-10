@@ -18,7 +18,7 @@ For this project an inverted pendulum set up is given. It consists of:
 
 \autoref{fig:InvertedPendulumSetUp} is a diagram of the set up when fully assembled. The DC motor moves the arm via the gears, a noteworthy fact is that out the four gears three are of the same size. This means that two gears do not have any influence on the torque and the angular velocity of the arm.
 
-\section{Modelling of the Arm and Stick}
+\section{Modelling of the Arm and Stick}\label{sec:StickArm}
 
 %%%%%%%%%%%%% Equation template %%%%%%%%%%%%%%%
 %\begin{flalign}
@@ -192,7 +192,7 @@ Inserting the linearized terms in \autoref{eq:JsShort} and using the moment of i
 \begin{flalign}
 & \frac{1}{12}M_sl_s^2\hat{\ddot{\theta}}_s=\frac{l_s}{2}M_s\left(-l_a\hat{\ddot{\theta}}_a-\frac{l_s}{2}\hat{\ddot{\theta}}_s+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as}   \\
 & \frac{1}{12}M_sl_s^2\hat{\ddot{\theta}}_s+\frac{1}{4}M_sl_s^2\hat{\ddot{\theta}}_s=\frac{l_s}{2}M_s\left(-l_a\hat{\ddot{\theta}}_a+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as}   \\
-& \frac{1}{3}M_sl_s^2\hat{\ddot{\theta}}_s=\frac{l_s}{2}M_s\left(-l_a\hat{\ddot{\theta}}_a+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as}   \\
+& \frac{1}{3}M_sl_s^2\hat{\ddot{\theta}}_s=\frac{l_s}{2}M_s\left(-l_a\hat{\ddot{\theta}}_a+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as}  \label{eq:TauSmLin} \\
 & \hat{\ddot{\theta}}_s=\frac{3}{2l_s}\left(-l_a\hat{\ddot{\theta}}_a-\frac{l_s}{2}\hat{\ddot{\theta}}_s+g\hat{\theta}_s\right)-\frac{3b_{as}\left(\hat{\dot{\theta}}_s-\hat{\dot{\theta}}_a\right)}{M_sl_s^2} \label{eq:JsFinal}
 \end{flalign}
 \end{subequations}
