@@ -69,8 +69,10 @@ The moment of inertia for the joint is described by \autoref{eq:Jsthetas}.
 	\explain{$\tau_f$ is the torque of the friction acting on the stick}{\si{\newton\meter}}
 	\explain{$F_p$ is the force perpendicular to the stick at the center of mass}{\si{\newton}}
 	\explain{$b_{as}$ is the viscous friction coefficient between the arm and the stick}{\si{\newton\meter\second}}
-	\explain{$\dot{\theta}_{as}$ is the difference in angular velocity between the arm and the stick}{\si{\degree\per\second}}
+	\explain{$\dot{\theta}_{as}$ is the difference in angular velocity between the arm and the stick ($\dot{\theta}_s-\dot{\theta}_a$)}{\si{\degree\per\second}}
 \stopexplain
+
+The friction is calculated from the difference in angular velocity as the stick could be perfectly upright while the arm moves causing the joint to turn. The angle of the arm is not considered as producing a torque acting on the joint but as part of the force on the stick, $F_p$.
 
 The perpendicular force can be found from the forces acting on the stick in the x and y directions. These are found by \autoref{eq:FxFy} using Newton's 2nd law of motion.
 \begin{subequations}  \label{eq:FxFy}
