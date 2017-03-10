@@ -65,12 +65,15 @@ The moment of inertia for the joint is described by \autoref{eq:Jsthetas}.
 \end{subequations}
 \startexplain
 	\explain{$J_s$ is the moment of inertia for the stick}{\si{\kg\square\meter}}
+	\explain{$\ddot{\theta}_s$ is the angular acceleration of the stick}{\si{\degree\per\square\second}}
 	\explain{$\tau_s$ is the torque induced by the rotation of the stick}{\si{\newton\meter}}
 	\explain{$\tau_f$ is the torque of the friction acting on the stick}{\si{\newton\meter}}
 	\explain{$F_p$ is the force perpendicular to the stick at the center of mass}{\si{\newton}}
 	\explain{$b_{as}$ is the viscous friction coefficient between the arm and the stick}{\si{\newton\meter\second}}
-	\explain{$\dot{\theta}_{as}$ is the difference in angular velocity between the arm and the stick}{\si{\degree\per\second}}
+	\explain{$\dot{\theta}_{as}$ is the difference in angular velocity between the arm and the stick ($\dot{\theta}_s-\dot{\theta}_a$)}{\si{\degree\per\second}}
 \stopexplain
+
+The friction is calculated from the difference in angular velocity as the stick could be perfectly upright while the arm moves causing the joint to turn. The angle of the arm is not considered as producing a torque acting on the joint but as part of the force on the stick, $F_p$.
 
 The perpendicular force can be found from the forces acting on the stick in the x and y directions. These are found by \autoref{eq:FxFy} using Newton's 2nd law of motion.
 \begin{subequations}  \label{eq:FxFy}
@@ -85,6 +88,7 @@ The perpendicular force can be found from the forces acting on the stick in the 
 	\explain{$F_y$ is the force in the y direction}{\si{\newton}}
 	\explain{$x_s$ is the position of the center of mass of the stick in the x direction}{\si{\meter}}
 	\explain{$y_s$ is the position of the center of mass of the stick in the y direction}{\si{\meter}}
+	\explain{$g$ is the standard gravitational acceleration near the surface of the earth}{\si{\meter\per\square\second}}
 	\explain{$M_s$ is the mass of the stick}{\si{\kilo\gram}}
 \stopexplain
 The position of the center of mass of the stick in the x and y direction is found by \autoref{eq:xsys}.
@@ -154,7 +158,15 @@ J_s\ddot{\theta}_s = \frac{l_s}{2}M_s \Big( &-l_a\ddot{\theta}_a \cos(\theta_a-\
 &-\frac{l_s}{2}\ddot{\theta}_s +g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as} \label{eq:JsShort}
 \end{flalign}
 
-This is the nonlinear mathematical model for the system. This will be linearized in order to perform a Laplace transformation. The linearization is made with a 1st order Taylor approximation \textbf{[insert ref to note in google drive]}. The 1st order Taylor approximation of an equation with multiple variables is seen in \autoref{eq:1stTaylor}.
+This is the nonlinear mathematical model for the system. This will be linearized in order to perform a Laplace transformation. The linearization is made with a 1st order Taylor approximation. The linearization is done at the equilibrium point where the arm is in an upright position i.e. $\theta_s=0$. In the equilibrium point the derivatives of all the inputs and outputs are 0. In this case the inputs and outputs are $\theta_a$ and $\theta_s$ and the operating point is $\bar{\theta}_a=0$ and $\bar{\theta}_s=0$. The nonlinear model is expressed as a function of the inputs and outputs as seen in \autoref{eq:nonlinearmodel}.
+\begin{flalign}\label{eq:nonlinearmodel}
+f\left(\theta_a, \dot{\theta}_a, \ddot{\theta}_a, \theta_s, \ddot{\theta}_s\right)=\frac{l_s}{2}M_s \Big( &-l_a\ddot{\theta}_a \cos(\theta_a-\theta_s)+l_a\dot{\theta}_a^2 \sin(\theta_a-\theta_s) \notag \\
+&-\frac{l_s}{2}\ddot{\theta}_s +g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as}-J_s\ddot{\theta}_s
+\end{flalign}
+
+Generally all equilibriums can be found by setting \autoref{eq:nonlinearmodel} equal to 0 and the derivatives to 0 and solving for $\theta_a=\bar{\theta}_a$ and $\theta_s=\bar{\theta}_s$. For the pendulum it's easy to see the only two equilibriums are the stick pointing straight up and straight down. 
+
+The 1st order Taylor approximation of an equation with multiple variables is seen in \autoref{eq:1stTaylor}.
 \begin{flalign}
  f\left(\theta_a, \dot{\theta}_a, \ddot{\theta}_a, \theta_s, \ddot{\theta}_s\right) & \approx f\left(\bar{\theta}_a, 0, 0, \bar{\theta}_s, 0\right) + \left. \frac{\partial f}{\partial \theta_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\theta}_a \notag \\
 & \phantom{=} + \left. \frac{\partial f}{\partial \dot{\theta}_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\dot{\theta}}_a + \left. \frac{\partial f}{\partial \ddot{\theta}_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\ddot{\theta}}_a \notag \\
@@ -165,7 +177,7 @@ This is the nonlinear mathematical model for the system. This will be linearized
 	\explain{$\hat{\theta}$ denotes the angle of the small signal variances}{\si{\degree}}
 \stopexplain
 
-The 3 terms with sin or cos in \autoref{eq:JsShort} will be approximated individually using \autoref{eq:1stTaylor}, remembering that $\bar{\theta}=\bar{\dot{\theta}}=\bar{\ddot{\theta}}=0$ as the angle of the operating point is a constant 0.
+The 3 terms with sin or cos in \autoref{eq:JsShort} will be approximated individually using \autoref{eq:1stTaylor}, remembering that $\bar{\theta}=\bar{\dot{\theta}}=\bar{\ddot{\theta}}=0$ in the equilibrium.
 \begin{subequations}
 \begin{flalign}
  -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right) & \approx  0 + l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a  \notag \\ 
