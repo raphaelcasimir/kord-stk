@@ -113,13 +113,13 @@ For the body diagram for the wheel in \autoref{fig:BodyDiagramsMotorWheel}:
 	J_w\dot{\omega}_w = -F_1R -\tau_L -b_w\omega_w
 \end{equation}
 
-Looking at the whole gear train, $\tau_f$ represents the total friction and $\tau_L$ corresponds to the torque transferred to the next wheel. Which gives for wheels 1, 2 and 3:
-\todo[inline,author=Geoff]{tauL is -F2r}
+Looking at the whole gear train, $\tau_f$ represents the total friction and $\tau_L$ is the inverse of the torque transferred to the next wheel. Which gives for wheels 1, 2 and 3:
+\todo[inline,author=Geoff]{Explain better why $\tau_L = -F_2r$}
 \begin{subequations} 
 	\begin{flalign}
-		&J_{w_1}\dot{\omega}_{w_1} = -F_1R -F_2r -b_{w_1}\omega_{w_1} \\ \label{eq:GiveMeAnOriginalName}
-		&J_{w_2}\dot{\omega}_{w_2} = -F_2R -F_3r -b_{w_2}\omega_{w_2} \\
-		&J_{w_3}\dot{\omega}_{w_3}= -F_3R -b_{w_3}\omega_{w_3}
+		&J_{w_1}\dot{\omega}_{w_1} = -F_1R + F_2r -b_{w_1}\omega_{w_1} \\ \label{eq:GiveMeAnOriginalName}
+		&J_{w_2}\dot{\omega}_{w_2} = -F_2R + F_3r -b_{w_2}\omega_{w_2} \\
+		&J_{w_3}\dot{\omega}_{w_3} = -F_3R - b_{w_3}\omega_{w_3}
 	\end{flalign}
 \end{subequations}
 
@@ -143,8 +143,8 @@ $F_1$ needs to be isolated from \autoref{eq:GiveMeAnOriginalName}. Each forces $
 
 \begin{subequations} 
 	\begin{flalign}
-		&F_1 = -\frac{1}{R} (b_{w_1}\omega_{w_1} + J_{w_1}\dot{\omega}_{w_1} + F_2r) 	\label{eq:F1}\\ 
-		&F_2 = -\frac{1}{R} (b_{w_2}\omega_{w_2} +  J_{w_2}\dot{\omega}_{w_2} + F_3r)	\label{eq:F2}\\
+		&F_1 = -\frac{1}{R} (b_{w_1}\omega_{w_1} + J_{w_1}\dot{\omega}_{w_1} - F_2r) 	\label{eq:F1}\\ 
+		&F_2 = -\frac{1}{R} (b_{w_2}\omega_{w_2} +  J_{w_2}\dot{\omega}_{w_2} - F_3r)	\label{eq:F2}\\
 		&F_3 = -\frac{1}{R} (b_{w_3}\omega_{w_3} + J_{w_3}\dot{\omega}_{w_3})			\label{eq:F3}
 	\end{flalign}
 \end{subequations}
@@ -154,8 +154,8 @@ Inserting \autoref{eq:F3} in \autoref{eq:F2}, then \autoref{eq:F2} in \autoref{e
 \begin{subequations} 
 	\begin{flalign}
 	F_1 = &-\frac{1}{R} (b_{w_1}\omega_{w_1} + J_{w_1}\dot{\omega}_{w_1} \notag \\
-	& -\frac{r}{R} (b_{w_2}\omega_{w_2} + J_{w_2}\dot{\omega}_{w_2} \notag \\
-	& -\frac{r}{R} (b_{w_3}\omega_{w_3} + J_{w_3}\dot{\omega}_{w_3})))
+	& +\frac{r}{R} (b_{w_2}\omega_{w_2} + J_{w_2}\dot{\omega}_{w_2} \notag \\
+	& +\frac{r}{R} (b_{w_3}\omega_{w_3} + J_{w_3}\dot{\omega}_{w_3})))
 	\end{flalign}
 \end{subequations}
 
@@ -164,8 +164,8 @@ Using \autoref{eq:TaufF1r} and the gear ratio in \autoref{eq:GearRatio}, the tot
 \begin{subequations} 
 	\begin{flalign} \label{eq:TaufTimeDomain}
 	\tau_f = &-N (b_{w_1}\omega_{w_1} + J_{w_1}\dot{\omega}_{w_1} \notag \\
-	& -N (b_{w_2}\omega_{w_2} + J_{w_2}\dot{\omega}_{w_2} \notag \\
-	& -N (b_{w_3}\omega_{w_3} + J_{w_3}\dot{\omega}_{w_3})))
+	& +N (b_{w_2}\omega_{w_2} + J_{w_2}\dot{\omega}_{w_2} \notag \\
+	& +N (b_{w_3}\omega_{w_3} + J_{w_3}\dot{\omega}_{w_3})))
 	\end{flalign}
 \end{subequations}
 
@@ -173,14 +173,14 @@ Using \autoref{eq:TaufF1r} and the gear ratio in \autoref{eq:GearRatio}, the tot
 \begin{subequations} 
 	\begin{flalign} \label{eq:TaufLaplaceDomain}
 	\mathcal{L}\{\tau_f(t)\} = \tau_f(s) = &-N (B_{w_1}\Omega_{w_1}(s) + sJ_{w_1}\Omega_{w_1}(s) \notag \\
-	& -N (B_{w_2}\Omega_{w_2}(s) + sJ_{w_2}\Omega_{w_2}(s) \notag \\
-	& -N (B_{w_3}\Omega_{w_3}(s) + sJ_{w_3}\Omega_{w_3}(s))))
+	& +N (B_{w_2}\Omega_{w_2}(s) + sJ_{w_2}\Omega_{w_2}(s) \notag \\
+	& +N (B_{w_3}\Omega_{w_3}(s) + sJ_{w_3}\Omega_{w_3}(s))))
 	\end{flalign}
 \end{subequations}
 
 \autoref{eq:TaufLaplaceDomain} is reorganized to find \autoref{eq:TaufReorganized}:
 \begin{equation}
-	\tau_f(s) = (-N J_1 + N^2 J_2 - N^3 J_3)s - N B_1 + N^2 B_2 - N^3 B_3
+	\tau_f(s) = -(N J_1\Omega_{w_1}(s) + N^2 J_2\Omega_{w_2}(s) + N^3 J_3\Omega_{w_3}(s))s -( N B_1\Omega_{w_1}(s) + N^2 B_2\Omega_{w_2}(s) + N^3 B_3\Omega_{w_3}(s))
 	\label{eq:TaufReorganized}
 \end{equation}
 
