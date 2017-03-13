@@ -68,12 +68,12 @@ The moment of inertia for the joint is described by \autoref{eq:Jsthetas}.
 \end{subequations}
 \startexplain
 	\explain{$J_s$ is the moment of inertia for the stick}{\si{\kg\square\meter}}
-	\explain{$\ddot{\theta}_s$ is the angular acceleration of the stick}{\si{\degree\per\square\second}}
+	\explain{$\ddot{\theta}_s$ is the angular acceleration of the stick}{\si{\radian\per\square\second}}
 	\explain{$\tau_s$ is the torque induced by the rotation of the stick}{\si{\newton\meter}}
 	\explain{$\tau_f$ is the torque of the friction acting on the stick}{\si{\newton\meter}}
 	\explain{$F_p$ is the force perpendicular to the stick at the center of mass}{\si{\newton}}
 	\explain{$b_{as}$ is the viscous friction coefficient between the arm and the stick}{\si{\newton\meter\second}}
-	\explain{$\dot{\theta}_{as}$ is the difference in angular velocity between the arm and the stick ($\dot{\theta}_s-\dot{\theta}_a$)}{\si{\degree\per\second}}
+	\explain{$\dot{\theta}_{as}$ is the difference in angular velocity between the arm and the stick ($\dot{\theta}_s-\dot{\theta}_a$)}{\si{\radian\per\second}}
 \stopexplain
 
 The friction is calculated from the difference in angular velocity as the stick could be perfectly upright while the arm moves causing the joint to turn. The angle of the arm is not considered as producing a torque acting on the joint but as part of the force on the stick, $F_p$.
@@ -106,8 +106,8 @@ The position of the center of mass of the stick in the x and y direction is foun
 \startexplain
 	\explain{$l_a$ is the length of the arm}{\si{\meter}}
 	\explain{$l_s$ is the length of the stick}{\si{\meter}}
-	\explain{$\theta_a$ is the angle from the arm to the y-axis}{\si{\degree}}
-	\explain{$\theta_s$ is the angle from the stick to the y-axis}{\si{\degree}}
+	\explain{$\theta_a$ is the angle from the arm to the y-axis}{\si{\radian}}
+	\explain{$\theta_s$ is the angle from the stick to the y-axis}{\si{\radian}}
 \stopexplain
 The derivatives of $x_s$ and $y_s$ is found in \autoref{eq:diffxy}.
 \begin{subequations}\label{eq:diffxy} 
@@ -176,23 +176,23 @@ The 1st order Taylor approximation of an equation with multiple variables is see
 & \phantom{=} + \left. \frac{\partial f}{\partial \theta_s}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\theta}_s + \left. \frac{\partial f}{\partial \ddot{\theta}_s}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\ddot{\theta}}_s \label{eq:1stTaylor}
 \end{flalign}
 \startexplain
-	\explain{$\bar{\theta}$ denotes the angle in an operating point}{\si{\degree}}
-	\explain{$\hat{\theta}$ denotes the angle of the small signal variances}{\si{\degree}}
+	\explain{$\bar{\theta}$ denotes the angle in an operating point}{\si{\radian}}
+	\explain{$\hat{\theta}$ denotes the angle of the small signal variances}{\si{\radian}}
 \stopexplain
 
 The 3 terms with sin or cos in \autoref{eq:JsShort} will be approximated individually using \autoref{eq:1stTaylor}, remembering that $\bar{\theta}=\bar{\dot{\theta}}=\bar{\ddot{\theta}}=0$ in the equilibrium.
 \begin{subequations}
 \begin{flalign}
- -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right) & \approx  0 + l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a  \notag \\ 
-& \phantom{=} -l_a\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\ddot{\theta}}_a - l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s   \\
- -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right) & \approx -l_a\hat{\ddot{\theta}}_a 
+ -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right)  \approx & \ 0 + l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a  \notag \\ 
+& -l_a\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\ddot{\theta}}_a - l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s   \\
+ -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right) \approx &-l_a\hat{\ddot{\theta}}_a 
 \end{flalign} %\bar{\ddot{\theta}}_s
 \end{subequations}
 \begin{subequations}
 \begin{flalign}
-l_a\dot{\theta}_a^2\sin\left(\theta_a-\theta_s\right) & \approx  0 + l_a\bar{\dot{\theta}}_a^2\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a  \notag \\
-& \phantom{=} + 2l_a\bar{\dot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\dot{\theta}}_a-l_a\bar{\dot{\theta}}_a^2\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s   \\
- l_a\dot{\theta}_a^2\sin\left(\bar{\theta}_a-\bar{\theta}_s\right) & \approx  0 
+l_a\dot{\theta}_a^2\sin\left(\theta_a-\theta_s\right)  \approx &\ 0 + l_a\bar{\dot{\theta}}_a^2\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a  \notag \\
+& + 2l_a\bar{\dot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\dot{\theta}}_a-l_a\bar{\dot{\theta}}_a^2\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s   \\
+ l_a\dot{\theta}_a^2\sin\left(\bar{\theta}_a-\bar{\theta}_s\right) \approx & \ 0 
 \end{flalign}
 \end{subequations}
 \begin{subequations}
