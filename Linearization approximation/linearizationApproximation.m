@@ -22,7 +22,7 @@ end
 
 %% approximation with cos=<1-x^2/2
 figure
-plot(x*180/pi,(cos(x)-(1-x.^2/2))*100, '--', x*180/pi,y);
+plot(x*180/pi,(cos(x)-(1))*100, '--', x*180/pi,y);
 
 xlabel('Angle [°]'); ylabel('Error [%]');
 axis tight;
