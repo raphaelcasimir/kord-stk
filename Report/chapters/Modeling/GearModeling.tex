@@ -33,24 +33,24 @@ Three transfer functions are going to be determined in this section. First, the 
 
 From \autoref{fig:Belt&Pulley}, considering the small wheel as the one connected to the motor, if the motor shaft turns, the belt joining the small and the big wheel will make them turn the same distance:
 \begin{equation}
-	\theta_m r = \theta_w R
+	\theta_m r = \theta_w R \addunit{\meter}
 \end{equation}
 
 This expression is then differentiated to find the relation with the angular velocities:
 \begin{equation}
-	\omega_m r = \omega_w R
+	\omega_m r = \omega_w R\addunit{\meter\per\second}
 	\label{eq:AngularVelRelation}
 \end{equation}
 
 Then the gear ratio can be defined as: 
 \begin{equation}
-	N = \frac{r}{R}
+	N = \frac{r}{R} \addunit{1}
 	\label{eq:GearRatio}
 \end{equation}
 
 As the gear system is composed by three similar connected wheels structures like shown in \autoref{fig:Belt&Pulley}, the ratio between small wheel x, $r_x$, and big wheel x, $R_x$ is the same:
 \begin{equation}
-	\frac{r_x}{R_x} = \frac{r_{motor}}{R_{w_1}} = \frac{r_{w_1}}{R_{w_2}} = \frac{r_{w_2}}{R_{w_3}} = N
+	\frac{r_x}{R_x} = \frac{r_{motor}}{R_{w_1}} = \frac{r_{w_1}}{R_{w_2}} = \frac{r_{w_2}}{R_{w_3}} = N \addunit{1}
 \end{equation}
 
 Knowing this and since $\omega_m$ is transferred through three gears, the relation between the angular velocity of the motor $\omega_m$ and the angle of the arm $\theta_a$ is found following the principle of \autoref{eq:AngularVelRelation}:
@@ -58,13 +58,13 @@ Knowing this and since $\omega_m$ is transferred through three gears, the relati
 	\begin{flalign}
 		&\omega_a(t) = N^3 \omega_m(t) \\
 		&\theta_a(t) = N^3 \int_{0}^{t}\omega_m(v) dv \\
-		&\mathcal{L}\{\theta_a(t)\} = \Theta_a(s) = N^3 \cdot \frac{1}{s} \Omega_m(s)
+		&\mathcal{L}\{\theta_a(t)\} = \Theta_a(s) = N^3 \cdot \frac{1}{s} \Omega_m(s) \addunit{1}
 	\end{flalign}
 \end{subequations}
 
 The transfer function from the motor's angle velocity to the angle of the arm is:
 \begin{equation}\label{eq:thetaOmega}
-	\frac{\Theta_a(s)}{\Omega_m(s)} =  \frac{N^3}{s}
+	\frac{\Theta_a(s)}{\Omega_m(s)} =  \frac{N^3}{s} \addunit{1}
 \end{equation}
 
 \subsection{Linear Model}
@@ -78,7 +78,7 @@ It can be seen from \autoref{eq:DCMotorTFWithLoad}, that in order to linearize $
 As said in \autoref{sec:ModGearSys} $\tau_l(s)$ is the torque of the load. In the inverted pendulum case the load is composed of the friction and the torque necessary to counter the gravity which result in \autoref{eq:TauL}.
 
 \begin{equation}\label{eq:TauL}
-	\tau_l = \tau_{f_{gear}} + \tau_{as}
+	\tau_l = \tau_{f_{gear}} + \tau_{as} \addunit{\newton\meter}
 \end{equation}
 
 It is necessary then to derive $\tau_{f_{gear}}$ and $\tau_{as}$ to see if they are requiring linearization.
@@ -90,31 +90,31 @@ The gear train is composed by three identical belt and pulley system. \autoref{f
 Using the previously stated $2^{nd}$ law of motion, the mechanical equation for the motor wheel can be found from \autoref{fig:MotorBodyDiagram}:
 
 \begin{equation}
-    J_m \dot{\omega}_m = \tau_m + F_1r - b_m\omega_m
+    J_m \dot{\omega}_m = \tau_m + F_1r - b_m\omega_m \addunit{\newton\meter}
     \label{eq:MotorfreeBody}
 \end{equation}
 
 For the body diagram for the wheel in \autoref{fig:Belt&Pulley}:
 \begin{equation}
-	J_w\dot{\omega}_w = -F_1R -\tau_L -b_w\omega_w
+	J_w\dot{\omega}_w = -F_1R -\tau_L -b_w\omega_w \addunit{\newton\meter}
 \end{equation}
 
 Looking at the whole gear train, $\tau_{f_{gear}}$ represents the total friction and $\tau_L$ is the opposite of the torque transferred to the next wheel. Which gives for wheels 1, 2 and 3:
 
 \begin{subequations} 
 	\begin{flalign} \label{eq:GiveMeAnOriginalName}
-		&J_{w_1}\dot{\omega}_{w_1} = -F_1R + F_2r -b_{w_1}\omega_{w_1} \\ 
-		&J_{w_2}\dot{\omega}_{w_2} = -F_2R + F_3r -b_{w_2}\omega_{w_2} \\ 
-		&J_{w_3}\dot{\omega}_{w_3} = -F_3R - b_{w_3}\omega_{w_3} 
+		&J_{w_1}\dot{\omega}_{w_1} = -F_1R + F_2r -b_{w_1}\omega_{w_1} \addunit{\newton\meter}\\ 
+		&J_{w_2}\dot{\omega}_{w_2} = -F_2R + F_3r -b_{w_2}\omega_{w_2} \addunit{\newton\meter}\\ 
+		&J_{w_3}\dot{\omega}_{w_3} = -F_3R - b_{w_3}\omega_{w_3} \addunit{\newton\meter}
 	\end{flalign}
 \end{subequations}
 
 Using the relation in \autoref{eq:AngularVelRelation}, the angular velocity of each wheels can be found according to $\omega_m$:
 \begin{subequations} 
 	\begin{flalign}
-		&\omega_{w_1} = N \omega_m \\
-		&\omega_{w_2} = N \omega_{w_1} = N^2 \omega_m \\
-		&\omega_{w_3} = N \omega_{w_2} = N^3 \omega_m
+		&\omega_{w_1} = N \omega_m \addunit{\radian\per\second}\\
+		&\omega_{w_2} = N \omega_{w_1} = N^2 \omega_m \addunit{\radian\per\second}\\
+		&\omega_{w_3} = N \omega_{w_2} = N^3 \omega_m \addunit{\radian\per\second}
 	\end{flalign}
 \end{subequations}
 
@@ -122,9 +122,9 @@ The same equations are valid with angular accelerations.
 Which gives for Equations \ref{eq:GiveMeAnOriginalName}:
 \begin{subequations} 
 	\begin{flalign}  
-		&J_{w_1}N\dot{\omega}_m = -F_1R + F_2r -b_{w_1}N\omega_m \\ 
-		&J_{w_2}N^2\dot{\omega}_m = -F_2R + F_3r -b_{w_2}N^2\omega_m  \\ 
-		&J_{w_3}N^3\dot{\omega}_m = -F_3R - b_{w_3}N^3\omega_m 
+		&J_{w_1}N\dot{\omega}_m = -F_1R + F_2r -b_{w_1}N\omega_m \addunit{\newton\meter}\\ 
+		&J_{w_2}N^2\dot{\omega}_m = -F_2R + F_3r -b_{w_2}N^2\omega_m  \addunit{\newton\meter}\\ 
+		&J_{w_3}N^3\dot{\omega}_m = -F_3R - b_{w_3}N^3\omega_m  \addunit{\newton\meter}
 	\end{flalign}
 \end{subequations}
 
@@ -132,15 +132,15 @@ The total friction torque $\tau_{f_{gear}}$ in the gear train is the torque that
 
 \begin{subequations} \label{eq:findTauf}
 	\begin{flalign}
-		&\omega_m = 0\\
-		&\tau_m \leqslant \tau_{f_{gear}}
+		&\omega_m = \SI{0}{\radian\per\second}\\
+		&\tau_m \leqslant \tau_{f_{gear}} \addunit{\newton\meter}
 	\end{flalign}
 \end{subequations}
 
 To find $\tau_{f_{gear}}$, the special case where $\tau_m = \tau_{f_{gear}}$ is studied. Inserting \autoref{eq:findTauf} into \autoref{eq:MotorfreeBody}:
 
 \begin{equation} 
-		\tau_{f_{gear}} = -F_1 \cdot r
+		\tau_{f_{gear}} = -F_1 \cdot r \addunit{\newton\meter}
 		\label{eq:TaufF1r}
 \end{equation}
 
@@ -148,9 +148,9 @@ $F_1$ needs to be isolated from \autoref{eq:GiveMeAnOriginalName}. Each forces $
 
 \begin{subequations} 
 	\begin{flalign}
-		&F_1 = -\frac{1}{R} (b_{w_1}N\omega_m + J_{w_1}N\dot{\omega}_m - F_2r) 	\label{eq:F1}\\ 
-		&F_2 = -\frac{1}{R} (b_{w_2}N^2\omega_m +  J_{w_2}N^2\dot{\omega}_m - F_3r)	\label{eq:F2}\\
-		&F_3 = -\frac{1}{R} (b_{w_3}N^3\omega_m + J_{w_3}N^3\dot{\omega}_m)			\label{eq:F3}
+		&F_1 = -\frac{1}{R} (b_{w_1}N\omega_m + J_{w_1}N\dot{\omega}_m - F_2r) \addunit{\newton} 	\label{eq:F1}\\ 
+		&F_2 = -\frac{1}{R} (b_{w_2}N^2\omega_m +  J_{w_2}N^2\dot{\omega}_m - F_3r) \addunit{\newton}	\label{eq:F2}\\
+		&F_3 = -\frac{1}{R} (b_{w_3}N^3\omega_m + J_{w_3}N^3\dot{\omega}_m)	\addunit{\newton}		\label{eq:F3}
 	\end{flalign}
 \end{subequations}
 
@@ -159,7 +159,7 @@ Inserting \autoref{eq:F3} in \autoref{eq:F2}, then \autoref{eq:F2} in \autoref{e
 \begin{flalign}
 	F_1 = &-\frac{1}{R} N(b_{w_1}\omega_m + J_{w_1}\dot{\omega}_m \notag \\
 	& +\frac{r}{R} N^2(b_{w_2}\omega_m + J_{w_2}\dot{\omega}_m \notag \\
-	& +\frac{r}{R} N^3(b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m)))
+	& +\frac{r}{R} N^3(b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m))) \addunit{\newton}
 \end{flalign}
 
 
@@ -167,7 +167,7 @@ Using \autoref{eq:TaufF1r} and the gear ratio in \autoref{eq:GearRatio}, the tot
 \begin{align} \label{eq:TaufTimeDomain}
 	\tau_{f_{gear}} =&\ N^2 (b_{w_1}\omega_m + J_{w_1}\dot{\omega}_m \notag \\
 	& +N^3 (b_{w_2}\omega_m + J_{w_2}\dot{\omega}_m \notag \\
-	& +N^4 (b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m)))
+	& +N^4 (b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m))) \addunit{\newton\meter}
 \end{align}
 
 
@@ -176,13 +176,13 @@ Using \autoref{eq:TaufF1r} and the gear ratio in \autoref{eq:GearRatio}, the tot
 \begin{flalign} \label{eq:TaufLaplaceDomain}
 	\mathcal{L}\{\tau_{f_{gear}}(t)\} = \tau_{f_{gear}}(s) = &\ N^2 (B_{w_1}\Omega_m + sJ_{w_1}\Omega_m \notag \\
 	& +N^3 (B_{w_2}\Omega_m + sJ_{w_2}\Omega_m \notag \\
-	& +N^4 (B_{w_3}\Omega_m + sJ_{w_3}\Omega_m)))
+	& +N^4 (B_{w_3}\Omega_m + sJ_{w_3}\Omega_m))) \addunit{1}
 \end{flalign}
 
 
 \autoref{eq:TaufLaplaceDomain} is reorganized to find the final expression for $\tau_{f_{gear}}$ in \autoref{eq:TaufReorganized}:
 \begin{equation}
-	\tau_{f_{gear}} = \left[(N^2 J_1 + N^3 J_2 + N^4 J_3)s +( N^2 B_1 + N^3 B_2 + N^4 B_3)\right]\Omega_m
+	\tau_{f_{gear}} = \left[(N^2 J_1 + N^3 J_2 + N^4 J_3)s +( N^2 B_1 + N^3 B_2 + N^4 B_3)\right]\Omega_m \addunit{1}
 	\label{eq:TaufReorganized}
 \end{equation}
 
@@ -201,7 +201,7 @@ Using \autoref{eq:TaufF1r} and the gear ratio in \autoref{eq:GearRatio}, the tot
 $\tau_{as}$ is the torque necessary for the motor to counter the load applied by the arm and the stick. It can be divided into two parts as in \autoref{eq:TauasBegin}.
 
 \begin{equation}\label{eq:TauasBegin}
-	\tau_{as=\tau_a+\tau_s} \addunit{\newton\meter}
+	\tau_{as}=\tau_a+\tau_s \addunit{\newton\meter}
 \end{equation}
 \startexplain
 \explain{$\tau_a$ is the load of the arm}{\si{\newton\meter}}
@@ -238,7 +238,7 @@ $\tau_s$ is the load of the stick. It is also composed of two torques in the sam
 	\begin{flalign}
 		\tau_s&=-\tau_{s_{gravity}}+\tau_{s_{momentum}} \addunit{\newton\meter}\\
 		\tau_{s_{gravity}}&=M_s g l_a\frac{l_s}{2} sin(\Theta_s) \addunit{\newton\meter}\\
-		\tau_{s_{momentum}}&=J_s\cdot \Theta_s\label{eq:TausMomentum}
+		\tau_{s_{momentum}}&=J_s\cdot \Theta_s\addunit{\newton\meter}\label{eq:TausMomentum}
 	\end{flalign}
 \end{subequations}
 
