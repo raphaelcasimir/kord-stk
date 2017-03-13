@@ -78,14 +78,33 @@ It can be seen from \autoref{eq:DCMotorTFWithLoad}, that in order to linearize $
 As said in \autoref{sec:ModGearSys} $\tau_l(s)$ is the torque of the load. In the inverted pendulum case the load is composed of the friction and the torque necessary to counter the gravity which result in \autoref{eq:TauL}.
 
 \begin{equation}\label{eq:TauL}
-	\tau_l = \tau_f + \tau_{as}
+	\tau_l = \tau_{f_{gear}} + \tau_{as}
 \end{equation}
 
-It is necessary then to derive $\tau_f$ and $\tau_{as}$ to see if they are requiring linearization.
+It is necessary then to derive $\tau_{f_{gear}}$ and $\tau_{as}$ to see if they are requiring linearization.
 
-\subsubsection*{Determining $\tau_{f}$}
-The gear train is composed by three identical belts and pulley system. \autoref{fig:Belt&Pulley} corresponds to the first system between the motor and the first wheel. 
 
+\subsubsection*{Determining $\tau_{f_{gear}}$}
+The gear train is composed by three identical belt and pulley system. \autoref{fig:Belt&Pulley} corresponds to the first system between the motor and the first wheel. 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{figures/FigureIsComing.PNG}
+    \caption{Body diagram of a belt and pulley system}
+    \label{fig:Belt&Pulley}
+\end{figure}
+
+\startexplain
+\explain{$J_m$ is the moment of inertia of the motor}{\si{\kilogram\meter\squared}}
+\explain{$J_w$ is the moment of inertia of the wheel}{\si{\kilogram\meter\squared}}
+\explain{$\omega_m$ is the motor's angular velocity}{\si{\meter\per\second}}
+\explain{$\tau_m$ is the torque of the motor}{\si{\newton\meter}}
+\explain{$F_1$ is the force transferred from the motor to the wheel}{\si{\newton}}
+\explain{$r$ is the radius of the motor's wheel}{\si{\meter}}
+\explain{$R$ is the radius of the wheel}{\si{\meter}}
+\explain{$\tau_{f_{gear}}$ is the torque of the gear train friction}{\si{\newton\meter}}
+\explain{$\tau_L$ is the torque of the wheel's load}{\si{\newton\meter}}
+\explain{$b_w$ is the viscous friction coefficient of the wheel}{\si{\newton\meter\per\radian\per\second}}
+\stopexplain
 
 
 
@@ -108,74 +127,90 @@ For the body diagram for the wheel in \autoref{fig:BodyDiagramsMotorWheel}:
 	J_w\dot{\omega}_w = -F_1R -\tau_L -b_w\omega_w
 \end{equation}
 
-Looking at the whole gear train, $\tau_f$ represents the total friction and $\tau_L$ is the inverse of the torque transferred to the next wheel. Which gives for wheels 1, 2 and 3:
-\todo[inline,author=Geoff]{Explain better why $\tau_L = -F_2r$}
+Looking at the whole gear train, $\tau_{f_{gear}}$ represents the total friction and $\tau_L$ is the opposite of the torque transferred to the next wheel. Which gives for wheels 1, 2 and 3:
+
 \begin{subequations} 
-	\begin{flalign}
-		&J_{w_1}\dot{\omega}_{w_1} = -F_1R + F_2r -b_{w_1}\omega_{w_1} \\ \label{eq:GiveMeAnOriginalName}
-		&J_{w_2}\dot{\omega}_{w_2} = -F_2R + F_3r -b_{w_2}\omega_{w_2} \\
-		&J_{w_3}\dot{\omega}_{w_3} = -F_3R - b_{w_3}\omega_{w_3}
+	\begin{flalign} \label{eq:GiveMeAnOriginalName}
+		&J_{w_1}\dot{\omega}_{w_1} = -F_1R + F_2r -b_{w_1}\omega_{w_1} \\ 
+		&J_{w_2}\dot{\omega}_{w_2} = -F_2R + F_3r -b_{w_2}\omega_{w_2} \\ 
+		&J_{w_3}\dot{\omega}_{w_3} = -F_3R - b_{w_3}\omega_{w_3} 
 	\end{flalign}
 \end{subequations}
 
-The total friction torque $\tau_f$ in the gear train is the torque that needs to be overcome by the torque of the motor in order to make the gear train move. It means that when the gear train is static:
+Using the relation in \autoref{eq:AngularVelRelation}, the angular velocity of each wheels can be found according to $\omega_m$:
+\begin{subequations} 
+	\begin{flalign}
+		&\omega_{w_1} = N \omega_m \\
+		&\omega_{w_2} = N \omega_{w_1} = N^2 \omega_m \\
+		&\omega_{w_3} = N \omega_{w_2} = N^3 \omega_m
+	\end{flalign}
+\end{subequations}
+
+The same equations are valid with angular accelerations.
+Which gives for Equations \ref{eq:GiveMeAnOriginalName}:
+\begin{subequations} 
+	\begin{flalign}  
+		&J_{w_1}N\dot{\omega}_m = -F_1R + F_2r -b_{w_1}N\omega_m \\ 
+		&J_{w_2}N^2\dot{\omega}_m = -F_2R + F_3r -b_{w_2}N^2\omega_m  \\ 
+		&J_{w_3}N^3\dot{\omega}_m = -F_3R - b_{w_3}N^3\omega_m 
+	\end{flalign}
+\end{subequations}
+
+The total friction torque $\tau_{f_{gear}}$ in the gear train is the torque that needs to be overcome by the torque of the motor in order to make the gear train move. It means that when the gear train is static:
 
 \begin{subequations} \label{eq:findTauf}
 	\begin{flalign}
 		&\omega_m = 0\\
-		&\tau_m \leqslant \tau_f
+		&\tau_m \leqslant \tau_{f_{gear}}
 	\end{flalign}
 \end{subequations}
 
-To find $\tau_f$, the special case where $\tau_m = \tau_f$ is studied. Inserting \autoref{eq:findTauf} into \autoref{eq:MotorfreeBody}:
+To find $\tau_{f_{gear}}$, the special case where $\tau_m = \tau_{f_{gear}}$ is studied. Inserting \autoref{eq:findTauf} into \autoref{eq:MotorfreeBody}:
 
 \begin{equation} 
-		\tau_f = F_1 \cdot r
+		\tau_{f_{gear}} = -F_1 \cdot r
 		\label{eq:TaufF1r}
 \end{equation}
 
-$F_1$ needs to be isolated from \autoref{eq:GiveMeAnOriginalName}. Each forces $F_1$, $F_2$ and $F_3$ are then isolated giving: 
+$F_1$ needs to be isolated from \autoref{eq:GiveMeAnOriginalName}. Each forces $F_1$, $F_2$ and $F_3$ are then isolated, giving: 
 
 \begin{subequations} 
 	\begin{flalign}
-		&F_1 = -\frac{1}{R} (b_{w_1}\omega_{w_1} + J_{w_1}\dot{\omega}_{w_1} - F_2r) 	\label{eq:F1}\\ 
-		&F_2 = -\frac{1}{R} (b_{w_2}\omega_{w_2} +  J_{w_2}\dot{\omega}_{w_2} - F_3r)	\label{eq:F2}\\
-		&F_3 = -\frac{1}{R} (b_{w_3}\omega_{w_3} + J_{w_3}\dot{\omega}_{w_3})			\label{eq:F3}
+		&F_1 = -\frac{1}{R} (b_{w_1}N\omega_m + J_{w_1}N\dot{\omega}_m - F_2r) 	\label{eq:F1}\\ 
+		&F_2 = -\frac{1}{R} (b_{w_2}N^2\omega_m +  J_{w_2}N^2\dot{\omega}_m - F_3r)	\label{eq:F2}\\
+		&F_3 = -\frac{1}{R} (b_{w_3}N^3\omega_m + J_{w_3}N^3\dot{\omega}_m)			\label{eq:F3}
 	\end{flalign}
 \end{subequations}
 
 Inserting \autoref{eq:F3} in \autoref{eq:F2}, then \autoref{eq:F2} in \autoref{eq:F1}, the expression of $F_1$ according to the friction and moment of inertia of each wheel is found:
 
-\begin{subequations} 
-	\begin{flalign}
-	F_1 = &-\frac{1}{R} (b_{w_1}\omega_{w_1} + J_{w_1}\dot{\omega}_{w_1} \notag \\
-	& +\frac{r}{R} (b_{w_2}\omega_{w_2} + J_{w_2}\dot{\omega}_{w_2} \notag \\
-	& +\frac{r}{R} (b_{w_3}\omega_{w_3} + J_{w_3}\dot{\omega}_{w_3})))
-	\end{flalign}
-\end{subequations}
+\begin{flalign}
+	F_1 = &-\frac{1}{R} N(b_{w_1}\omega_m + J_{w_1}\dot{\omega}_m \notag \\
+	& +\frac{r}{R} N^2(b_{w_2}\omega_m + J_{w_2}\dot{\omega}_m \notag \\
+	& +\frac{r}{R} N^3(b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m)))
+\end{flalign}
 
 
 Using \autoref{eq:TaufF1r} and the gear ratio in \autoref{eq:GearRatio}, the total friction is given by: 
-\begin{subequations} 
-	\begin{flalign} \label{eq:TaufTimeDomain}
-	\tau_f = &-N (b_{w_1}\omega_{w_1} + J_{w_1}\dot{\omega}_{w_1} \notag \\
-	& +N (b_{w_2}\omega_{w_2} + J_{w_2}\dot{\omega}_{w_2} \notag \\
-	& +N (b_{w_3}\omega_{w_3} + J_{w_3}\dot{\omega}_{w_3})))
-	\end{flalign}
-\end{subequations}
+\begin{align} \label{eq:TaufTimeDomain}
+	\tau_{f_{gear}} =&\ N^2 (b_{w_1}\omega_m + J_{w_1}\dot{\omega}_m \notag \\
+	& +N^3 (b_{w_2}\omega_m + J_{w_2}\dot{\omega}_m \notag \\
+	& +N^4 (b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m)))
+\end{align}
+
 
 \autoref{eq:TaufTimeDomain} is Laplace-transformed:
-\begin{subequations} 
-	\begin{flalign} \label{eq:TaufLaplaceDomain}
-	\mathcal{L}\{\tau_f(t)\} = \tau_f(s) = &-N (B_{w_1}\Omega_{w_1}(s) + sJ_{w_1}\Omega_{w_1}(s) \notag \\
-	& +N (B_{w_2}\Omega_{w_2}(s) + sJ_{w_2}\Omega_{w_2}(s) \notag \\
-	& +N (B_{w_3}\Omega_{w_3}(s) + sJ_{w_3}\Omega_{w_3}(s))))
-	\end{flalign}
-\end{subequations}
 
-\autoref{eq:TaufLaplaceDomain} is reorganized to find \autoref{eq:TaufReorganized}:
+\begin{flalign} \label{eq:TaufLaplaceDomain}
+	\mathcal{L}\{\tau_{f_{gear}}(t)\} = \tau_{f_{gear}}(s) = &\ N^2 (B_{w_1}\Omega_m + sJ_{w_1}\Omega_m \notag \\
+	& +N^3 (B_{w_2}\Omega_m + sJ_{w_2}\Omega_m \notag \\
+	& +N^4 (B_{w_3}\Omega_m + sJ_{w_3}\Omega_m)))
+\end{flalign}
+
+
+\autoref{eq:TaufLaplaceDomain} is reorganized to find the final expression for $\tau_{f_{gear}}$ in \autoref{eq:TaufReorganized}:
 \begin{equation}
-	\tau_f(s) = -(N J_1\Omega_{w_1}(s) + N^2 J_2\Omega_{w_2}(s) + N^3 J_3\Omega_{w_3}(s))s -( N B_1\Omega_{w_1}(s) + N^2 B_2\Omega_{w_2}(s) + N^3 B_3\Omega_{w_3}(s))
+	\tau_{f_{gear}} = \left[(N^2 J_1 + N^3 J_2 + N^4 J_3)s +( N^2 B_1 + N^3 B_2 + N^4 B_3)\right]\Omega_m
 	\label{eq:TaufReorganized}
 \end{equation}
 
