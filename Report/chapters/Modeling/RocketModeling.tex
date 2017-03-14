@@ -35,7 +35,7 @@ Figure of closed loop model of rocket
 
 The input of the closed loop is the gimbal angle (angle difference between actual flight direction and zenith axis). The output is the new gimbal angle. In the inverted pendulum, the input and output are also the angle differences, between the horizontal and the actual axis of the stick. 
 
-By admiting that the inverted pendulum and the rocket processes are similar the equations found in Section 5.2 Modelling of the Arm and Stick can be applied to the rocket, with the rocket body as the stick and the gimbaled thruster as the arm. However the gravity center of the rocket body is not located in its center. Therefore $la$ and $\frac{ls}{2}$ become respectively $lt$, for the thruster, and $lbg$, for the lenght from the bottom of the rocket body to its center of mass. The equations describing the forces, with $a$ for arm and $s$ for stick respectively replaced by $t$ for thruster and $b$ for rocket body, are:
+By admiting that the inverted pendulum and the rocket processes are similar the equations found in Section 5.2 Modelling of the Arm and Stick can be applied to the rocket, with the rocket body as the stick and the gimbaled thruster as the arm. However the gravity center of the rocket body is not located in its center. Therefore $l_{a}$ and $\frac{l_{s}}{2}$ become respectively $l_{t}$, for the thruster, and $l_{bg}$, for the lenght from the bottom of the rocket body to its center of mass. The equations describing the forces, with $a$ for arm and $s$ for stick respectively replaced by $t$ for thruster and $b$ for rocket body, are:
 
 Transfer function as in part "modeling of stick".
 
@@ -46,21 +46,21 @@ The purpose of this section is to have a mathematical model for the different fo
 In this project, the trajectory of the rocket is on the zenith axis, or y axis, which implies the impact of the lift on the rocket is negligible. The sum of the forces applied to the rocket in flight can then be described by equation \eqref{eq:F_total}:
 
 \begin{equation}
-F_total = m*a = F_thrust  F_drag - F_gravity \si{\newton} \label{eq:F_total}
+F_{total} = m*a = F_{thrust} + F_{drag} - F_{gravity} \si{\newton} \label{eq:F_{total}}
 \end{equation}
 \startexplain
-\explain{$F_total$ is the sum of all force}{\si{\newton}}
-\explain{$F_thrust$ is the force created by the gimbaled thruster}{\si{\newton}}
-\explain{$F_drag$ is the drag force on the rocket}{\si{\newton}}
-\explain{$F_gravity$ is the gravity applied on the rocket}{\si{\newton}}
+\explain{$F_{total}$ is the sum of all force}{\si{\newton}}
+\explain{$F_{thrust}$ is the force created by the gimbaled thruster}{\si{\newton}}
+\explain{$F_{drag}$ is the drag force on the rocket}{\si{\newton}}
+\explain{$F_{gravity}$ is the gravity applied on the rocket}{\si{\newton}}
 \stopexplain
 
 The drag force can be expressed by equation \eqref{eq:F_drag}:
 \begin{equation}
-F_drag = \frac{1}{2} \cdot C_d \cdot \rho \cdot A \cdot v^2 \si{\newton} \label{eq:F_drag}
+F_{drag} = \frac{1}{2} \cdot C_{d} \cdot \rho \cdot A \cdot v^2 \si{\newton} \label{eq:F_{drag}}
 \end{equation}
 \startexplain
-\explain{$C_d$ is the coefficient of drag}{\si{1}}
+\explain{$C_{d}$ is the coefficient of drag}{\si{1}}
 \explain{$\rho$ is the air density}{\si{\kilo\gram\per\meter\cubed}}
 \explain{$A$ is the cross sectionnal area of the rocket}{\si{\meter\squared}}
 \explain{$v$ is the velocity of the rocket}{\si{\meter\per\second}}
@@ -68,9 +68,9 @@ F_drag = \frac{1}{2} \cdot C_d \cdot \rho \cdot A \cdot v^2 \si{\newton} \label{
 	
 The coefficient of drag and the cross sectionnal area vary depending on the shape of the rocket. Altitude and humidity in the air can impact the air density. Parasit drag can appear due to the surface material or pressure drag.
 
-The gravity force equation is \eqref{eq:F_gravity}:
+The gravity force equation is \eqref{eq:F_{gravity}}:
 \begin{equation}
-F_gravity = m \cdot g \si{\newton} \label{eq:F_gravity}
+F_{gravity} = m \cdot g \si{\newton} \label{eq:F_{gravity}}
 \end{equation}
 \startexplain
 \explain{$m$ is the mass of the rocket}{\si{\kilo\gram}}
@@ -80,41 +80,41 @@ F_gravity = m \cdot g \si{\newton} \label{eq:F_gravity}
 \stopexplain
 	
 
-The thrust force is \eqref{eq:F_thrust}:
+The thrust force is \eqref{eq:F_{thrust}}:
 \begin{equation}
-F_thrust = v_e \cdot \ddot{m} + A (P_e -P_0) \si{\newton} \label{eq:F_thrust}
+F_{thrust} = v_{e} \cdot \ddot{m} + A (P_{e} -P_{0}) \si{\newton} \label{eq:F_{thrust}}
 \end{equation}
 \startexplain
-\explain{$v_e$ is the velocity of the gimbaled thruster}{\si{\meter\per\second}}
+\explain{$v_{e}$ is the velocity of the gimbaled thruster}{\si{\meter\per\second}}
 \explain{$\ddot{m}$ is the mass flow rate}{\si{\kilo\gram\per\second}}
 \explain{$A$ is the nozzle exit area}{\si{\meter\squared}}
-\explain{$P_e$ is the pressure of the nozzle exit}{\si{\kilo\gram\per\meter\per\second\squared}}
-\explain{$P_o$ is the free stream pressure}{\si{\kilo\gram\per\meter\per\second\squared}}
+\explain{$P_{e}$ is the pressure of the nozzle exit}{\si{\kilo\gram\per\meter\per\second\squared}}
+\explain{$P_{0}$ is the free stream pressure}{\si{\kilo\gram\per\meter\per\second\squared}}
 \stopexplain
 
 
-The thruster pression and velocity is divided into two equation, respectively ahead and behind the propeller nozzle: $P_o$ \eqref{eq:P_o} and $P_e$ \eqref{eq:P_e}.
+The thruster pression and velocity is divided into two equation, respectively ahead and behind the propeller nozzle: $P_{o}$ \eqref{eq:P_{o}} and $P_{e}$ \eqref{eq:P_{e}}.
 
 \begin{equation}
-P_0 = p_0 + 0.5 \cdot \rho \cdot(v_o)^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_o}
+P_{0} = p_{0} + 0.5 \cdot \rho \cdot(v_{o})^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_{o}}
 \end{equation}
 \startexplain
-\explain{$p_o$ is the static pressure}{\si{\kilo\gram\per\meter\per\second\squared}}
-\explain{$v_o$ is the velocity of the rocket}{\si{\meter\per\second}}
+\explain{$p_{o}$ is the static pressure}{\si{\kilo\gram\per\meter\per\second\squared}}
+\explain{$v_{o}$ is the velocity of the rocket}{\si{\meter\per\second}}
 \stopexplain
 
 \begin{equation}
-P_e = p_o + 0.5 \cdot \rho \cdot(v_e)^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_e}
+P_{e} = p_{o} + 0.5 \cdot \rho \cdot(v_{e})^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_{e}}
 \end{equation}
 \startexplain
-\explain{$v_e$ is the exit velocity of the gimbaled thruster}{\si{\meter\per\second}}
+\explain{$v_{e}$ is the exit velocity of the gimbaled thruster}{\si{\meter\per\second}}
 \stopexplain
 
 Therefore, there is three different cases of truster pression:
 \begin{equation}
-P_e = P_a
-P_e > P_a
-P_e < P_a
+P_{e} = P_{a}
+P_{e} > P_{a}
+P_{e} < P_{a}
 \end{equation}
  insert sketch of the different cases
 

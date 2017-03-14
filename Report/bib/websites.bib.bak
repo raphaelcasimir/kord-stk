@@ -15,25 +15,13 @@
   Url                      = {https://spaceflightsystems.grc.nasa.gov/education/rocket/rktstabc.html}
 }
 
-@Misc{web:PWMfreq,
-  Title                    = {Speed Controllers},
-
-  Author                   = {Paul Hills},
-  Year                     = {2005},
-
-  Lastupdate               = {5 Ocotober 2005},
-  Lastvisit                = {20 December 2016},
-  Timestamp                = {2017.02.16},
-  Url                      = {http://homepages.which.net/~paul.hills/SpeedControl/SpeedControllersBody.html}
-}
-
 @Misc{web:RocketStructure,
   Title                    = {Rocket Structure},
 
   Author                   = {NASA},
   Year                     = {2015},
 
-  Lastupdate               = {5 Ocotober 2005},
+  Lastupdate               = {22 Ocotober 2015},
   Lastvisit                = {20 December 2016},
   Owner                    = {Mathias},
   Timestamp                = {2017.02.13},

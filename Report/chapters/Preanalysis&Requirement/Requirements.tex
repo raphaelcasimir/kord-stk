@@ -16,22 +16,24 @@ The controller requirements will be approximated based on speed, precision and s
 Each parameter would affect each other, and therefore a discussion of the best combination of them will be considered.
 
 \subsection{Requirements for the Inverted Pendulum}
-The requirements is based on figure \ref{fig:InvertedPendulumSetUp} where the angle relations and positions is described between the arm and stick.
+The requirements is based on figure \ref{fig:InvertedPendulumSetUp} and the modeling behind where the angle relations and positions is described between the gears, arm and stick. 
 
- 
-Physical requirements:
+\setlength{\parindent}{0pt}
+\newcommand{\forceindent}{\leavevmode{\parindent=1em\indent}}
 
-
-The control position of the arm must not exceed $\pm$ 45$^{\circ}$. \todo{Maybe less is better, so that it isn't to different from rocket.}
-
-
-Deviation from the upright position of the stick must not exceed $\pm$ 5 $^{\circ}$ when considered balanced.\todo{Might be changed based on resolution and precision of potentiometer}
+\subsubsection*{1. The control position of the arm must not exceed $\pm$ $\dfrac{\pi}{4}$ radians from the initial position.}
+\forceindent A choice made to limit the arms movements when balancing the stick.
 
 
-The system should be able to regain balance if an angle impulse of 10 $^{\circ}$ is applied, in form of a push on the stick.\todo{}  
+\subsubsection*{2. The control position of the stick must not exceed $\pm$ $\dfrac{\pi}{18}$ radians from the initial position.}
+\forceindent An assumption made to simplify and limit the sticks movement, which would relate it to the control of a rocket.
+\todo{Changed based on test results.}
+\subsubsection*{3. Deviation from the upright position of the stick must not exceed $\pm$  $\dfrac{\pi}{90}$ radians when considered balanced.}
+\forceindent A choice made to ensure stability and avoid oscillation around the equilibrium position.
+\todo{Might be changed based on resolution and precision of potentiometer}
 
-
-The arms recovery angle of the stick, when dropped from upwards position, should be minimum $\pm$15 $^{\circ}$ \todo{Probably not necessary to consider.}
+\subsubsection*{4. The system should be able to regain balance if an impulse of $\dfrac{\pi}{18}$ radians is applied, in form of a push on the stick.} 
+\forceindent If an impulse from the external disturbance is acting on the stick then the control should be able to counteract and force the stick back into equilibrium position. 
 
 
 Control requirements:
@@ -39,7 +41,7 @@ Control requirements:
 
 
 \subsection{Requirements for the Rocket}
-Based on the capability 
+Some limits has to be set based on the capability of building and using a rocket.  
 The physical dimensions of the rocket can not exceed:
 \begin{table}[htbp]
 \centering
@@ -57,11 +59,13 @@ Weight       & 0.3   & kg
 \end{table}
 
 
-Deviation from the predetermined trajectory of the rocket must not exceed $\pm$10 $^{\circ}$.\todo{Might be changed based on resolution and precision of gyroscope, and quantified.}
+\paragraph{5. Deviation from the rockets initial trajectory must not exceed $\pm$ $\dfrac{\pi}{18}$ radians.} \todo{Might be changed based on resolution and precision of gyroscope}
 
+\forceindent A choice made to limit the movement of the rocket during flight. If the limit is exceeded the rocket controller will not guarantee stability, but might stabilize the rocket none the less.      
 
-The system should be able to regain its stability and direction if an angle impulse of 10 $^{\circ}$ is applied, in form of a external disturbance, on the rocket.  
+\paragraph{6. The system should be able to regain its stability and direction if an external disturbance impulse of $\dfrac{\pi}{36}$ radians is applied on the rocket.}\todo{Maybe a time span?}  
 
+\forceindent  A choice made to ensure flight stability even if the rocket is influenced by a external disturbance.
 
 \section{Acceptance Test Specification}	
 TBD
