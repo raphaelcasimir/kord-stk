@@ -11,11 +11,11 @@ The arm and stick is elements that always appears in the double inverted pendulu
 \hline
 Piece           & Parameter & Value & Unit \\ \hline
 Stick$_{long}$  & Length    & 0.8   & [m]    \\
-Stick$_{long}$  & Weight    & 0.344 & [kg]    \\ \hline
+Stick$_{long}$  & Weight    & 0.344 & [kg]    \\ 
 Stick$_{short}$ & Length    & 0.4   & [m]    \\
-Stick$_{short}$ & Weight    & 0.170 & [kg]    \\ \hline
+Stick$_{short}$ & Weight    & 0.170 & [kg]    \\ 
 Arm             & Length    & 0.33  & [m]    \\
-Arm             & Weight    & 288   & [kg]   \\ \hline
+Arm             & Weight    & 288   & [kg]   \\ 
 \end{tabular}
 \caption{Physical parameters of the arm and sticks.}
 \label{DimensionsStick}
@@ -30,19 +30,41 @@ A necessary feedback is the angle between the stick and arm, to know if control 
 	\includegraphics[width=0.35\linewidth]{figures/"Preanalysis&Requirement"/invertedPendulumWithPotmeter.PNG}
 	\caption{Diagram of the arm and stick with illustrated sensors.} \label{fig:InvertedPendulumSetUpPotmeter}
 \end{figure}
-\newline
+
+\todo{Input output of the system}
 
 
 \subsubsection{DC Motor}
-Alsthom BBC MODEL: F9M2 AAU:08339
-\ref{appendix:DCMotorInductance}
+To drive the system is a Axem servo motor model F9M2 is attached to the gears. To ensure control precision, the integrated tachometer of the motor is used as feedback. This is done so that it is possible to see the velocity and direction of the motor and relate it to the position of the arm.
 
-The third feedback implemented is the velocity of the motor. The motor given  
+\begin{figure} [htbp]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/modeling/DCMotorRelation.pdf}
+	\caption{Input/output relation of the motor.} \label{fig:DCMotorRelation}
+\end{figure}
+
+
+
 
 \subsubsection{Gear System}
-Gear teeth big: 40
-Gear teeth small: 12
-Belt length: 60 cm
-Wheel diameter big: 12 cm
-Wheel diameter small: 4 cm
+Inbetween the DC motor and arm is the gear system. The goal of the gear system is to reduce the ratio between the rotation of the motor versus the arm. The gear system is series of the same size small and big gear connected with belts. The setup is seen cf. figure \ref{fig:InvertedPendulumSetUp}, where the number of gear is illustrated. The parameters of the gear system is listed cf. table \ref{GearSystemParameters}.   
 
+\begin{table}[htbp]
+\centering
+\begin{tabular}{llll}
+\hline
+Piece & Parameter & Value & Unit \\ \hline
+Gear$_{big}$ & Teeth & 40 & {[}1{]} \\
+Gear$_{big}$ & Diameter & 0.12 & {[}m{]} \\
+Gear$_{small}$ & Teeth & 12 & {[}1{]} \\
+Gear$_{small}$ & Diameter & 0.04 & {[}m{]} \\
+Belt & Length & 0.6 & {[}m{]}
+\end{tabular}
+\caption{Parameters of gear system.}
+\label{GearSystemParameters}
+\end{table}
+
+\todo{Input output of this system}
+
+
+The basics of each system in the Inverted Pendulum is now described with its specifications, and the dynamics of the system can therefore be modelled.
