@@ -2,6 +2,18 @@
 The following section describes the hardware connected to the inverted pendulum setup illustrated cf. figure \ref{fig:InvertedPendulumSetUp}.
 Each part will be described with its specifications and use in the setup.
 
+\begin{figure} [htbp]
+\hspace*{-3.5cm}  
+	\centering
+	\includegraphics[width=0.95\paperwidth]{figures/modeling/InputOutputSystem.png}
+	\caption{Input/output relation of the system.} \label{fig:DCMotorRelation}
+\end{figure}
+
+\startexplain
+	\explain{$U_m$ is the motor input voltage}{\si{V}}
+\stopexplain
+
+
 \subsubsection{Stick and Arm}
 The arm and stick is elements that always appears in the double inverted pendulum setup. The goal is for the arm to apply force on their common joint, which would affect the position of the stick. The physical parameters for the stick and arm is listed cf. table \ref{DimensionsStick}.
 
@@ -31,20 +43,12 @@ A necessary feedback is the angle between the stick and arm, to know if control 
 	\caption{Diagram of the arm and stick with illustrated sensors.} \label{fig:InvertedPendulumSetUpPotmeter}
 \end{figure}
 
-\todo{Input output of the system}
 
 
 \subsubsection{DC Motor}
 To drive the system is a Axem servo motor model F9M2 is attached to the gears. To ensure control precision, the integrated tachometer of the motor is used as feedback. This is done so that it is possible to see the velocity and direction of the motor and relate it to the position of the arm.
 
-\begin{figure} [htbp]
-	\centering
-	\includegraphics[width=0.7\linewidth]{figures/modeling/DCMotorRelation.pdf}
-	\caption{Input/output relation of the motor.} \label{fig:DCMotorRelation}
-\end{figure}
-
-
-
+	
 
 \subsubsection{Gear System}
 Inbetween the DC motor and arm is the gear system. The goal of the gear system is to reduce the ratio between the rotation of the motor versus the arm. The gear system is series of the same size small and big gear connected with belts. The setup is seen cf. figure \ref{fig:InvertedPendulumSetUp}, where the number of gear is illustrated. The parameters of the gear system is listed cf. table \ref{GearSystemParameters}.   
@@ -63,8 +67,5 @@ Belt & Length & 0.6 & {[}m{]}
 \caption{Parameters of gear system.}
 \label{GearSystemParameters}
 \end{table}
-
-\todo{Input output of this system}
-
 
 The basics of each system in the Inverted Pendulum is now described with its specifications, and the dynamics of the system can therefore be modelled.

@@ -142,7 +142,6 @@ The forces $F_x$ and $F_y$ can be decomposed into perpendicular and parallel for
 The rotary force of the stick is described by \autoref{eq:JsLong}.
 \begin{subequations}
 \begin{flalign}
-J_s\ddot{\theta}_s&=\frac{l_s}{2}F_p-b_{as}\dot{\theta}_{as} \\ 
  J_s\ddot{\theta}_s &=\frac{l_s}{2}\left(F_x\cos(\theta_s)+F_y\sin(\theta_s)\right)-b_{as}\dot{\theta}_{as}  \\
  J_s\ddot{\theta}_s = \frac{l_s}{2}M_s \Big( &-l_a\ddot{\theta}_a\left(\cos(\theta_a)\cos(\theta_s)+\sin(\theta_a)\sin(\theta_s)\right) \notag \\
 & +l_a\dot{\theta}_a^2\left(\sin(\theta_a)\cos(\theta_s)-\cos(\theta_a)\sin(\theta_s)\right) \notag \\
@@ -151,10 +150,6 @@ J_s\ddot{\theta}_s&=\frac{l_s}{2}F_p-b_{as}\dot{\theta}_{as} \\
 & +g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as} \label{eq:JsLong}
 \end{flalign}
 \end{subequations}
-\startexplain 
-  \explain{$b_{as}$ is the viscous friction coefficient between the arm and the stick}{\si{\newton\meter\second}} 
-  \explain{$\dot{\theta}_{as}$ is the difference in angular velocity between the arm and the stick ($\dot{\theta}_s-\dot{\theta}_a$)}{\si{\radian\per\second}} 
-\stopexplain 
 
 Using the trigonometric properties in \autoref{eq:trigprop}, \autoref{eq:JsLong} is reduced to \autoref{eq:JsShort}.
 \begin{subequations} \label{eq:trigprop}
@@ -223,12 +218,10 @@ Inserting the linearized terms in \autoref{eq:JsShort} and using the moment of i
 The linearized model is now Laplace transformed in \autoref{eq:tfArmStick} in order to find the transfer function.
 \begin{subequations}
 \begin{flalign}
-& s^2\Theta_s(s)=\frac{3}{2l_s}\left(-s^2l_a\Theta_a(s)+g\Theta_s(s)\right)-s\frac{3b_{as}}{M_sl_s^2}\Theta_s(s)+s\frac{3b_{as}}{M_sl_s^2}\Theta_a(s)  \\ 
-& \Theta_s(s)\left(s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}\right)=\Theta_a(s)\left(-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s\right)  \\ 
-& \frac{\Theta_s(s)}{\Theta_a(s)}=-\frac{\frac{3l_a}{2l_s}s^2-\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}} \label{eq:tfArmStick} 
-\end{flalign} 
+& s^2\Theta_s=\frac{3}{2l_s}\left(-s^2l_a\Theta_a+g\Theta_s\right)-s\frac{3b_{as}}{M_sl_s^2}\Theta_s+s\frac{3b_{as}}{M_sl_s^2}\Theta_a  \\
+& \Theta_s\left(s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}\right)=\Theta_a\left(-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s\right)  \\
+& \frac{\Theta_s}{\Theta_a}=-\frac{\frac{3l_a}{2l_s}s^2-\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}} \label{eq:tfArmStick}
+\end{flalign}
 \end{subequations}
-
-\todo[inline]{Explain how the zeros and poles relate to the actual system } 
 
 A linearized model in the Laplace domain for the arm and the stick has been derived and the model for the gears is now derived.
