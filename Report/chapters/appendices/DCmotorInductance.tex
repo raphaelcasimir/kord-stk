@@ -1,6 +1,6 @@
 \graphicspath{{figures/appendix/}}
-\chapter{Test Journal: DC motor Inductance La}\label{appendix:DCMotorInductance}
-\begin{table}[!h]
+\chapter{Test Journal: Gear Train System}\label{appendix:DCMotorInductance}
+\begin{table}[htbp]
 \begin{tabular}{l l}
 \textbf{Test participants:} & Maxime \& Geoffroy  \\
 \textbf{Date:}  & 28/2-2017
@@ -8,9 +8,11 @@
 \end{table}
 
 \section*{Purpose}
-The objective of this test is to determine the internal inductance of the DC motor
-\section*{Test equipment and components}
-\begin{table}[h]
+The objective of this test is to determine all the of the gear train system composed of the DC motor and the gear train.
+\section*{Electronics characteristics}
+
+\subsection{Internal Inductance of the DC Motor $L_a$}
+\begin{table}[htbp]
 	\centering
 	\caption{List of measurement equipment and components}\label{tab_appendix:template}
 
@@ -21,7 +23,7 @@ The objective of this test is to determine the internal inductance of the DC mot
 		DC motor & Alsthom BBC & F9M2& 08339
 	\end{tabularx}
 \end{table}
-\section*{Setup}
+\subsubsection*{Setup}
 \autoref{fig:LaMeasurementSetup} shows a diagram and photo of the measurement set up
 \begin{figure}[htbp]
 	\centering
@@ -36,9 +38,9 @@ The objective of this test is to determine the internal inductance of the DC mot
 	\caption{The measurement setup.} \label{fig:LaMeasurementSetup}   
 \end{figure}
 
-\section*{Method}
+\subsubsection*{Method}
 This test consists of having the motor shaft locked while a step is applied. The voltage of a shunt resistor is then measured by an oscilloscope from which the current is deduced.
-\section*{Raw data}
+\subsubsection*{Raw data}
 \autoref{fig:LaTestCurrentPlot} is plot of the evolution the current of the circuit in respect to time.
 
 \begin{figure}[htbp]
@@ -47,7 +49,7 @@ This test consists of having the motor shaft locked while a step is applied. The
 	\caption{Plot of the current in respect to time}\label{fig:LaTestCurrentPlot}
 \end{figure}
 
-\section*{Data processing}
+\subsubsection*{Data processing}
 When the shaft is locked and a step is applied the DC motor's electric equation can be resumed as in \autoref{eq:LaEquation}.
 \begin{equation}
 	F(s)=\frac{I_a(s)}{U_a(s)}=\frac{\frac{1}{R_a}}{\frac{L_a}{R_a} s+1} \addunit{1}
@@ -76,7 +78,7 @@ f(t)= \frac{1}{R_a} \left(1-e^{-\frac{R_a}{L_a} t}\right) \addunit{1}
 
 \autoref{eq:LaEquationStepTime} means that at $t=\frac{L_a}{R_a}$ the function would give $1-e^{-1}=\SI{63.212055882}{\percent}$ of its settling value. So at \SI{63.212055882}{\percent} of the settling value $t=\frac{L_a}{R_a}$ and since $R_a=\SI{0.43}{\ohm}$ \cite{datasheet:saradc} is known finding $L_a$ becomes trivial.
 
-\section*{Conclusion}
+\subsubsection*{Conclusion}
 
 Since the value of the current at the settling value is \SI{20.471}{\ampere}. Then \autoref{eq:LaEq} gives the value of $L_a$.
 
@@ -88,3 +90,11 @@ Since the value of the current at the settling value is \SI{20.471}{\ampere}. Th
 		&L_a=\SI{817}{\micro\henry}
 	\end{flalign}
 \end{subequations}
+
+\subsection{Internal Resistance of the DC Motor $R_a$}
+
+
+\section{Mechanical Characteristics}
+\subsection{Frictions $B_a$}
+
+\subsection{Moment of Inertia $J_a$}

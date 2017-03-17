@@ -6,8 +6,8 @@ FullFileA = fullfile(PathA,FileA);
 
 
 %% Plotting the current in respect to time
-R= 0.16; %Value of the shunt resistor
-Ra=0.43; %Value of the internal restor of the DC motor
+R= 0.1; %Value of the shunt resistor
+Ra=0.9; %Value of the internal restor of the DC motor
 I=V/R;
 figure
 plot (T, I);
@@ -17,14 +17,14 @@ grid;
 
 
 %% Finding tau
-AfterStep=1.688; %value deduced by the mean of the end values used brushing function of matlab to get the data
-BeforeStep=-0.357100000000000; %value deduced by the mean of the values before the step
+AfterStep=3.9047; %value deduced by the mean of the end values used brushing function of matlab to get the data
+%BeforeStep=-0.357100000000000; %value deduced by the mean of the values before the step
 
-Step=AfterStep-BeforeStep;
+%Step=AfterStep-BeforeStep;
 
 [idx idx]=min(abs(I-AfterStep*0.632));
 
-tau=T(idx)+0.000413;
+tau=T(idx)+2.8;
 
 %% Findind La
 
