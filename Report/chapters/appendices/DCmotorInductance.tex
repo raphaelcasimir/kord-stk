@@ -14,7 +14,7 @@ The objective of this test is to determine all the of the gear train system comp
 \subsection{Internal Inductance of the DC Motor $L_a$}
 \begin{table}[htbp]
 	\centering
-	\caption{List of measurement equipment and components}\label{tab_appendix:template}
+	\caption{List of measurement equipment and components}\label{tab_appendix:LaSetUp}
 
 	\begin{tabularx}{\textwidth}{lXXXX}
 		Name 				& Brand	& Model & AAU-number									\\ \toprule \rowcolor{lightGrey}
@@ -95,7 +95,71 @@ Since the value of the current at the settling value is \SI{20.471}{\ampere}. Th
 
 \subsection{The DC Motor velocity constant $K_e$}
 
+\begin{table}[htbp]
+	\centering
+	\caption{List of measurement equipment and components}\label{tab_appendix:KeSetUp}
+	
+	\begin{tabularx}{\textwidth}{lXXXX}
+		Name 				& Brand	& Model & AAU-number									\\ \toprule \rowcolor{lightGrey}
+		Oscilloscope	& Agilent & 54621D & 33941 	\\
+		Powersupply	& Agilent & E3631A & 78577\\ \rowcolor{lightGrey}
+		DC motor & Alsthom BBC & F9M2& 08339
+	\end{tabularx}
+\end{table}
+
+\subsubsection*{Setup}
+\autoref{fig:KeMeasurementSetup} shows a diagram and photo of the measurement set up
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}{0.50\textwidth}
+		%\includegraphics[width=0.5\textwidth]{}
+		\missingfigure{Diagram of the setup}
+		\caption{Diagram of the setup.} \label{fig:KeMeasurementDiagram}
+	\end{subfigure}
+	\begin{subfigure}{0.40\textwidth}
+		%\includegraphics[width=1\textwidth]{MotorImpedanceTest.jpg}
+		\missingfigure{Picture of the setup}
+		\caption{Picture of the setup.} \label{fig:KeMeasurementPictures}
+	\end{subfigure}
+	\caption{The measurement setup.} \label{fig:KeMeasurementSetup}   
+\end{figure}
+
+\subsubsection*{Method}
+This test consists of having the motor shaft in steady state while the voltage $U$ of the generator, the angular velocity $\omega$ of the shaft and the current $I$.
+
+\subsubsection*{Raw data}
+\autoref{tab:KeTest} has all the measurements done.
+
+
+\subsubsection*{Data processing}
+
+When the shaft is rotating in steady state as shown in \autoref{fig:KeMeasurementDiagram}, \autoref{eq:KeSetUpElec} can be derived.
+\begin{equation}
+U=K_e\omega+R_m I \addunit{V}
+\label{eq:KeSetUpElec}
+\end{equation}
+\startexplain
+\explain{$I$ is the current in the circuit}{\si{\ampere}}
+\explain{$U$ is the generator's voltage}{\si{\volt}}
+\explain{$K_e$ is the velocity constant of the motor}{\si{\volt\per\radian\second}}
+\explain{$R_m$ is the internal resistance of the motor}{\si{\ohm}}
+\stopexplain
+
+From \autoref{eq:KeSetUpElec} \autoref{eq:KeForm} is obtained by isolating $K_e$.
+
+\begin{equation}
+K_e=\frac{U-R_m I}{\omega} \addunit{\volt\per\radian\second}
+\label{eq:KeForm}
+\end{equation}
+
+explain first results are bad so only takes last ones then use average.
+
+\subsubsection*{Conclusion}
+
+compare Ke to mesured with something so can say it is okay
+
 \subsection{The DC Motor torque constant $K_t$}
+
 
 \section{Mechanical Characteristics}
 \subsection{Frictions $B_a$}
