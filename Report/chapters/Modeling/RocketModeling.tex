@@ -287,19 +287,19 @@
 		Inserting the linearized terms in \vref{eq:JrShortRocket} and using the moment of inertia for a rotating stick, $J_r=\frac{1}{12}M_sl_s^2$, the linearized model becomes \eqref{eq:JrFinalRocket}.
 		\begin{subequations}
 			\begin{flalign}
-				& \frac{1}{12}M_bl_b^2\hat{\ddot{\theta}}_b= M_b\left(-l_t\hat{\ddot{\theta}}_t-C_g\hat{\ddot{\theta}}_b\right)-b_{tb}\hat{\dot{\theta}}_{tb}   \\
-				& \frac{1}{12}M_bl_b^2\hat{\ddot{\theta}}_b+\frac{1}{4}M_bl_b^2\hat{\ddot{\theta}}_b=C_gM_b\left(-l_t\hat{\ddot{\theta}}_t\right)-b_{tb}\hat{\dot{\theta}}_{tb}   \\
-				& \frac{1}{3}M_bl_b^2\hat{\ddot{\theta}}_b=C_gM_b\left(-l_t\hat{\ddot{\theta}}_t\right)-b_{tb}\hat{\dot{\theta}}_{tb}  \label{eq:TauSmLin} \\
-				& \hat{\ddot{\theta}}_b=\frac{3}{2l_b}\left(-l_t\hat{\ddot{\theta}}_t\right)-\frac{3b_{tb}\left(\hat{\dot{\theta}}_b-\hat{\dot{\theta}}_t\right)}{M_bl_b^2} \label{eq:JrFinalRocket}
+				& \frac{1}{12}M_bC_g^2\hat{\ddot{\theta}}_b=C_g M_b\left(-l_t\hat{\ddot{\theta}}_t-C_g\hat{\ddot{\theta}}_b\right)-b_{tb}\hat{\dot{\theta}}_{tb}   \\
+				& \frac{1}{12}M_bC_g^2\hat{\ddot{\theta}}_b+M_bC_g^2\hat{\ddot{\theta}}_b=C_gM_b\left(-l_t\hat{\ddot{\theta}}_t\right)-b_{tb}\hat{\dot{\theta}}_{tb}   \\
+				& \frac{13}{12}M_bC_g^2\hat{\ddot{\theta}}_b=C_gM_b\left(-l_t\hat{\ddot{\theta}}_t\right)-b_{tb}\hat{\dot{\theta}}_{tb}  \label{eq:TauSmLin} \\
+				& \hat{\ddot{\theta}}_b=\frac{12}{13C_g}\left(-l_t\hat{\ddot{\theta}}_t\right)-\frac{12b_{tb}\left(\hat{\dot{\theta}}_b-\hat{\dot{\theta}}_t\right)}{13M_bC_g^2} \label{eq:JrFinalRocket}
 			\end{flalign}
 		\end{subequations}
 		
 		The linearized model is now Laplace transformed in \vref{eq:tfThrusterRocket} in order to find the transfer function.
 		\begin{subequations}
 			\begin{flalign}
-				& s^2\Theta_b=\frac{3}{2l_b}\left(-s^2l_t\Theta_t\right)-s\frac{3b_{tb}}{M_bl_b^2}\Theta_b+s\frac{3b_{tb}}{M_bl_b^2}\Theta_t  \\
-				& \Theta_b\left(s^2+\frac{3b_{tb}}{M_bl_b^2}s\right)=\Theta_t\left(-\frac{3l_t}{2l_b}s^2+\frac{3b_{tb}}{M_bl_b^2}s\right)  \\
-				& \frac{\Theta_b}{\Theta_t}=-\frac{\frac{3l_t}{2l_b}s^2-\frac{3b_{tb}}{M_bl_b^2}s}{s^2+\frac{3b_{tb}}{M_bl_b^2}s} \label{eq:tfThrusterRocket}
+				& s^2\Theta_b=\frac{12}{13C_g}\left(-s^2l_t\Theta_t\right)-s\frac{12b_{tb}}{13M_bC_g^2}\Theta_b+s\frac{12b_{tb}}{13M_bC_g^2}\Theta_t  \\
+				& \Theta_b\left(s^2+\frac{12b_{tb}}{13M_bC_g^2}s\right)=\Theta_t\left(-\frac{12l_t}{13C_g}s^2+\frac{12b_{tb}}{13M_bC_g^2}s\right)  \\
+				& \frac{\Theta_b}{\Theta_t}=-\frac{\frac{12l_t}{13C_g}s^2-\frac{12b_{tb}}{13M_bC_g^2}s}{s^2+\frac{12b_{tb}}{13M_bC_g^2}s} \label{eq:tfThrusterRocket}
 			\end{flalign}
 		\end{subequations}
 		
