@@ -4,7 +4,7 @@ The following chapter describes requirements and specifications that is determin
 As described earlier the goal of both systems is to react to deviations from its stable position. The goal of the rocket is the launch and fly stable and straight versus the inverted pendulum where the goal is to balance the stick in vertical upwards position.  
 
 Both systems will be described with physical and control requirements in separate sections. The physical requirements will be set based on the limits of the models. Where the requirements for the controllers will be set based on the approximations of best possible control parameters for each model.  
-The controller requirements will be approximated based on speed, precision and stability, which means that following control parameters would be set for:
+The controller requirements will be based on speed, precision and stability, which means that control parameters would be set for:
 
 \begin{itemize}[noitemsep]
 \item Settling Time
@@ -14,29 +14,52 @@ The controller requirements will be approximated based on speed, precision and s
 \end{itemize}
 
 Each parameter would affect each other, and therefore a discussion of the best combination of them will be considered.
-
+\newpage
 \subsection{Requirements for the Inverted Pendulum}
 The requirements is based on figure \ref{fig:InvertedPendulumSetUp} and the modeling behind where the angle relations and positions is described between the gears, arm and stick. 
 
 \setlength{\parindent}{0pt}
 \newcommand{\forceindent}{\leavevmode{\parindent=1em\indent}}
 
-\subsubsection*{1. The control position of the arm must not exceed $\pm$ $\dfrac{\pi}{4}$ radians from the initial position.}
+\subsubsection*{1. The control position of the arm must not exceed $\pm$ $\dfrac{\pi}{4}$ radians from the initial position.} 
 \forceindent A choice made to limit the arms movements when balancing the stick.
 
 
-\subsubsection*{2. The control position of the stick must not exceed $\pm$ $\dfrac{\pi}{18}$ radians from the initial position.}
-\forceindent An assumption made to simplify and limit the sticks movement, which would relate it to the control of a rocket.
-\todo{Changed based on test results.}
-\subsubsection*{3. Deviation from the upright position of the stick must not exceed $\pm$  $\dfrac{\pi}{90}$ radians when considered balanced.}
+\subsubsection*{2. The angle of the stick must not exceed $\pm$ $\dfrac{\pi}{18}$ radians from vertical position.}
+\forceindent An assumption made to simplify and limit the sticks movement, which would relate it to the control of a rocket. Assuming that the arm can not move to more than $\dfrac{\pi}{4}$, gives that the overshoot of the arm can be at maximum:
+
+
+\begin{equation}
+\dfrac{\pi}{4}\ -\ \dfrac{\pi}{18}\ = \dfrac{7\pi}{36}
+\end{equation}
+\begin{equation}
+\frac{\dfrac{7\pi}{36}}{\dfrac{\pi}{18}}\ =\ 350\ \% 
+\end{equation}
+
+This only apply when considering the worst case position of the stick when the arm is still in vertical position. This is not relatable considering that the system should be stable and controllable.  The maximum overshoot is limited to a tenth of the sticks anglular position $\dfrac{\pi}{180}$. And may therefore not exceed:
+
+\begin{equation}
+\frac{\dfrac{\pi}{180}}{\dfrac{\pi}{18}}\ =\ 10\ \% 
+\end{equation}
+
+%\dfrac{\dfrac{\pi}{18}}{\dfrac{7\pi}{36}}\ =\ 28.57\ \%
+%\end{equation}
+
+
+\subsubsection*{3. Deviation from the upright position of the stick must not exceed $\pm$ $\dfrac{\pi}{180}$ radians when considered balanced.}
 \forceindent A choice made to ensure stability and avoid oscillation around the equilibrium position.
-\todo{Might be changed based on resolution and precision of potentiometer}
+This means that if the angle is exceeded the controller needs to react.
 
-\subsubsection*{4. The system should be able to regain balance if an impulse of $\dfrac{\pi}{18}$ radians is applied, in form of a push on the stick.} 
-\forceindent If an impulse from the external disturbance is acting on the stick then the control should be able to counteract and force the stick back into equilibrium position. 
+Equally this means that the steady-state error of the system should not be more than:  
 
+\begin{equation}
+\frac{\dfrac{\pi}{180}}{\dfrac{\pi}{18}}\ =\ 10\ \% 
+\end{equation}
 
-Control requirements:
+\todo{Might be changed based on resolution and precision of potentiometer, and might be total bullshit because it is a single input and multiple output system, not sure.}
+
+\subsubsection*{4. The system should be able to regain balance if an impulse of $\dfrac{\pi}{36}$ radians is applied, in form of a push on the stick.} 
+\forceindent If an impulse from the external disturbance is acting on the stick then the control should be able to counteract and force the stick back into equilibrium position.   
 
 
 
@@ -59,13 +82,24 @@ Weight       & 0.3   & [kg]
 \end{table}
 
 
-\paragraph{5. Deviation from the rockets initial trajectory must not exceed $\pm$ $\dfrac{\pi}{18}$ radians.} \todo{Might be changed based on resolution and precision of gyroscope}
+\subsubsection*{5. Deviation from the rockets initial trajectory must not exceed $\pm$ $\dfrac{\pi}{18}$ radians.} \todo{Might be changed based on resolution and precision of gyroscope}
 
 \forceindent A choice made to limit the movement of the rocket during flight. If the limit is exceeded the rocket controller will not guarantee stability, but might stabilize the rocket none the less.      
 
-\paragraph{6. The system should be able to regain its stability and direction if an external disturbance impulse of $\dfrac{\pi}{36}$ radians is applied on the rocket.}\todo{Maybe a time span?}  
+\subsubsection*{6. The system should be able to regain its stability and direction if an external disturbance impulse of $\dfrac{\pi}{36}$ radians is applied on the rocket.} 
 
 \forceindent  A choice made to ensure flight stability even if the rocket is influenced by a external disturbance.
 
 \section{Acceptance Test Specification}	
-TBD
+The following section describes how the requirements can be tested. This verification is made to ensure that the system fulfils the set requirements.
+
+\subsubsection*{Acceptance Test 1.}
+
+\forceindent Verification of requirement 1 will not be proceeded, but simply implemented in the software based on feedback from the arm potentiometer. The software will, if the angle exceeds $\pm$ $\dfrac{\pi}{4}$ radians, set the arm to initial vertical position and no longer react on feedback from the stick, until the stick has been balanced around $\pm$ $\dfrac{\pi}{18}$ radians in at least 5 seconds. The controller will then again react to changes on the stick.    
+
+\subsubsection*{Acceptance Test 2.}
+
+\forceindent Requirement 2 and 3 is tested based on placing the stick and arm in vertical balanced position. The controller is engaged and the system is ran for ten minutes. The feedback data of the sensors will be collected to determine if the sticks angle have exceeded the requirement. As well is the sampled data from the motor used to compare with the position changes of the stick and see if the controller consider the stick balanced when the angle of the stick is within $\pm$ $\dfrac{\pi}{180}$ of 0 radians. 
+
+\subsubsection*{Acceptance Test 3.}
+\forceindent TBD

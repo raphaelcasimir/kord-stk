@@ -16,4 +16,27 @@ By combining \autoref{eq:Omega_m}, \autoref{eq:thetaOmega} and \autoref{eq:tfArm
 \frac{\Theta_s(s)}{U_m(s)}=\frac{K_t}{(J_mL_m)s^2 + (J_mR_m + B_mL_m)s + B_mR_m + K_tK_e}\cdot \frac{N^3}{s} \cdot \frac{-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s+\frac{3g}{2l_s}} \label{eq:CombModel}
 \end{flalign}
 
+The values for each variable for the inverted pendulum is shown in \autoref{tab:IPModelVar}. The friction between the arm and the stick is assumed to be zero as the joint consists of a ball bearing. The other variables are found in \autoref{sec:IPDesc}, \autoref{} and \autoref{}.
+\begin{table}[htbp]
+\centering
+\caption{Parameters for the inverted pendulum.}
+\label{tab:IPModelVar}
+\begin{tabular}{llll}
+\hline
+Variable & Value & Parameter & Unit \\ \hline
+$K_t$ & & Mechanical motor constant & \si{\newton\meter\per\ampere} \\
+$K_e$ & & Electrical motor constant & \si{\volt\per(\radian\per\second)} \\
+$J_m$ & & Moment of inertia & \si{\kilogram\square\meter} \\
+$L_m$ & & Inductance & \si{\henry} \\
+$R_m$ & & Resistance & \si{\ohm} \\
+$B_m$ & & Friction in motor & [$\cdot$] \\
+$N$   & 3.33 & Gear ratio & [$\cdot$] \\
+$l_a$ & 0.33 & Length of arm & \si{\meter} \\
+$l_s$ & 0.4 & Length of stick & \si{\meter} \\
+$M_s$ & 0.17 & Mass of stick & \si{\kilogram} \\
+$b_{as}$ & 0 & Friction between arm and stick & [$\cdot$] \\
+$g$ & 9.8 & Standard gravitational acceleration & \si{\meter\per\square\second} 
+\end{tabular}
+\end{table}
+
 With the mathematical model of the inverted pendulum found a controller for the system can be designed.
