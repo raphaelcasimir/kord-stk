@@ -1,0 +1,19 @@
+\newpage
+\section{Combining the Models for the Inverted Pendulum}\label{sec:CombinedModel}
+With a model for each individual part of the inverted pendulum derived, a combined model for the entire system can be made. This model will have voltage, $U_m(s)$, as input and the angle of the stick, $\Theta_s(s)$, as the output. This is done by multiplying all transfer functions together as seen in \autoref{eq:CombTF}.
+\begin{flalign}
+\frac{\Omega_m(s)}{U_m(s)}\cdot \frac{\Theta_a(s)}{\Omega_m(s)}\cdot \frac{\Theta_s(s)}{\Theta_a(s)}=\frac{\Theta_s(s)}{U_m(s)} \label{eq:CombTF}
+\end{flalign}
+In block form this is simply done by putting each model sequentially after each other as shown in \autoref{fig:CombBlock}.
+\begin{figure}[htbp]
+\centering
+\missingfigure{Block diagram of the model for the inverted pendulum.}
+\label{fig:CombBlock}
+\end{figure}
+
+By combining \autoref{eq:Omega_m}, \autoref{eq:thetaOmega} and \autoref{eq:tfArmStick} the model for the inverted pendulum becomes \autoref{eq:CombModel}.
+\begin{flalign}
+\frac{\Theta_s(s)}{U_m(s)}=\frac{K_t}{(J_mL_m)s^2 + (J_mR_m + B_mL_m)s + B_mR_m + K_tK_e}\cdot \frac{N^3}{s} \cdot \frac{-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s+\frac{3g}{2l_s}} \label{eq:CombModel}
+\end{flalign}
+
+With the mathematical model of the inverted pendulum found a controller for the system can be designed.

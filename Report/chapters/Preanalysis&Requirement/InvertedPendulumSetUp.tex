@@ -46,7 +46,7 @@ The goal of this section is to have a mathematical model for the behavior of the
 \caption{Diagram of the angles and forces acting on the arm and the stick.}
 \label{fig:ArmStick}
 \end{figure}
-
+\todo[inline,author=Jacob]{Add the reactionary forces where arm and stick connects.}
 \startexplain
 	\explain{$F_x$ is the force in the x direction}{\si{\newton}}
 	\explain{$F_y$ is the force in the y direction}{\si{\newton}}
@@ -94,8 +94,8 @@ The forces acting on the stick in the x and y directions are found by \autoref{e
 \begin{subequations}  \label{eq:FxFy}
 \begin{flalign}
 	& F_x=\ddot{x}_sM_s  \\
-	& F_y-gM_s=\ddot{y}_sM_s  \\
-	& F_y=\left(\ddot{y}_s+g\right)M_s
+	& F_y+gM_s=\ddot{y}_sM_s  \\
+	& F_y=\left(\ddot{y}_s-g\right)M_s
 \end{flalign}
 \end{subequations}
 \startexplain
@@ -147,7 +147,7 @@ The rotary force of the stick is described by \autoref{eq:JsLong}.
 & +l_a\dot{\theta}_a^2\left(\sin(\theta_a)\cos(\theta_s)-\cos(\theta_a)\sin(\theta_s)\right) \notag \\
 & -\frac{l_s}{2}\ddot{\theta}_s\left(\cos(\theta_s)\cos(\theta_s)+\sin(\theta_s)\sin(\theta_s)\right) \notag \\
 & +\frac{l_s}{2}\dot{\theta}_s^2\left(\sin(\theta_s)\cos(\theta_s)-\cos(\theta_s)\sin(\theta_s)\right)  \notag \\
-& +g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as} \label{eq:JsLong}
+& -g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as} \label{eq:JsLong}
 \end{flalign}
 \end{subequations}
 
@@ -161,69 +161,35 @@ Using the trigonometric properties in \autoref{eq:trigprop}, \autoref{eq:JsLong}
 \end{subequations}
 \begin{flalign}
 J_s\ddot{\theta}_s = \frac{l_s}{2}M_s \Big( &-l_a\ddot{\theta}_a \cos(\theta_a-\theta_s)+l_a\dot{\theta}_a^2 \sin(\theta_a-\theta_s) \notag \\
-&-\frac{l_s}{2}\ddot{\theta}_s +g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as} \label{eq:JsShort}
+&-\frac{l_s}{2}\ddot{\theta}_s -g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as} \label{eq:JsShort}
 \end{flalign}
 
-This is the nonlinear mathematical model for the system. This will be linearized in order to perform a Laplace transformation. The linearization is made with a 1st order Taylor approximation. The linearization is done at the equilibrium point where the arm is in an upright position i.e. $\theta_s=0$. In the equilibrium point the derivatives of all the inputs and outputs are 0. In this case the inputs and outputs are $\theta_a$ and $\theta_s$ and the operating point is $\bar{\theta}_a=0$ and $\bar{\theta}_s=0$. The nonlinear model is expressed as a function of the inputs and outputs as seen in \autoref{eq:nonlinearmodel}.
-\begin{flalign}\label{eq:nonlinearmodel}
-f\left(\theta_a, \dot{\theta}_a, \ddot{\theta}_a, \theta_s, \ddot{\theta}_s\right)=\frac{l_s}{2}M_s \Big( &-l_a\ddot{\theta}_a \cos(\theta_a-\theta_s)+l_a\dot{\theta}_a^2 \sin(\theta_a-\theta_s) \notag \\
-&-\frac{l_s}{2}\ddot{\theta}_s +g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as}-J_s\ddot{\theta}_s
-\end{flalign}
+This is the nonlinear mathematical model for the system. This will be linearized in order to perform a Laplace transformation. The linearization is found in \autoref{sec:LinearStick}.
 
-Generally all equilibriums can be found by setting \autoref{eq:nonlinearmodel} equal to 0 and the derivatives to 0 and solving for $\theta_a=\bar{\theta}_a$ and $\theta_s=\bar{\theta}_s$. For the pendulum it's easy to see the only two equilibriums are the stick pointing straight up and straight down. 
-
-The 1st order Taylor approximation of an equation with multiple variables is seen in \autoref{eq:1stTaylor}.
+The linearized model is \autoref{eq:LinStick}.
 \begin{flalign}
- f\left(\theta_a, \dot{\theta}_a, \ddot{\theta}_a, \theta_s, \ddot{\theta}_s\right) & \approx f\left(\bar{\theta}_a, 0, 0, \bar{\theta}_s, 0\right) + \left. \frac{\partial f}{\partial \theta_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\theta}_a \notag \\
-& \phantom{=} + \left. \frac{\partial f}{\partial \dot{\theta}_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\dot{\theta}}_a + \left. \frac{\partial f}{\partial \ddot{\theta}_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\ddot{\theta}}_a \notag \\
-& \phantom{=} + \left. \frac{\partial f}{\partial \theta_s}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\theta}_s + \left. \frac{\partial f}{\partial \ddot{\theta}_s}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\ddot{\theta}}_s \label{eq:1stTaylor}
+& J_s\ddot{\theta}_s=\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a-\frac{l_s}{2}\ddot{\theta}_s-g\theta_s\right)-b_{as}\dot{\theta}_{as} \label{eq:LinStick}
 \end{flalign}
-\startexplain
-	\explain{$\bar{\theta}$ denotes the angle in an operating point}{\si{\radian}}
-	\explain{$\hat{\theta}$ denotes the angle of the small signal variances}{\si{\radian}}
-\stopexplain
 
-The 3 terms with sin or cos in \autoref{eq:JsShort} will be approximated individually using \autoref{eq:1stTaylor}, remembering that $\bar{\theta}=\bar{\dot{\theta}}=\bar{\ddot{\theta}}=0$ in the equilibrium.
+Inserting the moment of inertia for a rotating stick, $J_s=\frac{1}{12}M_sl_s^2$, the linearized model becomes \eqref{eq:JsFinal}.
 \begin{subequations}
 \begin{flalign}
- -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right)  \approx & \ 0 + l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a  \notag \\ 
-& -l_a\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\ddot{\theta}}_a - l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s   \\
- -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right) \approx &-l_a\hat{\ddot{\theta}}_a 
-\end{flalign} %\bar{\ddot{\theta}}_s
-\end{subequations}
-\begin{subequations}
-\begin{flalign}
-l_a\dot{\theta}_a^2\sin\left(\theta_a-\theta_s\right)  \approx &\ 0 + l_a\bar{\dot{\theta}}_a^2\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a  \notag \\
-& + 2l_a\bar{\dot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\dot{\theta}}_a-l_a\bar{\dot{\theta}}_a^2\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s   \\
- l_a\dot{\theta}_a^2\sin\left(\bar{\theta}_a-\bar{\theta}_s\right) \approx & \ 0 
-\end{flalign}
-\end{subequations}
-\begin{subequations}
-\begin{flalign}
-& g\sin\left(\theta_s\right) \approx g\sin\left(\bar{\theta}_s\right) +g\cos\left(\bar{\theta}_s\right)\hat{\theta}_s \\
-& g\sin\left(\theta_s\right) \approx g\hat{\theta}_s 
-\end{flalign}
-\end{subequations}
-
-Inserting the linearized terms in \autoref{eq:JsShort} and using the moment of inertia for a rotating stick, $J_s=\frac{1}{12}M_sl_s^2$, the linearized model becomes \eqref{eq:JsFinal}.
-\begin{subequations}
-\begin{flalign}
-& \frac{1}{12}M_sl_s^2\hat{\ddot{\theta}}_s=\frac{l_s}{2}M_s\left(-l_a\hat{\ddot{\theta}}_a-\frac{l_s}{2}\hat{\ddot{\theta}}_s+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as}   \\
-& \frac{1}{12}M_sl_s^2\hat{\ddot{\theta}}_s+\frac{1}{4}M_sl_s^2\hat{\ddot{\theta}}_s=\frac{l_s}{2}M_s\left(-l_a\hat{\ddot{\theta}}_a+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as}   \\
-& \frac{1}{3}M_sl_s^2\hat{\ddot{\theta}}_s=\frac{l_s}{2}M_s\left(-l_a\hat{\ddot{\theta}}_a+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as}  \label{eq:TauSmLin} \\
-& \hat{\ddot{\theta}}_s=\frac{3}{2l_s}\left(-l_a\hat{\ddot{\theta}}_a+g\hat{\theta}_s\right)-\frac{3b_{as}\left(\hat{\dot{\theta}}_s-\hat{\dot{\theta}}_a\right)}{M_sl_s^2} \label{eq:JsFinal}
+& \frac{1}{12}M_sl_s^2\ddot{\theta}_s=\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a-\frac{l_s}{2}\ddot{\theta}_s-g\theta_s\right)-b_{as}\dot{\theta}_{as}   \\
+& \frac{1}{12}M_sl_s^2\ddot{\theta}_s+\frac{1}{4}M_sl_s^2\ddot{\theta}_s=\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a-g\theta_s\right)-b_{as}\dot{\theta}_{as}   \\
+& \frac{1}{3}M_sl_s^2\ddot{\theta}_s=\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a-g\theta_s\right)-b_{as}\dot{\theta}_{as}  \label{eq:TauSmLin} \\
+& \ddot{\theta}_s=\frac{3}{2l_s}\left(-l_a\ddot{\theta}_a-g\theta_s\right)-\frac{3b_{as}\left(\dot{\theta}_s-\dot{\theta}_a\right)}{M_sl_s^2} \label{eq:JsFinal}
 \end{flalign}
 \end{subequations}
 
 The linearized model is now Laplace transformed in \autoref{eq:tfArmStick} in order to find the transfer function.
 \begin{subequations}
 \begin{flalign}
-& s^2\Theta_s=\frac{3}{2l_s}\left(-s^2l_a\Theta_a+g\Theta_s\right)-s\frac{3b_{as}}{M_sl_s^2}\Theta_s+s\frac{3b_{as}}{M_sl_s^2}\Theta_a  \\
-& \Theta_s\left(s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}\right)=\Theta_a\left(-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s\right)  \\
-& \frac{\Theta_s}{\Theta_a}=-\frac{\frac{3l_a}{2l_s}s^2-\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}} \label{eq:tfArmStick}
+& s^2\Theta_s=\frac{3}{2l_s}\left(-s^2l_a\Theta_a -g\Theta_s\right)-s\frac{3b_{as}}{M_sl_s^2}\Theta_s+s\frac{3b_{as}}{M_sl_s^2}\Theta_a  \\
+& \Theta_s\left(s^2+\frac{3b_{as}}{M_sl_s^2}s+\frac{3g}{2l_s}\right)=\Theta_a\left(-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s\right)  \\
+& \frac{\Theta_s}{\Theta_a}=\frac{-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s+\frac{3g}{2l_s}} \label{eq:tfArmStick}
 \end{flalign}
 \end{subequations}
 
 The system has a zero in 0 (two if the friction is considered negligible) which gives a 0 dB DC gain. This makes sense for the pendulum as the pendulum wouldn't move when starting in either equilibrium with initial conditions set to 0. The poles show that the frequency depends only on the gravity and length of the stick which makes perfect sense.
 
-A linearized model in the Laplace domain for the arm and the stick has been derived and the model for the gears is now derived.
+A linearized model in the Laplace domain for the arm and the stick has been derived and the model for the motor and gears is now derived.
