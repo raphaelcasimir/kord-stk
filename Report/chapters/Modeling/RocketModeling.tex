@@ -27,6 +27,26 @@
 				\end{itemize}
 			\end{itemize}
 			
+			Here are some useful physical parameters of the system.
+			
+			\begin{table}[htbp]
+				\centering
+				\begin{tabular}{llll}
+					\hline
+					Piece & Parameter & Value & Unit \\ \hline
+					Rocket$_{overall}$ & Height & 227 & {[}mm{]} \\
+					Rocket$_{overall}$ & Weight & 280 & {[}g{]} \\
+					Interstage & Diameter & 67 & {[}mm{]} \\
+					SRB & length & 70 & {[}mm{]} \\
+					SRB  & Diameter & 18 & {[}mm{]} \\
+					SRB & Thrust & ? & {[}N{]} \\
+					Thrust vectoring system & Max. angle & ? & {[}rad{]}
+				\end{tabular}
+				\caption{Parameters of gear system.}
+				\label{Rocket_measurements}
+			\end{table}
+			
+			
 			
 %				\section{Inverted pendulum and rocket}
 %			The goal of this section is to demonstrate the similarities between the inverted pendulum and the rocket stabilization processes, and to define a mathematical model and control loop of the behavior of the angle of the rocket body and the angle of the thruster.
@@ -58,10 +78,10 @@
 			
 		The purpose of this section is to have a mathematical model for the different forces applied on the rocket in flight. 
 		
-		In this project, the trajectory of the rocket is on the zenith axis, or y axis, which implies the impact of the lift on the rocket is negligible. The sum of the forces applied to the rocket in flight can then be described by equation \eqref{eq:F_total}:
+		In this project, only the upward movement will be studied, as the downward movement does not need control due to a parachute controllling the rocket's fall. The trajectory of the rocket is on the zenith axis, or y axis.   Moreover the upward rocket movement will be at low speed. This implies the impact of the lift on the rocket is negligible. The sum of the forces applied on a rocket in flight can then be described by equation \vref{eq:F_total}:
 		
 		\begin{equation}
-		F_{total} = m*a = F_{thrust} + F_{drag} - F_{gravity} \si{\newton} \label{eq:F_{total}}
+		F_{total} = m*a = F_{thrust} + F_{drag} - F_{gravity} \addunit{\newton} \label{eq:F_{total}}
 		\end{equation}
 		\startexplain
 		\explain{$F_{total}$ is the sum of all force}{\si{\newton}}
@@ -70,7 +90,7 @@
 		\explain{$F_{gravity}$ is the gravity applied on the rocket}{\si{\newton}}
 		\stopexplain
 		
-		The drag force can be expressed by equation \eqref{eq:F_drag}:
+		The drag force can be expressed by equation \vref{eq:F_drag}:
 		\begin{equation}
 		F_{drag} = \frac{1}{2} \cdot C_{d} \cdot \rho \cdot A \cdot v^2 \si{\newton} \label{eq:F_{drag}}
 		\end{equation}
@@ -83,21 +103,19 @@
 			
 		The coefficient of drag and the cross sectionnal area vary depending on the shape of the rocket. Altitude and humidity in the air can impact the air density. Parasit drag can appear due to the surface material or pressure drag.
 		
-		The gravity force equation is \eqref{eq:F_{gravity}}:
+		The gravity force equation is \vref{eq:F_{gravity}}:
 		\begin{equation}
-		F_{gravity} = m \cdot g \si{\newton} \label{eq:F_{gravity}}
+		F_{gravity} = m \cdot g \addunit{\newton} \label{eq:F_{gravity}}
 		\end{equation}
 		\startexplain
 		\explain{$m$ is the mass of the rocket}{\si{\kilo\gram}}
 		\explain{$g$ is the gravitational acceleration}{\si{\meter\per\second\squared}}
-		\explain{$A$ is the cross sectionnal area of the rocket}{\si{\meter\squared}}
-		\explain{$v$ is the velocity of the rocket}{\si{\meter\per\second}}
 		\stopexplain
 			
 		
-		The thrust force is \eqref{eq:F_{thrust}}:
+		The thrust force is \vref{eq:F_{thrust}}:
 		\begin{equation}
-		F_{thrust} = v_{e} \cdot \ddot{m} + A (P_{e} -P_{0}) \si{\newton} \label{eq:F_{thrust}}
+		F_{thrust} = v_{e} \cdot \ddot{m} + A (P_{e} -P_{0}) \addunit{\newton} \label{eq:F_{thrust}}
 		\end{equation}
 		\startexplain
 		\explain{$v_{e}$ is the velocity of the gimbaled thruster}{\si{\meter\per\second}}
@@ -108,10 +126,10 @@
 		\stopexplain
 		
 		
-		The thruster pression and velocity is divided into two equation, respectively ahead and behind the propeller nozzle: $P_{o}$ \eqref{eq:P_{o}} and $P_{e}$ \eqref{eq:P_{e}}.
+		The thruster pression and velocity is divided into two equation, respectively ahead and behind the propeller nozzle: $P_{o}$ \vref{eq:P_{o}} and $P_{e}$ \vref{eq:P_{e}}.
 		
 		\begin{equation}
-		P_{0} = p_{0} + 0.5 \cdot \rho \cdot(v_{o})^2 \si{\kilo\gram\per\meter\per\second\squared} \label{eq:P_{o}}
+		P_{0} = p_{0} + 0.5 \cdot \rho \cdot(v_{o})^2 \addunit{\kilo\gram\per\meter\per\second\squared} \label{eq:P_{o}}
 		\end{equation}
 		\startexplain
 		\explain{$p_{o}$ is the static pressure}{\si{\kilo\gram\per\meter\per\second\squared}}
@@ -127,26 +145,27 @@
 		
 		Therefore, there is three different cases of truster pression:
 		\begin{equation}
-		P_{e} = P_{a}
-		P_{e} > P_{a}
-		P_{e} < P_{a}
+		P_{e} = P_{a} \notag
+		 P_{e} > P_{a} \notag
+		 P_{e} < P_{a} \notag
 		\end{equation}
 		 insert sketch of the different cases
 		 
+		 \section{linearization}
 		
 		\startexplain
 		\explain{$F_x$ is the force in the x direction}{\si{\newton}}
 		\explain{$F_y$ is the force in the y direction}{\si{\newton}}
-		\explain{$x_s$ is the position of the center of mass of the stick in the x direction}{\si{\meter}}
-		\explain{$y_s$ is the position of the center of mass of the stick in the y direction}{\si{\meter}}
+		\explain{$x_b$ is the position of the center of gravity of the rocket in the x direction}{\si{\meter}}
+		\explain{$y_b$ is the position of the center of gravity of the rocket in the y direction}{\si{\meter}}
 		\explain{$l_t$ is the length of the thruster}{\si{\meter}}
 		\explain{$C_g$ is the length between the gimbal and the center of gravity of the rocket}{\si{\meter}}
 		\explain{$\theta_t$ is the angle from the thruster to the y-axis}{\si{\radian}}
 		\explain{$\theta_b$ is the angle from the rocket body to the y-axis}{\si{\radian}}
 		\stopexplain
-		All forces, constants and variables that relates to the arm and stick are denoted by a subscripted $a$ and $s$ respectively. 
+		All forces, constants and variables that relates to the thruster and rocket body are denoted by a subscripted $t$ and $b$ respectively. 
 		
-		The behaviour of the stick can be fully described by three movements; two translatory and one rotary. It can move in the x and y direction and rotate around it's own axis.
+		The behaviour of the rocket can be fully described by three movements; two translatory and one rotary. It can move in the x and y direction and rotate around its own axis.
 		
 		%To find the relation between the angles, the free body diagram of the joint of the arm and stick is made on \autoref{fig:freebodystick}.
 		%\begin{figure}[htbp]
@@ -177,38 +196,39 @@
 		%
 		%The friction is calculated from the difference in angular velocity as the stick could be perfectly upright while the arm moves causing the joint to turn. The angle of the arm is not considered as producing a torque acting on the joint but as part of the force on the stick, $F_p$.
 		
-		The forces acting on the rocket in the x and y directions are found by \autoref{eq:FxFy} using Newton's 2nd law of motion. Unlike in the inverted pendulum, there is no reaction to gravity from the arm, thus gravity doesn't produce any torque.
+		The forces acting on the rocket in the x and y directions are found by \vref{eq:FxFyRocket} using Newton's 2nd law of motion. Unlike in the inverted pendulum, there is no reaction to gravity from the arm, thus gravity does not produce any torque.
 		
-		\begin{subequations}  \label{eq:FxFy}
+		\begin{subequations}  \label{eq:FxFyRocket}
 			\begin{flalign}
-				& F_x=\ddot{x}_sM_s  \\
-				& F_y=\ddot{y}_sM_s  \\
+				& F_x=\ddot{x}_bM_b  \addunit{\newton}\\
+				& F_y=\ddot{y}_bM_b  \addunit{\newton}\\
 			\end{flalign}
 		\end{subequations}
 		\startexplain
-		\explain{$M_s$ is the mass of the stick}{\si{\kilo\gram}}
+		\explain{$M_b$ is the mass of the stick}{\si{\kilo\gram}}
 		\stopexplain
-		The position of the center of mass of the rocket in the x and y direction is found by \autoref{eq:xsys} using geometry.
-		\begin{subequations}\label{eq:xsys} 
+		The position of the center of mass of the rocket in the x and y direction is found by \vref{eq:XbYbRocket} using geometry.
+		\begin{subequations}\label{eq:XbYbRocket} 
 			\begin{flalign}
-				& x_s=l_t\sin (-\theta_t)+C_g \sin (-\theta_b) \\
-				& x_s=-l_t\sin (\theta_t)-C_g \sin (\theta_b) \\
-				& y_s = l_t\cos (-\theta_t)+C_g \cos(-\theta_b) \\
-				& y_s = l_t\cos (\theta_t)+C_g \cos(\theta_b) 
+				& x_b=l_t\sin (-\theta_t)+C_g \sin (-\theta_b) \\
+				& x_b=-l_t\sin (\theta_t)-C_g \sin (\theta_b) \\
+				& y_b = l_t\cos (-\theta_t)+C_g \cos(-\theta_b) \\
+				& y_b = l_t\cos (\theta_t)+C_g \cos(\theta_b) 
 			\end{flalign}
 		\end{subequations}
 		
-		The derivatives of $x_s$ and $y_s$ is found in \autoref{eq:diffxy}.
-		\begin{subequations}\label{eq:diffxy} 
+		The derivatives of $x_b$ and $y_b$ are found in \vref{eq:derXbYbRocket}.
+		\begin{subequations}\label{eq:derXbYbRocket} 
 			\begin{flalign}
-				\hspace{30pt} & \dot{x}_s=-l_t\dot{\theta}_a\cos(\theta_t)-C_g\dot{\theta}_s\cos(\theta_b) & [\si{\meter\per\second}] \\
-				& \ddot{x}_s=-l_t\ddot{\theta}_a\cos(\theta_t)+l_t\dot{\theta}_a^2\sin(\theta_t)-C_g\ddot{\theta}_s\cos(\theta_b)+C_g\dot{\theta}_s^2\sin(\theta_b) & [\si{\meter\per\square\second}] \\
-				& \dot{y}_s=-l_t \dot{\theta}_a\sin(\theta_t)-C_g\dot{\theta}_s\sin(\theta_b) & [\si{\meter\per\second}] \\
-				& \ddot{y}_s=-l_t\ddot{\theta}_a\sin(\theta_t)-l_t\dot{\theta}_a^2\cos(\theta_t)-C_g\ddot{\theta}_s\sin(\theta_b)-C_g\dot{\theta}_s^2\cos(\theta_b) & [\si{\meter\per\square\second}]
+				\hspace{30pt} & \dot{x}_b=-l_t\dot{\theta}_t\cos(\theta_t)-C_g\dot{\theta}_b\cos(\theta_b) & [\si{\meter\per\second}] \\
+				& \ddot{x}_b=-l_t\ddot{\theta}_t\cos(\theta_t)+l_t\dot{\theta}_t^2\sin(\theta_t)-C_g\ddot{\theta}_b\cos(\theta_b)+C_g\dot{\theta}_b^2\sin(\theta_b) & [\si{\meter\per\square\second}] \\
+				& 
+				\dot{y}_b=-l_t \dot{\theta}_t\sin(\theta_t)-C_g\dot{\theta}_b\sin(\theta_b) & [\si{\meter\per\second}] \\
+				& \ddot{y}_b=-l_t\ddot{\theta}_t\sin(\theta_t)-l_t\dot{\theta}_t^2\cos(\theta_t)-C_g\ddot{\theta}_b\sin(\theta_b)-C_g\dot{\theta}_b^2\cos(\theta_b) & [\si{\meter\per\square\second}]
 			\end{flalign}
 		\end{subequations}
 		
-		The forces $F_x$ and $F_y$ can be decomposed into perpendicular and parallel forces at that point. The parallel forces are negligible when assuming the stick is perfectly solid and unable to stretch or compress. The perpendicular forces is found by \autoref{eq:perpFxFy} and are seen on \autoref{fig:ArmStick}.
+		The forces $F_x$ and $F_y$ can be decomposed into perpendicular and parallel forces at that point. The parallel forces are negligible when assuming the rocket is perfectly solid and unable to stretch or compress. The perpendicular forces are found by \vref{eq:perpFxFyRocket} and are seen on (figure to do).
 		
 		%\begin{figure}[htbp]
 		%\centering
@@ -217,7 +237,7 @@
 		%\label{fig:ForcePerp}
 		%\end{figure}
 		
-		\begin{subequations}\label{eq:perpFxFy}
+		\begin{subequations}\label{eq:perpFxFyRocket}
 			\begin{flalign}
 				& F_{px}=F_x\cos(\theta_b) \\
 				& F_{py}=F_y\sin(\theta_b)  \\
@@ -225,18 +245,22 @@
 			\end{flalign}
 		\end{subequations}
 		
-		The rotary force of the stick is described by \autoref{eq:JrLong}.
+		The rotary force of the rocket is described by \vref{eq:JrLongRocket}.
 		\begin{subequations}
 			\begin{flalign}
-				J_r\ddot{\theta}_s &=C_g\left(F_x\cos(\theta_b)+F_y\sin(\theta_b)\right)-b_{as}\dot{\theta}_{as}  \\
-				J_r\ddot{\theta}_s = C_g \cdot M_s \Big( &-l_t\ddot{\theta}_a\left(\cos(\theta_t)\cos(\theta_b)+\sin(\theta_t)\sin(\theta_b)\right) \notag \\
-				& +l_t\dot{\theta}_a^2\left(\sin(\theta_t)\cos(\theta_b)-\cos(\theta_t)\sin(\theta_b)\right) \notag \\
-				& -C_g\ddot{\theta}_s\left(\cos(\theta_b)\cos(\theta_b)+\sin(\theta_b)\sin(\theta_b)\right) \notag \\
-				& +C_g\dot{\theta}_s^2\left(\sin(\theta_b)\cos(\theta_b)-\cos(\theta_b)\sin(\theta_b)\right)  \notag \Big)-b_{as}\dot{\theta}_{as} \label{eq:JrLong}
+				J_r\ddot{\theta}_b &=C_g\left(F_x\cos(\theta_b)+F_y\sin(\theta_b)\right)+b_{tb}\dot{\theta}_{tb}  \\
+				J_r\ddot{\theta}_b = C_g \cdot M_b \Big( &-l_t\ddot{\theta}_t\left(\cos(\theta_t)\cos(\theta_b)+\sin(\theta_t)\sin(\theta_b)\right) \notag \\
+				& +l_t\dot{\theta}_t^2\left(\sin(\theta_t)\cos(\theta_b)-\cos(\theta_t)\sin(\theta_b)\right) \notag \\
+				& -C_g\ddot{\theta}_b\left(\cos(\theta_b)\cos(\theta_b)+\sin(\theta_b)\sin(\theta_b)\right) \notag \\
+				& +C_g\dot{\theta}_b^2\left(\sin(\theta_b)\cos(\theta_b)-\cos(\theta_b)\sin(\theta_b)\right)  \notag \Big)+b_{tb}\dot{\theta}_{tb} \label{eq:JrLongRocket}
 			\end{flalign}
 		\end{subequations}
+		\startexplain
+			\explain{$b_{tb}$ is the friction created by the ambiant air}{\si{\newton\per\meter}}
+			\explain{$J_r$ is the torque applied on the rocket}{\si{\newton\per\meter}}
+		\stopexplain
 		
-		Using the trigonometric properties in \autoref{eq:trigprop}, \autoref{eq:JrLong} is reduced to \autoref{eq:JrShort}.
+		Using the trigonometric properties in \vref{eq:trigprop}, \autoref{eq:JrLongRocket} is reduced to \vref{eq:JrShortRocket}.
 		\begin{subequations} \label{eq:trigprop}
 			\begin{flalign}
 				& \cos(\theta_t)\cos(\theta_b)\pm \sin(\theta_t)\sin(\theta_b)=\cos(\theta_t \mp \theta_b)  \\
@@ -245,65 +269,65 @@
 			\end{flalign}
 		\end{subequations}
 		\begin{flalign}
-			J_r\ddot{\theta}_s = C_gM_s \Big( &-l_t\ddot{\theta}_a \cos(\theta_t-\theta_b)+l_t\dot{\theta}_a^2 \sin(\theta_t-\theta_b) \notag \\
-			&-C_g\ddot{\theta}_s \Big)-b_{as}\dot{\theta}_{as} \label{eq:JrShort}
+			J_r\ddot{\theta}_b = C_gM_b \Big( &-l_t\ddot{\theta}_t \cos(\theta_t-\theta_b)+l_t\dot{\theta}_t^2 \sin(\theta_t-\theta_b) \notag \\
+			&-C_g\ddot{\theta}_b \Big)+b_{tb}\dot{\theta}_{tb} \label{eq:JrShortRocket}
 		\end{flalign}
 		
-		This is the nonlinear mathematical model for the system. This will be linearized in order to perform a Laplace transformation. The linearization is made with a 1st order Taylor approximation. The linearization is done at the equilibrium point where the arm is in an upright position i.e. $\theta_b=0$. In the equilibrium point the derivatives of all the inputs and outputs are 0. In this case the inputs and outputs are $\theta_t$ and $\theta_b$ and the operating point is $\bar{\theta}_a=0$ and $\bar{\theta}_s=0$. The nonlinear model is expressed as a function of the inputs and outputs as seen in \autoref{eq:nonlinearmodel}.
-		\begin{flalign}\label{eq:nonlinearmodel}
-			f\left(\theta_t, \dot{\theta}_a, \ddot{\theta}_a, \theta_b, \ddot{\theta}_s\right)=C_gM_s \Big( &-l_t\ddot{\theta}_a \cos(\theta_t-\theta_b)+l_t\dot{\theta}_a^2 \sin(\theta_t-\theta_b) \notag \\
-			&-C_g\ddot{\theta}_s \Big)-b_{as}\dot{\theta}_{as}-J_r\ddot{\theta}_s
+		This is the nonlinear mathematical model for the system. This will be linearized in order to perform a Laplace transformation. The linearization is made with a 1st order Taylor approximation. The linearization is done at the equilibrium point where the arm is in an upright position i.e. $\theta_b=0$. In the equilibrium point the derivatives of all the inputs and outputs are 0. In this case the inputs and outputs are $\theta_t$ and $\theta_b$ and the operating point is $\bar{\theta}_t=0$ and $\bar{\theta}_b=0$. The nonlinear model is expressed as a function of the inputs and outputs as seen in \vref{eq:nonLinearModelRocket}.
+		\begin{flalign}\label{eq:nonLinearModelRocket}
+			f\left(\theta_t, \dot{\theta}_t, \ddot{\theta}_t, \theta_b, \ddot{\theta}_b\right)=C_gM_b \Big( &-l_t\ddot{\theta}_t \cos(\theta_t-\theta_b)+l_t\dot{\theta}_t^2 \sin(\theta_t-\theta_b) \notag \\
+			&-C_g\ddot{\theta}_b \Big)+b_{tb}\dot{\theta}_{tb}-J_r\ddot{\theta}_b
 		\end{flalign}
 		
-		Generally all equilibriums can be found by setting \autoref{eq:nonlinearmodel} equal to 0 and the derivatives to 0 and solving for $\theta_t=\bar{\theta}_a$ and $\theta_b=\bar{\theta}_s$. For the pendulum it's easy to see the only two equilibriums are the stick pointing straight up and straight down. 
+		Generally all equilibriums can be found by setting \vref{eq:nonLinearModelRocket} equal to 0 and the derivatives to 0, and solving for $\theta_t=\bar{\theta}_t$ and $\theta_b=\bar{\theta}_b$. For the rocket the only two equilibriums are the rocket body pointing straight up and straight down. In this project only the postion with the nose pointing straight up is relevent. 
 		
-		The 1st order Taylor approximation of an equation with multiple variables is seen in \autoref{eq:1stTaylor}.
+		The 1st order Taylor approximation of an equation with multiple variables is seen in \vref{eq:1stTaylor}.
 		\begin{flalign}
-			f\left(\theta_t, \dot{\theta}_a, \ddot{\theta}_a, \theta_b, \ddot{\theta}_s\right) & \approx f\left(\bar{\theta}_a, 0, 0, \bar{\theta}_s, 0\right) + \left. \frac{\partial f}{\partial \theta_t}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\theta}_a \notag \\
-			& \phantom{=} + \left. \frac{\partial f}{\partial \dot{\theta}_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\dot{\theta}}_a + \left. \frac{\partial f}{\partial \ddot{\theta}_a}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\ddot{\theta}}_a \notag \\
-			& \phantom{=} + \left. \frac{\partial f}{\partial \theta_b}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\theta}_s + \left. \frac{\partial f}{\partial \ddot{\theta}_s}\right|_{(\bar{\theta}_a, \bar{\theta}_s)} \hat{\ddot{\theta}}_s \label{eq:1stTaylor}
+			f\left(\theta_t, \dot{\theta}_t, \ddot{\theta}_t, \theta_b, \ddot{\theta}_b\right) & \approx f\left(\bar{\theta}_t, 0, 0, \bar{\theta}_b, 0\right) + \left. \frac{\partial f}{\partial \theta_t}\right|_{(\bar{\theta}_t, \bar{\theta}_b)} \hat{\theta}_t \notag \\
+			& \phantom{=} + \left. \frac{\partial f}{\partial \dot{\theta}_t}\right|_{(\bar{\theta}_t, \bar{\theta}_b)} \hat{\dot{\theta}}_t + \left. \frac{\partial f}{\partial \ddot{\theta}_t}\right|_{(\bar{\theta}_t, \bar{\theta}_b)} \hat{\ddot{\theta}}_t \notag \\
+			& \phantom{=} + \left. \frac{\partial f}{\partial \theta_b}\right|_{(\bar{\theta}_t, \bar{\theta}_b)} \hat{\theta}_b + \left. \frac{\partial f}{\partial \ddot{\theta}_b}\right|_{(\bar{\theta}_t, \bar{\theta}_b)} \hat{\ddot{\theta}}_b \label{eq:1stTaylor}
 		\end{flalign}
 		\startexplain
 		\explain{$\bar{\theta}$ denotes the angle in an operating point}{\si{\radian}}
 		\explain{$\hat{\theta}$ denotes the angle of the small signal variances}{\si{\radian}}
 		\stopexplain
 		
-		The 3 terms with sin or cos in \autoref{eq:JrShort} will be approximated individually using \autoref{eq:1stTaylor}, remembering that $\bar{\theta}=\bar{\dot{\theta}}=\bar{\ddot{\theta}}=0$ in the equilibrium.
+		The three terms with sin or cos in \vref{eq:JrShortRocket} will be approximated individually using \vref{eq:1stTaylor}, remembering that $\bar{\theta}=\bar{\dot{\theta}}=\bar{\ddot{\theta}}=0$ in the equilibrium state.
 		\begin{subequations}
 			\begin{flalign}
-				-l_t\ddot{\theta}_a\cos\left(\theta_t-\theta_b\right)  \approx & \ 0 + l_t\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a  \notag \\ 
-				& -l_t\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\ddot{\theta}}_a - l_t\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s   \\
-				-l_t\ddot{\theta}_a\cos\left(\theta_t-\theta_b\right) \approx &-l_t\hat{\ddot{\theta}}_a 
-			\end{flalign} %\bar{\ddot{\theta}}_s
+				-l_t\ddot{\theta}_t\cos\left(\theta_t-\theta_b\right)  \approx & \ 0 + l_t\bar{\ddot{\theta}}_t\sin\left(\bar{\theta}_t-\bar{\theta}_b\right)\hat{\theta}_t  \notag \\ 
+				& -l_t\cos\left(\bar{\theta}_t-\bar{\theta}_b\right)\hat{\ddot{\theta}}_t - l_t\bar{\ddot{\theta}}_t\sin\left(\bar{\theta}_t-\bar{\theta}_b\right)\hat{\theta}_b   \\
+				-l_t\ddot{\theta}_t\cos\left(\theta_t-\theta_b\right) \approx &-l_t\hat{\ddot{\theta}}_t 
+			\end{flalign} %\bar{\ddot{\theta}}_b
 		\end{subequations}
 		\begin{subequations}
 			\begin{flalign}
-				l_t\dot{\theta}_a^2\sin\left(\theta_t-\theta_b\right)  \approx &\ 0 + l_t\bar{\dot{\theta}}_a^2\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a  \notag \\
-				& + 2l_t\bar{\dot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\dot{\theta}}_a-l_t\bar{\dot{\theta}}_a^2\cos\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_s   \\
-				l_t\dot{\theta}_a^2\sin\left(\bar{\theta}_a-\bar{\theta}_s\right) \approx & \ 0 
+				l_t\dot{\theta}_t^2\sin\left(\theta_t-\theta_b\right)  \approx &\ 0 + l_t\bar{\dot{\theta}}_t^2\cos\left(\bar{\theta}_t-\bar{\theta}_b\right)\hat{\theta}_t  \notag \\
+				& + 2l_t\bar{\dot{\theta}}_t\sin\left(\bar{\theta}_t-\bar{\theta}_b\right)\hat{\dot{\theta}}_t-l_t\bar{\dot{\theta}}_t^2\cos\left(\bar{\theta}_t-\bar{\theta}_b\right)\hat{\theta}_b   \\
+				l_t\dot{\theta}_t^2\sin\left(\bar{\theta}_t-\bar{\theta}_b\right) \approx & \ 0 
 			\end{flalign}
 		\end{subequations}
 		
-		Inserting the linearized terms in \autoref{eq:JrShort} and using the moment of inertia for a rotating stick, $J_r=\frac{1}{12}M_sl_s^2$, the linearized model becomes \eqref{eq:JrFinal}.
+		Inserting the linearized terms in \vref{eq:JrShortRocket} and using the moment of inertia for a rotating stick, $J_r=\frac{1}{12}M_sC_s^2$, the linearized model becomes \eqref{eq:JrFinalRocket}.
 		\begin{subequations}
 			\begin{flalign}
-				& \frac{1}{12}M_sl_s^2\hat{\ddot{\theta}}_s= M_s\left(-l_t\hat{\ddot{\theta}}_a-C_g\hat{\ddot{\theta}}_s+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as}   \\
-				& \frac{1}{12}M_sl_s^2\hat{\ddot{\theta}}_s+\frac{1}{4}M_sl_s^2\hat{\ddot{\theta}}_s=C_gM_s\left(-l_t\hat{\ddot{\theta}}_a+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as}   \\
-				& \frac{1}{3}M_sl_s^2\hat{\ddot{\theta}}_s=C_gM_s\left(-l_t\hat{\ddot{\theta}}_a+g\hat{\theta}_s\right)-b_{as}\hat{\dot{\theta}}_{as}  \label{eq:TauSmLin} \\
-				& \hat{\ddot{\theta}}_s=\frac{3}{2l_s}\left(-l_t\hat{\ddot{\theta}}_a+g\hat{\theta}_s\right)-\frac{3b_{as}\left(\hat{\dot{\theta}}_s-\hat{\dot{\theta}}_a\right)}{M_sl_s^2} \label{eq:JrFinal}
+				& \frac{1}{12}M_bC_g^2\hat{\ddot{\theta}}_b=C_g M_b\left(-l_t\hat{\ddot{\theta}}_t-C_g\hat{\ddot{\theta}}_b\right)+b_{tb}\hat{\dot{\theta}}_{tb}   \\
+				& \frac{1}{12}M_bC_g^2\hat{\ddot{\theta}}_b+M_bC_g^2\hat{\ddot{\theta}}_b=C_gM_b\left(-l_t\hat{\ddot{\theta}}_t\right)+b_{tb}\hat{\dot{\theta}}_{tb}   \\
+				& \frac{13}{12}M_bC_g^2\hat{\ddot{\theta}}_b=C_gM_b\left(-l_t\hat{\ddot{\theta}}_t\right)+b_{tb}\hat{\dot{\theta}}_{tb}  \label{eq:TauSmLin} \\
+				& \hat{\ddot{\theta}}_b=\frac{12}{13C_g}\left(-l_t\hat{\ddot{\theta}}_t\right)+\frac{12b_{tb}\left(\hat{\dot{\theta}}_b-\hat{\dot{\theta}}_t\right)}{13M_bC_g^2} \label{eq:JrFinalRocket}
 			\end{flalign}
 		\end{subequations}
 		
-		The linearized model is now Laplace transformed in \autoref{eq:tfArmStick} in order to find the transfer function.
+		The linearized model is now Laplace transformed in \vref{eq:tfThrusterRocket} in order to find the transfer function.
 		\begin{subequations}
 			\begin{flalign}
-				& s^2\Theta_s=\frac{3}{2l_s}\left(-s^2l_t\Theta_a+g\Theta_s\right)-s\frac{3b_{as}}{M_sl_s^2}\Theta_s+s\frac{3b_{as}}{M_sl_s^2}\Theta_a  \\
-				& \Theta_s\left(s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}\right)=\Theta_a\left(-\frac{3l_t}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s\right)  \\
-				& \frac{\Theta_s}{\Theta_a}=-\frac{\frac{3l_t}{2l_s}s^2-\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}} \label{eq:tfArmStick}
+				& s^2\Theta_b=\frac{12}{13C_g}\left(-s^2l_t\Theta_t\right)+s\frac{12b_{tb}}{13M_bC_g^2}\Theta_b-s\frac{12b_{tb}}{13M_bC_g^2}\Theta_t  \\
+				& \Theta_b\left(s^2-\frac{12b_{tb}}{13M_bC_g^2}s\right)=\Theta_t\left(-\frac{12l_t}{13C_g}s^2-\frac{12b_{tb}}{13M_bC_g^2}s\right)  \\
+				& \frac{\Theta_b}{\Theta_t}=-\frac{\frac{12l_t}{13C_g}s^2+\frac{12b_{tb}}{13M_bC_g^2}s}{s^2-\frac{12b_{tb}}{13M_bC_g^2}s} \label{eq:tfThrusterRocket}
 			\end{flalign}
 		\end{subequations}
 		
-		A linearized model in the Laplace domain for the arm and the stick has been derived and the model for the gears is now derived.
+		A linearized model in the Laplace domain for the thruster and the rocket body has been derived.
 
 
 
