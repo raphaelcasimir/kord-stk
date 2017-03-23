@@ -6,15 +6,40 @@ Considerations about rocket design
 \section{Choice of Components}
 The following sections describes the sensors, motors and thruster chosen for implementation in the rocket. The choice of each will be weighted in consideration to other alternatives.   
 
-As described in section \ref{sec:PRocketAnalysis} the rocket is considered as a system with stability problems. In the inverted pendulum these instabilities is detected trough sampling sensors and corrected trough a DC motor with a control system. The same parameters is considered when controlling the rocket. A form of sensor is needed to detect the orientation and position of the rocket, and a control system is needed to counteract changes from the initial trajectory.
+As described in section \ref{sec:PRocketAnalysis} the rocket is as a system with instability problems. In the inverted pendulum these instabilities is detected trough sampling sensors and corrected trough a DC motor control system. The same parameters is considered when controlling the rocket. A form of sensor is needed to detect the orientation and position of the rocket, and a control system is needed to counteract changes from the initial trajectory.
 
-\subsection{Choice of sensors for rocket}
+\subsection{Choice of Sensors for Rocket}
+Choosing sensors for the rocket will be weighted based on following parameters:
 
-Gyroscope
-Accelerometer
-Barometric pressure and temperature sensor
+\begin{itemize}[noitemsep]
+\item Compatibility.
+\item Sampling speed.
+\item Physical dimensions and weight.
+\end{itemize}
 
-GY-80 board
+Needed is a sensor for measuring:
+\begin{itemize}[noitemsep]
+\item Orientation.
+\item Acceleration.
+\item Temperature and barometric pressure.
+\end{itemize}
+
+Determining the orientation and acceleration of the rocket can be done with different types of sensor. Two commonly used is a gyroscope and a accelerometer. 
+
+
+An accelerometer measures acceleration in one to three axis(x,y,z). The reference for measuring is the gravitational force. A single axis accelerometer can measure the acceleration in the direction it is orientated. And can for example be used to determine the velocity upwards flying rocket. This can as well be used to determine a travelled distance based on knowing the acceleration and time. In the case of flying a rocket a three-axis accelerometer would be the implemented, when considering that the rocket can move both lateral and vertical in its position.  
+
+
+A gyroscope is on the other hand measuring the angular velocity changes in three dimensions. The difference between the accelerometer and gyroscope is that the gyroscope is capable of measuring the rate of rotation around a axis. It does not rely on a fixed reference and is commonly used in applications like drones and other flying objects. In the rocket it can be used to determine the orientation and rotation of the rocket based on measuring the rate of changes in any direction.  
+
+
+Combining these gives a Inertial Measurement Unit(IMU), which is commonly used in model planes and quad-copters. The application of this is to obtain the objects position through measuring velocity, orientation, rotation with the gyroscope and accelerometer. Both types of components measurements is dependent of temperature and barometric pressure so often an IMU includes multiple types of additional sensors. 	  
+
+
+
+GY-80 board 
+
+
 
 Choice of thrusters for rocket
 
