@@ -20,8 +20,9 @@ Each part will be described with its specifications and use in the setup. The in
 \stopexplain
 
 \subsubsection{DC Motor}
-A Axem servo motor model F9M2 is attached to the gears, this is to create a angular velocity in the system. To ensure control precision, the integrated tachometer of the motor is used as feedback. This is done so that it is possible to see the velocity and direction of the motor and relate it to the position of the arm.
+A Axem DC servo motor model F9M2 is attached to the gears, this is to create a angular velocity in the system. To ensure control precision, the integrated tachometer of the motor is used as feedback. This is done so that it is possible to see the velocity and direction of the motor and relate it to the position of the arm. Using the DC motor also means implementing a motor controller. Already implemented in the setup is a Maxon Escon 50/5 Servocontroller, which can be controlled trough PWM. The servocontroller is supplied trough a 230 V regulator that can supply the servocontroller with up to 56 V and 15 A. The regulator in itself will be considered a blackbox, because of user limitations when working with 230 V at the university. The DC motor and servocontroller will in system diagrams be evaluated as one unit, but further considered when implementing a system controller.        
 
+%http://www.maxonmotor.com/maxon/view/product/control/4-Q-Servokontroller/409510
 	
 
 \subsubsection{Gear System}
@@ -70,16 +71,17 @@ A necessary feedback to know is the angle between the stick and arm. This is nee
 	\includegraphics[width=0.35\linewidth]{figures/"Preanalysis&Requirement"/invertedPendulumWithPotmeter.png}
 	\caption{Diagram of the arm and stick with illustrated sensors.} \label{fig:InvertedPendulumSetUpPotmeter}
 \end{figure}
-
-Considering the standard feedback control system 
+\newpage
+The block diagram for the standard feedback control system with the known system plant is seen cf. figure \ref{fig:FeedbackSystem}. 
 
 \begin{figure}[htbp]
+\hspace*{-2.5 cm} 
 	\centering
-	\includegraphics[width=1\linewidth]{figures/modeling/MechanicalSystem}
-	\caption{Standard setup feedback. [KMN, topic 1, 2016]} \label{fig:BasicFeedbackSystem}
+	\includegraphics[width=0.95\paperwidth]{figures/modeling/MechanicalSystem.PNG}
+	\caption{Setup feedback loop.} \label{fig:FeedbackSystem}
 \end{figure}
-
-
+\todo{Might be changed, was not sure how we would handle the feedback of the sensors.}
+\\
 
 The basics of each system in the Inverted Pendulum is now described with its specifications, and the dynamics of the system can therefore be modelled.
 
