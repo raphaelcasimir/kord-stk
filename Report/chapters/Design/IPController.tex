@@ -1,1 +1,22 @@
 \chapter{Design of the Inverted Pendulum Controller}
+The goal of the controller is to balance the stick in an upright position. 
+The system is inherently unstable as is evident by the pole in the right half plane of the pole-zero plot as seen on \autoref{fig:pzip}.
+
+\begin{figure}[htbp]
+\centering
+\missingfigure{}
+\caption{Pole-zero plot for the inverted pendulums transfer function.}
+\label{fig:pzip}
+\end{figure}
+\todo[inline,author=Jacob]{Missing constants from motor test to do plot.}
+
+There's a plethora of different options for the controller to use, the simplest being a proportional controller. A simple way to check whether the proportional controller is feasible is by examining the root locus of the transfer function. The proportional controller isn't feasible as the pole in the right half plane never enters the stable region regardless of the gain value as seen on \autoref{fig:locusIP}.
+
+\begin{figure}[htbp]
+\centering
+\missingfigure{}
+\caption{Root locus of the inverted pendulum.}
+\label{fig:locusIP}
+\end{figure}
+
+
