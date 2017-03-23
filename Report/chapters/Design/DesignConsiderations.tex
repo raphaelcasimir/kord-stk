@@ -4,12 +4,17 @@
 Considerations about rocket design
 
 \section{Choice of Components}
-Choice of sensors for rocket
+The following sections describes the sensors, motors and thruster chosen for implementation in the rocket. The choice of each will be weighted in consideration to other alternatives.   
+
+As described in section \ref{sec:PRocketAnalysis} the rocket is considered as a system with stability problems. In the inverted pendulum these instabilities is detected trough sampling sensors and corrected trough a DC motor with a control system. The same parameters is considered when controlling the rocket. A form of sensor is needed to detect the orientation and position of the rocket, and a control system is needed to counteract changes from the initial trajectory.
+
+\subsection{Choice of sensors for rocket}
 
 Gyroscope
 Accelerometer
 Barometric pressure and temperature sensor
 
+GY-80 board
 
 Choice of thrusters for rocket
 
