@@ -13,7 +13,7 @@ In block form this is simply done by putting each model sequentially after each 
 
 By combining \autoref{eq:Omega_m}, \autoref{eq:thetaOmega} and \autoref{eq:tfArmStick} the model for the inverted pendulum becomes \autoref{eq:CombModel}.
 \begin{flalign}
-\frac{\Theta_s(s)}{U_m(s)}=\frac{K_t}{(J_mL_m)s^2 + (J_mR_m + B_mL_m)s + B_mR_m + K_tK_e}\cdot \frac{N^3}{s} \cdot \frac{-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s+\frac{3g}{2l_s}} \label{eq:CombModel}
+\frac{\Theta_s(s)}{U_m(s)}=\frac{K_t}{(J_mL_m)s^2 + (J_mR_m + B_mL_m)s + B_mR_m + K_tK_e}\cdot \frac{N^3}{s} \cdot \frac{-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}} \label{eq:CombModel}
 \end{flalign}
 
 The values for each variable for the inverted pendulum is shown in \autoref{tab:IPModelVar}. The friction between the arm and the stick is assumed to be zero as the joint consists of a ball bearing. The other variables are found in \autoref{sec:IPDesc}, \autoref{} and \autoref{}.
