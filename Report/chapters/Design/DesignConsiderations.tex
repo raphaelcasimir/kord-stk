@@ -8,6 +8,9 @@ The following sections describes the sensors, motors and thruster chosen for imp
 
 As described in section \ref{sec:PRocketAnalysis} the rocket is as a system with instability problems. In the inverted pendulum these instabilities is detected trough sampling sensors and corrected trough a DC motor control system. The same parameters is considered when controlling the rocket. A form of sensor is needed to detect the orientation and position of the rocket, and a control system is needed to counteract changes from the initial trajectory.
 
+\subsection{Choice of thrusters for rocket}
+TBD
+
 \subsection{Choice of Sensors for Rocket}
 Choosing sensors for the rocket will be weighted based on following parameters:
 
@@ -33,15 +36,11 @@ An accelerometer measures acceleration in one to three axis(x,y,z). The referenc
 A gyroscope is on the other hand measuring the angular velocity changes in three dimensions. The difference between the accelerometer and gyroscope is that the gyroscope is capable of measuring the rate of rotation around a axis. It does not rely on a fixed reference and is commonly used in applications like drones and other flying objects. In the rocket it can be used to determine the orientation and rotation of the rocket based on measuring the rate of changes in any direction.  
 
 
-Combining these gives a Inertial Measurement Unit(IMU), which is commonly used in model planes and quad-copters. The application of this is to obtain the objects position through measuring velocity, orientation, rotation with the gyroscope and accelerometer. Both types of components measurements is dependent of temperature and barometric pressure so often an IMU includes multiple types of additional sensors. 	  
+Combining these gives a Inertial Measurement Unit(IMU), which is commonly used in model planes and quad-copters. The application of this is to obtain the objects position through measuring velocity, orientation, rotation with the gyroscope and accelerometer. Both types of componenta are dependent of temperature and barometric pressure, so often an IMU includes multiple types of additional sensors for calibration purposes. A choice is made to use an IMU, given that its application in similar types of flying systems verifies that it is suitable for a rocket.    	  
+Some performance factors must be considered when choosing a IMU. For example is the g-force range of the IMU important. If the maximum ratings is lower than the acceleration of the rocket, then the sensor would not be able to give sufficient data at maximum acceleration. As well is the sensitivity of the accelerometer important. The rocket is a system with a high amplitude g-force when launching, and therefore a accelerometer with low sensitivity is preferable.
 
+GY-80 is a IMU made available for use. It includes accelerometer, gyroscope, thermometer, barometer, and magnetometer. 
 
-
-GY-80 board 
-
-
-
-Choice of thrusters for rocket
 
 \section{Rocket Structure}
 Design of rocket
