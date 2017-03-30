@@ -13,16 +13,16 @@ The controller requirements will be based on speed, precision and stability, whi
 \item Steady State Error
 \end{itemize}
 
-Each parameter would affect each other, and therefore a discussion of the best combination of them will be considered.
+Each parameter would affect each other, and therefore a discussion of the best combination of will be considered.
 \newpage
 \subsection{Requirements for the Inverted Pendulum}
-The requirements is based on figure \ref{fig:InvertedPendulumSetUp} and the modeling behind where the angle relations and positions is described between the gears, arm and stick. 
+The requirements is based on figure \ref{fig:InvertedPendulumSetUp} and the modeling behind where the angle relations and positions is described between the gears, arm and stick. It is though decided that the main requirement set is to balance the stick. But requirements has to be set considering when the stick is balanced and when not. \todo{The figure can be added, to simplify the explanation.}
 
 \setlength{\parindent}{0pt}
 \newcommand{\forceindent}{\leavevmode{\parindent=1em\indent}}
 
-\subsubsection*{1. The control position of the arm must not exceed $\pm$ $\dfrac{\pi}{4}$ radians from the initial position.} 
-\forceindent A choice made to limit the arms movements when balancing the stick.
+\subsubsection*{1. The control position of the arm must not exceed $\pm$ $\dfrac{\pi}{4}$ radians from the 0 radians vertical position.} 
+\forceindent A choice made to limit the arms movements around vertical upwards position which will act as the initial position. The arm should not exceeded the limit because the control of the stick will become more vertical than horizontal, and it is therefore considered that the arm is not able to control the stick in a stable manor.  
 
 
 \subsubsection*{2. The angle of the stick must not exceed $\pm$ $\dfrac{\pi}{18}$ radians from vertical position.}
@@ -36,35 +36,24 @@ The requirements is based on figure \ref{fig:InvertedPendulumSetUp} and the mode
 \frac{\dfrac{7\pi}{36}}{\dfrac{\pi}{18}}\ =\ 350\ \% 
 \end{equation}
 
-This only apply when considering the worst case position of the stick when the arm is still in vertical position. This is not relatable considering that the system should be stable and controllable.  The maximum overshoot is limited to a tenth of the sticks anglular position $\dfrac{\pi}{180}$. And may therefore not exceed:
+This only apply when considering the worst case position of the stick when the arm is still in vertical position. It means that arm should be able to catch the stick without overshooting more than 350\%. The overshoot is limit, because 350\% is considered unstable when the goal is to balance the stick. The maximum overshoot is limited to a tenth of the sticks angular position $\dfrac{\pi}{180}$. And may therefore not exceed:
 
 \begin{equation}
 \frac{\dfrac{\pi}{180}}{\dfrac{\pi}{18}}\ =\ 10\ \% 
 \end{equation}
-
-%\dfrac{\dfrac{\pi}{18}}{\dfrac{7\pi}{36}}\ =\ 28.57\ \%
-%\end{equation}
 
 
 \subsubsection*{3. Deviation from the upright position of the stick must not exceed $\pm$ $\dfrac{\pi}{180}$ radians when considered balanced.}
 \forceindent A choice made to ensure stability and avoid oscillation around the equilibrium position.
-This means that if the angle is exceeded the controller needs to react.
-
-Equally this means that the steady-state error of the system should not be more than:  
-
-\begin{equation}
-\frac{\dfrac{\pi}{180}}{\dfrac{\pi}{18}}\ =\ 10\ \% 
-\end{equation}
-
-\todo{Might be changed based on resolution and precision of potentiometer, and might be total bullshit because it is a single input and multiple output system, not sure.}
+This means that if the angle is exceeded the controller needs to react. The requirement is mainly set to ensure that the stick balancing precision, is within the sampling precision of the sensors. The controller will be designed based on a steady state error of zero, which means that errors from balanced position is from disturbance and not the controllers steady state error.
 
 \subsubsection*{4. The system should be able to regain balance if an impulse of $\dfrac{\pi}{18}$ radians is applied, in form of a push on the stick.} 
-\forceindent If an impulse from the external disturbance is acting on the stick then the control should be able to counteract and force the stick back into equilibrium position.   
+\forceindent If an impulse from the external disturbance is acting on the stick then the control should be able to counteract the stick back into equilibrium position.   
 
 
 
 \subsection{Requirements for the Rocket}
-Some limits has to be set based on the capability of building and using a rocket.  
+Some limits has to be set based on the capability of building and using a rocket. The controller requirements will be the same as with the inverted pendulum.  
 The physical dimensions of the rocket can not exceed:
 \begin{table}[htbp]
 \centering
@@ -84,7 +73,7 @@ Weight       & 0.3   & [kg]
 
 \subsubsection*{5. Deviation from the rockets initial trajectory must not exceed $\pm$ $\dfrac{\pi}{18}$ radians.} \todo{Might be changed based on resolution and precision of gyroscope}
 
-\forceindent A choice made to limit the movement of the rocket during flight. If the limit is exceeded the rocket controller will not guarantee stability, but might stabilize the rocket none the less.      
+\forceindent A choice made to limit the movement of the rocket during flight. If the limit is exceeded the rocket controller will not guarantee stability, but might stabilize the rocket none the less. 
 
 \subsubsection*{6. The system should be able to regain its stability and direction if an external disturbance impulse of $\dfrac{\pi}{36}$ radians is applied on the rocket.} 
 
