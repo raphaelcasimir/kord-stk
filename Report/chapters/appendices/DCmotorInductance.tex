@@ -12,6 +12,22 @@ The objective of this test is to determine all the of the gear train system comp
 \section*{Electronics characteristics}
 \subsection{Internal Resistance of the DC Motor $R_m$}
 The first parameter to be tested is the internal resistance of the motor $R_m$. This resistance is needed in the motor's transfer function and will be used to determine the other parameters of the motor. 
+\subsubsection*{Setup}
+\begin{table}[htbp]
+	\centering
+	\caption{List of measurement equipment and components}\label{tab_appendix:LaSetUp}
+
+	\begin{tabularx}{\textwidth}{lXXXX}
+		Name 				& Brand	& Model & AAU-number									\\ \toprule \rowcolor{lightGrey}
+		Multimeter	& Agilent &  & 	\\
+		Multimeter	& Agilent &  &  	\\ \rowcolor{lightGrey}
+		Powersupply	& Agilent & E3631A & 78577\\
+		DC motor & Alsthom BBC & F9M2 (HA?)& 08339 
+	\end{tabularx}
+\end{table}
+
+\subsubsection*{Method}
+The test will consist of multiple 0.5 A incrementation on the input current of the motor from 0.5 to 9.5 A. The resulting voltage output is measured on the voltmeter. The voltage is then plotted according to the current, R is the slope of the linear approximation.
 
 \subsection{Internal Inductance of the DC Motor $L_a$}
 \begin{table}[htbp]

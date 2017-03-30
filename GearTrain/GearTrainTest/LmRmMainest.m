@@ -1,8 +1,6 @@
 % mainest is the main program for parameter estimation 
 % From input/output data (u, y and t) stored in meas'process','no'.mat, 
 % the parameters pare of 'process' are estimated.
-clear all;
-
 % The sensitivity measures and the parameter deviations are calculated as well.
 %
 % Must be specified (e.g. by progprog'process'.m, i.e. from
@@ -14,14 +12,14 @@ clear all;
 
 
 % Default values:
-if ~exist('process'),    process='Jm';     	end		% Process name           
+if ~exist('process'),    process='LmRm';     	end		% Process name           
 if ~exist('no'),                    no='';      end		% Measurement number     
 if exist(['progdata',process,no,'.mat'])==2  &  ~exist('par0')   
 	load(['progdata',process,no]),               end		% progdata loades
 if exist(['meas',process,no,'.mat'])==2, load(['meas',process,no]), else
 	disp(['data: meas',process,no,'.mat  missing !']),  return,     end  
 if ~exist('ploty'),     ploty=2;                                      end
-if ~exist('par0'),      par0=[0.03];                                 end
+if ~exist('par0'),      par0=[0.002 1.00];                                 end
 simmod=['sim',process];
 
 if ploty>0,  plot(t,y), ylabel('y'), xlabel('time'),
