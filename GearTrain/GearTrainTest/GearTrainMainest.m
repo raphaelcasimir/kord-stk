@@ -10,7 +10,7 @@ clear all;
 % Subprograms used:
 % sim'process', gausnewt, psinf, and sens.
 %
-% 20/9-94,MK. 26/11-02,MK    
+% 20/9-94,MK. 26/11-02,MK 
 
 
 % Default values:
@@ -21,7 +21,7 @@ if exist(['progdata',process,no,'.mat'])==2  &  ~exist('par0')
 if exist(['meas',process,no,'.mat'])==2, load(['meas',process,no]), else
 	disp(['data: meas',process,no,'.mat  missing !']),  return,     end  
 if ~exist('ploty'),     ploty=2;                                      end
-if ~exist('par0'),      par0=[0.03];                                 end
+if ~exist('par0'),      par0=[0.3];                                 end
 simmod=['sim',process];
 
 if ploty>0,  plot(t,y), ylabel('y'), xlabel('time'),
