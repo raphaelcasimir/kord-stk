@@ -10,13 +10,27 @@ The system is inherently unstable as is evident by the pole in the right half pl
 \end{figure}
 \todo[inline,author=Jacob]{Missing constants from motor test to do plot.}
 
-There's a plethora of different options for the controller to use, the simplest being a proportional controller. A simple way to check whether the proportional controller is feasible is by examining the root locus of the transfer function. The proportional controller isn't feasible as the pole in the right half plane never enters the stable region regardless of the gain value as seen on \autoref{fig:locusIP}.
+There's a plethora of different options for the controller to use, the simplest being a proportional controller. A simple way to check whether the proportional controller is feasible is by examining the root locus of the transfer function in figure \autoref{fig:locusIP}. The pole in the right half plane moving towards infinity is caused by the transfer function being negative and can be fixed with a negative gain as shown on figure \autoref{fig:locusNegative}.
 
 \begin{figure}[htbp]
 \centering
 \missingfigure{}
-\caption{Root locus of the inverted pendulum.}
+\caption{Root locus of the inverted pendulums transfer function.}
 \label{fig:locusIP}
 \end{figure}
 
+\begin{figure}[htbp]
+\centering
+\missingfigure{}
+\caption{Root locus of the inverted pendulums transfer function with a negative gain.}
+\label{fig:locusNegative}
+\end{figure}
+
+The proportional controller isn't feasible as the pole in the right half plane never enters the stable region even with a negative gain.
+
+For the inverted pendulum it's also worth to consider a controller that keeps the arm at zero radians as well as it has a much harder time controlling the arm when out of the upright position. Therefore two controllers will be made: A single-input single-output (SISO) controller that only controls the angle of the stick and a single-input multiple-output (SIMO) controller that controls both the angle of the stick and the arm. 
+\todo[inline,author=Jacob]{If time allows. Otherwise just SISO.}
+
+\section{Single input single output controller for the inverted pendulum}
+For the SISO controller at least a zero or pole must be introduced along with the P-controller in the system in order to move the pole in the right half plane to the left half plane. For the pole in the right half plane to cross into the left half plane a pole must be added either in 0 to cancel the zero or in the right half plane forcing both off the real axis and allowing them to circumvent the zero in 0 and enter the stable region.
 
