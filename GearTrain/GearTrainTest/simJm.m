@@ -13,7 +13,7 @@ Lm = 1.42E-04;
 Bm = 1.2e-4;
 Jm=2.9e-5;
 
-Jgear=1.53e-4;
+Jgear=1.53e-1;
 N=12/40;
 
 Bgear=par(1); %Jgear=par(2);

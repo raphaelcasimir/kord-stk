@@ -21,7 +21,7 @@ if exist(['progdata',process,no,'.mat'])==2  &  ~exist('par0')
 if exist(['meas',process,no,'.mat'])==2, load(['meas',process,no]), else
 	disp(['data: meas',process,no,'.mat  missing !']),  return,     end  
 if ~exist('ploty'),     ploty=2;                                      end
-if ~exist('par0'),      par0=[0.3];                                 end
+if ~exist('par0'),      par0=[2.2587e+03];                                 end
 simmod=['sim',process];
 
 if ploty>0,  plot(t,y), ylabel('y'), xlabel('time'),
