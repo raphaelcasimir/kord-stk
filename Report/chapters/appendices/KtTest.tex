@@ -1,0 +1,57 @@
+\begin{table}[htbp]
+	\centering
+	\caption{List of measurement equipment and components}\label{tab_appendix:KtSetUp}
+	
+	\begin{tabularx}{\textwidth}{lXXXX}
+		Name 				& Brand	& Model & AAU-number									\\ \toprule \rowcolor{lightGrey}
+		Oscilloscope	& Agilent & 54621D & 33941 	\\
+		Powersupply	& Agilent & E3631A & 78577\\ \rowcolor{lightGrey}
+		DC motor & Alsthom BBC & F9M2& 08339
+	\end{tabularx}
+\end{table}
+
+\subsubsection*{Setup}
+\autoref{fig:KtMeasurementSetup} shows a diagram and photo of the measurement set up
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}{0.50\textwidth}
+			\includegraphics[width=\textwidth]{KtTestSetUp}
+		\caption{Diagram of the setup.} \label{fig:KtMeasurementDiagram}
+	\end{subfigure}
+	\begin{subfigure}{0.40\textwidth}
+		%\includegraphics[width=1\textwidth]{MotorImpedanceTest.jpg}
+		\missingfigure{Picture of the setup}
+		\caption{Picture of the setup.} \label{fig:KtMeasurementPictures}
+	\end{subfigure}
+	\caption{The measurement setup.} \label{fig:KtMeasurementSetup}   
+\end{figure}
+
+\subsubsection*{Method}
+This test consists of having the motor shaft locked while the torque $\tau_m$ and the current $I$ are measured.
+
+\subsubsection*{Raw data}
+\autoref{tab:KtTest} has all the measurements done.
+
+
+\subsubsection*{Data processing}
+
+When the motor is in steady state and the shaft locked as shown in \autoref{fig:KtMeasurementDiagram}, \autoref{eq:KtTest} is found from \autoref{eq:MotorTorque}.
+
+\begin{equation}\label{eq:KtTest}
+K_t=\frac{\tau_m}{I} \addunit{\newton\meter\per\ampere}
+\end{equation}
+\startexplain
+\explain{$I$ is the current in the circuit}{\si{\ampere}}
+\explain{$\tau_m$ is the torque of the motor}{\si{\newton\meter}}
+\explain{$K_t$ is the motor's torque constant}{\si{\newton\meter\per\ampere}}
+\stopexplain
+
+\subsubsection*{Conclusion}
+
+\autoref{fig:KtTest} plot the $K_t$ found for each measurement. The $K_t$ used in the model is average of these points. This gives $K_t=\SI{0.025}{\newton\meter\per\ampere}$
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{figures/appendix/Motor&GearTests/RmLmDataPlot}
+	\caption{Plot of $K_e$ found for each measures}\label{fig:KtTest}
+\end{figure}
