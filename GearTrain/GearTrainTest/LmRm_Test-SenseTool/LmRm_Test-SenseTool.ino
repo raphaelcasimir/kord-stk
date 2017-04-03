@@ -2,14 +2,12 @@
 // VARIABLES
 #define PWM 9
 #define ENABLE_PIN 7
-#define FREQ 2500
+#define FREQ 800
 
 int Start = 0;
 int Stop = 0; 
 int count = 0;
 bool dir = false;
-int up = 155;
-int down = 100;
 
 void setup() {
   Serial.begin(57600);
@@ -18,7 +16,8 @@ void setup() {
   digitalWrite(ENABLE_PIN, HIGH);
   /*while (1)
   {
-    analogWrite(PWM, 140);
+    //Stop = millis();
+    analogWrite(PWM, 127);
   }*/
 }
 
@@ -28,28 +27,21 @@ void loop() {
   dir = !dir;
   while(Stop - Start < FREQ)
   {
+    Serial.print(Stop);
+    Serial.print("     ");
+    Serial.print(Start);
+    Serial.print("\n");
     Stop = millis();
     if(dir == true)
-    {
-      analogWrite(PWM, up);
-    }
-      
+      analogWrite(PWM, 151);
       
     if(dir == false)
-    {
-      analogWrite(PWM, down); 
-
-    }
-       
+      analogWrite(PWM, 104);  
   }
-  if(dir == true)
-    up = up + 3;
-  else
-    down = down - 3;
   count++;
   Serial.println(count);
   
-  if(count == 8)
+  if(count == 20)
   {
     analogWrite(PWM, 127);
     while(1){};
