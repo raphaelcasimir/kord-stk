@@ -15,10 +15,13 @@
 
 \input{chapters/"Modeling"/GearModeling.tex}
 
-%\input{chapters/"Modeling"/RocketModeling.tex}
+\input{chapters/Modeling/CombinedModel.tex}
+
+\input{chapters/"Modeling"/RocketModeling.tex}
 
 \input{chapters/"Preanalysis&Requirement"/Requirements.tex}
 
 \part{Design}\label{pt:design} 
+\input{chapters/Design/DesignConsiderations.tex}
 
 \part{Test \& conclusion}\label{pt:test_conclusion} 
