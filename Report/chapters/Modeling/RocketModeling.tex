@@ -1,52 +1,6 @@
 \chapter{Rocket Analysis}
-		A rocket presents a large number of similarities with an inverted pendulum in terms of modeling and control as it will be demonstrated in this chapter. It also adds one degree of freedom compared to the inverted pendulum.
-		For the purpose of studying the problem of rocket control, a model rocket was designed and built. Since mechanical design is out of this work's scope, the engineering of this rocket will not be explained, but the CAD files will be available on the GitHub repository.
-		
-		
-		\section{Rocket Description}
-			In this section the rocket model will be described to prepare it's modeling.
-			This design consists of 2 sections, that will be called here "stages".
-			\begin{itemize}
-				\item First stage: propulsion
-				\begin{itemize}
-					\item {A thruster / Solid Rocket Booster (SRB)}
-					\item {A thrust vectoring mechanism, also known as gimbal, with two degrees of freedom}
-					\item {Two servo motors for actuating the gimbal}
-				\end{itemize}
-				\item Interstage:
-				\begin{itemize}
-					\item {An empty fairing separating the propulsion stage from the electronics}
-				\end{itemize}
-				\item Upper stage: control
-				\begin{itemize}
-					\item {A frame to hold the electronics}
-					\item {A PCB with a micro-controller}
-					\item {A plastic separator with anti-vibration bearings}
-					\item {On this separator is placed a gyroscope: the attitude sensor}
-					\item A nose fairing
-				\end{itemize}
-			\end{itemize}
-			
-			Here are some useful physical parameters of the system.
-			
-			\begin{table}[htbp]
-				\centering
-				\begin{tabular}{llll}
-					\hline
-					Piece & Parameter & Value & Unit \\ \hline
-					Rocket$_{overall}$ & Height & 227 & {[}mm{]} \\
-					Rocket$_{overall}$ & Weight & 280 & {[}g{]} \\
-					Interstage & Diameter & 67 & {[}mm{]} \\
-					SRB & length & 70 & {[}mm{]} \\
-					SRB  & Diameter & 18 & {[}mm{]} \\
-					SRB & Thrust & ? & {[}N{]} \\
-					Thrust vectoring system & Max. angle & ? & {[}rad{]}
-				\end{tabular}
-				\caption{Parameters of gear system.}
-				\label{Rocket_measurements}
-			\end{table}
-			
-			
+		A rocket presents a large number of similarities with an inverted pendulum in terms of modeling and control as it will be demonstrated in this chapter. It also adds one degree of freedom compared to the inverted pendulum. A model of the rocket is made to be able to compare the two systems dynamics.
+
 			
 %				\section{Inverted pendulum and rocket}
 %			The goal of this section is to demonstrate the similarities between the inverted pendulum and the rocket stabilization processes, and to define a mathematical model and control loop of the behavior of the angle of the rocket body and the angle of the thruster.

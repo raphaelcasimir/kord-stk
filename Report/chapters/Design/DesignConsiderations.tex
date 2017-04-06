@@ -1,17 +1,84 @@
 \input{chapters/Design/IPController.tex}
-\chapter{Rocket Design}
+\chapter{Design of the Rocket and controller}
+The following chapter describes the design of the rocket and its control system. The main objective is not to design the rocket, but to implement at control system that can stabilize it during launch and flight. 
 
-Considerations about rocket design
+\section{Rocket Design}
+For the purpose of studying the problem of rocket control, a model rocket was designed and built. Since mechanical design is out of this work's scope, the engineering of this rocket will not be explained, but the CAD files will be available on the GitHub repository.\todo{Add the github link later.}
+This design consists of 2 sections, that will be called "stages".
 
-\section{Choice of Components}
-The following sections describes the sensors, motors and thruster chosen for implementation in the rocket. The choice of each will be weighted in consideration to other alternatives.   
+
+\textbf{First stage: propulsion}
+\begin{itemize}[noitemsep]
+	\item {A thruster / Solid Rocket Booster (SRB)}
+	\item {A thrust vectoring mechanism, also known as gimbal, with two degrees of freedom}
+	\item {Two servo motors for actuating the gimbal}
+\end{itemize}
+
+\textbf{Interstage:}
+\begin{itemize}[noitemsep]
+	\item {An empty fairing separating the propulsion stage from the electronics}
+\end{itemize}
+\textbf{Upper stage: control}
+\begin{itemize}[noitemsep]
+	\item A frame to contain the electronics.
+	\item A PCB with a micro-controller.
+	\item A plastic separator with anti-vibration bearings.
+	\item On this separator is placed a gyroscope: the attitude sensor.
+	\item A nose fairing.
+\end{itemize}
+
+\subsubsection*{Choice of thrusters for the rocket}
+A thruster is a central component in all types of rocket. In the project the thruster will be chosen based on availability and lift force. The maximum weight of the rocket can not exceed 300 grams and the thruster should be able to lift this. The average thrust of the thruster should be have at least a average thrust of 3 Newton. The choice is limited to the thrusters which can be acquired within the European regulations. Through superficial research it is found that Klima 18 mm rocket motors is legal in all of Europe, and will be chosen for the thruster. The chosen thruster is the version D3-P with the specifications cf. table \ref{ThrusterValue}.
+
+\begin{table}[]
+\centering
+\begin{tabular}{lll}
+\hline
+Parameter      & Value         & Unit \\ \hline
+Total impulse  & 17,4          & [N]  \\
+Average thrust & $\approx$ 3   & [N]  \\
+Maximum thrust & $\approx$ 9 & [N]  \\
+Burn duration  & $\approx$ 5,5 & [s]  \\
+Weight         & 0,105         & [kg] \\
+Length         & 0,07          & [m] 
+\end{tabular}
+\caption{DP-3 thruster specifications}
+\label{ThrusterValue}
+\end{table}
+                
+%http://www.modelrockets.co.uk/shop/klima-model-rocket-motors/d3-six-pack-18mm-rocket-glider-motor-p-3311.html
+
+\subsubsection*{Physical Parameters of the Rocket}
+The important factors for controlling the rocket is the physical parameters. These will effect how the rocket would transfer a input to its output. We can not control the force of the thruster, and this can will therefore not be a part of the important   		
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{llll}
+	\hline
+	Piece & Parameter & Value & Unit \\ \hline
+	Rocket$_{overall}$ & Height & 297 & {[}mm{]} \\
+	Rocket$_{overall}$ & Weight & 0,28 & {[}kg{]} \\
+	Interstage & Diameter & 67 & {[}mm{]} \\
+	Thrust vectoring system & Max. angle & ? & {[}rad{]}\\
+	Thrust vectoring system & Response time & ? & {[}rad/s{]}
+	\end{tabular}
+\caption{Parameters of the rocket.}
+\label{Rocket_measurements}
+\end{table}
+\todo{Input the rest of the parameters.}
+
+\startexplain
+\explain{Rocket$_{overall}$ is the total weight of the system, including thruster, electronics, and rocket structure.}{}
+\stopexplain
+
+\subsection{Design of Gimbal}
+s
+
+
+\subsection{Choice of Sensors for the Rocket}
+The following sections describes the sensors chosen for implementation in the rocket.  
 
 As described in section \ref{sec:PRocketAnalysis} the rocket is as a system with instability problems. In the inverted pendulum these instabilities is detected trough sampling sensors and corrected trough a DC motor control system. The same parameters is considered when controlling the rocket. A form of sensor is needed to detect the orientation and position of the rocket, and a control system is needed to counteract changes from the initial trajectory.
 
-\subsection{Choice of thrusters for rocket}
-TBD
-
-\subsection{Choice of Sensors for Rocket}
 Choosing sensors for the rocket will be weighted based on following parameters:
 
 \begin{itemize}[noitemsep]
@@ -39,12 +106,5 @@ A gyroscope is on the other hand measuring the angular velocity changes in three
 Combining these gives a Inertial Measurement Unit(IMU), which is commonly used in model planes and quad-copters. The application of this is to obtain the objects position through measuring velocity, orientation, rotation with the gyroscope and accelerometer. Both types of componenta are dependent of temperature and barometric pressure, so often an IMU includes multiple types of additional sensors for calibration purposes. A choice is made to use an IMU, given that its application in similar types of flying systems verifies that it is suitable for a rocket.    	  
 Some performance factors must be considered when choosing a IMU. For example is the g-force range of the IMU important. If the maximum ratings is lower than the acceleration of the rocket, then the sensor would not be able to give sufficient data at maximum acceleration. As well is the sensitivity of the accelerometer important. The rocket is a system with a high amplitude g-force when launching, and therefore a accelerometer with low sensitivity is preferable.
 
-GY-80 is a IMU made available for use. It includes accelerometer, gyroscope, thermometer, barometer, and magnetometer. 
-
-
-\section{Rocket Structure}
-Design of rocket
-
-Parts of the rocket 
-
+GY-80 is a IMU made available for use. It includes ADXL345 3-axis accelerometer, L3G4200D 3-axis gyroscope, BMP085 thermometer/barometer, and MC5883L 3-axis magnetometer. Is chosen based on its combination of components, low power consumption, precision, and operation range. Further will be described during implementation of the component.
 
