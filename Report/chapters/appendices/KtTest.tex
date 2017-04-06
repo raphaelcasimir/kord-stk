@@ -28,18 +28,41 @@
 
 \subsubsection*{Method}
 This test consists of having the motor shaft locked while the torque $\tau_m$ and the current $I$ are measured.
+\newpage
+
 
 \subsubsection*{Raw data}
-\autoref{tab:KtTest} has all the measurements done.
+\autoref{tab_appendix:KtData} has all the measurements done.
 
+\begin{figure}[htbp]
+	\centering
+	\caption{Raw data used to determine $K_t$}\label{tab_appendix:KtData}
+	\begin{tabularx}{0.35\textwidth}{XX}
+		Current (I) & $\tau_m$\\ \toprule \rowcolor{lightGrey}
+	4.0 & 0.1164 \\
+	4.5 & 0.1314 \\ \rowcolor{lightGrey}
+	5.0 & 0.1498 \\
+	5.5 & 0.1606 \\ \rowcolor{lightGrey}
+	6.0 & 0.1824 \\
+	6.5 & 0.1896 \\ \rowcolor{lightGrey}
+	7.0 & 0.2050 \\
+	7.5 & 0.2192 \\ \rowcolor{lightGrey}
+	8.0 & 0.2332 \\
+	8.5 & 0.2478 \\ \rowcolor{lightGrey}
+	9.0 & 0.2604 \\
+	9.5 & 0.2750 \\ \rowcolor{lightGrey}
+	10.0 & 0.2900
+	\end{tabularx}
+\end{figure}
 
 \subsubsection*{Data processing}
 
 When the motor is in steady state and the shaft locked as shown in \autoref{fig:KtMeasurementDiagram}, \autoref{eq:KtTest} is found from \autoref{eq:MotorTorque}.
 
 \begin{equation}\label{eq:KtTest}
-K_t=\frac{\tau_m}{I} \addunit{\newton\meter\per\ampere}
+	K_t=\frac{\tau_m}{I} \addunit{\newton\meter\per\ampere}
 \end{equation}
+
 \startexplain
 \explain{$I$ is the current in the circuit}{\si{\ampere}}
 \explain{$\tau_m$ is the torque of the motor}{\si{\newton\meter}}
