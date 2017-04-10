@@ -2,6 +2,19 @@
 % Encoding: UTF8
 
 
+@Misc{web:BalancingStick2008,
+  Title                    = {Studentthesis},
+
+  Author                   = {2007 Group 631},
+  Year                     = {2007},
+
+  Lastupdate               = {22 October 2015},
+  Lastvisit                = {14 February 2017},
+  Owner                    = {Mathias},
+  Timestamp                = {2017.2.14},
+  Url                      = {http://projekter.aau.dk/projekter/da/studentthesis/balancing-stick(9fa49107-ec90-436e-919d-e407eaac6b08).html}
+}
+
 @Misc{web:rocketnasa,
   Title                    = {rocket},
 
@@ -13,6 +26,19 @@
   Owner                    = {Maxime},
   Timestamp                = {2017.2.14},
   Url                      = {https://spaceflightsystems.grc.nasa.gov/education/rocket/rktstabc.html}
+}
+
+@Misc{web:GY80,
+  Title                    = {IMU GY-80},
+
+  Author                   = {GY-80 IMU},
+  Year                     = {2015},
+
+  Lastupdate               = {22 October 2015},
+  Lastvisit                = {14 February 2017},
+  Owner                    = {Mathias},
+  Timestamp                = {2017.2.14},
+  Url                      = {http://selfbuilt.net/shop/gy-80-inertial-management-unit}
 }
 
 @Misc{web:RocketStructure,

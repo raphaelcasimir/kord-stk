@@ -1,9 +1,9 @@
 \input{chapters/Design/IPController.tex}
-\chapter{Design of the Rocket and controller}
+\chapter{Design of the Rocket and Gimbal Controller}
 The following chapter describes the design of the rocket and its control system. The main objective is not to design the rocket, but to implement at control system that can stabilize it during launch and flight. 
 
 \section{Rocket Design}
-For the purpose of studying the problem of rocket control, a model rocket was designed and built. Since mechanical design is out of this work's scope, the engineering of this rocket will not be explained, but the CAD files will be available on the GitHub repository.\todo{Add the github link later.}
+For the purpose of studying the problem of the rocket control, a model rocket was designed and built. Since mechanical design is out of this work's scope, the engineering of this rocket will not be explained, but the design CAD files will be available on the GitHub repository.\todo{Add the github link later.}
 This design consists of 2 sections, that will be called "stages".
 
 
@@ -75,7 +75,7 @@ s
 
 
 \subsection{Choice of Sensors for the Rocket}
-The following sections describes the sensors chosen for implementation in the rocket.  
+The following sections describes the sensors chosen for implementation in the rocket. It is chosen that the microcontroller unit, from here on named MCU, used in the system will be a Arduino Nano. The Nano is chosen based on its low weight (7 grams) and small size (18 x 45 mm) which will be an advantage when fitting it in the rocket. Further about the  is described cf. section \ref{sec:MCU}.    
 
 As described in section \ref{sec:PRocketAnalysis} the rocket is as a system with instability problems. In the inverted pendulum these instabilities is detected trough sampling sensors and corrected trough a DC motor control system. The same parameters is considered when controlling the rocket. A form of sensor is needed to detect the orientation and position of the rocket, and a control system is needed to counteract changes from the initial trajectory.
 
@@ -83,7 +83,8 @@ Choosing sensors for the rocket will be weighted based on following parameters:
 
 \begin{itemize}[noitemsep]
 \item Compatibility.
-\item Sampling speed.
+\item Power consumption.
+\item Availability. 
 \item Physical dimensions and weight.
 \end{itemize}
 
@@ -106,5 +107,12 @@ A gyroscope is on the other hand measuring the angular velocity changes in three
 Combining these gives a Inertial Measurement Unit(IMU), which is commonly used in model planes and quad-copters. The application of this is to obtain the objects position through measuring velocity, orientation, rotation with the gyroscope and accelerometer. Both types of componenta are dependent of temperature and barometric pressure, so often an IMU includes multiple types of additional sensors for calibration purposes. A choice is made to use an IMU, given that its application in similar types of flying systems verifies that it is suitable for a rocket.    	  
 Some performance factors must be considered when choosing a IMU. For example is the g-force range of the IMU important. If the maximum ratings is lower than the acceleration of the rocket, then the sensor would not be able to give sufficient data at maximum acceleration. As well is the sensitivity of the accelerometer important. The rocket is a system with a high amplitude g-force when launching, and therefore a accelerometer with low sensitivity is preferable.
 
-GY-80 is a IMU made available for use. It includes ADXL345 3-axis accelerometer, L3G4200D 3-axis gyroscope, BMP085 thermometer/barometer, and MC5883L 3-axis magnetometer. Is chosen based on its combination of components, low power consumption, precision, and operation range. Further will be described during implementation of the component.
+GY-80\cite{web:GY80} is an IMU made available for use. It includes ADXL345 3-axis accelerometer, L3G4200D 3-axis gyroscope, BMP085 thermometer/barometer, and MC5883L 3-axis magnetometer. Is chosen based on its combination of components, low power consumption of $\approx$ 6,5 mA in measurement mode, precision, and operation range. It can be implemented with the Arduino Nano trough I2C communication.
+I2C is a two wire protocol which is working trough serial communication. I2C is based on having two wires between the Arduino and the GY-80. The one wire SCL is the serial clock, and the other wire SDA is the data wire. All components on the GY-80 convenient to implement with the Arduino. Further will be described during the implementation of the component.
 
+\section{Rocket Controller Design}\label{sec:RocketControllerDesign}
+The following sections explains the design procedure behind fitting the transfer function and dynamics of the rocket with a feedback controller. The controllers goal is to change the orientation of the thruster trough regulating the gimbals motors.    
+
+
+
+  
