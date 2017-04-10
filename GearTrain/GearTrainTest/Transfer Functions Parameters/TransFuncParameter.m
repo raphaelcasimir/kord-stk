@@ -1,11 +1,11 @@
 Kt=0.0293;
-Ke=0.0355;
+Ke=0.0366;
 Jm=2.9e-5;
 Jgear=0.153e-3;
 Ja=10.3e-3;
 Js=1.95e-3;
-Lm=1.42e-4;
-Rm=1.02;
+Lm=11.2e-3;
+Rm=0.82;
 Bm=1.59e-4;
 Bgear=1.11e-3;
 N=0.027;
@@ -13,7 +13,7 @@ la=0.33;
 Ls=0.4;
 Ms=0.17;
 Ma=0.106;
-Bas=0;
+Bas=0;%1e-3;
 g=9.8;
 
 %%Transfer Function Creation
@@ -31,6 +31,7 @@ D=Ms*N*Rm*g*la*Ls+Ma*N*Rm*g*la-N*Ms*g*Rm*Ls;
 
 Fuo=2*Kt*s/(A*s^3+B*s^2+C*s+D)
 
+
 %% ThetaA/OmegaM parameters
 
 Foa=N/s
@@ -38,3 +39,8 @@ Foa=N/s
 %% ThetaS/ThetaA
 
 Fsa=(-3*la*s^2/(2*Ls)+3*Bas*s/(Ms*Ls^2))/(s^2+3*Bas*s/(Ms*Ls^2)-3*g/(2*Ls))
+
+sys=-Fuo*Foa*Fsa*(100+s)%*1/(5000+s)
+%sys=(0.25*s+K)*Fuo*Foa*Fsa/(1+Fuo*Foa*Fsa)
+
+rlocus(sys);
