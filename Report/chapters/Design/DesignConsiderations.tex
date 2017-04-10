@@ -77,7 +77,7 @@ s
 \subsection{Choice of Sensors for the Rocket}
 The following sections describes the sensors chosen for implementation in the rocket. It is chosen that the microcontroller unit, from here on named MCU, used in the system will be a Arduino Nano. The Nano is chosen based on its low weight (7 grams) and small size (18 x 45 mm) which will be an advantage when fitting it in the rocket. Further about the  is described cf. section \ref{sec:MCU}.    
 
-As described in section \ref{sec:PRocketAnalysis} the rocket is as a system with instability problems. In the inverted pendulum these instabilities is detected trough sampling sensors and corrected trough a DC motor control system. The same parameters is considered when controlling the rocket. A form of sensor is needed to detect the orientation and position of the rocket, and a control system is needed to counteract changes from the initial trajectory.
+As described in section \ref{sec:PRocketAnalysis} the rocket can be a system with instability problems. In the inverted pendulum these instabilities is detected trough sampling sensors and corrected trough a DC motor control system. The same parameters is considered when controlling the rocket. A form of sensor is needed to detect the orientation and position of the rocket, and a control system is needed to counteract changes from the initial trajectory.
 
 Choosing sensors for the rocket will be weighted based on following parameters:
 
@@ -95,8 +95,22 @@ Needed is a sensor for measuring:
 \item Temperature and barometric pressure.
 \end{itemize}
 
-Determining the orientation and acceleration of the rocket can be done with different types of sensor. Two commonly used is a gyroscope and a accelerometer. 
+Determining the attitude, orientation and acceleration of the rocket can be done with different types of sensor. Two types of sensors can be considered when involving rockets; reference sensors and inertial sensors. Reference sensors have a external reference to measure from where inertial sensors measures changes in it physical state from its inertial state. Commonly used sensors and applications is listed, these determined from different types of rocket applications:
 
+\begin{itemize}[noitemsep]
+\item Gyroscope
+\item Accelerometer
+\item Global Positioning System (GPS)
+\item Magnetometer
+\item Barometric pressure sensor
+\item Infrared camera
+\item Solar panels
+\end{itemize}
+
+Some sensors can easily be declined from the choice. This is mainly because there application is most commonly with rocket going to higher altitudes or even in-orbit around earth, which is not the interest in this project. For example is the infrared camera implemented in some satellites and rocket to determine the position of the earth relative to the satellite. This will not be implemented in the rocket, because the altitude of the rocket is too low. Equally is solar panels implemented mostly in satellites, because the time span for change is lower than when launching and correcting a rocket.
+Sensors considered in the project is gyroscopes, accelerometers, magnetometer/compass, GPS, barometric sensor. 
+
+GPS is a relatively common used component in flying systems. It is implemented in many quad-copters, where the goal is to hold a position based on GPS. In the rocket it can be used to determined velocity, deviations from trajectory, and altitude. Precise and fast GPS units have a high cost and higher power consumption than alternatives. It is therefore decided that GPS will not be included as a component of choice.    
 
 An accelerometer measures acceleration in one to three axis(x,y,z). The reference for measuring is the gravitational force. A single axis accelerometer can measure the acceleration in the direction it is orientated. And can for example be used to determine the velocity upwards flying rocket. This can as well be used to determine a travelled distance based on knowing the acceleration and time. In the case of flying a rocket a three-axis accelerometer would be the implemented, when considering that the rocket can move both lateral and vertical in its position.  
 
@@ -104,11 +118,14 @@ An accelerometer measures acceleration in one to three axis(x,y,z). The referenc
 A gyroscope is on the other hand measuring the angular velocity changes in three dimensions. The difference between the accelerometer and gyroscope is that the gyroscope is capable of measuring the rate of rotation around a axis. It does not rely on a fixed reference and is commonly used in applications like drones and other flying objects. In the rocket it can be used to determine the orientation and rotation of the rocket based on measuring the rate of changes in any direction.  
 
 
-Combining these gives a Inertial Measurement Unit(IMU), which is commonly used in model planes and quad-copters. The application of this is to obtain the objects position through measuring velocity, orientation, rotation with the gyroscope and accelerometer. Both types of componenta are dependent of temperature and barometric pressure, so often an IMU includes multiple types of additional sensors for calibration purposes. A choice is made to use an IMU, given that its application in similar types of flying systems verifies that it is suitable for a rocket.    	  
+Combining these gives a Inertial Measurement Unit(IMU), which is commonly used in model planes and quad-copters. The application of this is to obtain the objects position through measuring velocity, orientation, rotation with the gyroscope and accelerometer. Both types of components are dependent of temperature and barometric pressure, so often an IMU includes multiple types of additional sensors for calibration purposes. A choice is made to use an IMU, given that its application in similar types of flying systems verifies that it is suitable for a rocket.    	  
 Some performance factors must be considered when choosing a IMU. For example is the g-force range of the IMU important. If the maximum ratings is lower than the acceleration of the rocket, then the sensor would not be able to give sufficient data at maximum acceleration. As well is the sensitivity of the accelerometer important. The rocket is a system with a high amplitude g-force when launching, and therefore a accelerometer with low sensitivity is preferable.
 
-GY-80\cite{web:GY80} is an IMU made available for use. It includes ADXL345 3-axis accelerometer, L3G4200D 3-axis gyroscope, BMP085 thermometer/barometer, and MC5883L 3-axis magnetometer. Is chosen based on its combination of components, low power consumption of $\approx$ 6,5 mA in measurement mode, precision, and operation range. It can be implemented with the Arduino Nano trough I2C communication.
-I2C is a two wire protocol which is working trough serial communication. I2C is based on having two wires between the Arduino and the GY-80. The one wire SCL is the serial clock, and the other wire SDA is the data wire. All components on the GY-80 convenient to implement with the Arduino. Further will be described during the implementation of the component.
+\subsubsection{Inertial Measurement Unit - GY-80}
+GY-80\cite{web:GY80} is an IMU made available for use. It includes ADXL345 3-axis accelerometer, L3G4200D 3-axis gyroscope, BMP085 thermometer/barometer, and MC5883L 3-axis magnetometer. Is chosen based on its combination of components, low power consumption of $\approx$ 6,5 mA in measurement mode. It is designed so it can be implemented with the Arduino Nano trough I2C communication. 
+I2C is a two wire protocol which is working trough serial communication. I2C is based on having two wires between the Arduino and the GY-80. The one wire SCL is the serial clock, and the other wire SDA is the data wire. All components on the GY-80 convenient to implement with the Arduino. Further analysis is described cf. section \textbf{[ref]} \todo{Ref to to implementation part when it is done.}
+
+
 
 \section{Rocket Controller Design}\label{sec:RocketControllerDesign}
 The following sections explains the design procedure behind fitting the transfer function and dynamics of the rocket with a feedback controller. The controllers goal is to change the orientation of the thruster trough regulating the gimbals motors.    
