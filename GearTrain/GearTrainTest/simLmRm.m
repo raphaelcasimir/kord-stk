@@ -6,8 +6,9 @@ function  y=simLmRm(u,t,par)
 % 31/10-02,MK
 
 % DC-Motor Parameters
+Rm = 0.82;
 
-Lm=par(1); Rm=par(2);
+Lm=par(1);
 nc=[1] ; dc=[Lm Rm];
 t=t(1:length(t));
 y=lsim(nc,dc,u,t);
