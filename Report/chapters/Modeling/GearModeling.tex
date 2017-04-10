@@ -232,7 +232,7 @@ The first part is the torque to counter the load of the arm, $\tau_a$. It is sub
  From \autoref{fig:tauAgrav} \autoref{eq:tauAgrav} can be deduced.
 
 \begin{equation}\label{eq:tauAgrav}
-	\tau_{a_{gravity}}=-M_a\cdot g \cdot \frac{l_a}{2} sin(\Theta_a) \addunit{\newton\meter}
+	\tau_{a_{gravity}}=M_a\cdot g \cdot \frac{l_a}{2} sin(\Theta_a) \addunit{\newton\meter}
 \end{equation}
 \startexplain
 \explain{$M_a$ is the mass of the arm}{\si{\kilogram}}
@@ -241,7 +241,7 @@ The first part is the torque to counter the load of the arm, $\tau_a$. It is sub
 $\tau_{a_{momentum}}$ is the torque of the momentum of the arm when it moves. This can be translated by the \autoref{eq:ArmMomentum}.
 
 \begin{equation}\label{eq:ArmMomentum}
-	\tau_{a_{momentum}}=\dot\omega_a\ \cdot J_a \addunit{\newton\meter}
+	\tau_{a_{momentum}}=-\dot\omega_a\ \cdot J_a \addunit{\newton\meter}
 \end{equation}
 \startexplain
 \explain{$J_a$ is the moment of inertia of the arm}{\si{\kilogram\meter\squared}}
@@ -251,9 +251,9 @@ $\tau_s$ is the load of the stick. It is also composed of two torques in the sam
 
 \begin{subequations}\label{eq:TauS}
 	\begin{flalign}
-		\tau_s&=-\tau_{s_{gravity}}+\tau_{s_{momentum}} \addunit{\newton\meter}\\
+		\tau_s&=\tau_{s_{gravity}}+\tau_{s_{momentum}} \addunit{\newton\meter}\\
 		\tau_{s_{gravity}}&=M_s g l_a\frac{l_s}{2} sin(\Theta_s) \addunit{\newton\meter}\\
-		\tau_{s_{momentum}}&=J_s\cdot \Theta_s\addunit{\newton\meter}\label{eq:TausMomentum}
+		\tau_{s_{momentum}}&=-J_s\cdot \Theta_s\addunit{\newton\meter}\label{eq:TausMomentum}
 	\end{flalign}
 \end{subequations}
 
