@@ -28,9 +28,38 @@
 
 \subsubsection*{Method}
 This test consists of having the motor shaft rotating in steady state while the voltage $U$ of the generator, the angular velocity $\omega$ of the shaft and the current $I$ are measured.
+\newpage
+
 
 \subsubsection*{Raw data}
-\autoref{tab:KeTest} has all the measurements done.
+\autoref{tab_appendix:KeData} has all the measurements done.
+\begin{figure}[htbp]
+	\centering
+	\caption{Raw data used to determine $K_e$}\label{tab_appendix:KeData}
+	\begin{tabularx}{0.55\textwidth}{lXX}
+		Voltage (V) & Current (A) & $\omega$ (rad/s)\\ \toprule \rowcolor{lightGrey}
+		3.0  & 0.72 & 52.36  \\
+		3.5  & 0.75 & 67.54  \\ \rowcolor{lightGrey}
+		4.0  & 0.77 & 83.15  \\
+		4.5  & 0.79 & 98.75  \\ \rowcolor{lightGrey}
+		5.0  & 0.83 & 113.10 \\
+		5.5  & 0.85 & 126.71 \\ \rowcolor{lightGrey}
+		6.0  & 0.88 & 140.95 \\
+		6.5  & 0.90 & 156.03 \\ \rowcolor{lightGrey}
+		7.0  & 0.93 & 170.38 \\
+		7.5  & 0.94 & 185.35 \\ \rowcolor{lightGrey}
+		8.0  & 0.95 & 198.97 \\
+		8.5  & 0.96 & 214.68 \\ \rowcolor{lightGrey}
+		9.0  & 0.99 & 229.34 \\
+		9.5  & 1.00 & 244.31 \\ \rowcolor{lightGrey}
+		10.0 & 1.02 & 258.66 \\
+		10.5 & 1.03 & 274.05 \\ \rowcolor{lightGrey}
+		11.0 & 1.06 & 289.03 \\
+		11.5 & 1.06 & 304.73 \\ \rowcolor{lightGrey}
+		12.0 & 1.05 & 321.49
+	\end{tabularx}
+\end{figure}
+
 
 
 \subsubsection*{Data processing}
@@ -40,6 +69,7 @@ When the shaft is rotating in steady state as shown in \autoref{fig:KeMeasuremen
 U=K_e\omega+R_m I \addunit{\volt}
 \label{eq:KeSetUpElec}
 \end{equation}
+
 \startexplain
 \explain{$I$ is the current in the circuit}{\si{\ampere}}
 \explain{$U$ is the generator's voltage}{\si{\volt}}

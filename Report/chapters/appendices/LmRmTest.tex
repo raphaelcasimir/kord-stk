@@ -30,7 +30,8 @@
 The test will consist of applying a step of \SI{7}{\volt} on the DC motor (which is at \SI{0}{\volt} before that) with its shaft locked. Then via a curve fitting tool named SENSETOOL $R_m$ and $L_m$ are deduced.
 
 \subsubsection*{Raw Data}
-
+The blue line represents the power supply output without load.\\
+The gold line is the response of the motor to this step.
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth]{figures/appendix/Motor&GearTests/RmLmDataPlot}
@@ -41,13 +42,13 @@ The test will consist of applying a step of \SI{7}{\volt} on the DC motor (which
 
 Since the shaft is locked, a step is applied and only the electrical characteristics of the motor are looked at. The data measured follows \autoref{eq:RmLmChar}.
 
-\begin{equation}\label{eq:RmLmChar}
-	u(t)=R_m i(t)+L_m \frac{\partial i(t)}{\partial t} \addunit{\volt}
+\begin{equation} \label{eq:RmLmChar}
+	u(t)=R_m i(t)+L_m \frac{d i(t)}{d t} \addunit{\volt}
 \end{equation}
 
 Which gives the transfer function \autoref{eq:RmLmTf}. Which is used to find $R_m$ and $L_m$ by curve fitting.
 
-\begin{equation}\label{eq:RmLmTf}
+\begin{equation} \label{eq:RmLmTf}
 \frac{I(s)}{U(s)}=\frac{1}{R_m +L_m s} \addunit{1}
 \end{equation}
 
