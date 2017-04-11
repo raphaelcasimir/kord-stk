@@ -232,7 +232,7 @@ The first part is the torque to counter the load of the arm, $\tau_a$. It is sub
  From \autoref{fig:tauAgrav} \autoref{eq:tauAgrav} can be deduced.
 
 \begin{equation}\label{eq:tauAgrav}
-	\tau_{a_{gravity}}=M_a\cdot g \cdot \frac{l_a}{2} sin(\Theta_a) \addunit{\newton\meter}
+	\tau_{a_{gravity}}=M_a g \frac{l_a}{2} sin(\theta_a) \addunit{\newton\meter}
 \end{equation}
 \startexplain
 \explain{$M_a$ is the mass of the arm}{\si{\kilogram}}
@@ -241,7 +241,7 @@ The first part is the torque to counter the load of the arm, $\tau_a$. It is sub
 $\tau_{a_{momentum}}$ is the torque of the momentum of the arm when it moves. This can be translated by the \autoref{eq:ArmMomentum}.
 
 \begin{equation}\label{eq:ArmMomentum}
-	\tau_{a_{momentum}}=-\dot\omega_a\ \cdot J_a \addunit{\newton\meter}
+	\tau_{a_{momentum}}=-J_a \ddot\theta_a\ \addunit{\newton\meter}
 \end{equation}
 \startexplain
 \explain{$J_a$ is the moment of inertia of the arm}{\si{\kilogram\meter\squared}}
@@ -251,30 +251,30 @@ $\tau_s$ is the load of the stick. It is also composed of two torques in the sam
 
 \begin{subequations}\label{eq:TauS}
 	\begin{flalign}
-		\tau_s&=\tau_{s_{gravity}}+\tau_{s_{momentum}} \addunit{\newton\meter}\\
-		\tau_{s_{gravity}}&=M_s g l_a\frac{l_s}{2} sin(\Theta_s) \addunit{\newton\meter}\\
-		\tau_{s_{momentum}}&=-J_s\cdot \Theta_s\addunit{\newton\meter}\label{eq:TausMomentum}
+		\tau_s&=\tau_{s_{momentum}}+\tau_{s_{gravity}} \addunit{\newton\meter}\\
+		\tau_{s_{momentum}}&=-J_s \ddot\theta_s\ \addunit{\newton\meter}\label{eq:TausMomentum}\\
+		\tau_{s_{gravity}}&=sin(\theta_a)M_s g l_a \left[1+\frac{l_s}{2}sin(\theta_s)\right] \addunit{\newton\meter}		
 	\end{flalign}
 \end{subequations}
 
 \autoref{eq:TausMomentum} can be then rewritten as \autoref{eq:TauSmLin} as explained in \autoref{sec:StickArm}. By combining and linearizing Equations (\ref{eq:TauAdef}), (\ref{eq:tauAgrav}), (\ref{eq:ArmMomentum}) and (\ref{eq:TauS}) \autoref{eq:finalTauL} is obtained.
 
 \begin{flalign}\label{eq:finalTauL}
-	\tau_{as} = &M_a g  \frac{l_a}{2} \Theta_a-\dot\omega_a\  J_a \notag \\
-	&-\frac{l_s}{2}M_s\left(-l_a\dot{\omega}_a+g\theta_s\right)+b_{as}(\omega_s-\omega_a)\notag \\
-	&+l_a \Theta_a  \frac{l_s}{2} M_s g \addunit{\newton\meter}
+	\tau_{as} = &M_a g  \frac{l_a}{2} \theta_a-\ddot\theta_a\  J_a \notag \\
+	&+\theta_a M_s g l_a \left(1+\frac{l_s}{2}\theta_s\right)\notag \\ 
+	&-\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a+g\theta_s\right)+b_{as}(\dot{\theta}_s-\dot\theta_a\ ) \addunit{\newton\meter}
 \end{flalign}
 
 Since the system has to correct $\Theta_s$ by moving the arm so that $\omega_s=\omega_a$ which gives \autoref{eq:FinalTauAS}.
 
 \begin{subequations}\label{eq:FinalTauAS}
 	\begin{flalign}
-		\tau_{as} =	&M_a g  \frac{l_a}{2} \Theta_a-\dot\omega_a\ J_a \notag \\
-					&-\frac{l_s}{2}M_s\left(-l_a\dot{\omega}_a+g\theta_a\right)\notag \\
-					&+l_a \Theta_a  \frac{l_s}{2} M_s g \addunit{\newton\meter}\\
-		\mathcal{L}\{\tau_{as}\}=\tau_{as}(s) = 	&M_a g  \frac{l_a}{2} N^3\frac{\Omega_m}{s}-N^3\Omega_m s J_a \notag \\
-									&-\frac{l_s}{2}M_s\left(-N^3 l_a\Omega_m s-N^3 g\frac{\Omega_m}{s}\right)\notag \\
-									&+l_a N^3 \frac{\Omega_m}{s}  \frac{l_s}{2} M_s g \addunit{1}
+		\tau_{as} = &M_a g  \frac{l_a}{2} \theta_a-\ddot\theta_a\  J_a \notag \\
+		&+\theta_a M_s g l_a \left(1+\frac{l_s}{2}\theta_a\right)\notag \\ 
+		&-\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a+g\theta_a\right) \addunit{\newton\meter}\\
+		\mathcal{L}\{\tau_{as}\}=\tau_{as}(s) =	&M_a g  \frac{l_a}{2} N^3\frac{\Omega_m}{s}-N^3\Omega_m s J_a \notag \\
+									&+N^3\frac{\Omega_m}{s} M_s g l_a \left(1+\frac{l_s}{2}N^3\frac{\Omega_m}{s}\right)\notag \\
+									&-\frac{l_s}{2}M_s\left(-l_a N^3 \Omega_m s+g N^3\frac{\Omega_m}{s}\right) \addunit{1}
 	\end{flalign}
 \end{subequations} 
 
