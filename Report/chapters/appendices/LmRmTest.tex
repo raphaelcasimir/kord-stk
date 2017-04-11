@@ -56,10 +56,11 @@ The resulting equation is Ohm's law:
 U_m = R_m \cdot i
 \end{equation}
 
+
 The measurement of voltage according to the current is presented in \autoref{fig:Rmplot}.
 \begin{figure}[htbp]
-	\includegraphics[width=1\textwidth]{figures/modeling/Motor/Rmplot-converted-to-pdf}
-	\caption{Diagram of the setup.} \label{fig:Rmplot}
+	\includegraphics[width=1\textwidth]{figures/appendix/Motor&GearTests/plotRm}
+	\caption{Measurement of voltage according to the current} \label{fig:Rmplot}
 \end{figure}
 
 $R_m$ is the slope of the linear approximation (in dashed yellow) of the voltage over the current: 
@@ -84,7 +85,7 @@ $R_m$ is the slope of the linear approximation (in dashed yellow) of the voltage
 	\end{tabularx}
 \end{table}
 \subsubsection*{Setup}
-\autoref{fig:LaMeasurementSetup} shows a diagram and photo of the measurement set up
+\autoref{fig:LaMeasurementSetup} shows a diagram and photo of the measurement set up.
 \begin{figure}[htbp]
 	\centering
 	\begin{subfigure}{0.50\textwidth}
@@ -95,19 +96,19 @@ $R_m$ is the slope of the linear approximation (in dashed yellow) of the voltage
 		\includegraphics[width=1\textwidth]{MotorImpedanceTest.jpg}
 		\caption{Picture of the setup.} \label{fig:LaMeasurementPictures}
 	\end{subfigure}
-	\caption{The measurement setup.} \label{fig:LaMeasurementSetup}   
+	\caption{$L_m$ measurement setup.} \label{fig:LaMeasurementSetup}   
 \end{figure}
 
 \subsubsection*{Method}
-This test consists of having the motor shaft locked while a step is applied. The voltage of a shunt resistor is then measured by an oscilloscope from which the current is deduced.
+This test consists of having the motor shaft locked while a step is applied. The current is measured through the circuit. With the current step response, the inductance of the motor can be found. 
 \subsubsection*{Raw data}
 \autoref{fig:LaTestCurrentPlot} is the plotted evolution of the current of the circuit in respect to time.
 
-%\begin{figure}[htbp]
-%	\centering
-%	\includegraphics[width=0.7\textwidth]{LaTestCurrentPlot}
-%	\caption{Plot of the current in respect to time}\label{fig:LaTestCurrentPlot}
-%\end{figure}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/appendix/Motor&GearTests/LmLamePlot}
+	\caption{Plot of the current step response in respect to time}\label{fig:LaTestCurrentPlot}
+\end{figure}
 
 \subsubsection*{Data processing}
 When the shaft is locked and a step is applied the DC motor's electric equation can be resumed as in \autoref{eq:LaEquation}.
@@ -136,97 +137,18 @@ f(t)= \frac{1}{R_a} \left(1-e^{-\frac{R_a}{L_a} t}\right) \addunit{1}
 \label{eq:LaEquationStepTime}
 \end{equation}
 
-\autoref{eq:LaEquationStepTime} means that at $t=\frac{L_a}{R_a}$ the function would give $1-e^{-1}=\SI{63.212055882}{\percent}$ of its settling value. So at \SI{63.212055882}{\percent} of the settling value $t=\frac{L_a}{R_a}$ and since $R_a=\SI{0.43}{\ohm}$ \cite{datasheet:saradc} is known finding $L_a$ becomes trivial.
+\autoref{eq:LaEquationStepTime} means that at $t=\frac{L_a}{R_a}$ the function would give $1-e^{-1}=\SI{63.212055882}{\percent}$ of its settling value. So at \SI{63.212055882}{\percent} of the settling value $t=\frac{L_a}{R_a}$. \\
+Since $R_a=\SI{0.82}{\ohm}$ is known, finding $L_m$ becomes trivial.
 
 \subsubsection*{Conclusion}
 
-Since the value of the current at the settling value is \SI{20.471}{\ampere}. Then \autoref{eq:LaEq} gives the value of $L_a$.
+Since the value of the current at the settling value is \SI{6.72}{\ampere}. Then \autoref{eq:LaEq} gives the value of $L_m$.
 
 \begin{subequations} \label{eq:LaEq}
 	\begin{flalign}
-		&\frac{1}{R_a} \left(1-e^{-\frac{R_a}{L_a} \tau}\right)=20.471 \cdot 0.63212055882 \addunit{\second} \\
-		&t = \SI{0.00190}{\second} \\
+		&\frac{1}{R_a} \left(1-e^{-\frac{R_a}{L_a} t}\right)=6.72 \cdot 0.63212055882 \addunit{\second} \\
+		&t \approx \SI{0.0124}{\second} \\
 		&L_a=tR_a \\
-		&L_a=\SI{817}{\micro\henry}
+		&L_a \approx \SI{11.2}{\milli\henry}
 	\end{flalign}
 \end{subequations}
-
-
-
-
-
-\hrule
-
-\hrule
-
-\hrule
-
-\hrule
-
-\hrule
-
-\hrule
-
-SENSTOOL RmLm\\
-
-\begin{table}[htbp]
-	\centering
-	\caption{List of measurement equipment and components}\label{tab_appendix:LaSetUp}
-	
-	\begin{tabularx}{\textwidth}{lXXXX}
-		Name 				& Brand	& Model & AAU-number									\\ \toprule \rowcolor{lightGrey}
-		
-		DC motor & Alsthom BBC & F9M2 & 08339 
-	\end{tabularx}
-\end{table}
-
-
-\subsubsection*{Setup}
-\autoref{fig:KeMeasurementSetup} shows a diagram and photo of the measurement set up
-
-\subsubsection*{Method}
-The test will consist of applying a step of \SI{7}{\volt} on the DC motor (which is at \SI{0}{\volt} before that) with its shaft locked. Then via a curve fitting tool named SENSETOOL $R_m$ and $L_m$ are deduced.
-
-\subsubsection*{Raw Data}
-The blue line represents the power supply output without load.\\
-The gold line is the response of the motor to this step.
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\textwidth]{figures/appendix/Motor&GearTests/RmLmDataPlot}
-	\caption{Plot of the voltage in respect to time of the input and the output of the DC motor}\label{fig:RmLmTestDataPlot}
-\end{figure}
-
-\subsubsection*{Data processing}
-
-Since the shaft is locked, a step is applied and only the electrical characteristics of the motor are looked at. The data measured follows \autoref{eq:RmLmChar}.
-
-\begin{equation} \label{eq:RmLmChar}
-	u(t)=R_m i(t)+L_m \frac{d i(t)}{d t} \addunit{\volt}
-\end{equation}
-
-Which gives the transfer function \autoref{eq:RmLmTf}. Which is used to find $R_m$ and $L_m$ by curve fitting.
-
-\begin{equation} \label{eq:RmLmTf}
-\frac{I(s)}{U(s)}=\frac{1}{R_m +L_m s} \addunit{1}
-\end{equation}
-
-\subsubsection*{Conclusion}
-
-After the curve fitting the following values are found $R_m=\SI{1.02}{\ohm}$ and $L_m=\SI{142}{\micro\henry}$. \autoref{fig:RmLmTestFitPlot} is a comparison between the model with these parameters and the measures done.
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\textwidth]{figures/appendix/Motor&GearTests/RmLmFitPlot}
-	\caption{Plot of the comparison between the model and the measures}\label{fig:RmLmTestFitPlot}
-\end{figure}
-\hrule
-
-\hrule
-
-\hrule
-
-\hrule
-
-\hrule
-
-\hrule
