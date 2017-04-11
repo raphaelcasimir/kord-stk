@@ -58,7 +58,6 @@ U_m = R_m \cdot i
 
 
 The measurement of voltage according to the current is presented in \autoref{fig:Rmplot}.
-\todo[inline,author=Geoff]{Make lines thicker and titles bigger}
 \begin{figure}[htbp]
 	\includegraphics[width=1\textwidth]{figures/appendix/Motor&GearTests/plotRm}
 	\caption{Measurement of voltage according to the current} \label{fig:Rmplot}
@@ -105,11 +104,11 @@ This test consists of having the motor shaft locked while a step is applied. The
 \subsubsection*{Raw data}
 \autoref{fig:LaTestCurrentPlot} is the plotted evolution of the current of the circuit in respect to time.
 
-%\begin{figure}[htbp]
-%	\centering
-%	\includegraphics[width=0.7\textwidth]{LaTestCurrentPlot}
-%	\caption{Plot of the current in respect to time}\label{fig:LaTestCurrentPlot}
-%\end{figure}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/appendix/Motor&GearTests/LmLamePlot}
+	\caption{Plot of the current step response in respect to time}\label{fig:LaTestCurrentPlot}
+\end{figure}
 
 \subsubsection*{Data processing}
 When the shaft is locked and a step is applied the DC motor's electric equation can be resumed as in \autoref{eq:LaEquation}.
@@ -143,13 +142,13 @@ Since $R_a=\SI{0.82}{\ohm}$ is known, finding $L_m$ becomes trivial.
 
 \subsubsection*{Conclusion}
 
-Since the value of the current at the settling value is \SI{000}{\ampere}. Then \autoref{eq:LaEq} gives the value of $L_m$.
+Since the value of the current at the settling value is \SI{6.72}{\ampere}. Then \autoref{eq:LaEq} gives the value of $L_m$.
 
 \begin{subequations} \label{eq:LaEq}
 	\begin{flalign}
-		&\frac{1}{R_a} \left(1-e^{-\frac{R_a}{L_a} \tau}\right)=000 \cdot 0.63212055882 \addunit{\second} \\
-		&t = \SI{000}{\second} \\
+		&\frac{1}{R_a} \left(1-e^{-\frac{R_a}{L_a} t}\right)=6.72 \cdot 0.63212055882 \addunit{\second} \\
+		&t \approx \SI{0.0124}{\second} \\
 		&L_a=tR_a \\
-		&L_a=\SI{000}{\milli\henry}
+		&L_a \approx \SI{11.2}{\milli\henry}
 	\end{flalign}
 \end{subequations}
