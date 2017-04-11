@@ -5,7 +5,7 @@ The first parameter to be tested is the internal resistance of the motor $R_m$. 
 \begin{figure}[htbp]
 	\centering
 	\begin{subfigure}{0.50\textwidth}
-		\includegraphics[width=0.5\textwidth]{figures/figureIsComing}
+		\includegraphics[width=1\textwidth]{figures/appendix/Motor&GearTests/RmTestSetUpDiagram}
 		\caption{Diagram of the setup.} \label{fig:LaMeasurementDiagram}
 	\end{subfigure}
 	\begin{subfigure}{0.40\textwidth}
@@ -56,8 +56,22 @@ The resulting equation is Ohm's law:
 U_m = R_m \cdot i
 \end{equation}
 
+The measurement of voltage according to the current is presented in \autoref{fig:Rmplot}.
+\begin{figure}[htbp]
+	\includegraphics[width=1\textwidth]{figures/modeling/Motor/Rmplot-converted-to-pdf}
+	\caption{Diagram of the setup.} \label{fig:Rmplot}
+\end{figure}
 
-\subsection{Internal Inductance of the DC Motor $L_a$}
+$R_m$ is the slope of the linear approximation (in dashed yellow) of the voltage over the current: 
+\begin{subequations} \label{eq:LaEq}
+	\begin{flalign}
+		&U_m = R_m \cdot i \\
+		&R_m \approx \SI{0.82}{\ohm}
+	\end{flalign}
+\end{subequations}
+
+
+\subsection{Internal Inductance of the DC Motor $L_m$}
 \begin{table}[htbp]
 	\centering
 	\caption{List of measurement equipment and components}\label{tab_appendix:LaSetUp}
@@ -74,7 +88,7 @@ U_m = R_m \cdot i
 \begin{figure}[htbp]
 	\centering
 	\begin{subfigure}{0.50\textwidth}
-		\includegraphics[width=0.5\textwidth]{MotorImpedanceTest.jpg}
+		\includegraphics[width=0.7\textwidth]{figures/appendix/Motor&GearTests/LmDiagram}
 		\caption{Diagram of the setup.} \label{fig:LaMeasurementDiagram}
 	\end{subfigure}
 	\begin{subfigure}{0.40\textwidth}
@@ -169,19 +183,6 @@ SENSTOOL RmLm\\
 
 \subsubsection*{Setup}
 \autoref{fig:KeMeasurementSetup} shows a diagram and photo of the measurement set up
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}{0.50\textwidth}
-		\includegraphics[width=\textwidth]{figures/appendix/Motor&GearTests/RmLmDiagram}
-		\caption{Diagram of the setup.} \label{fig:RmLmMeasurementDiagram}
-	\end{subfigure}
-	\begin{subfigure}{0.40\textwidth}
-		%\includegraphics[width=1\textwidth]{MotorImpedanceTest.jpg}
-		\missingfigure{Picture of the setup}
-		\caption{Picture of the setup.} \label{fig:RmLmMeasurementPictures}
-	\end{subfigure}
-	\caption{The measurement setup.} \label{fig:RmLmMeasurementSetup}   
-\end{figure}
 
 \subsubsection*{Method}
 The test will consist of applying a step of \SI{7}{\volt} on the DC motor (which is at \SI{0}{\volt} before that) with its shaft locked. Then via a curve fitting tool named SENSETOOL $R_m$ and $L_m$ are deduced.
