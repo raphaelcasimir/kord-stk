@@ -7,6 +7,7 @@ X=-10*pi/180:0.0001:10*pi/180;
 for k=1:3491;
 	if (k ~= 0)
 		Y(k)=(sin(-10*pi/180+k*0.0001)-(-10*pi/180+k*0.0001))/(-10*pi/180+k*0.0001)*100;
+        Y1(k)=((sin(-10*pi/180+k*0.0001))^2-0);
 	else
 		Y(k)=0;
 	end
@@ -36,3 +37,10 @@ xlabel('Angle [°]'); ylabel('Error [%]');
 axis tight;
 grid on;
 
+%% Approximation with sin^2=>0
+figure
+plot(X*180/pi,Y1, '--',X*180/pi,X*180/pi-X*180/pi); 
+
+xlabel('Angle [°]'); ylabel('Error [%]');
+axis tight;
+grid on;

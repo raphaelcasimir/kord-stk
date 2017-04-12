@@ -19,6 +19,9 @@ g=9.8;
 %%Transfer Function Creation
 s=tf('s');
 
+%% Controller
+D=(100+s)/s;
+
 %% OmegaM/U parameters
 
 A=-2*Ja*Lm*N+2*Lm*Jm+Lm*Ms*la*Ls*N+2*Lm*Jgear
@@ -40,7 +43,7 @@ Foa=N/s
 
 Fsa=(-3*la*s^2/(2*Ls)+3*Bas*s/(Ms*Ls^2))/(s^2+3*Bas*s/(Ms*Ls^2)-3*g/(2*Ls))
 
-sys=-Fuo*Foa*Fsa*(100+s)%*1/(5000+s)
+sys=-Fuo*Foa*Fsa*D%*1/(5000+s)
 %sys=(0.25*s+K)*Fuo*Foa*Fsa/(1+Fuo*Foa*Fsa)
 
 rlocus(sys);
