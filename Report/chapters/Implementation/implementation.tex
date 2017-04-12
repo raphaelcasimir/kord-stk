@@ -15,8 +15,23 @@ This section describes the implementation of the controller design cf. section \
 \subsubsection*{Potentiometer}
 
 \subsubsection*{Tachometer}
-Compact Instruments A2108
+The tachometer and its precision has been tested in appendix \ref{appendix:RPMTest}. The test concluded that the external optic A2108 tachometers precision is within the limit of what could implemented. The tachometer outputs a voltage which is linear with the number of revolutions per minute. It can be used in two modes, one where 1 V = 1000 rpm and one where 1 V = 10.000 rpm. This voltage can be used as an analogue input to the Arduino and then converted trough software. An example is seen in the following software sample: 
 
+\begin{lstlisting}
+void loop() {
+  // read the input on analog pin 0:
+  int TachoMeter = analogRead(A0);
+  int VoltageTachoMeter = map(TachoMeter, 1, 1023, 0, 5) //Map the analog value back to a voltage so that the conversion is easier.
+  int RadS = (VoltageTachoMeter * 1000) * 0.104719755 //Convert from RPM to rad/s
+  Serial.println(RadS);
+  delay(1);        // delay in between reads for stability
+}
+\end{lstlisting}  
+
+Which gives a transfer function of:
+\begin{equation}
+TBD
+\end{equation}
 
 \subsection{Implementing Motor Controller}
 TBD

@@ -1,5 +1,5 @@
 \graphicspath{{figures/design/}}
-\chapter{Test Journal: Tachometer}
+\chapter{Test Journal: Tachometer}\label{appendix:RPMTest}
 \begin{table}[!h]
 \begin{tabular}{l l}
 \textbf{Test participants:} & Mathias  \\
@@ -16,9 +16,10 @@ The purpose of the test is to determine the linearity and precision of the tacho
 	\begin{tabularx}{\textwidth}{lXXXX}
 		Name & Brand & Model & AAU-number \\ \toprule \rowcolor{lightGrey}
 		Oscilloscope	& Agilent & 54621D & 33941 	\\
-		Powersupply	& Agilent & E3631A & 78577\\ 	
+		Power supply	& Agilent & E3631A & 78577\\ 
+		\rowcolor{lightGrey}	
 		DC motor & Alsthom BBC & F9M2& 08339\\
-		Tachometer & Compact \newline Instruments & A2108& 77087 \\
+		Tachometer & Compact \newline Instruments & A2108& 77087 \\ \rowcolor{lightGrey}
 		Tachometer & Shimpo& DT-205 & 18246
 	\end{tabularx}
 \end{table}
@@ -27,12 +28,43 @@ The powersupply is connected to the motor directly. Tachometer A2108 is connecte
 \section*{Method}
 Step by step of test, maybe in enumerate
 \begin{enumerate}
-\item one
-\item two
+\item Connect motor directly to the power supply.
+\item Connect A2108 tachometer to the oscilloscope.
+\item Place a reflective tape on the motor axle.
+\item Set holder for both tachometers so they point at the motor axle.
+\item Set the power supply to 2 V.
+\item Note the voltage from the oscilloscope, and times the voltage with 1000 to find the number of rotations per minute.
+\item Note the Rotations Per Minute for the each tachometer.
+\item Change the voltage with 1 V increments from 2 V - 10 V.
+\item Note the RPM with each increment.
 \end{enumerate}
 \section*{Raw data}
-Or maybe a plot if there's many results. (Remember to save the raw data anyway.)
-\section*{Data processing}
-\section*{Conclusion}
+\begin{table}[htbp]
+\centering
+\caption{Rotations Per Minute of the both tachometers.}
+\label{RPMData}
+\begin{tabular}{llll}
+Voltage & DT-205 {(}RPM{)} & A2108 {(}RPM{)} & Difference {(}RPM{)} \\ \hline  \rowcolor{lightGrey}
+2 V     & 204              & 202             & 2                    \\
+3 V     & 506              & 502             & 4                    \\  \rowcolor{lightGrey}
+4 V     & 763              & 760             & 3                    \\ 
+5 V     & 1023             & 1024            & 1                    \\  \rowcolor{lightGrey}
+6 V     & 1324             & 1322            & 2                    \\
+7 V     & 1641             & 1640            & 1                    \\  \rowcolor{lightGrey}
+8 V     & 1912             & 1913            & 1                    \\
+9 V     & 2218             & 2214            & 4                    \\ \rowcolor{lightGrey}
+10 V    & 2460             & 2456            & 4                    
+\end{tabular}
+\end{table}
 
+\section*{Data processing}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{figures/appendix/Motor&GearTests/RPMTest}
+	\caption{Plot of RPM found for both tachometers}\label{fig:RPMTest}
+\end{figure}
+
+\section*{Conclusion}
+It its seen cf. figure \ref{fig:RPMTest} that the difference between the tachometers is so little, that the lines is on top of each other. The precision do not change with higher velocities and the A2108 tachometer is chosen, because this can output a analogue voltage which can be sampled by an Arduino.
 
