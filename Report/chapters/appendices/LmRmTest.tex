@@ -106,49 +106,49 @@ This test consists of having the motor shaft locked while a step is applied. The
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.7\textwidth]{figures/appendix/Motor&GearTests/LmLamePlot}
+	\includegraphics[width=1.2\textwidth]{figures/appendix/Motor&GearTests/PlotLm}
 	\caption{Plot of the current step response in respect to time}\label{fig:LaTestCurrentPlot}
 \end{figure}
 
 \subsubsection*{Data processing}
-When the shaft is locked and a step is applied the DC motor's electric equation can be resumed as in \autoref{eq:LaEquation}.
+When the shaft is locked and a step is applied the DC motor's electric equation can be resumed as in \autoref{eq:LmEquation}.
 \begin{equation}
-	F(s)=\frac{I_a(s)}{U_a(s)}=\frac{\frac{1}{R_a}}{\frac{L_a}{R_a} s+1} \addunit{1}
-	\label{eq:LaEquation}
+	F(s)=\frac{I(s)}{U(s)}=\frac{\frac{1}{R_m}}{\frac{L_m}{R_m} s+1} \addunit{1}
+	\label{eq:LmEquation}
 \end{equation}
 \startexplain
-\explain{$I_a(s)$ is the current in Laplace domain}{1}
-\explain{$U_a(s)$ is the body's acceleration}{1}
-\explain{$R_a$ is the internal resistance of the motor}{\si{\ohm}}
-\explain{$L_a$ is the internal inductance of the motor}{\si{\henry}}
+\explain{$I(s)$ is the current in Laplace domain}{1}
+\explain{$U(s)$ is the body's acceleration}{1}
+\explain{$R_m$ is the internal resistance of the motor}{\si{\ohm}}
+\explain{$L_m$ is the internal inductance of the motor}{\si{\henry}}
 \stopexplain
 
-When a unit step response is applied to the system \autoref{eq:LaEquation} becomes \autoref{eq:LaEquationStep}.
+When a unit step response is applied to the system \autoref{eq:LaEquation} becomes \autoref{eq:LmEquationStep}.
 
 \begin{equation}
-F(s)=\frac{\frac{1}{R_a}}{\frac{L_a}{R_a} s+1}\frac{1}{s}=\frac{-\frac{1}{R_a}}{s+\frac{R_a}{L_a}}+\frac{1}{R_a s} \addunit{1}
-\label{eq:LaEquationStep}
+F(s)=\frac{\frac{1}{R_m}}{\frac{L_m}{R_m} s+1}\frac{1}{s}=\frac{-\frac{1}{R_m}}{s+\frac{R_m}{L_m}}+\frac{1}{R_m s} \addunit{1}
+\label{eq:LmEquationStep}
 \end{equation}
 
-\autoref{eq:LaEquationStep} is then put in the continuous time domain to get \autoref{eq:LaEquationStepTime}.
+\autoref{eq:LaEquationStep} is then put in the continuous time domain to get \autoref{eq:LmEquationStepTime}.
 
 \begin{equation}
-f(t)= \frac{1}{R_a} \left(1-e^{-\frac{R_a}{L_a} t}\right) \addunit{1}
-\label{eq:LaEquationStepTime}
+f(t)= \frac{1}{R_m} \left(1-e^{-\frac{R_m}{L_m} t}\right) \addunit{1}
+\label{eq:LmEquationStepTime}
 \end{equation}
 
-\autoref{eq:LaEquationStepTime} means that at $t=\frac{L_a}{R_a}$ the function would give $1-e^{-1}=\SI{63.212055882}{\percent}$ of its settling value. So at \SI{63.212055882}{\percent} of the settling value $t=\frac{L_a}{R_a}$. \\
-Since $R_a=\SI{0.82}{\ohm}$ is known, finding $L_m$ becomes trivial.
+\autoref{eq:LmEquationStepTime} means that at $t=\frac{L_m}{R_m}$ the function would give $1-e^{-1} \approx \SI{63.2}{\percent}$ of its settling value given that the step start at 0 seconds. Therefore, at \SI{63.2}{\percent} of the settling value $t=\frac{L_m}{R_m}$. \\
+Since $R_m=\SI{0.82}{\ohm}$ is known, finding $L_m$ becomes trivial. Here, the step starts at 0.00348 s.
 
 \subsubsection*{Conclusion}
 
-Since the value of the current at the settling value is \SI{6.72}{\ampere}. Then \autoref{eq:LaEq} gives the value of $L_m$.
+Since the settling value of the output current is \SI{4.04}{\ampere}. Then \autoref{eq:LmEq} gives the value of $L_m$.
 
-\begin{subequations} \label{eq:LaEq}
+\begin{subequations} \label{eq:LmEq}
 	\begin{flalign}
-		&\frac{1}{R_a} \left(1-e^{-\frac{R_a}{L_a} t}\right)=6.72 \cdot 0.63212055882 \addunit{\second} \\
-		&t \approx \SI{0.0124}{\second} \\
-		&L_a=tR_a \\
-		&L_a \approx \SI{11.2}{\milli\henry}
+		&\frac{1}{R_m} \left(1-e^{-\frac{R_m}{L_m} t}\right) = 4.04 \cdot 0.63212055882 \addunit{\second} \\
+		&t \approx 0.00367 - 0.00348 \approx \SI{0.00019}{\second} \\
+		&L_m=tR_m \\
+		&L_m \approx \SI{156}{\micro\henry}
 	\end{flalign}
 \end{subequations}
