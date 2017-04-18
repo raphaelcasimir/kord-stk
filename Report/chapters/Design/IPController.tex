@@ -31,11 +31,11 @@ The proportional controller isn't feasible as the pole in the right half plane n
 
 There are two options to bring the unstable pole into the stable region: The zero in 0 can be cancelled allowing the unstable pole to cross the imaginary axis along the real axis or another pole can be added in the right half plane forcing both off the real axis with a high enough gain. The second method requires a zero in the left half plane to pull the poles towards the stable region.
 
-Cancelling zeros in 0 by adding poles can be dangerous as the steady state error will no longer be zero which is critical for a stable inverted pendulum. The system is difficult to control as the transfer function was derived with an attempt to control the angle of the stick. This is only really possible in the special case where the reference is exactly 0 at all times. Redefining the system as trying to control the position of a point on the stick in relation to the vertical axis. By controlling the position instead of the angle would mean the system would still have to balance the stick but not be forced to use a reference of 0 at all times. This could make the system easier to control.
+Cancelling zeros in 0 by adding poles can be dangerous as the steady state error will no longer be zero which is critical for a stable inverted pendulum. The system is difficult to control as the transfer function was derived with an attempt to control the angle of the stick. This is only really possible in the special case where the reference is exactly 0 at all times. The system can instead be redefined as trying to control the position of a point on the stick in relation to the vertical axis. By controlling the position instead of the angle would mean the system would still have to balance the stick but not be forced to use a reference of 0 at all times. This could make the system easier to control.
 
 \section{Redefining the inverted pendulums output and reference point}
 
-The inverted pendulum model will be redefined so the output is the distance a point on the stick to the vertical axis (where the arm and stick both have angles of 0) instead of the angle of the stick. The point, $\alpha$, and the distance to the vertical axis, $x_\alpha$, are seen on \autoref{fig:modelDist}.
+The inverted pendulum model will be redefined so the output is the distance a point on the stick to the vertical axis instead of the angle of the stick. The point, $\alpha$, and the distance to the vertical axis, $x_\alpha$, are seen on \autoref{fig:modelDist}.
 
 \begin{figure}[htbp]
 \centering
@@ -74,10 +74,21 @@ The transfer function still ends up with 2 zeros but it's possible to remove the
 & \frac{X_\alpha(s)}{\Theta_a(s)} = \frac{-l_a\frac{3g}{2l_s}}{s^2-\frac{3g}{2l_s}}
 \end{flalign}
 
-The zeros in 0 has now been removed but the distance, $x_\alpha$, needs to be measured. This can be done by measuring the angles which was also necessary before but now use \autoref{eq:xa} to calculate the distance instead of using the angle directly. The controller for the transfer function in \autoref{eq:xaTF} can now be designed
+The zeros in 0 has been removed but the distance, $x_\alpha$, now needs to be measured. This can be done by measuring the angles, which was also necessary before, but now use \autoref{eq:xa} to calculate the distance instead of using the angle directly. The controller for the transfer function in \autoref{eq:xaTF} can now be designed.
 
 \section{Design of Controller for Arm to Stick Position}
+The controller for the system will be split into two. One controller in an inner loop that controls the angle of the arm and one in an outer loop that controls the position of the stick. The system with the two controllers can be seen on the block diagram on \autoref{fig:IPBlock}.
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{IPBlock}
+\caption{Block diagram of the inverted pendulum system with inner and outer loop controllers.}
+\label{fig:IPBlock}
+\end{figure}
+
+If the inner loop is faster than the outer loop then it can be assumed to be irrelevant when designing the outer loop controller.
+
+\todo[inline,author=Jacob]{For the rest of this section: Use root locus to design Dx controller (Maybe parts of next section can be used here), then design Dm controller while keeping in mind it should be faster than Dx. I'd like for the angle of the stick to somehow be shown as a disturbance in the system and relate the redefinition to feedforward control for better disturbance rejection if possible. Tune parameters in the end as inner loop will have an effect on outer loop.}
 
 
 \section{Controller with a 2nd right half plane pole added}
