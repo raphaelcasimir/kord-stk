@@ -1,11 +1,34 @@
 \chapter{Rocket Analysis}
-		A rocket presents a large number of similarities with an inverted pendulum in terms of modeling and control as it will be demonstrated in this chapter. It also adds one degree of freedom compared to the inverted pendulum. A model of the rocket is made to be able to compare the two systems dynamics.
+		A rocket presents a large number of similarities with an inverted pendulum in terms of modeling and control as it will be demonstrated in this chapter. It also adds one degree of freedom compared to the inverted pendulum, since it can be controlled in two horizontal directions. A model of the rocket is made to be able to compare the two systems dynamics.
 		\\
 		Two different parameters will be controlled in the rocket: the angle of its body compared to vertical and its position.
 		It will be sought to minimize the angle and to keep the initial position but not the initial altitude.
 		
 		\section{Modeling of the angle}
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.7\textwidth]{figures/modeling/Rocket/rocket_angle_diagram.png}
+			\caption{Diagram of the system for controlling the angle.}
+			\label{fig:angle_diagram}
+		\end{figure}
 		
+		This part will focus on the forces acting perpendicularly to the rocket body, thus creating torques.
+		The resulting transfer function will take $\theta_t$, the thruster angle compared to the body, as an input and $\theta_b$, the body angle compared to vertical as an output.
+		
+		The thruster force $F_t$ will be considered as constant. See the rocket motor test experiment for details \todo[inline, author=Raph]{Add vref for SRB test experiment}. $F_g$ is the rocket's weight. The force of drag is neglected due to the low-speed conditions of the tests, and the absence of air in most real-life scenarios.
+		
+		Let's call $l_Cg$ the distance between the center of gravity and the end of the thruster.
+		Using Newton's second law the following equation can be derived.
+
+		\begin{equation}
+			I_r \cdot \ddot{\theta_b}=\tau_t \addunit{\newton$\cdot$\meter} \label{eq:F_{total}}
+		\end{equation}
+		\startexplain
+			\explain{$I_r$ is the inertia of the rocket}{\si{\newton\meter}}
+			\explain{$\ddot{\theta_b}$ is the angular acceleration of the rocket body}{\si{\newton}}
+			\explain{$F_{drag}$ is the drag force on the rocket}{\si{\newton}}
+			\explain{$F_{gravity}$ is the gravity applied on the rocket}{\si{\newton}}
+		\stopexplain
 			
 %				\section{Inverted pendulum and rocket}
 %			The goal of this section is to demonstrate the similarities between the inverted pendulum and the rocket stabilization processes, and to define a mathematical model and control loop of the behavior of the angle of the rocket body and the angle of the thruster.
