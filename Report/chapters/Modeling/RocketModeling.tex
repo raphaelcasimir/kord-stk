@@ -17,19 +17,36 @@
 		
 		The thruster force $F_t$ will be considered as constant. See the rocket motor test experiment for details \todo[inline, author=Raph]{Add vref for SRB test experiment}. $F_g$ is the rocket's weight. The force of drag is neglected due to the low-speed conditions of the tests, and the absence of air in most real-life scenarios.
 		
-		Let's call $l_Cg$ the distance between the center of gravity and the end of the thruster.
+		Let's call $l_{Cg}$ the distance between the center of gravity and the end of the thruster.
 		Using Newton's second law the following equation can be derived.
 
 		\begin{equation}
-			I_r \cdot \ddot{\theta_b}=\tau_t \addunit{\newton$\cdot$\meter} \label{eq:F_{total}}
+			I_r \cdot \ddot{\theta_b}=\tau_t \addunit{\newton$\cdot$\meter} \label{eq:rocket_angle_1}
 		\end{equation}
 		\startexplain
 			\explain{$I_r$ is the inertia of the rocket}{\si{\newton\meter}}
 			\explain{$\ddot{\theta_b}$ is the angular acceleration of the rocket body}{\si{\newton}}
-			\explain{$F_{drag}$ is the drag force on the rocket}{\si{\newton}}
-			\explain{$F_{gravity}$ is the gravity applied on the rocket}{\si{\newton}}
+			\explain{$\tau_t$ is the torque created by the thruster on the rocket}{\si{\newton}}
 		\stopexplain
-			
+		
+		$\tau_t$ can be expressed as:
+		
+		\begin{equation}
+		\tau_t=f_t \cdot \theta_t \cdot l_{Cg} \addunit{\newton$\cdot$\meter} \label{eq:rocket_angle_2}
+		\end{equation}
+		\startexplain
+		\explain{$I_r$ is the inertia of the rocket}{\si{\newton\meter}}
+		\explain{$\theta_t$ is the angle of the truster compared to the rocket body}{\si{\newton}}
+		\explain{$f_t$ is the thrust force}{\si{\newton}}
+		\stopexplain
+		
+		By going to the Laplace domain and grouping elements the following transfer function is obtained:
+		
+		\begin{equation}
+		\frac{\theta_b}{\theta_t} = \frac{f_t \cdot l_{Cg} \cdot \frac{1}{I_r}}{s^2}
+		\label{eq:rocket_angle_model_tf}
+		\end{equation}
+		
 %				\section{Inverted pendulum and rocket}
 %			The goal of this section is to demonstrate the similarities between the inverted pendulum and the rocket stabilization processes, and to define a mathematical model and control loop of the behavior of the angle of the rocket body and the angle of the thruster.
 %			
