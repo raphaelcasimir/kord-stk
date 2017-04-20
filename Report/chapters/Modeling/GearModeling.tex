@@ -253,7 +253,7 @@ $\tau_s$ is the load of the stick. It is also composed of two torques in the sam
 	\begin{flalign}
 		\tau_s&=\tau_{s_{momentum}}+\tau_{s_{gravity}} \addunit{\newton\meter}\\
 		\tau_{s_{momentum}}&=-J_s \ddot\theta_s\ \addunit{\newton\meter}\label{eq:TausMomentum}\\
-		\tau_{s_{gravity}}&=sin(\theta_a)M_s g l_a \left[1+\frac{l_s}{2}sin(\theta_s)\right] \addunit{\newton\meter}		
+		\tau_{s_{gravity}}&=sin(\theta_a)M_s \left[l_a+\frac{l_s}{2}sin(\theta_s)\right] \addunit{\newton\meter}		
 	\end{flalign}
 \end{subequations}
 
@@ -261,7 +261,7 @@ $\tau_s$ is the load of the stick. It is also composed of two torques in the sam
 
 \begin{flalign}\label{eq:finalTauL}
 	\tau_{as} = &M_a g  \frac{l_a}{2} \theta_a-\ddot\theta_a\  J_a \notag \\
-	&+\theta_a M_s g l_a \left(1+\frac{l_s}{2}\theta_s\right)\notag \\ 
+	&+\theta_a M_s g \left(l_a+\frac{l_s}{2}\theta_s\right)\notag \\ 
 	&-\frac{l_s}{2}M_s\left(-l_a\ddot{\theta}_a+g\theta_s\right)+b_{as}(\dot{\theta}_s-\dot\theta_a\ ) \addunit{\newton\meter}
 \end{flalign}
 
@@ -270,8 +270,8 @@ $\Theta_s$ is then replaced by $\Theta_a$ according to \autoref{eq:tfArmStick} a
 \begin{subequations}\label{eq:FinalTauAS}
 	\begin{flalign}
 		\tau_{as} = &M_a g  \frac{l_a}{2} \theta_a-\ddot\theta_a\  J_a \notag \\
-		&+\theta_a M_s g l_a \notag+b_{as}\dot{\theta}_a\left[\frac{s \left(-\frac{3 l_a}{2 l_s} s+\frac{b_{as}}{M_s l_s^2}\right)}{s^2+\frac{b_{as}}{M_s l_s^2}s-\frac{3 g}{2 l_s}}-1\right] \notag \\ 
-		&-\frac{l_s}{2}M_s\left[-l_a\ddot{\theta}_a+g\frac{s \left(-\frac{3 l_a}{2 l_s} s+\frac{b_{as}}{M_s l_s^2}\right)}{s^2+\frac{b_{as}}{M_s l_s^2}s-\frac{3 g}{2 l_s}}\theta_a\right] \addunit{\newton\meter}\\
+		&+\theta_a M_s g l_a \notag+b_{as}(\dot{\theta}_s-\dot{\theta}_a) \notag \\ 
+		&-\frac{l_s}{2}M_s\left[-l_a\ddot{\theta}_a+g\theta_s\right] \addunit{\newton\meter}\\
 		\mathcal{L}\{\tau_{as}\}=\tau_{as}(s) =&M_a g  \frac{l_a}{2} \Theta_a-s^2\Theta_a\  J_a \notag \\
 		&+\Theta_a M_s g l_a+b_{as}s\Theta_a\left[\frac{s \left(-\frac{3 l_a}{2 l_s} s+\frac{b_{as}}{M_s l_s^2}\right)}{s^2+\frac{b_{as}}{M_s l_s^2}s-\frac{3 g}{2 l_s}}-1\right] \notag \\ 
 		&-\frac{l_s}{2}M_s\left[-l_as^2\Theta_a+g\frac{s \left(-\frac{3 l_a}{2 l_s} s+\frac{b_{as}}{M_s l_s^2}\right)}{s^2+\frac{b_{as}}{M_s l_s^2}s-\frac{3 g}{2 l_s}}\Theta_a\right] \addunit{1}
@@ -295,6 +295,7 @@ Now that $\tau_l$ is found it is reinjected in \autoref{eq:Iinserted} giving \au
 
 
 \input{chapters/"Modeling"/MotorGearsTFComplete}
+\input{chapters/"Modeling"/MotorGearsTFSimplified}
 
 
 Since it is a change in the small angles the linearization of a cosine and a sine function gives \autoref{eq:BasLin}.

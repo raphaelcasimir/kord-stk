@@ -40,7 +40,7 @@ Fua=(1/Rm*Kt*(s^2-3/2*g/Ls))/(A*s^4+B*s^3+C*s^2+D*s+E)
 
 Fsa=(3*la*s^2/(2*Ls)+3*Bas*s/(Ms*Ls^2))/(s^2+3*Bas*s/(Ms*Ls^2)-3*g/(2*Ls))
 
-sys=Fua*Fsa
+sys=Fua
 
 figure (1)
 rlocus(sys);
