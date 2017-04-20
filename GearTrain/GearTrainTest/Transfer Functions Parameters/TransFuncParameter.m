@@ -1,18 +1,18 @@
 Kt=0.0293;
-Ke=0.0366;
+Ke=0.0355;
 Jm=2.9e-5;
-Jgear=0.153e-3;
+Jgear=0.153e-4;
 Ja=10.3e-3;
 Js=1.95e-3;
-Lm=11.2e-3;
-Rm=0.82;
+Lm=1.56e-4;
+Rm=1.02;
 Bm=1.59e-4;
 Bgear=1.11e-3;
-N=0.027;
+N=0.3;
 la=0.33;
 Ls=0.4;
-Ms=0.17;
-Ma=0.106;
+Ms=0.334;
+Ma=0.288;
 Bas=0;%1e-3;
 g=9.8;
 
@@ -20,30 +20,31 @@ g=9.8;
 s=tf('s');
 
 %% Controller
-D=(100+s)/s;
+Controller=(1+s)*(6.06217782649108-s)*(6.06217782649107+s)/(6.06217782649107-s)*(6.06217782649107+s)%/(15+s);
 
-%% OmegaM/U parameters
+%% ThetaA/U parameters
 
-A=-2*Ja*Lm*N+2*Lm*Jm+Lm*Ms*la*Ls*N+2*Lm*Jgear
+A=(Jm-Jgear)/N^3+Ls*Ms*la/2+Ja;
 
-B=-2*Ja*N*Rm+2*Bm*Lm+2*Jm*Rm+2*Bgear+Jgear*Rm+Ms*N*g*Ls*Rm;
+B=((Kt*Ke)/Rm-Bgear)/N^3-(Ms*g*la*3)/4;
 
-C=Lm*Ms*N*g*Ls*la+Lm*Ma*g*la-Lm*N*Ms*g*Ls+2*Bm*Rm+2*Bgear*Rm+2*Kt*Ke;
+C=(3*g)/(2*Ls)*((Jgear-Jm)/N^3-la*Ma/2)-7/4*Ms*g*la;
 
-D=Ms*N*Rm*g*la*Ls+Ma*N*Rm*g*la-N*Ms*g*Rm*Ls;
+D=3*g/(2*Ls)*(Bgear/N^3-Kt*Ke/(Rm*N^3)+3/4*g*Ms*la);
 
-Fuo=2*Kt*s/(A*s^3+B*s^2+C*s+D)
+E=3*g*la/(2*Ls)*(Ma/2+g*Ms);
 
-
-%% ThetaA/OmegaM parameters
-
-Foa=N/s
+Fua=(1/Rm*Kt*(s^2-3/2*g/Ls))/(A*s^4+B*s^3+C*s^2+D*s+E)
 
 %% ThetaS/ThetaA
 
-Fsa=(-3*la*s^2/(2*Ls)+3*Bas*s/(Ms*Ls^2))/(s^2+3*Bas*s/(Ms*Ls^2)-3*g/(2*Ls))
+Fsa=(3*la*s^2/(2*Ls)+3*Bas*s/(Ms*Ls^2))/(s^2+3*Bas*s/(Ms*Ls^2)-3*g/(2*Ls))
 
-sys=-Fuo*Foa*Fsa*D%*1/(5000+s)
-%sys=(0.25*s+K)*Fuo*Foa*Fsa/(1+Fuo*Foa*Fsa)
+sys=Fua*Fsa
 
+figure (1)
 rlocus(sys);
+
+cont=Controller*sys
+figure (2)
+rlocus(cont)
