@@ -17,19 +17,51 @@
 		
 		The thruster force $F_t$ will be considered as constant. See the rocket motor test experiment for details \todo[inline, author=Raph]{Add vref for SRB test experiment}. $F_g$ is the rocket's weight. The force of drag is neglected due to the low-speed conditions of the tests, and the absence of air in most real-life scenarios.
 		
-		Let's call $l_Cg$ the distance between the center of gravity and the end of the thruster.
+		Let's call $l_{Cg}$ the distance between the center of gravity and the end of the thruster.
 		Using Newton's second law the following equation can be derived.
 
 		\begin{equation}
-			I_r \cdot \ddot{\theta_b}=\tau_t \addunit{\newton$\cdot$\meter} \label{eq:F_{total}}
+			I_r \cdot \ddot{\theta_b}=\tau_t \addunit{\newton$\cdot$\meter} \label{eq:rocket_angle_1}
 		\end{equation}
 		\startexplain
-			\explain{$I_r$ is the inertia of the rocket}{\si{\newton\meter}}
-			\explain{$\ddot{\theta_b}$ is the angular acceleration of the rocket body}{\si{\newton}}
-			\explain{$F_{drag}$ is the drag force on the rocket}{\si{\newton}}
-			\explain{$F_{gravity}$ is the gravity applied on the rocket}{\si{\newton}}
+			\explain{$I_r$ is the inertia of the rocket}{\si{\kilo\gram$\cdot$\meter^2}}
+			\explain{$\ddot{\theta_b}$ is the angular acceleration of the rocket body}{1}
+			\explain{$\tau_t$ is the torque created by the thruster on the rocket}{\si{\newton \meter}}
 		\stopexplain
-			
+		
+		$\tau_t$ can be expressed as:
+		
+		\begin{equation}
+		\tau_t=f_t \cdot \theta_t \cdot l_{Cg} \addunit{\newton$\cdot$\meter} \label{eq:rocket_angle_2}
+		\end{equation}
+		\startexplain
+		\explain{$\theta_t$ is the angle of the truster compared to the rocket body}{1}
+		\explain{$f_t$ is the thrust force}{\si{\newton}}
+		\stopexplain
+		
+		By going to the Laplace domain and grouping elements the following transfer function is obtained:
+		
+		\begin{equation}
+		\frac{\theta_b}{\theta_t} = \frac{f_t \cdot l_{Cg} \cdot \frac{1}{I_r}}{s^2}
+		\label{eq:rocket_angle_model_tf_1}
+		\end{equation}
+		
+		Calculating $I_r$ assuming that all the mass is concentrated at the electronics/battery stage of the rocket. 70\% of the weight is in fact concentrated on this part (rocket is about 300 grams and the electronics stage is around 210g). Moreover the rest of the weight is very close to the center of rotation, which is the gimbal, and the servos / gimbal stage is the second most massive part.
+		
+		\begin{equation}
+		I_r=m_r \cdot l_{Es}^2 \label{eq:rocket_angle_3}
+		\end{equation}
+		\startexplain
+		\explain{$m_r$ is the mass of the rocket}{\si{\newton\meter}}
+		\explain{$l_{Es}$Is the distance from the gimbal to the electronics stage}{\si{\newton}}
+		\stopexplain
+		
+		The transfer function becomes:
+		\begin{equation}
+		\frac{\theta_b}{\theta_t} = \frac{f_t \cdot l_{Cg} \cdot \frac{1}{m_r \cdot l_{Es}^2}}{s^2}
+		\label{eq:rocket_angle_model_tf_2}
+		\end{equation}
+		
 %				\section{Inverted pendulum and rocket}
 %			The goal of this section is to demonstrate the similarities between the inverted pendulum and the rocket stabilization processes, and to define a mathematical model and control loop of the behavior of the angle of the rocket body and the angle of the thruster.
 %			
@@ -134,7 +166,7 @@
 		 \todo[inline, author=Geoff]{copy paste equation syntaxe from above sections to have multiple equations}
 		 insert sketch of the different cases
 		 
-		 \section{linearization}
+		 \section{Linearization}
 		
 		\startexplain
 		\explain{$F_x$ is the force in the x direction}{\si{\newton}}
