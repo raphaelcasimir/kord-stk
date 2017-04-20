@@ -20,7 +20,7 @@ g=9.8;
 s=tf('s');
 
 %% Controller
-D=(10+s)/s;
+Controller=(1+s)*(6.06217782649108-s)*(6.06217782649107+s)/(6.06217782649107-s)*(6.06217782649107+s)%/(15+s);
 
 %% ThetaA/U parameters
 
@@ -40,6 +40,11 @@ Fua=(1/Rm*Kt*(s^2-3/2*g/Ls))/(A*s^4+B*s^3+C*s^2+D*s+E)
 
 Fsa=(3*la*s^2/(2*Ls)+3*Bas*s/(Ms*Ls^2))/(s^2+3*Bas*s/(Ms*Ls^2)-3*g/(2*Ls))
 
-sys=-Fua*Fsa
+sys=Fua*Fsa
 
+figure (1)
 rlocus(sys);
+
+cont=Controller*sys
+figure (2)
+rlocus(cont)
