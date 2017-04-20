@@ -88,6 +88,12 @@ The controller for the system will be split into two. One controller in an inner
 
 If the inner loop is faster than the outer loop then it can be assumed to be irrelevant when designing the outer loop controller.
 
+With the redefined transfer function the outer loop will control the transfer function in \autoref{eq:xaTF}. From the root locus in \autoref{fig:locusxa} it can be seen that a zero needs to be added on the real axis in the left half plane in order to move the pole in the right half plane to the stable region. 
+
+Positioning the zero close to the origin doesn't allow for the pole to move far into the left half plane. If it's put far to the left of the pole in the left half plane it'll force the poles off the real axis and to the left of the pole. This can move them very far into the left half plane but could also cause issues for in making the inner loop faster than the outer loop. This is because the settling time would decrease as the natural frequency would increase. Placing the zero close to and on the right of the leftmost pole would allow for the unstable pole to move further into the left half plane without an overly fast response or high overshoot. 
+
+The zero could theoretically be placed on the pole to cancel it and allow the pole to move further into the left half plane along the real axis but the true location of the pole of the real system is difficult to find as small variations in measurements of the system could move the pole slightly.
+
 \todo[inline,author=Jacob]{For the rest of this section: Use root locus to design Dx controller (Maybe parts of next section can be used here), then design Dm controller while keeping in mind it should be faster than Dx. I'd like for the angle of the stick to somehow be shown as a disturbance in the system and relate the redefinition to feedforward control for better disturbance rejection if possible. Tune parameters in the end as inner loop will have an effect on outer loop.}
 
 
