@@ -31,9 +31,37 @@ There's a plethora of different options for the controller to use; the simplest 
 
 The proportional controller isn't feasible as the pole in the right half plane never enters the stable region even with a negative gain.
 
-There are two options to bring the unstable pole into the stable region: The zero in 0 can be cancelled allowing the unstable pole to cross the imaginary axis along the real axis or another pole can be added in the right half plane forcing both off the real axis with a high enough gain. The second method requires a zero in the left half plane to pull the poles towards the stable region.
+The controller can be simplified by using cascade control. This means two controllers should be designed; one that controls the angle of the arm and one that controls the angle of the stick. The cascade control system can be seen on \autoref{fig:IPCascade}.
 
-Cancelling zeros in 0 by adding poles can be dangerous as the steady state error will no longer be zero which is critical for a stable inverted pendulum. The system is difficult to control as the transfer function was derived with an attempt to control the angle of the stick. This is only really possible in the special case where the reference is exactly 0 at all times. The system can instead be redefined as trying to control the position of a point on the stick in relation to the vertical axis. By controlling the position instead of the angle would mean the system would still have to balance the stick but not be forced to use a reference of 0 at all times. This could make the system easier to control.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{IPCascade}
+\caption{Block diagram of the inverted pendulum system with cascade control.}
+\label{fig:IPCascade}
+\end{figure}
+
+If the inner loop is fast enough compared to the outer loop, it's negligible to the outer loop controller. This means the root locus of the can be split into two separate systems with a respective controller that needs to be designed. The root locus of the two subsystems is seen on \autoref{fig:locusSplit}.
+\begin{figure}[htbp]
+\centering
+	\begin{subfigure}{0.45\textwidth}
+	\missingfigure{}
+	\caption{Voltage as input and angle of the arm as output.}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+	\missingfigure{}
+	\caption{Angle of the arm as input and angle of the stick as output.}
+	\end{subfigure}
+\caption{Root locus of the inner loop and outer loop.}
+\label{fig:locusSplit}
+\end{figure}
+
+With this split it's simpler to design a controller that can move the unstable pole to the stable region. The outer loop controller will be designed first as it's essential to this split that the inner loop is faster than the outer loop. 
+
+As the poles in feedback will eventually end up in at the zeros with a large enough gain, there are two options to bring the unstable pole into the stable region: Removing all zeros in 0 so the pole can cross the into the stable region along the real axis or adding another unstable open loop pole to force the poles off the real axis and then circumvent the zeros in 0. The 2nd option requires a zero in the left half plane to pull the poles towards it.
+
+Removing the zeros in 0 can theoretically be done by adding poles in 0 but this is dangerous \textbf{BUT I'M NOT SURE WHY}. Instead it's better to try and redefine the model output to something with a DC gain but at the same time requires the stick to be balanced to achieve the new output. This could be by attempting to control the position of a point on the stick. The stick would need to be balanced in order to have the point always be in the correct position.
+
+%Cancelling zeros in 0 by adding poles can be dangerous as the steady state error will no longer be zero which is critical for a stable inverted pendulum. The system is difficult to control as the transfer function was derived with an attempt to control the angle of the stick. This is only really possible in the special case where the reference is exactly 0 at all times. The system can instead be redefined as trying to control the position of a point on the stick in relation to the vertical axis. By controlling the position instead of the angle would mean the system would still have to balance the stick but not be forced to use a reference of 0 at all times. This could make the system easier to control.
 
 \section{Redefining the inverted pendulums output and reference point}
 
@@ -76,25 +104,34 @@ The transfer function still ends up with 2 zeros but it's possible to remove the
 & \frac{X_\alpha(s)}{\Theta_a(s)} = \frac{-l_a\frac{3g}{2l_s}}{s^2-\frac{3g}{2l_s}}
 \end{flalign}
 
-The zeros in 0 has been removed but the distance, $x_\alpha$, now needs to be measured. This can be done by measuring the angles, which was also necessary before, but now use \autoref{eq:xa} to calculate the distance instead of using the angle directly. The controller for the transfer function in \autoref{eq:xaTF} can now be designed.
-
-\section{Design of Controller for Arm to Stick Position}
-The controller for the system will be split into two. One controller in an inner loop that controls the angle of the arm and one in an outer loop that controls the position of the stick. The system with the two controllers can be seen on the block diagram on \autoref{fig:IPBlock}.
-
+The zeros in 0 has been removed but the distance, $x_\alpha$, now needs to be measured for the feedback. This can be done by measuring the angles, which was also necessary before, but now use \autoref{eq:xa} to calculate the distance instead of using the angle directly. The controller for the transfer function in \autoref{eq:xaTF} can now be designed.
+\section{Design of Outer Loop Controller}
+%The controller for the system will be split into two. One controller in an inner loop that controls the angle of the arm and one in an outer loop that controls the position of the stick. The system with the two controllers can be seen on the block diagram on \autoref{fig:IPBlock}.
+%
+The new block diagram for the controllers can be seen on \autoref{fig:IPBlock}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{IPBlock}
 \caption{Block diagram of the inverted pendulum system with inner and outer loop controllers.}
 \label{fig:IPBlock}
 \end{figure}
-
-If the inner loop is faster than the outer loop then it can be assumed to be irrelevant when designing the outer loop controller.
+%
+%If the inner loop is faster than the outer loop then it can be assumed to be irrelevant when designing the outer loop controller.
 
 With the redefined transfer function the outer loop will control the transfer function in \autoref{eq:xaTF}. From the root locus in \autoref{fig:locusxa} it can be seen that a zero needs to be added on the real axis in the left half plane in order to move the pole in the right half plane to the stable region. 
 
-Positioning the zero close to the origin doesn't allow for the pole to move far into the left half plane. If it's put far to the left of the pole in the left half plane it'll force the poles off the real axis and to the left of the pole. This can move them very far into the left half plane but could also cause issues for in making the inner loop faster than the outer loop. This is because the settling time would decrease as the natural frequency would increase. Placing the zero close to and on the right of the leftmost pole would allow for the unstable pole to move further into the left half plane without an overly fast response or high overshoot. 
+\begin{figure}[htbp]
+\centering
+\missingfigure{}
+\caption{Root locus of the transfer function from the angle of the arm to the position of a point on the stick.}
+\label{fig:locusxa}
+\end{figure}
 
-The zero could theoretically be placed on the pole to cancel it and allow the pole to move further into the left half plane along the real axis but the true location of the pole of the real system is difficult to find as small variations in measurements of the system could move the pole slightly.
+Positioning the zero close to the origin doesn't allow for the pole to move far into the left half plane. If it's put far to the left of the pole in the left half plane it'll force the poles off the real axis and to the left of the pole. This can move them very far into the left half plane before they come back to the real axis which could cause issues for making the inner loop faster than the outer loop. This is because the further away the poles are from origin the higher the natural frequency. A high natural frequency means small settling time. If the poles are off the real axis it'll introduce overshoot which needs to be under 10\% per the specifications. 
+
+Placing the zero close to and on the right of the leftmost pole would allow for the unstable pole to move further into the left half plane without an overly fast response or high overshoot. 
+
+The zero could theoretically be placed on the pole to cancel it and allow the pole to move further into the left half plane along the real axis. This would be ideal but the true location of the pole of the real system is difficult to find as small variations in measurements of the system could move the pole slightly. 
 
 \todo[inline,author=Jacob]{For the rest of this section: Use root locus to design Dx controller (Maybe parts of next section can be used here), then design Dm controller while keeping in mind it should be faster than Dx. I'd like for the angle of the stick to somehow be shown as a disturbance in the system and relate the redefinition to feedforward control for better disturbance rejection if possible. Tune parameters in the end as inner loop will have an effect on outer loop.}
 
