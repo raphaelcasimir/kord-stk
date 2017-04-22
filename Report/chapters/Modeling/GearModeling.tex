@@ -251,7 +251,7 @@ By combining and linearizing Equations (\ref{eq:ArmMomentum}) and (\ref{eq:tauAg
 
 \begin{flalign}\label{eq:finalTauA}
 	\tau_a&=-J_a \ddot{\theta}_a+M_a g \frac{l_a}{2} \theta_a \addunit{\newton\meter} \notag\\
-	\mathcal{L}\{\tau_{s}\}=\tau_{s}(s)&=-J_a\Theta_a s^2+M_a g \frac{l_a}{2} \Theta_a \addunit{1}
+	\mathcal{L}\{\tau_a\}=\tau_a(s)&=-J_a\Theta_a s^2+M_a g \frac{l_a}{2} \Theta_a \addunit{1}
 \end{flalign}
 
 Now the load of the stick $\tau_s$ is studied. It is also composed of two torques in the same fashion as the arm.
@@ -272,10 +272,10 @@ By linearizing \autoref{eq:TauS} \autoref{eq:LinTauS} is found.
 	&-\frac{ls}{2}M_s\left(-l_a\ddot{\theta}_a-\frac{l_s}{2}\ddot{\theta}_s+g\theta_s\right) \addunit{\newton\meter}
 \end{flalign}
 
-However since only $\theta_a$ is wanted in the equation $\Theta_s$ is then replaced by $\Theta_a$ according to \autoref{eq:LinStick} which gives \autoref{eq:FinalTauS}.
+However since only $\theta_a$ is wanted in the equation $\Theta_s$ is then replaced by $\Theta_a$ according to \autoref{eq:tfArmStick} which gives \autoref{eq:FinalTauS}.
 
 \begin{equation}\label{eq:FinalTauS}
-	\mathcal{L}\{\tau_{s}\}=\tau_{s}(s)=M_sl_a\Theta_a+s^2\frac{l_s}{2}l_aM_s\Theta_a+s^2\frac{l_s^2}{4}M_s\left(\frac{\frac{-3l_a}{2l_s}s}{s^2-\frac{3g}{2l_s}}\right)\Theta_a \addunit{1}
+	\mathcal{L}\{\tau_{s}\}=\tau_{s}(s)=M_sl_a\Theta_a+s^2\frac{l_s}{2}l_aM_s\Theta_a+s^2\frac{l_s^2}{4}M_s\left(\frac{\frac{-3l_a}{2l_s}s^2}{s^2-\frac{3g}{2l_s}}\right)\Theta_a \addunit{1}
 \end{equation}
 
 At last $\tau_{as}$ is found by combining Equations \eqref{eq:finalTauA} and \eqref{eq:FinalTauS} in \autoref{eq:FinalTauAS}.
@@ -283,7 +283,7 @@ At last $\tau_{as}$ is found by combining Equations \eqref{eq:finalTauA} and \eq
 \begin{subequations}\label{eq:FinalTauAS}
 	\begin{flalign}
 		\tau_{as} = &\tau_a+\tau_s \addunit{\newton\meter}\\
-		=& -J_a\Theta_a s^2+M_a g \frac{l_a}{2} \Theta_a+M_sl_a\Theta_a+s^2\frac{l_s}{2}l_aM_s\Theta_a+s^2\frac{l_s^2}{4}M_s\left(\frac{\frac{-3l_a}{2l_s}s}{s^2-\frac{3g}{2l_s}}\right)\Theta_a \addunit{1}
+		=& -J_a\Theta_a s^2+M_a g \frac{l_a}{2} \Theta_a+M_sl_a\Theta_a+s^2\frac{l_s}{2}l_aM_s\Theta_a+s^2\frac{l_s^2}{4}M_s\left(\frac{\frac{-3l_a}{2l_s}s^2}{s^2-\frac{3g}{2l_s}}\right)\Theta_a \addunit{1}
 	\end{flalign}
 \end{subequations} 
 
