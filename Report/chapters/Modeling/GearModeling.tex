@@ -283,9 +283,18 @@ At last $\tau_{as}$ is found by combining Equations \eqref{eq:finalTauA} and \eq
 \begin{subequations}\label{eq:FinalTauAS}
 	\begin{flalign}
 		\tau_{as} = &\tau_a+\tau_s \addunit{\newton\meter}\\
-		=& -J_a\Theta_a s^2+M_a g \frac{l_a}{2} \Theta_a+M_sl_a\Theta_a+s^2\frac{l_s}{2}l_aM_s\Theta_a+s^2\frac{l_s^2}{4}M_s\left(\frac{\frac{-3l_a}{2l_s}s^2}{s^2-\frac{3g}{2l_s}}\right)\Theta_a \addunit{1}
+		=& -J_a\Theta_a s^2+M_a g \frac{l_a}{2} \Theta_a+M_sl_a\Theta_a+s^2\frac{l_s}{2}l_aM_s\Theta_a\notag \\
+		&+s^2\frac{l_s^2}{4}M_s\left(\frac{\frac{-3l_a}{2l_s}s^2}{s^2-\frac{3g}{2l_s}}\right)\Theta_a \addunit{1}
 	\end{flalign}
 \end{subequations} 
+
+By combining Equations \eqref{eq:TauL}, \eqref{eq:FinalTauAS} and \eqref{eq:TaufSimplified} $\tau_l$ is then defined as \autoref{eq:finalTauL}.
+
+\begin{flalign}\label{eq:finalTauL}
+	\tau_l=	&-J_a\Theta_a s^2+M_a g \frac{l_a}{2} \Theta_a+M_sl_a\Theta_a+s^2\frac{l_s}{2}l_aM_s\Theta_a\notag \\
+			&+s^2\frac{l_s^2}{4}M_s\left(\frac{\frac{-3l_a}{2l_s}s^2}{s^2-\frac{3g}{2l_s}}\right)\Theta_a\notag \\
+			&+(J_{gear}s +B_{gear})\Omega_m \addunit{1}
+\end{flalign}
 
 Now that $\tau_l$ is found it is re-injected in \autoref{eq:Iinserted} giving \autoref{eq:TfMotor}.
 
