@@ -48,9 +48,16 @@ The procedure for the test is as following:
 \begin{enumerate}
 \item Supply the sensor with 5 V and ground trough the input and output connection board in the yellow box. 
 \item Attached the potentiometer of the arm to the voltmeter, the stick is not considered during measurement of the arm.
-\item Use the spirit level to place the arm in vertical position which is the systems 0$^\circ$ 
+\item Use the spirit level to place the arm in vertical position which is the systems 0$^\circ$
+\item Note the voltage.
+\item Use the spirit level and protractor to place the arm in anti clockwise -45$^\circ$ from vertical.
+\item Note the voltage, and repeat earlier with -90$^\circ$, +45$^\circ$ and +90$^\circ$ 
+\item Place the arm in 0$^\circ$ and lock it.
+\item Change the voltmeter to read the output from the stick potentiometer.
+\item Repeat same measuring procedure and angles as with the arm.
 \end{enumerate}
 \section*{Raw data}
+Voltages from each potentiometer is not expected to be the same. This is based on that the initial orientation of the potentiometers is not the same. 
 \begin{table}[htbp]
 \centering
 \begin{tabular}{lll}
@@ -60,12 +67,62 @@ Position ($^\circ$) & Voltage Pot$_{arm}$ (V) & Voltage Pot$_{stick}$ (V) \\ \hl
 -45$^\circ$         & 1,146 V                 & 1,910 V                   \\
 0$^\circ$           & 1,860 V                 & 2,610 V                   \\
 45$^\circ$          & 2,573 V                 & 3,315 V                   \\
-90$^\circ$          & 3,270 V                 & 4,060 V                   
+90$^\circ$          & 3,270 V                 & 4,020 V                   
 \end{tabular}
 \caption{Angle position and corresponding voltage.}
 \label{AngleTable}
 \end{table}
 \section*{Data processing}
-\section*{Conclusion}
+The main objective to determine is outer limit and how much 1 V corresponds to in angle change. This can give the possibility to convert the analogue input on an Arduino back to the corresponding angle. 
 
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+\hline
+Angle change ($^\circ$)    & Voltage change Pot$_{arm}$ (V) & Voltage change Pot$_{stick}$ (V) \\ \hline
+90$^\circ$ to 45$^\circ$   & 0,697                          & 0,705                            \\
+45$^\circ$ to 0$^\circ$    & 0,713                          & 0,705                            \\
+0$^\circ$ to -45$^\circ$   & 0,714                          & 0,700                            \\
+-45$^\circ$ to -90$^\circ$ & 0,709                          & 0,701                            \\
+Average                    & 0,708                          & 0,703  
+\end{tabular}
+\caption{Increments between each measurement of angle to voltage.}
+\label{IncrementsAngleToVoltage}
+\end{table}
+
+\begin{equation}
+\text{Average}\ =\ \dfrac{0,708 + 0,703}{2}\ \approx\ 0,706 
+\end{equation}
+
+It is shown that the linearity is acceptable and the proportional angle to voltage conversion is considered linear.
+
+%To find the conversion the number of degrees to analog value the degrees per volt is calculated. This is done by the average increment change determined cf. table \ref{IncrementsAngleToVoltage}.
+%\begin{equation}
+%%\dfrac{0,706\ \text{V}}{45^{\circ}}\ \approx\ 0,0157\ \text{V/}{^{\circ}}
+%%\end{equation}
+
+Sampling the sensor with an Arduino will be done trough reading the voltage on an input. The voltage will corresponds to an proportional analog value from 0-1023, where 0 V = 0 and 5 V = 1023. Translating the voltages into angles can give us the backwards conversion. Considering that the value can take 1024 values then:
+\begin{equation}
+\dfrac{1024\ \text{units}}{5\ \text{V}} = 204,8\ \text{units/V}
+\end{equation}     
+Considering that the precision of the measurements and using an Arduino, all values would be rounded to the nearest integer. The conversion of the voltages will then become:
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lll}
+\hline
+Position ($^\circ$) & Value Pot$_{arm}$ & Value Pot$_{stick}$ \\ \hline
+-90$^\circ$         & 0,437 V = 89         & 1,209 V = 248                   \\
+-45$^\circ$         & 1,146 V = 235        & 1,910 V = 391                   \\
+0$^\circ$           & 1,860 V = 381    & 2,610 V = 535                    \\
+45$^\circ$          & 2,573 V = 527    & 3,315 V = 679                   \\
+90$^\circ$          & 3,270 V = 670   & 4,020 V = 823                  
+\end{tabular}
+\caption{Angle position and corresponding voltage converted into an analog value.}
+\label{AngleTable}
+\end{table}
+
+The conversion must be separated into two parts. This is done because the angle to voltage is different between the potentiometers.
+Further implementation is done cf. section \ref{section:PotmeterImplementation}.
+\section*{Conclusion}
+The tested concludes that it is possible to convert the voltage to values that can be used with an Arduino.
 
