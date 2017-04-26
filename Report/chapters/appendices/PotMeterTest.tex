@@ -1,4 +1,4 @@
-\graphicspath{{figures/design/}}
+\graphicspath{{figures/appendix/}}
 \chapter{Test Journal: Potentiometer}\label{appendix:PotMeterTest}
 \begin{table}[!h]
 \begin{tabular}{l l}
@@ -122,7 +122,39 @@ Position ($^\circ$) & Value Pot$_{arm}$ & Value Pot$_{stick}$ \\ \hline
 \end{table}
 
 The conversion must be separated into two parts. This is done because the angle to voltage is different between the potentiometers.
-Further implementation is done cf. section \ref{section:PotmeterImplementation}.
+\newpage
+To obtain i first order function the voltages and angles is plotted and approximated for both potentiometers.
+
+\begin{figure}[htbp]
+\hspace*{-3cm}  
+\centering
+\includegraphics[width=0.95\paperwidth]{figures/appendix/PotentiometerPlot.pdf}
+\caption{First order approximation of the arm potentiometer.}
+\label{fig:PotentiometerPlot}
+\end{figure}
+\bigbreak
+
+This approximation corresponds to a relation between the voltage to angle of the arm on figure \ref{fig:PotentiometerPlot}.
+\begin{equation}
+\theta_a\ =\ 63,64 \cdot \text{VPot}_{arm} - 117,77
+\end{equation}
+\newpage
+The plot is repeated for the potentiometer on the stick.
+\begin{figure}[htbp]  
+\hspace*{-3cm}
+\centering
+\includegraphics[width=0.95\paperwidth]{figures/appendix/PotentiometerPlotStick.pdf}
+\caption{First order approximation of the stick potentiometer.}
+\label{fig:PotentiometerPlotStick}
+\end{figure}
+
+This approximation that corresponds to a relation between the voltage to angle of the arm on figure \ref{fig:PotentiometerPlot}.
+\begin{equation}
+\theta_s\ =\ 64,03 \cdot \text{VPot}_{stick} - 167,42
+\end{equation}
+
+Further implementation is processed cf. section \ref{section:PotmeterImplementation}.
+
 \section*{Conclusion}
-The tested concludes that it is possible to convert the voltage to values that can be used with an Arduino.
+The tested concludes that it is possible to convert the voltage to values that can be used with an Arduino. The test also concludes that is a use able linearity of both potentiometers when during conversions.
 
