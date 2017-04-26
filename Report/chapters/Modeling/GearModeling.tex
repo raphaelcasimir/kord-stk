@@ -100,7 +100,7 @@ Using the previously stated $2^{nd}$ law of motion, the mechanical equation for 
 
 For the body diagram for the wheel in \autoref{fig:Belt&Pulley}:
 \begin{equation}
-	J_w\dot{\omega}_w = -F_1R -\tau_L -b_w\omega_w \addunit{\newton\meter}
+	J_w\dot{\omega}_{w} = -F_1R -\tau_L -b_{w}\omega_{w} \addunit{\newton\meter}
 \end{equation}
 
 Looking at the whole gear train, $\tau_{gear}$ represents the total friction and $\tau_L$ is the opposite of the torque transferred to the next wheel. Which gives for wheels 1, 2 and 3:
@@ -132,7 +132,15 @@ Which gives for Equations \ref{eq:GiveMeAnOriginalName}:
 	\end{flalign}
 \end{subequations}
 
-In order to simplify the frictions are considered to be wet friction as such the frictions in the gear system are directly dependent on the angular velocity of the wheels. To find $\tau_{gear}$, the special case where there is no load after the gear train $\tau_l = \tau_{gear}$ is studied. Inserting \autoref{eq:findTauf} into \autoref{eq:MotorfreeBody}:
+In order to simplify the frictions, they are considered to be wet friction as such the frictions in the gear system are directly dependent on the angular velocity of the wheels. When the system is not moving:
+\begin{subequations} 
+	\begin{flalign}  \label{eq:TaufTgearConditions}
+	\tau_L &= \tau_{gear}\\
+	\omega_m &= 0
+	\end{flalign}
+\end{subequations}
+
+Inserting \autoref{eq:TaufTgearConditions} into \autoref{eq:MotorfreeBody}:
 
 \begin{equation} 
 		\tau_{gear} = -F_1 \cdot r \addunit{\newton\meter}
