@@ -43,3 +43,7 @@
 *.toc
 *.tex.bak
 Report/master.pdf
+
+Report/figures/matrixrand-eps-converted-to\.pdf
+
+Report/figures/matrixopt-eps-converted-to\.pdf

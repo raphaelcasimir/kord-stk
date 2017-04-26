@@ -12,9 +12,57 @@ This section describes the implementation of the controller design cf. section \
 
 \subsection{Implementing Sensors}
 
-\subsubsection*{Potentiometer}
-The system consist of multiple sensors,as decribed cf. section \ref{sec:IPDesc}, where two of those is potentiometers. 
+\subsubsection*{Potentiometer}\label{section:PotmeterImplementation}
+The system consist of multiple sensors, as decribed cf. section \ref{sec:IPDesc}, where two of those is potentiometers. The potentiometers are linear Bourns 100 k$\Omega$. The potentiometers is tested cf. appendix \ref{appendix:PotMeterTest}. The appendix concluded with a first order approximation of both potentiometers. The approximation for Pot$_{arm}$ is:
 
+\begin{equation}
+\theta_a\ =\ 63,64 \cdot V_{{Pot}_{arm}} - 117,77
+\end{equation}
+\startexplain
+	\explain{$\text{V}_{{Pot}_{arm}}$ is the output voltage of the  arms potentiometer}{V}
+	\explain{$\theta_a$ is the angle of the arm}{$^\circ$}
+\stopexplain
+
+The approximation for Pot$_{stick}$ is:
+
+\begin{equation}
+\theta_s\ =\ 64,03 \cdot \text{VPot}_{stick} - 167,42
+\end{equation}
+
+\startexplain
+	\explain{$\text{V}_{{Pot}_{arm}}$ is the output voltage of the stick potentiometer, but where zero degrees is when the stick has a zero degree deviation from the arm.}{V}
+	\explain{$\theta_s$ is the angle of the stick}{$^\circ$}
+\stopexplain
+
+An example of implementing this is done trough a pseudo-code which converts the not limits to degree. Mapping can be used because of the linearity of the potentiometer.
+\begin{lstlisting}
+void loop() {
+  // read the input on analog pin 0:
+  int PotArm = analogRead(A0);
+  int PotStick = analogRead(A1);
+  if (PotArm >= 381 && PotArm <= 670)
+  {
+    int MappedPotArm1 = map(PotArm, 381, 670, 0, 90);
+  }
+  if (PotArm <= 380 && PotArm >= 89)
+  {
+    int MappedPotArm2 = map(PotArm, 380, 89, 0, -90);
+  }
+  if (PotStick >= 535 && PotStick <= 823)
+  {
+    int MappedPotStick1 = map(PotStick, 535, 823, 0, 90);
+  }
+  if (PotStick <= 534 && PotStick >= 248)
+  {
+    int MappedPotStick2 = map(PotStick, 534, 248, 0, -90);
+  }
+  delay(1);        // delay in between reads for stability
+}
+\end{lstlisting}    
+
+In the code the approximations is not used, but can be implemented based on the execution time of the software.
+
+The sampling time of the sensors can be is an important aspect when ensuring stability of the control system. The sensor sampling can not be to slow. Considering that the sensor is a potentiometer which does not have any active components then the only limit is the Arduino. Arduino specifies that calling a analogRead takes approximately 100 $\upmu$s which corresponds to a sampling frequency of 10 kHz. 
 
 \subsubsection*{Tachometer}
 The tachometer and its precision has been tested in appendix \ref{appendix:RPMTest}. The test concluded that the external optic A2108 tachometers precision is within the limit of what could implemented. The tachometer outputs a voltage which is linear with the number of revolutions per minute. It can be used in two modes, one where 1 V = 1000 rpm and one where 1 V = 10.000 rpm. This voltage can be used as an analogue input to the Arduino and then converted trough software. An example is seen in the following software sample: 
