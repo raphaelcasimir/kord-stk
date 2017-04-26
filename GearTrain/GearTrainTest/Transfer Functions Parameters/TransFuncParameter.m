@@ -20,31 +20,44 @@ g=9.8;
 s=tf('s');
 
 %% Controller
-Controller=(1+s)*(6.06217782649108-s)*(6.06217782649107+s)/(6.06217782649107-s)*(6.06217782649107+s)%/(15+s);
+ControllerA=(15+s);%/(15+s);
+ControllerB=(6+s);
 
 %% ThetaA/U parameters
 
-A=(Jm-Jgear)/N^3+Ls*Ms*la/2+Ja;
+A=(Jm+Jgear)/N^3+Ls*Ms*la/8-Ja;
 
-B=((Kt*Ke)/Rm-Bgear)/N^3-(Ms*g*la*3)/4;
+B=((Kt*Ke)/Rm+Bgear+Bm)/N^3;
 
-C=(3*g)/(2*Ls)*((Jgear-Jm)/N^3-la*Ma/2)-7/4*Ms*g*la;
+C=(-3*g)/(2*Ls)*((Jgear+Jm)/N^3-Ja)-g*la*(Ms/4+Ma);
 
-D=3*g/(2*Ls)*(Bgear/N^3-Kt*Ke/(Rm*N^3)+3/4*g*Ms*la);
+D=3*g/(2*Ls*N^3)*(Bgear+Kt*Ke/Rm+Bm);
 
-E=3*g*la/(2*Ls)*(Ma/2+g*Ms);
+E=-3*g^2*la/(4*Ls)*(Ma+Ms);
 
-Fua=(1/Rm*Kt*(s^2-3/2*g/Ls))/(A*s^4+B*s^3+C*s^2+D*s+E)
+Fua=(-Kt/Rm*(s^2-3/2*g/Ls))/(A*s^4+B*s^3+C*s^2+D*s+E)
 
+%% Without ThetaS
+
+F=1/N^3*(Jm+Jgear-Ja+Ls*la*Ms/2);
+G=1/N^3*(Kt*Ke/Rm+Bgear+Bm);
+H=g*la*(Ms+Ma);
+Fua2=(Kt/Rm)/(s^2*F+s*G+H);
 %% ThetaS/ThetaA
 
-Fsa=(3*la*s^2/(2*Ls)+3*Bas*s/(Ms*Ls^2))/(s^2+3*Bas*s/(Ms*Ls^2)-3*g/(2*Ls))
+Fsa=(-la*3*g/(2*Ls))/(s^2-3*g/(2*Ls))
 
-sys=Fua
+sys=-Fsa
 
 figure (1)
 rlocus(sys);
+hold on;
+rlocus(Fua2,'o--');
+hold off;
 
-cont=Controller*sys
+%cont=Controller*sys
 figure (2)
-rlocus(cont)
+rlocus(ControllerB*sys);
+hold on;
+rlocus(ControllerA*Fua2,'o--');
+hold off;
