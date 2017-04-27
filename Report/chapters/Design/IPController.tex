@@ -141,13 +141,22 @@ The zero will therefore initially be placed at -6 which is close to but on the r
 \label{fig:rlocusZeroAdded}
 \end{figure}
 
-The unstable pole can now enter the stable region by selecting a gain large enough. 
+The unstable pole can now enter the stable region by selecting a gain large enough. Selecting the gain too large will however move the other pole further into the left half plane making it more difficult to make the inner loop system faster than the outer loop. As both the zero placement and gain needs to be adjusted later in conjunction with the inner loop controller, the gain will be set to 1 as this puts the unstable pole in the left half plane without the other pole moving too far away as seen on the pole-zero plot on \autoref{fig:pzouterloop}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{pzouterloop}
+\caption{Pole-zero plot of the system with the outer loop controller in feedback.}
+\label{fig:pzouterloop}
+\end{figure}
 
 %\todo[inline,author=Jacob]{For the rest of this section: Use root locus to design Dx controller (Maybe parts of next section can be used here), then design Dm controller while keeping in mind it should be faster than Dx. I'd like for the angle of the stick to somehow be shown as a disturbance in the system and relate the redefinition to feedforward control for better disturbance rejection if possible. Tune parameters in the end as inner loop will have an effect on outer loop.}
 
 \section{Controller with a 2nd right half plane pole added}
-\todo[author=Jacob, inline]{A lot of this only applies for 2nd order system which this is not. I already wrote it without considering that so this section might have to be deleted but I'm leaving it for now.}
-This controller adds a zero and a pole to the system and thus have three variables that needs to be chosen: The gain and the locations of the zero and the pole. The pole has to be located somewhere in the right half plane and the zero in the left. Their locations influence the root locus of the system.
+\todo[author=Jacob, inline]{A lot of this only applies for 2nd order system which this is not. I already wrote it without considering that so this section might have to be deleted but I'm leaving it for now. 2 zeros in 0 is also a massive pain in the ass.}
+A different control method will be attempted in this section where the model won't be redefined but rather a 2nd pole will be added to the right half plane in an attempt to circumvent the zeros in 0.
+
+This controller adds a zero and a pole to the system and thus have three variables that needs to be chosen: The gain and the locations of the zero and the pole. The pole has to be located somewhere in the right half plane and the zero in the left. Their exact locations influence the root locus of the system.
 
 To make the system as stable as possible a fast rise time and low overshoot is desirable. From the specifications the overshoot is set as maximum 10\% with no requirements for the rise time. The damping ratio, $\zeta$, can be found from the overshoot percentage, $M_p$, by \autoref{eq:IPOvershoot}.
 \begin{subequations}
