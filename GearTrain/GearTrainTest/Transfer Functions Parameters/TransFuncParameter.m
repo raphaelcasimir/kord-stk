@@ -20,8 +20,9 @@ g=9.8;
 s=tf('s');
 
 %% Controller
-ControllerA=(15+s);%/(15+s);
-ControllerB=(6+s);
+ControllerA=6.6+1.1*(100)/(1+100/s);%/(15+s);
+
+ControllerB=400+25*(100)/(1+100/s)+900/s;
 
 %% ThetaA/U parameters
 
@@ -39,25 +40,31 @@ Fua=(-Kt/Rm*(s^2-3/2*g/Ls))/(A*s^4+B*s^3+C*s^2+D*s+E)
 
 %% Without ThetaS
 
-F=1/N^3*(Jm+Jgear-Ja+Ls*la*Ms/2);
+F=1/N^3*(Jm+Jgear)-Ja+Ls*la*Ms/2;
 G=1/N^3*(Kt*Ke/Rm+Bgear+Bm);
 H=g*la*(Ms+Ma);
-Fua2=(Kt/Rm)/(s^2*F+s*G+H);
+Fua2=(Kt/Rm)/(s^2*F+s*G+H)
 %% ThetaS/ThetaA
 
 Fsa=(-la*3*g/(2*Ls))/(s^2-3*g/(2*Ls))
 
-sys=-Fsa
+sys=Fua2
 
 figure (1)
-rlocus(sys);
-hold on;
-rlocus(Fua2,'o--');
-hold off;
+% rlocus(sys);
+% hold on;
+rlocus(-Fsa,'--');
+%hold off;
 
 %cont=Controller*sys
 figure (2)
-rlocus(ControllerB*sys);
-hold on;
-rlocus(ControllerA*Fua2,'o--');
-hold off;
+% rlocus(ControllerB*sys);
+% hold on;
+cl=feedback((-ControllerA*(ControllerB*Fua2/(1+ControllerB*Fua2))*Fsa),1);
+pzmap(cl);
+%hold off;
+
+% figure (3)
+% margin(60*Fua2*ControllerA)
+% figure (4)
+% margin(-Fsa)
