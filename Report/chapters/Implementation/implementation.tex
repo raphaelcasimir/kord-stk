@@ -11,6 +11,8 @@ TBD
 This section describes the implementation of the controller design cf. section \ref{sec:IPController}
 
 \subsection{Implementing Sensors}
+\todo{Consider the sampling speed of the sensors, when having the complete closed loop transfer function. - Mathias}
+
 
 \subsubsection*{Potentiometer}\label{section:PotmeterImplementation}
 The system consist of multiple sensors, as decribed cf. section \ref{sec:IPDesc}, where two of those is potentiometers. The potentiometers are linear Bourns 100 k$\Omega$. The potentiometers is tested cf. appendix \ref{appendix:PotMeterTest}. The appendix concluded with a first order approximation of both potentiometers. The approximation for Pot$_{arm}$ is:
@@ -83,8 +85,30 @@ Where the transfer function comes from datasheet and conversion from RPM to rad/
 H_{tm}\ =\ \dfrac{\dfrac{1000\ \text{RPM}}{1\ \text{V}} \cdot 2 \cdot \pi}{60\ \text{s}}\ =\ 104,72\ \text{rad/s}
 \end{equation}
 
-\subsection{Implementing Motor Controller}
-TBD
+\subsection{Implementing Motor Velocity Controller}
+The following sections describes the implementation of the hardware motor controller with the Arduino. The motor driver in the setup is a Maxon Escon 50/5, which can be controlled with an Arduino trough PWM signals. 
+
+The Maxon ESCON 50/5 is a PWM servo controller, that can be used to control DC and EC motors. The servo controller can be used in three different modes trough the Maxon ESCON studio. It can be configured in two modes for speed control with open and closed loops and feedback from sensors trough the board, and one mode for motor current control trough inputs from other modules. In setup the Escon controller is set to current control.
+
+
+The main specifications of the ESCON is listed cf. table \ref{MaxonSpecifications}.
+
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{llll}
+	\hline
+	Parameter & Value & Unit \\ \hline
+	Supply voltage V$_{cc}$& 10-50 V & {[}V{]} \\
+	Output voltage (max.) & 0,98$\cdot$ V$_{cc}$& {[}kg{]} \\
+	Nominal output current & 5 & {[}A{]} \\
+	Maximum output current (<20 s) & 15 & {[}A{]}\\
+	Current control PWM frequency & 53,6 & {[}kHz{]}
+	\end{tabular}
+\caption{Maxon Escon 50/5 specifications.}
+\label{MaxonSpecifications}
+\end{table}
+\todo{Ref to datasheet.}
+
 
 
 \section{Rocket Implementation}
