@@ -90,6 +90,7 @@ The following sections describes the implementation of the hardware motor contro
 
 The Maxon ESCON 50/5 is a PWM servo controller, that can be used to control DC and EC motors. The servo controller can be used in three different modes trough the Maxon ESCON studio. It can be configured in two modes for speed control with open and closed loops and feedback from sensors trough the board, and one mode for motor current control trough inputs from other modules. In setup the Escon controller is set to current control.
 
+It is setup so that it is possible to input a PWM signal from the Arduino, which will correspond that 90\% duty cycle equals 11 A and 10\% equals -11 A. This means that 50
 
 The main specifications of the ESCON is listed cf. table \ref{MaxonSpecifications}.
 
