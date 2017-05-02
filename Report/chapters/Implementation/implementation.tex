@@ -88,9 +88,7 @@ H_{tm}\ =\ \dfrac{\dfrac{1000\ \text{RPM}}{1\ \text{V}} \cdot 2 \cdot \pi}{60\ \
 \subsection{Implementing Motor Velocity Controller}
 The following sections describes the implementation of the hardware motor controller with the Arduino. The motor driver in the setup is a Maxon Escon 50/5, which can be controlled with an Arduino trough PWM signals. 
 
-The Maxon ESCON 50/5 is a PWM servo controller, that can be used to control DC and EC motors. The servo controller can be used in three different modes trough the Maxon ESCON studio. It can be configured in two modes for speed control with open and closed loops and feedback from sensors trough the board, and one mode for motor current control trough inputs from other modules. In setup the Escon controller is set to current control.
-
-It is setup so that it is possible to input a PWM signal from the Arduino, which will correspond that 90\% duty cycle equals 11 A and 10\% equals -11 A. This means that 50
+The Maxon ESCON 50/5 is a PWM servo controller, that can be used to control DC and EC motors. The servo controller can be used in three different modes trough the Maxon ESCON studio. It can be configured in two modes for speed control with open and closed loops and feedback from sensors trough the board, and one mode for motor current control trough inputs from other modules. In setup the Escon controller is set to current control so that it is possible to input a PWM signal from the Arduino, which will correspond that 90\% duty cycle equals 10 A and 10\% equals -10 A. This means that 50\% will be 0 A. 
 
 The main specifications of the ESCON is listed cf. table \ref{MaxonSpecifications}.
 
@@ -109,6 +107,15 @@ The main specifications of the ESCON is listed cf. table \ref{MaxonSpecification
 \label{MaxonSpecifications}
 \end{table}
 \todo{Ref to datasheet.}
+The Escon Controller is powered with a Mean Well SP150-15 switching power supply, that converts 230 V to 15 V/10 A that can cover the supply area of the motor. The construction of the power supply is considered a black box, because limitation is set by the university when working with 230 V. The setup connections for using the Escon 50/5 with the inverted pendulum setup is seen cf. figure \ref{fig:MaxonSetup}.  
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\textwidth]{figures/design/SetupMaxonDriver}
+\caption{Setup for the Escon 50/5 motor controller.}
+\label{fig:MaxonSetup}
+\end{figure}
+An example of implementing a proportional controller with the Escon 50/5 is found cf. \todo{CD/Software/??} where the setup of the Escon software is included.
+\newpage
 
 
 
