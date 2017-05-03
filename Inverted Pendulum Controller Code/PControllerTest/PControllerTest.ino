@@ -27,11 +27,32 @@ unsigned long previousMillis = 0;
 int squareCount = 0;
 int timecount = 0;
 
-const long looptime = 4;  // looptime in ms.
-float setpoint = 381;
-float setpointStick = 535;
-float pgain = 5;
+int pos = 0;
+int posStick = 0;
+float Oldpos = 0;
+float OldposStick = 0;
+
+int OldOldpos = 0;
+int OldOldposStick = 0;
+
+float errorThetaA = 0;
+float errorDist = 0;
+float OlderrorDist = 0;
+float olderrorArm = 0;
+
 float calcedPWM = 0;
+
+const float looptime = 5;  // looptime in ms.
+float setpoint = 380;
+float setpointStick = 535;
+//Outer loop gain
+float pgain = 6.6;
+float igain = 0;
+float dgain = 1.1;
+//Inner loop gain
+float pgainInner = 400;
+float igainInner = 900;
+float dgainInner = 25;
 
 void setup() {
   // put your setup code here, to run once:
@@ -58,13 +79,14 @@ void setup() {
 void loop() {
 
   // put your main code here, to run repeatedly:
-  int pos = analogRead(A0);  // read position from potentiometer
-  int posStick = analogRead(A1);
-  if (posStick < 480 ||  posStick > 580)
-  {
-    posStick = setpointStick;
-    pos = setpoint;
-  }
+  pos = analogRead(A0);  // read position from potentiometer
+  posStick = analogRead(A1);
+//  if (posStick < 480 ||  posStick > 580)
+//  {
+//    posStick = setpointStick;
+//    pos = setpoint;
+//  }
+
   //  if (pos < 235 || pos > 528)
   //  {
   //    posStick = setpointStick;
@@ -77,8 +99,27 @@ void loop() {
   //Serial.print(setpoint);
 
 
-  // Clean p controller
-  calcedPWM = 512 + (((setpoint - pos) + (setpointStick - posStick)) * pgain);
+  //Controller
+  //int errorThetaA = 0;
+  //int errorDist = 0;
+  float MappedPotArm = map(pos, 90, 670, -90 * 3.1415926 *10, 90 * 3.1415926 * 10);
+  MappedPotArm=MappedPotArm/1800;
+  float MappedPotStick = map(posStick, 248, 823, -90 * 3.1415926 * 10, 90 * 3.1415926 * 10);
+  MappedPotStick=MappedPotStick/1800;
+  //Serial.println(MappedPotStick);
+  errorDist = 0 - ((0.33 * sin(0 - MappedPotArm)) - (0.533 * sin(0 - MappedPotStick))); // Error in distance from 0 radians
+  //Serial.println(errorDist);
+  float setThetaA = (pgain * errorDist) + (dgain / looptime) * (errorDist - OlderrorDist);
+  Serial.println(setThetaA);
+  float errorArm = (setThetaA-MappedPotArm);
+
+  float controller = ((pgainInner * errorArm) + (dgainInner / looptime * (errorArm - olderrorArm)) + (igainInner * looptime * (errorArm + olderrorArm)));
+  
+
+  calcedPWM = (512 + ((controller * 11) / 512));
+  
+  OlderrorDist = errorDist;
+  olderrorArm = errorArm;
   // limit pwm til valid range with 90% and 10%
   if (calcedPWM > 916)
     calcedPWM = 916;
@@ -89,9 +130,11 @@ void loop() {
   calcedPWM = 1024 - calcedPWM;
   Timer1.setPwmDuty(PWM_PIN, calcedPWM);
 
-//  // vent til looptime er gÃ¥et.
-//  while ((previousMillis + looptime) > millis())
-//  {} // wait
-//  previousMillis = millis(); // take new timestamp
+  Oldpos = pos;
+  OldposStick = posStick;
+  //  // vent til looptime er gÃ¥et.
+  while ((previousMillis + looptime) > millis())
+  {} // wait
+  previousMillis = millis(); // take new timestamp
 }
 

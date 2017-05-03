@@ -17,7 +17,7 @@
 		
 		The thruster force $F_t$ will be considered as constant. See the rocket motor test experiment for details \todo[inline, author=Raph]{Add vref for SRB test experiment}. $F_g$ is the rocket's weight. The force of drag is neglected due to the low-speed conditions of the tests, and the absence of air in most real-life scenarios.
 		
-		Let's call $l_{Cg}$ the distance between the center of gravity and the end of the thruster.
+%		Let's call $l_{Cg}$ the distance between the center of gravity and the end of the thruster.
 		Using Newton's second law the following equation can be derived.
 
 		\begin{equation}
@@ -29,22 +29,22 @@
 			\explain{$\tau_t$ is the torque created by the thruster on the rocket}{\si{\newton \meter}}
 		\stopexplain
 		
-		$\tau_t$ can be expressed as:
-		
-		\begin{equation}
-		\tau_t=f_t \cdot \theta_t \cdot l_{Cg} \addunit{\newton$\cdot$\meter} \label{eq:rocket_angle_2}
-		\end{equation}
-		\startexplain
-		\explain{$\theta_t$ is the angle of the truster compared to the rocket body}{1}
-		\explain{$f_t$ is the thrust force}{\si{\newton}}
-		\stopexplain
+%		$\tau_t$ can be expressed as:
+%		
+%		\begin{equation}
+%		\tau_t=f_t \cdot \theta_t \cdot l_{Cg} \addunit{\newton$\cdot$\meter} \label{eq:rocket_angle_2}
+%		\end{equation}
+%		\startexplain
+%		\explain{$\theta_t$ is the angle of the truster compared to the rocket body}{1}
+%		\explain{$f_t$ is the thrust force}{\si{\newton}}
+%		\stopexplain
 		
 		By going to the Laplace domain and grouping elements the following transfer function is obtained:
-		
-		\begin{equation}
-		\frac{\theta_b}{\theta_t} = \frac{f_t \cdot l_{Cg} \cdot \frac{1}{I_r}}{s^2}
-		\label{eq:rocket_angle_model_tf_1}
-		\end{equation}
+%		
+%		\begin{equation}
+%		\frac{\theta_b}{\theta_t} = \frac{f_t \cdot l_{Cg} \cdot \frac{1}{I_r}}{s^2}
+%		\label{eq:rocket_angle_model_tf_1}
+%		\end{equation}
 		
 		Calculating $I_r$ assuming that all the mass is concentrated at the electronics/battery stage of the rocket. 70\% of the weight is in fact concentrated on this part (rocket is about 300 grams and the electronics stage is around 210g). Moreover the rest of the weight is very close to the center of rotation, which is the gimbal, and the servos / gimbal stage is the second most massive part.
 		
@@ -65,51 +65,51 @@
 		
 		
 		
-		
-		\section{Modeling of the horizontal position}
-
-		To finish:
-		different diagram of the rocket, similar to figure 6.1 .
-
-		This part will focus on the forces acting on the rocket in the horizontal axis.
-		The resulting transfer function will take $\theta_t$, the thruster angle compared to the body, as an input and $x$, the horizontal position of the rocket as an output.
-
-		The thruster force $F_t$ will be considered as constant. See the rocket motor test experiment for details \todo[inline, author=Paperboy]{Add vref for SRB test experiment}. The force of drag is neglected due to the low-speed conditions of the tests, and the absence of air in most real-life scenarios. The force of lift is neglected as well.
-
-		Let's call $\theta_t$ the angle between the thruster and the vertical axis.
-		Using Newton's second law the following equation can be derived.
-
-		\begin{equation}
-			M_r \cdot \ddot{x} = F_t \cdot \sin(\theta_r)
-			\addunit{\newton}		 
-			\label{eq:rocket_position_1}
-		\end{equation}
-		\startexplain
-		\explain{$M_r$ is the mass of the rocket}{\si{\kilo\gram}}
-		\explain{$\ddot{x}$ is the acceleration of the rocket on the horizontal axis}{\si{\meter\per\second^{-2}}}
-		\stopexplain
-
-		$\theta_r$ can be expressed as:
-
-		\begin{align}
-			\theta_r = \theta_b + \theta_t 
-			\theta_b = \theta_t \cdot C \label{eq:rocket_total_angle}
-		\end{align}
-		\startexplain
-		\explain{$C$ is the relation found in \ref{rocket_angle_model_tf_2}{1}
-		\stopexplain
-	
-		By going to the Laplace domain and grouping elements the following transfer function is obtained:
-	
-		\begin{align}
-			\frac{X}{\theta_t} = \frac{F_t \cdot (1 + C) }{M \cdot s^2}
-			\addunit{\meter} 
-			\frac{X}{\theta_t} = \frac{s^2 \cdot (M_r \cdot l_{Es}^2 \cdot F_t) + F_t^2 \cdot 	l_{Cg}}{s^4 \cdot M_r^2 \cdot l_{Es}^2}
-			\label{eq:rocket_positon_tf_1}
-		\end{align}
-	
-	
-	\todo[inline, author=Paperboy]{Sort out the "relevent" commented text}
+%		
+%		\section{Modeling of the horizontal position}
+%
+%		To finish:
+%		different diagram of the rocket, similar to figure 6.1 .
+%
+%		This part will focus on the forces acting on the rocket in the horizontal axis.
+%		The resulting transfer function will take $\theta_t$, the thruster angle compared to the body, as an input and $x$, the horizontal position of the rocket as an output.
+%
+%		The thruster force $F_t$ will be considered as constant. See the rocket motor test experiment for details \todo[inline, author=Paperboy]{Add vref for SRB test experiment}. The force of drag is neglected due to the low-speed conditions of the tests, and the absence of air in most real-life scenarios. The force of lift is neglected as well.
+%
+%		Let's call $\theta_t$ the angle between the thruster and the vertical axis.
+%		Using Newton's second law the following equation can be derived.
+%
+%		\begin{equation}
+%			M_r \cdot \ddot{x} = F_t \cdot \sin(\theta_r)
+%			\addunit{\newton}		 
+%			\label{eq:rocket_position_1}
+%		\end{equation}
+%		\startexplain
+%		\explain{$M_r$ is the mass of the rocket}{\si{\kilo\gram}}
+%		\explain{$\ddot{x}$ is the acceleration of the rocket on the horizontal axis}{\si{\meter\per\second^{-2}}}
+%		\stopexplain
+%
+%		$\theta_r$ can be expressed as:
+%
+%		\begin{align}
+%			\theta_r = \theta_b + \theta_t 
+%			\theta_b = \theta_t \cdot C \label{eq:rocket_total_angle}
+%		\end{align}
+%		\startexplain
+%		\explain{$C$ is the relation found in \ref{rocket_angle_model_tf_2}{1}
+%		\stopexplain
+%	
+%		By going to the Laplace domain and grouping elements the following transfer function is obtained:
+%	
+%		\begin{align}
+%			\frac{X}{\theta_t} = \frac{F_t \cdot (1 + C) }{M \cdot s^2}
+%			\addunit{\meter} 
+%			\frac{X}{\theta_t} = \frac{s^2 \cdot (M_r \cdot l_{Es}^2 \cdot F_t) + F_t^2 \cdot 	l_{Cg}}{s^4 \cdot M_r^2 \cdot l_{Es}^2}
+%			\label{eq:rocket_positon_tf_1}
+%		\end{align}
+%	
+%	
+%	\todo[inline, author=Paperboy]{Sort out the "relevent" commented text}
 	%				\section{Inverted pendulum and rocket}
 	%			The goal of this section is to demonstrate the similarities between the inverted pendulum and the rocket stabilization processes, and to define a mathematical model and control loop of the behavior of the angle of the rocket body and the angle of the thruster.
 	%			
