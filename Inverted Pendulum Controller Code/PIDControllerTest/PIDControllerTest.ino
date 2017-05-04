@@ -42,16 +42,17 @@ float olderrorArm = 0;
 float oldolderrorArm = 0;
 float oldcontroller = 0;
 float integral = 0;
+float integralDist = 0;
 
 float calcedPWM = 0;
 
-const float looptime = 25;  // looptime in ms.
+const float looptime = 5;  // looptime in ms.
 float setpoint = 380;
 float setpointStick = 535;
 //Outer loop gain
-float pgain = 6.6;
-float igain = 0;
-float dgain = 1.1;
+float pgain = 6.6; //86.3
+float igain = 0; //388
+float dgain = 1.1; //4.8
 //Inner loop gain
 float pgainInner = 400;
 float igainInner = 900;
@@ -99,34 +100,20 @@ void loop() {
   MappedPotArm = MappedPotArm / 1800;
   float MappedPotStick = map(posStick, 248, 823, -90 * 3.1415926 * 10, 90 * 3.1415926 * 10);
   MappedPotStick = MappedPotStick / 1800;
-  //Serial.println(MappedPotStick);
 
-  //First try - maximefuckovic
   errorDist = 0 - ((0.31 * sin(MappedPotArm)) + (0.533 * sin(MappedPotStick))); // Error in distance from 0 radians
-   float setThetaA = (pgain * errorDist) + (dgain / 0.005) * (errorDist - OlderrorDist);
-   float errorArm = (-setThetaA - MappedPotArm);
-   float controller = errorArm * (pgainInner + dgainInner / (0.005)) + olderrorArm * (igainInner - dgainInner * 2 / (0.005) - pgainInner) + oldolderrorArm * dgainInner / (0.005) + oldcontroller;
-    Serial.println(controller);
-//  if (controller>=12) controller=12;
-//
-//  if (controller<=-12) controller=-12;
 
   // Second try - jacob
-//  float setThetaA = errorDist * (pgain + dgain / (looptime/1000.0)) - OlderrorDist * dgain / (looptime/1000.0);
-//  float errorArm = (-setThetaA - MappedPotArm);
-//  integral = integral+errorArm;
-//  if(integral > 1)
-//  integral=1;
-//  if(integral < -1)
-//  integral=-1;
-//  float controller = ((pgainInner * errorArm) + (dgainInner / (looptime*0.001) * (errorArm - olderrorArm)) + (igainInner * looptime*0.001 * (errorArm+olderrorArm)));
-
+  float setThetaA = (errorDist * pgain) + ((dgain/looptime) * (errorDist - OlderrorDist));
+  float errorArm = (0 - MappedPotArm);
+  float controller = ((pgainInner * errorArm) + (dgainInner * ((errorArm - olderrorArm)/(looptime*0.01))) + (igainInner * integral));
+  integral = integral + (errorArm*(looptime*0.01));
+  Serial.println(integral);
   calcedPWM = (512 + ((controller * 10) / 512));
 
-
-  OlderrorDist = errorDist;
+//  OlderrorDist = errorDist;
   olderrorArm = errorArm;
-  oldolderrorArm = olderrorArm;
+//  oldolderrorArm = olderrorArm;
   // limit pwm til valid range with 90% and 10%
   if (calcedPWM > 916)
     calcedPWM = 916;
@@ -135,11 +122,7 @@ void loop() {
 
   // invert signal to make the controller go the other towards center.
   calcedPWM = 1024 - calcedPWM;
-   oldcontroller =controller;
-  //  if (posStick < 480 ||  posStick > 580)
-  //  {
-  //     calcedPWM = 1024 - 512;
-  //  }
+
   if (pos < 235 || pos > 528)
   {
     calcedPWM = 1024 - 512;
@@ -153,4 +136,20 @@ void loop() {
   } // wait
   previousMillis = millis(); // take new timestamp
 }
+
+
+  // float setThetaA = (pgain * errorDist) + (dgain / 0.005) * (errorDist - OlderrorDist);
+  // float errorArm = (-setThetaA - MappedPotArm);
+  // float controller = errorArm * (pgainInner + dgainInner / (0.005)) + olderrorArm * (igainInner - dgainInner * 2 / (0.005) - pgainInner) + oldolderrorArm * dgainInner / (0.005) + oldcontroller;
+  //  Serial.println(controller);
+  //  if (controller>=12) controller=12;
+  //
+  //  if (controller<=-12) controller=-12;
+
+
+//  oldcontroller = controller;
+  //  if (posStick < 480 ||  posStick > 580)
+  //  {
+  //     calcedPWM = 1024 - 512;
+  //  }
 
