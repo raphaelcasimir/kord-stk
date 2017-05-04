@@ -109,9 +109,9 @@ void loop() {
  
 
   /// Max Current of the controller
-  if (controller>=11) controller=11;
-  if (controller<=-11) controller=-11;
-  Serial.println(controller);
+  if (controller>=11) controller=9;
+  if (controller<=-11) controller=-9;
+  //Serial.println(controller);
  
   
   /// PWM transformation
@@ -133,9 +133,9 @@ void loop() {
   //  integral=-1;
   //  float controller = ((pgainInner * errorArm) + (dgainInner / (looptime*0.001) * (errorArm - olderrorArm)) + (igainInner * looptime*0.001 * (errorArm+olderrorArm)));
 
-  calcedPWM = (512 + ((controller * 10) / 512));
+  calcedPWM = (512 + ((controller * 512) / 10));
 
-
+//Serial.println(calcedPWM);
 
   // limit pwm til valid range with 90% and 10%
 //  if (calcedPWM > 916)
