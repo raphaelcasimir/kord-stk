@@ -62,7 +62,6 @@ void setup() {
   myPID2.SetSampleTime(5);
 }
 
-
 void loop() {
 
   // put your main code here, to run repeatedly:
