@@ -96,7 +96,6 @@ void loop() {
   //Controller
   //int errorThetaA = 0;
   //int errorDist = 0;
-<<<<<<< HEAD
   float MappedPotArm = map(pos, 88, 669, -90, 90);
   Serial.println("Arm");
   Serial.println(MappedPotArm);
