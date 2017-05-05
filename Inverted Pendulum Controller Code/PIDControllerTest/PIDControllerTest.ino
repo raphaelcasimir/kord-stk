@@ -1,4 +1,4 @@
-#include <TimerOne.h>
+#include "TimerOne.h"
 
 /*
   Husk at installere bibliotek Sketch installer bibliotek - addlibrary   find zip fil. arduino pakker det ud.
@@ -39,19 +39,19 @@ float errorThetaA = 0;
 float errorDist = 0;
 float OlderrorDist = 0;
 float olderrorArm = 0;
-float oldolderrorArm = 0;
+float  olderolderrorArm = 0;
 float oldcontroller = 0;
 float integral = 0;
 float integralDist = 0;
 
 float calcedPWM = 0;
 
-const float looptime = 5;  // looptime in ms.
-float setpoint = 380;
+const float looptime = 0.001;  // looptime in ms.
+float setpoint = 377; 
 float setpointStick = 535;
 //Outer loop gain
 float pgain = 6.6; //86.3
-float igain = 0; //388
+//float igain = 388; //388
 float dgain = 1.1; //4.8
 //Inner loop gain
 float pgainInner = 400;
@@ -96,23 +96,43 @@ void loop() {
   //Controller
   //int errorThetaA = 0;
   //int errorDist = 0;
-  float MappedPotArm = map(pos, 90, 670, -90 * 3.1415926 * 10, 90 * 3.1415926 * 10);
-  MappedPotArm = MappedPotArm / 1800;
-  float MappedPotStick = map(posStick, 248, 823, -90 * 3.1415926 * 10, 90 * 3.1415926 * 10);
-  MappedPotStick = MappedPotStick / 1800;
+  float MappedPotArm = map(pos, 88, 669, -90, 90);
+  Serial.println("Arm");
+  Serial.println(MappedPotArm);
+//  Serial.println(pos);
+  MappedPotArm = (MappedPotArm*31.415926) / 1800;
+  float MappedPotStick = map(posStick, 265, 811, -90, 90); //263 806
+//  Serial.println("Stick");
+//  Serial.println(posStick);
+//  Serial.println(MappedPotStick);
+  MappedPotStick = (MappedPotStick*31.415926) / 1800;
+  MappedPotStick = MappedPotArm + MappedPotStick;
+  //Serial.println(MappedPotStick*1800/31.415926);
+  //Serial.println(MappedPotArm);
+  //Serial.println(MappedPotStick);
 
-  errorDist = 0 - ((0.31 * sin(MappedPotArm)) + (0.533 * sin(MappedPotStick))); // Error in distance from 0 radians
+  errorDist = 0 + ((0.31 * sin(MappedPotArm)) + (0.533 * sin(MappedPotStick))); // Error in distance from 0 radians
+  //Serial.println(errorDist);
 
   // Second try - jacob
   float setThetaA = (errorDist * pgain) + ((dgain/looptime) * (errorDist - OlderrorDist));
-  float errorArm = (0 - MappedPotArm);
-  float controller = ((pgainInner * errorArm) + (dgainInner * ((errorArm - olderrorArm)/(looptime*0.01))) + (igainInner * integral));
-  integral = integral + (errorArm*(looptime*0.01));
-  Serial.println(integral);
-  calcedPWM = (512 + ((controller * 10) / 512));
+  float errorArm = (-setThetaA - MappedPotArm);
+  
+  // Update the derivative error and the integral one
+  float integral = integral + (errorArm*(looptime));
+  float diff=(errorArm - olderrorArm)/looptime;
+  
+  // Prevent an overwhelming integrative error
+  if(integral>9) {integral=9;}
+  if(integral<-9) {integral=-9;}
+  
+  float controller = pgainInner*errorArm+diff*dgainInner+integral*igainInner;
+  //Serial.println(integral);
+  calcedPWM = (512 + ((controller * 512) / 10));
 
-//  OlderrorDist = errorDist;
+  OlderrorDist = errorDist;
   olderrorArm = errorArm;
+  olderolderrorArm=olderrorArm;
 //  oldolderrorArm = olderrorArm;
   // limit pwm til valid range with 90% and 10%
   if (calcedPWM > 916)
@@ -131,7 +151,7 @@ void loop() {
   Oldpos = pos;
   OldposStick = posStick;
   //  // vent til looptime er gÃ¥et.
-  while ((previousMillis + looptime) > millis())
+  while ((previousMillis + looptime*1000) > millis())
   {
   } // wait
   previousMillis = millis(); // take new timestamp

@@ -135,7 +135,7 @@ void loop() {
 
   calcedPWM = (512 + ((controller * 512) / 10));
 
-//Serial.println(calcedPWM);
+Serial.println(calcedPWM);
 
   // limit pwm til valid range with 90% and 10%
 //  if (calcedPWM > 916)
