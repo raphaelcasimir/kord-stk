@@ -96,20 +96,20 @@ void loop() {
   //Controller
   //int errorThetaA = 0;
   //int errorDist = 0;
-  float MappedPotArm = map(pos, 90, 670, -90 * 3.1415926 * 10, 90 * 3.1415926 * 10);
-  MappedPotArm = MappedPotArm / 1800;
-  float MappedPotStick = map(posStick, 248, 823, -90 * 3.1415926 * 10, 90 * 3.1415926 * 10);
-  MappedPotStick = MappedPotStick / 1800;
+  float MappedPotArm = map(pos, 89, 670, -90, 90);
+  MappedPotArm = (MappedPotArm* 31.415926) / 1800;
+  float MappedPotStick = map(posStick, 248, 823, -90, 90);
+  MappedPotStick = (MappedPotStick * 31.415926) / 1800;
+  MappedPotStick = MappedPotArm + MappedPotStick;
 
   errorDist = 0 - ((0.31 * sin(MappedPotArm)) + (0.533 * sin(MappedPotStick))); // Error in distance from 0 radians
 
   // Second try - jacob
   float setThetaA = (errorDist * pgain) + ((dgain/looptime) * (errorDist - OlderrorDist));
   float errorArm = (0 - MappedPotArm);
-  float controller = ((pgainInner * errorArm) + (dgainInner * ((errorArm - olderrorArm)/(looptime*0.01))) + (igainInner * integral));
-  integral = integral + (errorArm*(looptime*0.01));
-  Serial.println(integral);
-  calcedPWM = (512 + ((controller * 10) / 512));
+  float controller = ((pgainInner * errorArm) + (dgainInner * ((errorArm - olderrorArm)/(looptime))) + (igainInner * integral));
+  integral = integral + (errorArm*(looptime));
+  calcedPWM = (512 + ((controller * 512) / 10));
 
 //  OlderrorDist = errorDist;
   olderrorArm = errorArm;
