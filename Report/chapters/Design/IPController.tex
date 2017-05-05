@@ -46,6 +46,7 @@ If the inner loop is fast enough compared to the outer loop, it is negligible to
 	\begin{subfigure}{0.45\textwidth}
 	\includegraphics[width=\textwidth]{rlocusVArm}
 	\caption{Voltage as input and angle of the arm as output.}
+	\label{fig:locusVArm}
 	\end{subfigure}
 	\begin{subfigure}{0.45\textwidth}
 	\includegraphics[width=\textwidth]{rlocusArmStick}
@@ -141,7 +142,7 @@ The zero will therefore initially be placed at -6 which is close to but on the r
 \label{fig:rlocusZeroAdded}
 \end{figure}
 
-The unstable pole can now enter the stable region by selecting a gain large enough. Selecting the gain too large will however move the other pole further into the left half plane making it more difficult to make the inner loop system faster than the outer loop. As both the zero placement and gain needs to be adjusted later in conjunction with the inner loop controller, the gain will be set to 1 as this puts the unstable pole in the left half plane without the other pole moving too far away as seen on the pole-zero plot on \autoref{fig:pzouterloop}.
+The unstable pole can now enter the stable region by selecting a gain large enough. \todo[inline,author=Jacob]{The zero amplifies high frequency noise which can be fixed with a pole more to the left ~10-20 times.} Selecting the gain too large will however move the other pole further into the left half plane making it more difficult to make the inner loop system faster than the outer loop. As both the zero placement and gain needs to be adjusted later in conjunction with the inner loop controller, the gain will be set to 1 as this puts the unstable pole in the left half plane without the other pole moving too far away as seen on the pole-zero plot on \autoref{fig:pzouterloop}.
 
 \begin{figure}[htbp]
 \centering
@@ -151,6 +152,28 @@ The unstable pole can now enter the stable region by selecting a gain large enou
 \end{figure}
 
 \todo[inline,author=Jacob]{Write about simulating this and how the zero and gain is implemented in simulink. Calculate what kp and kd should be to achieve the zero location and gain in simulink. Do a matlab graph of step response to see settling time and overshoot.}
+
+\section{Design of Inner Loop Controller}
+For the design of the inner loop controller it's important that it settles faster than the outer loop controller. This means the natural frequency of the system with the controller needs to be larger. The root locus for the motor to the arm on \autoref{fig:locusVArm} shows that a simple gain could increase the natural frequency, but will also increase the overshoot as the poles moves further away from the real axis. A compensator should be added to bring the poles closer to the real axis to limit the overshoot. This can be done by placing a zero far into the left half plane which forces both poles to the left of it and to the real axis. Placing the zero at -20 for example gives the root locus on \autoref{fig:locusVArmZero}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{rlocusVArmZero}
+\caption{Root locus of the inner loop with a zero in -20 added.}
+\label{fig:locusVArmZero}
+\end{figure}
+
+By moving the zero further into the left half plane gives a faster settling time but requires a higher gain and a faster sampling rate for a digital controller. Having a higher gain can give issues with saturating the motor and there may be limits from the sampling rate with very fast settling times. 
+
+\todo[inline,author=Jacob]{Maybe find maximum gain allowed based on motor saturation. Then place zero and high frequency pole to get a fast settling time, small overshoot and small steady state error.}
+
+\todo[inline,author=Jacob]{Look into PID as it adds two zeros and is a well documented type of controller. Especially because lead control gives steady state error and the integration can remove it. SSE is terrible for the inner loop but ok for the outer as it's the position and not the angle.}
+
+
+
+
+
+
 
 %\todo[inline,author=Jacob]{For the rest of this section: Use root locus to design Dx controller (Maybe parts of next section can be used here), then design Dm controller while keeping in mind it should be faster than Dx. I'd like for the angle of the stick to somehow be shown as a disturbance in the system and relate the redefinition to feedforward control for better disturbance rejection if possible. Tune parameters in the end as inner loop will have an effect on outer loop.}
 
@@ -183,7 +206,4 @@ The unstable pole can now enter the stable region by selecting a gain large enou
 
 %\section{Single input single output controller for the inverted pendulum}
 %For the SISO controller at least a zero or pole must be introduced along with the P-controller in the system in order to move the pole in the right half plane to the left half plane. For the pole in the right half plane to cross into the left half plane a pole must be added either in 0 to cancel the zero or in the right half plane forcing both off the real axis and allowing them to circumvent the zero in 0 and enter the stable region.
-
-\section{Design of Inner Loop Controller}
-\todo[inline,author=Jacob]{First remind that the inner loop needs to be faster than the outer loop i.e. lower settling time. Use root locus to design a controller or maybe use PID tuner. Show step response and explain why settling time is fast enough.}
 
