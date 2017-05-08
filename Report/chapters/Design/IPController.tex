@@ -58,7 +58,7 @@ If the inner loop is fast enough compared to the outer loop, it is negligible to
 
 With this split it's simpler to design a controller that can move the unstable pole to the stable region. The outer loop controller will be designed first as it's essential to this split that the inner loop is faster than the outer loop. 
 
-As the poles in feedback will eventually end up at the zeros with a large enough gain, there are two options to bring the unstable pole into the stable region: Removing all zeros in 0 so the pole can cross the into the stable region along the real axis or adding another unstable open loop pole to force the poles off the real axis and then circumvent the zeros in 0. The 2nd option requires a zero in the left half plane to pull the poles towards it.
+As the poles in feedback will eventually end up at the zeros with a large enough gain, there are two options to bring the unstable pole into the stable region: Removing all zeros in 0 so the pole can cross the into the stable region along the real axis or adding another unstable open loop pole to force the poles off the real axis and then try to circumvent the zeros in 0. 
 
 Removing the zeros in 0 can theoretically be done by adding poles in 0 but this is dangerous \textbf{BUT I'M NOT SURE WHY}. Instead it's better to try and redefine the model output to something with a DC gain but at the same time requires the stick to be balanced to achieve the new output. This could be by attempting to control the position of a point on the stick. The stick would need to be balanced in order to have the point always be in the correct position.
 
