@@ -49,23 +49,23 @@ Fua2=(Kt/Rm)/(s^2*F+s*G+H)
 Fsa=(la*3*g/(2*ls))/(s^2-3*g/(2*ls))
 
 sys=Fsa;
-ControlledSys = feedback((6.6+1.1*100/(1+100/s))*sys,1)
+ControlledSys = (6.6+1.1*100/(1+100/s))*sys
 %pidTuner(Fsa)
 figure (1)
-pzmap(ControlledSys,'r');
- hold on;
-pzmap(feedback((20+50*100/(1+100/s))*Fua2,1),'b');
+rlocus(sys);
+% hold on;
+% rlocus(-Fsa,'--');
 % hold off;
 % 
 % cont=Controller*sys
- %figure (2)
+ figure (2)
 % rlocus(ControllerB*sys);
 % hold on;
 % cl=feedback((-ControllerA*(ControllerB*Fua2/(1+ControllerB*Fua2))*Fsa),1);
 %pzmap(cl);
 % hold off;
 
-%bode(ControlledSys);
+bode(ControlledSys);
 
 % figure (3)
 % margin(60*Fua2*ControllerA)
