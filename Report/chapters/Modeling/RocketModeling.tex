@@ -26,7 +26,7 @@
 		\startexplain
 			\explain{$I_r$ is the inertia of the rocket}{\si{\kilo\gram$\cdot$\meter^2}}
 			\explain{$\ddot{\theta_b}$ is the angular acceleration of the rocket body}{\si{\second^{-2}}}
-			\explain{$\tau_t$ is the torque created by the thruster on the rocket}{\si{\newton \meter}}
+			\explain{$\tau_t$ is the torque created by the thruster on the rocket}{$\si{\kilo\gram \cdot\meter^{2}\cdot\sec^{-2}}$}
 		\stopexplain
 		
 %		$\tau_t$ can be expressed as:
@@ -46,23 +46,47 @@
 %		\label{eq:rocket_angle_model_tf_1}
 %		\end{equation}
 		
-		Calculating $I_r$ assuming that all the mass is concentrated at the electronics/battery stage of the rocket. 70\% of the weight is in fact concentrated on this part (rocket is about 300 grams and the electronics stage is around 210g). Moreover the rest of the weight is very close to the center of rotation, which is the gimbal, and the servos / gimbal stage is the second most massive part.
+		Calculating $I_r$ assuming that all the mass is concentrated at the electronics/battery stage of the rocket. 70\% of the weight is in fact concentrated on this part (rocket is about 300 grams and the electronics stage is around 210g). The rocket is rotating around its center of gravity.
 		
 		\begin{equation}
-		I_r=m_r \cdot l_{Es}^2 \label{eq:rocket_angle_3}
+		I_r=m_{Es} \cdot l_{Es}^2 \label{eq:rocket_angle_3}
 		\end{equation}
 		\startexplain
-		\explain{$m_r$ is the mass of the rocket}{\si{\kilo\gram}}
-		\explain{$l_{Es}$Is the distance from the gimbal to the electronics stage}{\si{\meter}}
+		\explain{$m_{Es}$ is the mass of the electronics stage}{\si{\kilo\gram}}
+		\explain{$l_{Es}$ is the distance from the electronics stage to the center of gravity}{\si{\meter}}
 		\stopexplain
+		
+		Also the torque $\tau_t$ can be expressed as:
+		\begin{equation}
+		\tau_t = F_t \cdot sin(\theta_t) \cdot l_{Cg} \addunit{\newton$\cdot$\meter} \label{eq:tau_t}
+		\end{equation}
+		\startexplain
+		\explain{$F_t$ is the thruster force}{\si{\newton}}
+		\explain{$\theta_t$ is the angle of the thruster compared to the body's longitudinal axis}{1}
+		\explain{$l_{Cg}$ is the distance from the thruster end to the center of gravity}{m}
+		\explain{$\tau_t$ is the torque created by the thruster on the rocket}{\si{\newton \meter}}
+		\stopexplain
+		
+		And using the small angle approximation:
+		\begin{equation}
+		\tau_t = F_t \cdot \theta_t \cdot l_{Cg} \addunit{\newton$\cdot$\meter} \label{eq:tau_t_lin}
+		\end{equation}
 		
 		The transfer function becomes:
 		\begin{equation}
-		\frac{\theta_b}{\theta_t} = \frac{f_t \cdot l_{Cg} \cdot \frac{1}{m_r \cdot l_{Es}^2}}{s^2}
+		H=\frac{\theta_b}{\theta_t} = \frac{F_t \cdot l_{Cg} \cdot \frac{1}{m_{Es} \cdot l_{Es}^2}}{s^2}
 		\label{eq:rocket_angle_model_tf_2}
 		\end{equation}
 		
+		The transfer function of the servo will be needed, which is first order system. Its time constant is determined in \todo[inline, author=Raph]{Add servo test experiment}
 		
+		\begin{equation}
+		\frac{\theta_{out}}{\theta_{in}}=\frac{1}{\tau s + 1}  \label{eq:servo_model}
+		\end{equation}
+		\startexplain
+		\explain{$\theta_{in}$ is the angle sent to the servo by the controller}{1}
+		\explain{$\theta_{out}$ is the angle outputed by the servo}{1}
+		\stopexplain
 		
 		
 %		
