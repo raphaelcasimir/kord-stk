@@ -47,28 +47,37 @@ g=9.8;
 
 %% Controller Design
 
-	ControllerArm=-52.5*((2+0.075*100/(1+100/s)+0.5/s)+1/s);
-	ControllerStick=-(22.8+2.28*100/(1+100/s)+22.8/s)
+	Karm=52.5;
+	Kstick=22.8;
+	ControllerArm=-Karm*((2+0.075*100/(1+100/s)+0.5/s)+1/s);
+	ControllerStick=-Kstick*(1+0.1*100/(1+100/s)+1/s)
 
 
 %% Full transfer functions of the system
-
-	ControlledSysStick = feedback(ControllerStick*(sys),1)
+	ControlledSysStick = feedback(ControllerStick*Fda,1)
 	ControlledSysArm = feedback(ControllerArm*Fua2,1)
 
 
 %% Root locus to simulate diffent controllers
-	figure (2)
-		rlocus(ControllerArm*Fua2);
+	figure (1)
+		rlocus(ControllerArm*Fua2/Karm);
 	hold on;
-		rlocus(ControllerStick*Fda,'--');
+		rlocus(ControllerStick*Fda/Kstick,'--');
 	legend('ArmLoop','StickLoop','Location','southwest')
 	hold off;
+
+	figure (2);
+		rlocus(ControllerArm*Fua2/Karm);
+	legend('ArmLoop','Location','southwest')
+
+	figure (3);
+		rlocus(ControllerStick*Fda/Kstick);
+	legend('StickLoop','Location','southwest')
 
 
 %% Poles mapping
 
-	figure (1)
+	figure (4)
 		pzmap(feedback(ControlledSysArm,1),'b');
 	hold on;
 		pzmap(ControlledSysStick,'r');	
