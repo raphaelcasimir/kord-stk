@@ -9,65 +9,84 @@ Rm=1.02;
 Bm=1.59e-4;
 Bgear=1.11e-3;
 N=0.3;
-la=0.33;
-ls=0.4;
+La=0.33;
+Ls=0.4;
 Ms=0.334;
 Ma=0.288;
 Bas=0;%1e-3;
 g=9.8;
 
 %%Transfer Function Creation
-s=tf('s');
-
-%% Controller
-ControllerA = 6.6+1.1*(100)/(1+100/s);%/(15+s);
-
-ControllerB = 400+25*(100)/(1+100/s)+900/s;
+	s=tf('s');
 
 %% ThetaA/U parameters
 
-A=(Jm+Jgear)/N^3+ls*Ms*la/8-Ja;
+	A=(Jm+Jgear)/N^3+Ls*Ms*La/8-Ja;
 
-B=((Kt*Ke)/Rm+Bgear+Bm)/N^3;
+	B=((Kt*Ke)/Rm+Bgear+Bm)/N^3;
 
-C=(-3*g)/(2*ls)*((Jgear+Jm)/N^3-Ja)-g*la*(Ms/4+Ma);
+	C=(-3*g)/(2*Ls)*((Jgear+Jm)/N^3-Ja)-g*La*(Ms/4+Ma);
 
-D=3*g/(2*ls*N^3)*(Bgear+Kt*Ke/Rm+Bm);
+	D=3*g/(2*Ls*N^3)*(Bgear+Kt*Ke/Rm+Bm);
 
-E=-3*g^2*la/(4*ls)*(Ma+Ms);
+	E=-3*g^2*La/(4*Ls)*(Ma+Ms);
 
-Fua=(-Kt/Rm*(s^2-3/2*g/ls))/(A*s^4+B*s^3+C*s^2+D*s+E)
+	Fua=(-Kt/Rm*(s^2-3/2*g/Ls))/(A*s^4+B*s^3+C*s^2+D*s+E)
 
 %% Without ThetaS
 
-F=1/N^3*(Jm+Jgear)-Ja;
-G=1/N^3*(Kt*Ke/Rm+Bgear+Bm);
-H=g*la*(Ms+Ma);
-Fua2=(Kt/Rm)/(s^2*F+s*G+H)
-%% ThetaS/ThetaA
+	F=1/N^3*(Jm+Jgear)-Ja;
+	G=1/N^3*(Kt*Ke/Rm+Bgear+Bm);
+	H=g*La*(Ms+Ma);
+	Fua2=(Kt/Rm)/(s^2*F+s*G+H)
 
-Fsa=(la*3*g/(2*ls))/(s^2-3*g/(2*ls))
+%% DistanceAlpha/ThetaA
 
-sys=Fsa;
-ControlledSys = feedback((6.6+1.1*100/(1+100/s))*sys,1)
-%pidTuner(Fsa)
-figure (1)
-pzmap(ControlledSys,'r');
- hold on;
-pzmap(feedback((20+50*100/(1+100/s))*Fua2,1),'b');
-% hold off;
-% 
-% cont=Controller*sys
- %figure (2)
-% rlocus(ControllerB*sys);
-% hold on;
-% cl=feedback((-ControllerA*(ControllerB*Fua2/(1+ControllerB*Fua2))*Fsa),1);
-%pzmap(cl);
-% hold off;
+	Fda=(-La*3*g/(2*Ls))/(s^2-3*g/(2*Ls))
 
-%bode(ControlledSys);
+
+%% Controller Design
+
+	ControllerArm=-52.5*((2+0.075*100/(1+100/s)+0.5/s)+1/s);
+	ControllerStick=-(22.8+2.28*100/(1+100/s)+22.8/s)
+
+
+%% Full transfer functions of the system
+
+	ControlledSysStick = feedback(ControllerStick*(sys),1)
+	ControlledSysArm = feedback(ControllerArm*Fua2,1)
+
+
+%% Root locus to simulate diffent controllers
+	figure (2)
+		rlocus(ControllerArm*Fua2);
+	hold on;
+		rlocus(ControllerStick*Fda,'--');
+	legend('ArmLoop','StickLoop','Location','southwest')
+	hold off;
+
+
+%% Poles mapping
+
+	figure (1)
+		pzmap(feedback(ControlledSysArm,1),'b');
+	hold on;
+		pzmap(ControlledSysStick,'r');	
+	legend('ArmLoop','StickLoop','Location','southwest')
+	hold off;
+
+
+
+%% Natural frequencies and their influence
+	[WnArm,zetaArm] = damp(ControlledSysArm)
+	[WnStick,zetaStick] = damp(ControlledSysStick)
+
+
 
 % figure (3)
 % margin(60*Fua2*ControllerA)
 % figure (4)
-% margin(-Fsa)
+% margin(-Fda)
+
+
+%pidTuner(Fda)
