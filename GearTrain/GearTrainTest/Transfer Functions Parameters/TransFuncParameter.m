@@ -35,10 +35,13 @@ g=9.8;
 
 %% Without ThetaS
 
-	F=1/N^3*(Jm+Jgear)-Ja;
-	G=1/N^3*(Kt*Ke/Rm+Bgear+Bm);
-	H=g*La*(Ms+Ma);
-	Fua2=(Kt/Rm)/(s^2*F+s*G+H)
+	F=(Jm+Jgear)-N^3*Ja;
+	G=(Kt*Ke/Rm+Bgear+Bm);
+	H=g*La*(Ms+Ma*N^3);
+	Fuw=(Kt/Rm)*s/(s^2*F+s*G+H)
+
+%% Wm to Theta A
+	Fwa=N^3/s;
 
 %% DistanceAlpha/ThetaA
 
@@ -48,27 +51,37 @@ g=9.8;
 %% Controller Design
 
 	Karm=358;
+	Kmotor=1;
 	Kstick=22.8;
-	ControllerArm=-Karm*((1+0.17*100/(1+100/s)+1/s)+0.5/s);
+	ControllerArm=Karm*((1+1*100/(1+100/s)+1/s)+1/s);
+	ControllerMotor=Kmotor*((1+0.01*100/(1+100/s)+1/s)+1/s);
 	ControllerStick=-Kstick*(1+0.1*100/(1+100/s)+1/s)
 
 
 %% Full transfer functions of the system
 	ControlledSysStick = feedback(ControllerStick*Fda,1)
-	ControlledSysArm = feedback(ControllerArm*Fua2,1)
+	ControlledSysArm = feedback(ControllerArm*Fwa,1)
+	ControlledSysMotor = feedback(ControllerMotor*Fuw,1)
 
 
 %% Root locus to simulate diffent controllers
-	figure ('Name','Root Locus Arm & Stick')
-		rlocus(ControllerArm*Fua2/Karm);
+	figure ('Name','Root Locus Motor, Arm & Stick')
+		rlocus(ControllerArm*Fwa/Karm);
 	hold on;
 		rlocus(ControllerStick*Fda/Kstick,'--');
-	legend('ArmLoop','StickLoop','Location','southwest')
+		rlocus(ControllerMotor*Fuw/Kmotor,'o');
+	legend('ArmLoop','StickLoop','MotorLoop','Location','southwest')
 	hold off;
 
 	figure ('Name','Root Locus Arm');
 	hold on
-		rlocus(ControllerArm*Fua2/Karm);
+		rlocus(ControllerArm*Fwa/Karm);
+	legend('ArmLoop','Location','southwest')
+	hold off
+
+	figure ('Name','Root Locus Motor');
+	hold on
+		rlocus(ControllerMotor*Fwa/Kmotor);
 	legend('ArmLoop','Location','southwest')
 	hold off
 

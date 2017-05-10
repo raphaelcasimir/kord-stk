@@ -29,7 +29,7 @@ double avgStick=0, avgArm=0, avgFactor;
 
 //PID ENABLING
 PID myPD(&errorDist, &OutputPD, &setpointRad, kpPD, kiPD, kdPD, DIRECT);
-PID myPID(&MappedPotArm, &OutputController, &setpoint, kpPID, kiPID, kdPID, DIRECT); //PID myPID(&errorArm, &OutputController, &OutputPD, kpPID, kiPID, kdPID, DIRECT);
+PID myPID(&MappedPotArm, &OutputController, &OutputPD, kpPID, kiPID, kdPID, DIRECT); //PID myPID(&errorArm, &OutputController, &OutputPD, kpPID, kiPID, kdPID, DIRECT);
 
 
 void setup() {
@@ -63,7 +63,7 @@ void loop() {
   //double x;
   // Moving Average
   avgArm=avgArm*(1-avgFactor)+analogRead(A0)*(avgFactor);
-  avgStick=avgStick*avgFactor+analogRead(A1)*(1-avgFactor);
+  avgStick=avgStick*(1-avgFactor)+analogRead(A1)*(avgFactor);
 
   
   /*Serial.print(avgArm);
@@ -104,14 +104,16 @@ void loop() {
   double MappedPotStick = ((63.88*(posStick/204.8)-170.11) * 31.415926) / 1800;
   double MappedPotTotal = MappedPotArm + MappedPotStick;
   errorDist = setpointRad - ((0.31 * sin(MappedPotArm)) + (0.533 * sin(MappedPotTotal))); // Error in distance from 0 radians
-
-  /*int PDState = myPD.Compute();
+  if (errorDist<setpointRad+0.017&&errorDist>setpointRad-0.017){
+    errorDist=0;
+  }
+  int PDState = myPD.Compute();
   if (PDState == 1)
   {
     // errorArm = ((-OutputPD) - MappedPotArm);
     PDState = 0;
-  }*/
-  if (now-oldTime > 5000 && now-oldTime < 10000)
+  }
+  /*if (now-oldTime > 5000 && now-oldTime < 10000)
   {
     setpoint = 0.2;
   }
@@ -119,7 +121,7 @@ void loop() {
   {
     oldTime=now;
     setpoint=-0.2;
-  }
+  }*/
   int PIDState = myPID.Compute();
   if (PIDState == 1)
   {
@@ -137,9 +139,6 @@ void loop() {
   if (pos < 100 || pos > 750)
   {
     calcedPWM = 512;
-  }
-  if (setpoint<MappedPotArm+0.017&&setpoint>MappedPotArm-0.017){
-    calcedPWM=512;
   }
   //Serial.println(calcedPWM);
   Timer1.setPwmDuty(PWM_PIN, calcedPWM);
