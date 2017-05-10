@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/Inverted_Pendulum_Controller_Code.dir/main.cpp.o  -o Inverted_Pendulum_Controller_Code 
