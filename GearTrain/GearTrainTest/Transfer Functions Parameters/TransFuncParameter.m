@@ -47,9 +47,9 @@ g=9.8;
 
 %% Controller Design
 
-	Karm=52.5;
+	Karm=358;
 	Kstick=22.8;
-	ControllerArm=-Karm*((2+0.075*100/(1+100/s)+0.5/s)+1/s);
+	ControllerArm=-Karm*((1+0.17*100/(1+100/s)+1/s)+0.5/s);
 	ControllerStick=-Kstick*(1+0.1*100/(1+100/s)+1/s)
 
 
@@ -59,32 +59,41 @@ g=9.8;
 
 
 %% Root locus to simulate diffent controllers
-	figure (1)
+	figure ('Name','Root Locus Arm & Stick')
 		rlocus(ControllerArm*Fua2/Karm);
 	hold on;
 		rlocus(ControllerStick*Fda/Kstick,'--');
 	legend('ArmLoop','StickLoop','Location','southwest')
 	hold off;
 
-	figure (2);
+	figure ('Name','Root Locus Arm');
+	hold on
 		rlocus(ControllerArm*Fua2/Karm);
 	legend('ArmLoop','Location','southwest')
+	hold off
 
-	figure (3);
+	figure ('Name','Root Locus Stick');
+	hold on
 		rlocus(ControllerStick*Fda/Kstick);
 	legend('StickLoop','Location','southwest')
+	hold off
 
 
 %% Poles mapping
 
-	figure (4)
-		pzmap(feedback(ControlledSysArm,1),'b');
+	figure ('Name','Actual poles localization Arm&Stick')
+		pzmap(ControlledSysArm,'g');
 	hold on;
 		pzmap(ControlledSysStick,'r');	
 	legend('ArmLoop','StickLoop','Location','southwest')
 	hold off;
 
-
+	figure ('Name','Step response Arm&Stick')
+		step(ControlledSysArm);
+	hold on
+		step(ControlledSysStick);
+	legend('ArmLoop','StickLoop','Location','southwest')
+	hold off
 
 %% Natural frequencies and their influence
 	[WnArm,zetaArm] = damp(ControlledSysArm)
@@ -92,9 +101,9 @@ g=9.8;
 
 
 
-% figure (3)
+% figure ('Name',3)
 % margin(60*Fua2*ControllerA)
-% figure (4)
+% figure ('Name',4)
 % margin(-Fda)
 
 
