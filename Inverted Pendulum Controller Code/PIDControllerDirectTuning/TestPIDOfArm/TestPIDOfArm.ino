@@ -1,12 +1,13 @@
 // Libraries
-#include <TimerOne.h>
-#include <PID_v1.h>
+#include "TimerOne.h"
+#include "PID_v1.h"
 //PINS
 #define PWM_PIN 9
 #define ENABLE_PIN 7
 #define POTMETERARM A0
 #define POTMETERSTICK A1
 #define CURRENT_INPUT A5
+#define LengthAverage 20
 //Variables
 double pos;
 double posStick;
@@ -21,6 +22,11 @@ double kpPID = 400, kiPID = 90, kdPID = 10;
 double kpPD = 9, kiPD = 16, kdPD = 1;
 double oldTime, now;
 double MappedPotArm;
+
+int i=0;
+
+float avgStick=0, avgArm=0, avgFactor;
+
 //PID ENABLING
 PID myPD(&errorDist, &OutputPD, &setpointRad, kpPD, kiPD, kdPD, DIRECT);
 PID myPID(&MappedPotArm, &OutputController, &setpoint, kpPID, kiPID, kdPID, DIRECT); //PID myPID(&errorArm, &OutputController, &OutputPD, kpPID, kiPID, kdPID, DIRECT);
@@ -47,17 +53,44 @@ void setup() {
   myPD.SetSampleTime(20);
   myPD.SetMode(AUTOMATIC);
   myPD.SetOutputLimits(-0.7, 0.7);
+  avgFactor=(LengthAverage-1)/LengthAverage;
 
 }
 
 void loop() {
   now = millis();
-  double x;
-  for(int i = 0; i < 10; i++)
+  //double x;
+  // Moving Average
+  avgArm=avgArm*avgFactor+analogRead(A0)*(1-avgFactor);
+  avgStick=avgStick*avgFactor+analogRead(A1)*(1-avgFactor);
+
+  pos=avgArm;
+  posStick=avgStick;
+  /*analogReadStick[LengthAverage];
+  analogReadArm[LengthAverage];
+  if (i<LengthAverage){
+    analogReadStick[i]=analogRead(A1);
+    analogReadArm[i]=analogRead(A0);
+    i++;
+  }
+  else {
+    for (int j=0;j<LengthAverage-1;j++){
+      analogReadStick[j+1]=analogReadStick[j];
+      analogReadArm[j+1]=analogReadArm[j];
+    }
+    analogReadStick[0]=analogRead(A1);
+    analogReadArm[0]=analogRead(A0);
+  }
+
+  for (int j=0;j<LengthAverage;j++){
+
+  }*/
+
+  /*for(int i = 0; i < 10; i++)
   {
     x += analogRead(A0);
   }
-  pos = x/10;
+  pos = x/10;*/
   //pos = analogRead(A0);  // read position from potentiometer
   //posStick = analogRead(A1);
   //Serial.println(posStick);
