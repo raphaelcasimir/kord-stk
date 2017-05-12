@@ -1,0 +1,26 @@
+Modelling of arm to stick
+Have the 5.1a, 5.1b, 5.5a and 5.2b (think it was that one)
+
+Start by putting up equations before manipulating the equations.
+Find out if we can solve this by counting equations and unknowns.
+Then we say how we'll solve it (we want to find the transfer function).
+Last we'll discuss the equation and convince why the equation is correct.
+Inverting gravity for example and finding the pendulum equation in this to prove it.
+
+Similarly with motor modelling.
+First put up the equations.
+Second solve the equations.
+Third discuss the solution if it's correct.
+
+
+Design of controller
+Start by showing a block diagram with the actual equations from the modelling.
+
+Tell what the problem with the system is; the zero in 0 and an unstable pole.
+
+Tell more about the options that are available and we only use one of them. Add another open loop unstable pole.
+
+Maybe switch the inner loop and outer pole so inner is first.
+
+Adding a pole doesn't really remove the zero in 0. We don't know what the DC gain would be.
+
