@@ -5,7 +5,7 @@ Jgear=0.153e-4;
 Ja=10.3e-3;
 Js=1.95e-3;
 Lm=1.56e-4;
-Rm=1.02;
+Rm=0.82;
 Bm=1.59e-4;
 Bgear=1.11e-3;
 N=0.3;
@@ -41,7 +41,7 @@ g=9.8;
 	Fuw=(Kt/Rm)*s/(s^2*F+s*G+H)
 
 %% Wm to Theta A
-	Fwa=N^3/s;
+	Fwa=N^3/s
 
 %% DistanceAlpha/ThetaA
 
@@ -51,17 +51,17 @@ g=9.8;
 %% Controller Design
 
 	Karm=358;
-	Kmotor=1;
-	Kstick=22.8;
-	ControllerArm=Karm*((1+1*100/(1+100/s)+1/s)+1/s);
-	ControllerMotor=Kmotor*((1+0.01*100/(1+100/s)+1/s)+1/s);
-	ControllerStick=-Kstick*(1+0.1*100/(1+100/s)+1/s)
+	Kmotor=2500;
+	Kstick=90;
+	ControllerArm=Karm;
+	ControllerMotor=-Kmotor*((2+0.05*100/(1+100/s)+1/s)+1/s)
+	ControllerStick=-Kstick*(1+0.1*100/(1+100/s))
 
 
 %% Full transfer functions of the system
 	ControlledSysStick = feedback(ControllerStick*Fda,1)
 	ControlledSysArm = feedback(ControllerArm*Fwa,1)
-	ControlledSysMotor = feedback(ControllerMotor*Fuw,1)
+	ControlledSysMotor = feedback(ControllerMotor*Fuw*Fwa,1)
 
 
 %% Root locus to simulate diffent controllers
@@ -69,7 +69,7 @@ g=9.8;
 		rlocus(ControllerArm*Fwa/Karm);
 	hold on;
 		rlocus(ControllerStick*Fda/Kstick,'--');
-		rlocus(ControllerMotor*Fuw/Kmotor,'o');
+		rlocus(ControllerMotor*Fuw*Fwa/Kmotor,'o');
 	legend('ArmLoop','StickLoop','MotorLoop','Location','southwest')
 	hold off;
 
@@ -81,7 +81,7 @@ g=9.8;
 
 	figure ('Name','Root Locus Motor');
 	hold on
-		rlocus(ControllerMotor*Fwa/Kmotor);
+		rlocus(ControllerMotor*Fuw*Fwa/Kmotor);
 	legend('ArmLoop','Location','southwest')
 	hold off
 
@@ -97,15 +97,17 @@ g=9.8;
 	figure ('Name','Actual poles localization Arm&Stick')
 		pzmap(ControlledSysArm,'g');
 	hold on;
-		pzmap(ControlledSysStick,'r');	
-	legend('ArmLoop','StickLoop','Location','southwest')
+		pzmap(ControlledSysStick,'r');
+		pzmap(ControlledSysMotor,'b');
+	legend('ArmLoop','StickLoop','MotorLoop' ,'Location','southwest')
 	hold off;
 
 	figure ('Name','Step response Arm&Stick')
 		step(ControlledSysArm);
 	hold on
 		step(ControlledSysStick);
-	legend('ArmLoop','StickLoop','Location','southwest')
+		step(ControlledSysMotor);
+	legend('ArmLoop','StickLoop','MotorLoop' ,'Location','southwest')
 	hold off
 
 %% Natural frequencies and their influence
