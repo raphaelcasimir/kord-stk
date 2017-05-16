@@ -87,13 +87,13 @@ With this split it's simpler to design a controller that can move the unstable p
 \todo[inline,author=Jacob]{Look into PID as it adds two zeros and is a well documented type of controller. Especially because lead control gives steady state error and the integration can remove it. SSE is terrible for the inner loop but ok for the outer as it's the position and not the angle.}
 
 \section{Design of Outer Loop Controller}
-As the poles in feedback will eventually end up at the zeros with a large enough gain, there are two options to bring the unstable pole into the stable region: Removing all zeros in 0 so the pole can cross the into the stable region along the real axis or adding another unstable open loop pole to force the poles off the real axis and then try to circumvent the zeros in 0. 
+As the poles in feedback will eventually end up at the zeros with a large enough gain, there are two options to bring the unstable pole into the stable region: Remove all zeros in 0 so the pole can cross the into the stable region along the real axis or add another unstable open loop pole to force the poles off the real axis and then try to circumvent the zeros in 0. 
 
-Removing the zeros in 0 can theoretically be done by adding poles in 0 but this is dangerous \textbf{BUT I'M NOT SURE WHY}. Instead it's better to try and redefine the model output to something with a DC gain but at the same time requires the stick to be balanced to achieve the new output. This could be by attempting to control the position of a point on the stick. The stick would need to be balanced in order to have the point always be in the correct position.
+Removing the zeros in 0 can't be done by adding poles as $\inf\cdot0$ isn't defined. Instead it's better to try and redefine the model output to something with a DC gain but at the same time requires the stick to be balanced to achieve the new output. This could be by attempting to control the position of a point on the stick. The stick would need to be balanced in order to have the point always be in the correct position.
 
 %Cancelling zeros in 0 by adding poles can be dangerous as the steady state error will no longer be zero which is critical for a stable inverted pendulum. The system is difficult to control as the transfer function was derived with an attempt to control the angle of the stick. This is only really possible in the special case where the reference is exactly 0 at all times. The system can instead be redefined as trying to control the position of a point on the stick in relation to the vertical axis. By controlling the position instead of the angle would mean the system would still have to balance the stick but not be forced to use a reference of 0 at all times. This could make the system easier to control.
 
-\section{Redefining the inverted pendulums output and reference point}
+\subsection{Redefining the Inverted Pendulums Output}
 The inverted pendulum model will be redefined so the output is the distance from a point on the stick to the vertical axis instead of the angle of the stick. The point, $\alpha$, and the distance to the vertical axis, $x_\alpha$, are seen on \autoref{fig:modelDist}.
 
 \begin{figure}[htbp]
@@ -134,7 +134,7 @@ The transfer function still ends up with 2 zeros but it's possible to remove the
 \end{flalign}
 
 The zeros in 0 has been removed but the distance, $x_\alpha$, now needs to be measured for the feedback. This can be done by measuring the angles, which was also necessary before, but now use \autoref{eq:xa} to calculate the distance instead of using the angle directly. The controller for the transfer function in \autoref{eq:xaTF} can now be designed.
-\section{Design of Outer Loop Controller}
+\subsection{Controlling the Distance from the Stick to Vertical}
 %The controller for the system will be split into two. One controller in an inner loop that controls the angle of the arm and one in an outer loop that controls the position of the stick. The system with the two controllers can be seen on the block diagram on \autoref{fig:IPBlock}.
 %
 The new block diagram for the controllers can be seen on \autoref{fig:IPBlock}.
