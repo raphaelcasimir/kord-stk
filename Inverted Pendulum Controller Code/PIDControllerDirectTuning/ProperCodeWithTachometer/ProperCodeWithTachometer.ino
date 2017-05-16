@@ -6,15 +6,25 @@
 #define POTMETERARM A0
 #define POTMETERSTICK A1
 #define CURRENT_INPUT A5
+#define VELOCITY_INPUT A4
 
 //Physical values
 #define La 0.33
 #define Lalpha 0.533
 
 //Conversion value
+#define analog2volt 204.8
+
 #define deg2rad (31.415926 / 1800.0)
+#define avgFactor (2.0/6.0)
+
 #define curr0 512
-#define amp2pwm (460.8/11)
+#define volt2amp 0.82
+#define amp2pwm (460.0/10.0)
+
+#define vel0 2.5
+#define volt2rpm (6000.0/1.5)
+#define rpm2radSec (300/31.415926)
 
 //Mapping value
 //These values by were found by curve fitting on geogebra
@@ -31,45 +41,59 @@
 #define refVoltMin (-10*0.8)
 #define refVoltMax (10*0.8)
 
+// Time constant
+#define sampleTime 5000.0 //in micro seconds
+
+//Controller characteristics
+#define KpInner -50.0
+#define KiInner (-15.0/1000000.0*sampleTime)
+#define KdInner (-2.0*1000000.0/sampleTime)
+
+#define KpOuter 0.0
+#define KiOuter 0.0
+#define KdOuter 0.0
+
+#define KpVel 0.0
+
+#define KpCurr 0.0
+
 //Analog reading of the potentiometer
-double posStick, posArm;
+double posStick=0, posArm=0;
 
 //Actual interesting value of the stick and the arm
 double distStick, angleArm ,angleStick;
-double lastDistStick=0, lastDistArm=0;
+double lastDistStick=0, lastAngleArm=0;
+double velocity=0;
+double current=0;
 
 //Set point for the controllers
-double setPointDist=0, setPointThetaA=0;
+double setPointDist=0, setPointThetaA=0, setVelocity=0, setCurrent;
 
-//Error for each controller
-double errorArm, errorStick;
-
-//Output inner loop
-double current;
+//Output current loop
+double refVolt;
 
 //Controllers state
 bool outerState=false, innerState=false;
-
-//Characteristics of the controllers
-double KpInner=0, KpOuter=0;
-double KiInner=0, KiOuter=0;
-double KdInner=0, KdOuter=0;
 
 //Value of the controllers
 double intErrorArm=0, 	intErrorDist=0;
 double dAngleArm=0, 	ddistStick=0;
 double errorArm=0,		errorDist=0;
+double errorVelocity=0;
+double errorCurrent=0;
 
 //PWM signal
 int PWM;
 
-void void setup()
+void setup()
 {
+  noInterrupts();
   // setup timerOne, we use this library to get 10bit resolution for PWM.
-  Timer1.initialize(2000);
+  Timer1.initialize(200);
   Timer1.stop();        //stop the counter
   Timer1.restart();     //set the clock to zero
-  Timer1.pwm(PWM_PIN, 512, 2000);
+  Timer1.pwm(PWM_PIN, 512, 200);
+  Timer1.attachInterrupt(calcPID, sampleTime);
 
   //PINMODE
   pinMode(PWM_PIN, OUTPUT);
@@ -82,12 +106,13 @@ void void setup()
 
   //Serial intialization
   Serial.begin(57600);
+  
+  //Interrupts start
+  interrupts();
 }
 
 void calcPID()
 {
-	actualizeFeedbackValue();
-
 	// Outer loop controller first
 	// Compute error values
 	errorDist = setPointDist - distStick;
@@ -99,12 +124,12 @@ void calcPID()
 	else if(intErrorDist < setPointThetaAMin) intErrorDist = setPointThetaAMin;
 	
 	//Derivative part
-	double ddistStick = distStick - lastDistStick;
+	ddistStick = distStick - lastDistStick;
 	
 	// Compute output
-	setPointThetaA = KpOuter * errorDist + intErrorDist - KdOuter * ddistStick; // Negative derivative. dSet - dMeas = -dMeas when setpoint doesn't change;
+	/*setPointThetaA = KpOuter * errorDist + intErrorDist - KdOuter * ddistStick; // Negative derivative. dSet - dMeas = -dMeas when setpoint doesn't change;
 	if(setPointThetaA > setPointThetaAMax) setPointThetaA = setPointThetaAMax;
-	else if(setPointThetaA < setPointThetaAMin) setPointThetaA = setPointThetaAMin;
+	else if(setPointThetaA < setPointThetaAMin) setPointThetaA = setPointThetaAMin;*/
 	
 	// Update previous values
 	lastDistStick = distStick;
@@ -121,39 +146,68 @@ void calcPID()
 	else if(intErrorArm < refVoltMin) intErrorArm = refVoltMin;
 	
 	//Derivative part
-	double dAngleArm = angleArm - lastAngleArm;
+	dAngleArm = angleArm - lastAngleArm;
 	
 	//Compute output
-	refVolt = KpInner * errorArm + intErrorArm - KdInner * dAngleArm;
+	setVelocity = KpInner * errorArm + intErrorArm - KdInner * dAngleArm;
 	if(refVolt > refVoltMax) refVolt = refVoltMax;
 	else if(refVolt < refVoltMin) refVolt = refVoltMin;
 	
 	//Update previous values
 	lastAngleArm = angleArm;
-	
+
+	//	Velocity loop
+	errorVelocity=setVelocity-velocity;
+
+	//Compute output
+	refVolt=KpVel*errorVelocity;
+
+	//Current loop
+	errorCurrent=refVolt-current*volt2amp;
+
+	//output
+	setCurrent=KpCurr*errorCurrent;
 
 	//Calculate and set output PWM
-	PWM = curr0 + refVolt*0.8*amp2pwm; // 0.8 motor resistance and PWM sets current.
-	Timer1.setPwmDuty(PWM_PIN, PWM);
+	PWM = curr0 + int(setCurrent*amp2pwm); // 0.8 motor resistance and PWM sets current.
+	Timer1.setPwmDuty(PWM_PIN, 540);
+	//Serial.println(setCurrent);
 }
 
 //Functions to simplify the program
 void actualizeFeedbackValue(){
+	//Actual current
+	current=analogRead(CURRENT_INPUT);
+
+	//Actual angular velocity of the motor
+	velocity=(analogRead(VELOCITY_INPUT)/analog2volt-2.5)*volt2rpm*rmp2radsec;
+
 	//Actual position of the arm and the stick
-	posArm = analogRead(A0);
-	posStick = analogRead(A1);
+	posArm=int(posArm*(1-avgFactor)+analogRead(POTMETERARM)*avgFactor);
+	posStick=int(posStick*(1-avgFactor)+analogRead(POTMETERSTICK)*avgFactor);
 
 	//Mapping the value of the potentiometer to physical value (stick distance and arm angle)
-	angleArm = (mappingSlopeArm*posArm-mappingConstArm)*deg2rad; 
+	angleArm = (mappingSlopeArm*posArm-mappingConstArm)*deg2rad;
 	angleStick = (mappingSlopeStick*posStick-mappingConstStick)*deg2rad;
 	//angle stick relative to the arm so change to it to correspond of the upright angle
 	angleStick = angleArm+angleStick;
 	distStick = La * sin(angleArm) + Lalpha * sin(angleStick);
+	Serial.println(velocity);
 }
 
-
+bool test=true;
+double previous=0;
 void loop()
 {
+	double now=millis();
+	actualizeFeedbackValue();
+	//to check if it moves
+	/*if (now-previous>=15000){
+		if (test==true) setPointThetaA=0;
+		else setPointThetaA=0.6;
+		test=!test;
+		previous=now;
+	}*/
 }
 
 

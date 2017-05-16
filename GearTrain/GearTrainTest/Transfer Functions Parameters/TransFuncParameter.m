@@ -50,12 +50,12 @@ g=9.8;
 
 %% Controller Design
 
-	Karm=358;
-	Kmotor=2500;
-	Kstick=90;
-	ControllerArm=Karm;
-	ControllerMotor=-Kmotor*((2+0.05*100/(1+100/s)+1/s)+1/s)
-	ControllerStick=-Kstick*(1+0.1*100/(1+100/s))
+	Karm=100;
+	Kmotor=1410;
+	Kstick=7.61;
+	ControllerArm=Karm*(1);
+	ControllerMotor=-Kmotor*(1+0.005*100/(1+100/s)+2/s)
+	ControllerStick=-Kstick*(1+0.1*100/(1+100/s)+2/s)
 
 
 %% Full transfer functions of the system
@@ -69,7 +69,7 @@ g=9.8;
 		rlocus(ControllerArm*Fwa/Karm);
 	hold on;
 		rlocus(ControllerStick*Fda/Kstick,'--');
-		rlocus(ControllerMotor*Fuw*Fwa/Kmotor,'o');
+		rlocus(ControllerMotor*Fuw/Kmotor,'o');
 	legend('ArmLoop','StickLoop','MotorLoop','Location','southwest')
 	hold off;
 
@@ -102,6 +102,7 @@ g=9.8;
 	legend('ArmLoop','StickLoop','MotorLoop' ,'Location','southwest')
 	hold off;
 
+%% Step response
 	figure ('Name','Step response Arm&Stick')
 		step(ControlledSysArm);
 	hold on
@@ -123,3 +124,13 @@ g=9.8;
 
 
 %pidTuner(Fda)
+
+
+%% Thetas loop try
+
+Fus = Fuw*Fwa*(-3*La/(2*Ls)*s^2/(s^2-3*g/(2*Ls)))
+
+ControllerFus=(1+0.003*100/(1+100/s)+0.75/s)
+
+figure ('Name','Root Locus thetaS');
+rlocus(Fus*ControllerFus)

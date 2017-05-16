@@ -14,7 +14,8 @@
 //Conversion value
 #define deg2rad (31.415926 / 1800.0)
 #define curr0 512
-#define amp2pwm (460.8/11)
+#define amp2pwm (460.0/9.0)
+#define avgFactor (2.0/6.0)
 
 //Mapping value
 //These values by were found by curve fitting on geogebra
@@ -25,35 +26,39 @@
 #define mappingConstStick (170.11)
 
 //Limits for safety
-#define setPointThetaAMax 0.7
-#define setPointThetaAMin -0.7
+#define setPointThetaAMax 1.570796327
+#define setPointThetaAMin -1.570796327
 
-#define refVoltMin (-10*0.8)
-#define refVoltMax (10*0.8)
+#define refVoltMin (-8*0.8)
+#define refVoltMax (8*0.8)
+
+// Time constant
+#define sampleTime 5000.0 //in micro seconds
+
+//Controller characteristics
+#define KpInner -50.0
+#define KiInner (-15.0/1000000.0*sampleTime)
+#define KdInner (-2.0*1000000.0/sampleTime)
+
+#define KpOuter -300
+#define KiOuter (-60.0/1000000.0*sampleTime)
+#define KdOuter (-30*1000000.0/sampleTime)
 
 //Analog reading of the potentiometer
-double posStick, posArm;
+double posStick=0, posArm=0;
 
 //Actual interesting value of the stick and the arm
 double distStick, angleArm ,angleStick;
-double lastDistStick=0, lastDistArm=0;
+double lastDistStick=0, lastAngleArm=0;
 
 //Set point for the controllers
-double setPointDist=0, setPointThetaA=0;
-
-//Error for each controller
-double errorArm, errorStick;
+double setPointDist=0, setPointThetaA=0.2;
 
 //Output inner loop
-double current;
+double refVolt;
 
 //Controllers state
 bool outerState=false, innerState=false;
-
-//Characteristics of the controllers
-double KpInner=0, KpOuter=0;
-double KiInner=0, KiOuter=0;
-double KdInner=0, KdOuter=0;
 
 //Value of the controllers
 double intErrorArm=0, 	intErrorDist=0;
@@ -63,13 +68,15 @@ double errorArm=0,		errorDist=0;
 //PWM signal
 int PWM;
 
-void void setup()
+void setup()
 {
+  noInterrupts();
   // setup timerOne, we use this library to get 10bit resolution for PWM.
-  Timer1.initialize(2000);
+  Timer1.initialize(200);
   Timer1.stop();        //stop the counter
   Timer1.restart();     //set the clock to zero
-  Timer1.pwm(PWM_PIN, 512, 2000);
+  Timer1.pwm(PWM_PIN, 512, 200);
+  Timer1.attachInterrupt(calcPID, sampleTime);
 
   //PINMODE
   pinMode(PWM_PIN, OUTPUT);
@@ -82,12 +89,13 @@ void void setup()
 
   //Serial intialization
   Serial.begin(57600);
+  
+  //Interrupts start
+  interrupts();
 }
 
 void calcPID()
 {
-	actualizeFeedbackValue();
-
 	// Outer loop controller first
 	// Compute error values
 	errorDist = setPointDist - distStick;
@@ -99,7 +107,7 @@ void calcPID()
 	else if(intErrorDist < setPointThetaAMin) intErrorDist = setPointThetaAMin;
 	
 	//Derivative part
-	double ddistStick = distStick - lastDistStick;
+	ddistStick = distStick - lastDistStick;
 	
 	// Compute output
 	setPointThetaA = KpOuter * errorDist + intErrorDist - KdOuter * ddistStick; // Negative derivative. dSet - dMeas = -dMeas when setpoint doesn't change;
@@ -121,7 +129,7 @@ void calcPID()
 	else if(intErrorArm < refVoltMin) intErrorArm = refVoltMin;
 	
 	//Derivative part
-	double dAngleArm = angleArm - lastAngleArm;
+	dAngleArm = angleArm - lastAngleArm;
 	
 	//Compute output
 	refVolt = KpInner * errorArm + intErrorArm - KdInner * dAngleArm;
@@ -133,18 +141,19 @@ void calcPID()
 	
 
 	//Calculate and set output PWM
-	PWM = curr0 + refVolt*0.8*amp2pwm; // 0.8 motor resistance and PWM sets current.
-	Timer1.setPwmDuty(PWM_PIN, PWM);
+	PWM = curr0 + int(refVolt/0.8*amp2pwm); // 0.8 motor resistance and PWM sets current.
+	Timer1.setPwmDuty(PWM_PIN, curr0);
+	Serial.println(refVolt);
 }
 
 //Functions to simplify the program
 void actualizeFeedbackValue(){
 	//Actual position of the arm and the stick
-	posArm = analogRead(A0);
-	posStick = analogRead(A1);
+	posArm=int(posArm*(1-avgFactor)+analogRead(POTMETERARM)*avgFactor);
+	posStick=analogRead(POTMETERSTICK);
 
 	//Mapping the value of the potentiometer to physical value (stick distance and arm angle)
-	angleArm = (mappingSlopeArm*posArm-mappingConstArm)*deg2rad; 
+	angleArm = (mappingSlopeArm*posArm-mappingConstArm)*deg2rad;
 	angleStick = (mappingSlopeStick*posStick-mappingConstStick)*deg2rad;
 	//angle stick relative to the arm so change to it to correspond of the upright angle
 	angleStick = angleArm+angleStick;
@@ -154,6 +163,7 @@ void actualizeFeedbackValue(){
 
 void loop()
 {
+	actualizeFeedbackValue();
 }
 
 
