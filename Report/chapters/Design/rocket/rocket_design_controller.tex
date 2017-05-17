@@ -57,7 +57,7 @@ Another controller C2 is needed to attract the two poles going to infinity along
 
 The rocket requires a fast settling time and rise time in order to act as soon as possible and control the rocket's stability. Lead compensaters enable the modulation of the rise time, but impact the overshoot. The overshoot is considered as an inferrior error, being in part countered by the play of the gimbal system. 
 
-To improve the setling time, the gain is set at $2.15 * 10^3$ \si{\dB}. This value is chosen by observing the root locus and the gain of a set point.
+To improve the setling time, the gain is set at $2.15 * 10^3$ \si{\dB}. This value is chosen by observing the root locus and the gain of a set point as shown on \autoref{fig:SystemC1C2Zoom}.
 
 				% Figure of chosen point, and of final tf with 2.15*10^3
 \begin{figure}[htbp]
@@ -77,12 +77,12 @@ To improve the setling time, the gain is set at $2.15 * 10^3$ \si{\dB}. This val
 \end{figure}
 
 
-The servomotors can have a faster rising time according to the step response of the servomotors. The gain is then doubled to improve the rise time and setling time.
+The servomotors can have a faster rising time according to the step response of the servomotors, as shown in \autoref{tab:TableStepr}. The gain is then doubled to improve the rise time and setling time. The new adjusted transfer function is observed on \autoref{fig:FinalRocketTf} and \autoref{fig:FinalRocketTfZoom}.
 
 \begin{table}[htbp]
 	\centering
 	\caption{Simulated step responses.}
-	\label{RPMData}
+	\label{TableStepr}
 	\begin{tabular}{llll}
 		Transfer function & Rise time{(}s{)} & Setling time{(}s{)} & Overshoot{(}percentage{)} \\ \hline  \rowcolor{lightGrey}
 		Servomotors     & 0.0589 & 0.0782 & 0\\  
@@ -109,7 +109,7 @@ The servomotors can have a faster rising time according to the step response of 
 \end{figure}
 
 
-The frequency correponds to a complete rotation of the servomotors. At low frequency a delay is observed. However the system functions at low speed. This implies that the delay has a tempered effect on the system. Higher frequencies are not physicaly possible and do not need to be compensated.
+The frequency correponds to a complete rotation of the servomotors. At low frequencies a delay is observed on \autoref{fig:BodeplotFinalTf}. However the system functions at low speed. This implies that the delay has a tempered effect on the system. Higher frequencies are not physicaly possible and do not need to be compensated.
 
 				% Figure of final tf bodepoint
 \begin{figure}[htbp]
@@ -119,10 +119,10 @@ The frequency correponds to a complete rotation of the servomotors. At low frequ
 		\label{fig:BodeplotFinalTf}
 \end{figure}
 
-We now have the following rocket transfer function.
+The controlled rocket transfer function is shown on equation \autoref{eq:RocketTfEqu} and figure \autoref{fig:FinalChart}.
 
-\begin{equation}
-R = 5 \cdot 10^3 \cdot \frac{s + 2}{s + 1000} \cdot \frac{s + 50}{s + 1100} \cdot \frac{1}{s \cdot \uptau + 1} \cdot \frac{F_t \cdot L_{Cg} \cdot \frac{1}{M_r \cdot L_{Es}^2}}{s^2}
+\begin{equation}    \label{RocketTfEqu}
+R = 5 \cdot 10^3 \cdot \frac{s + 2}{s + 1000} \cdot \frac{s + 50}{s + 1100} \cdot \frac{1}{s \cdot \uptau + 1} \cdot \frac{F_t \cdot L_{Cg} \cdot \frac{1}{M_r \cdot L_{Es}^2}}{s^2}  
 \end{equation}
 
 \begin{figure}[htbp]
