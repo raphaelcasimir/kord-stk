@@ -122,13 +122,13 @@ The frequency correponds to a complete rotation of the servomotors. At low frequ
 We now have the following rocket transfer function.
 
 \begin{equation}
-R = 5*10^3 * (s + 2) / (s + 1000) * (s + 50)/ (s + 1100) * 1 / (s * \uptau + 1) * F_t * L_{Cg} * 1 / (M_r * L_{Es}^2) / s^2
+R = 5 \cdot 10^3 \cdot \frac{s + 2}{s + 1000} \cdot \frac{s + 50}{s + 1100} \cdot \frac{1}{s \cdot \uptau + 1} \cdot \frac{F_t \cdot L_{Cg} \cdot \frac{1}{M_r \cdot L_{Es}^2}}{s^2}
 \end{equation}
 
 \begin{figure}[htbp]
 	\centering
 	
-	\includegraphics[width=\textwidth]{figures/Rocket/design/final_chart_tfcontroller}
+	\includegraphics[width=\textwidth]{figures/Rocket/design/final_chart}
 	\caption{Rocket transfer function.}
 	\label{fig:FinalChart}
 	
