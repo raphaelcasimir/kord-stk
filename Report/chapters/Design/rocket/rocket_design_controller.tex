@@ -81,14 +81,14 @@ The servomotors can have a faster rising time according to the step response of 
 
 \begin{table}[htbp]
 	\centering
-	\caption{Simulated rising time.}
+	\caption{Simulated step responses.}
 	\label{RPMData}
 	\begin{tabular}{llll}
-		Transfer function & Rise time{(}s{)} \\ \hline  \rowcolor{lightGrey}
-		Gain of $2.15*10^3$     & 0.1669	\\  
-		Servomotors     & 0.0589     \\  
+		Transfer function & Rise time{(}s{)} & Setling time{(}s{)} & Overshoot{(}percentage{)} \\ \hline  \rowcolor{lightGrey}
+		Servomotors     & 0.0589 & 0.0782 & 0\\  
+		Gain of $2.15*10^3$     & 0.1669 & 1.2075 & 14.5609  \\  
 		\rowcolor{lightGrey}           
-		Gain of $5*10^3$     & 0.0854          \\     
+		Gain of $5*10^3$     & 0.0854 & 0.7845 & 12.0162      \\     
 	\end{tabular}
 \end{table}
 
@@ -105,7 +105,7 @@ The servomotors can have a faster rising time according to the step response of 
 		\caption{Focus on lower frequencies.}
 		\label{fig:FinalRocketTfZoom}
 	\end{subfigure}
-		
+	\caption{Root locus of the rocket transfer function with additional gain of $5*10^3$ \si{\dB}.}	
 \end{figure}
 
 
@@ -117,4 +117,19 @@ The frequency correponds to a complete rotation of the servomotors. At low frequ
 		\includegraphics[width=\textwidth]{figures/Rocket/design/bodeplot}
 		\caption{Bodeplot of the rocket transfer function.}
 		\label{fig:BodeplotFinalTf}
+\end{figure}
+
+We now have the following rocket transfer function.
+
+\begin{equation}
+R = 5*10^3 * (s + 2) / (s + 1000) * (s + 50)/ (s + 1100) * 1 / (s * \uptau + 1) * F_t * L_{Cg} * 1 / (M_r * L_{Es}^2) / s^2
+\end{equation}
+
+\begin{figure}[htbp]
+	\centering
+	
+	\includegraphics[width=\textwidth]{figures/Rocket/design/final_chart_tfcontroller}
+	\caption{Rocket transfer function.}
+	\label{fig:FinalChart}
+	
 \end{figure}
