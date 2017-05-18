@@ -1,11 +1,11 @@
-The following describes the hardware connected to the inverted pendulum setup illustrated cf. figure \ref{fig:InvertedPendulumSetUp}.
-Each part will be described with its specifications and use in the setup. The input and output relation of each block is illustrated cf. figure \ref{fig:DCMotorRelation}, where the goal troughout the chapter will be determining the transfer functions that describe these relations.
+%The following describes the hardware connected to the inverted pendulum setup illustrated cf. figure \ref{fig:InvertedPendulumSetUp}.
+Each part will be described with its specifications and use in the setup. The input and output relation of each block is illustrated on \autoref{fig:DCMotorRelation}, where the goal throughout the chapter will be determining the transfer functions that describe these relations.
 
 \begin{figure} [htbp]
-\hspace*{-3.5cm}  
+%\hspace*{-3.5cm}  
 	\centering
-	\includegraphics[width=0.95\paperwidth]{figures/modeling/InputOutputSystem.png}
-	\caption{Input/output relation of the system plant.} \label{fig:DCMotorRelation}
+	\includegraphics[width=\textwidth]{figures/modeling/InputOutputSystem.png}
+	\caption{Block diagram of the input/output relations of the system.} \label{fig:DCMotorRelation}
 \end{figure}
 
 \startexplain
@@ -20,16 +20,18 @@ Each part will be described with its specifications and use in the setup. The in
 \stopexplain
 
 \subsubsection{DC Motor}
-A Axem DC servo motor model F9M2 is attached to the gears, this is to create a angular velocity in the system. To ensure control precision, the integrated tachometer of the motor is used as feedback. This is done so that it is possible to see the velocity and direction of the motor and relate it to the position of the arm. Using the DC motor also means implementing a motor controller. Already implemented in the setup is a Maxon Escon 50/5 Servocontroller, which can be controlled trough PWM. The servocontroller is supplied trough a 230 V regulator that can supply the servocontroller with up to 56 V and 15 A. The regulator in itself will be considered a blackbox, because of user limitations when working with 230 V at the university. The DC motor and servocontroller will in system diagrams be evaluated as one unit, but further considered when implementing a system controller.        
+An Axem DC servo motor model F9M2 is attached to the gears to create an angular velocity in the system. The integrated tachometer of the motor is used as feedback to ensure control precision. This is done so it is possible to see the velocity and direction of the motor and relate it to the position of the arm. Using the DC motor also means implementing a motor controller. Already implemented in the setup is a Maxon Escon 50/5 Servocontroller, which can be controlled trough PWM \cite{datasheet:maxon}. The servocontroller is supplied trough a 230 V regulator that can supply the servocontroller with up to 56 V and 15 A. The regulator in itself will be considered a blackbox, because of user limitations when working with 230 V at the university. The DC motor and servocontroller will in system diagrams be evaluated as one unit, but further considered when implementing a system controller. 
 
 %http://www.maxonmotor.com/maxon/view/product/control/4-Q-Servokontroller/409510
 	
 
 \subsubsection{Gear System}
-Inbetween the DC motor and arm is the gear system. The goal of the gear system is to reduce the ratio between the rotation of the motor versus the arm. The gear system is series of the same size small and big gear connected with belts. The setup is seen cf. figure \ref{fig:InvertedPendulumSetUp}, where the number of gear is illustrated. The parameters of the gear system is listed cf. table \ref{GearSystemParameters}.   
+Between the DC motor and arm is the gear system. The goal of the gear system is to reduce the ratio between the rotation of the motor versus the arm. The gear system is series of the same size small and big gear connected with belts. The setup is seen on \autoref{fig:InvertedPendulumSetUp}, where the number of gear is illustrated. The parameters of the gear system is listed cf. \autoref{GearSystemParameters}. 
 
 \begin{table}[htbp]
 \centering
+\caption{Parameters of gear system.}
+\label{GearSystemParameters}
 \begin{tabular}{llll}
 \hline
 Piece & Parameter & Value & Unit \\ \hline
@@ -39,15 +41,15 @@ Gear$_{small}$ & Teeth & 12 & {[}1{]} \\
 Gear$_{small}$ & Diameter & 0.04 & {[}m{]} \\
 Belt & Length & 0.6 & {[}m{]}
 \end{tabular}
-\caption{Parameters of gear system.}
-\label{GearSystemParameters}
 \end{table}
 
 \subsubsection{Stick and Arm}
-The arm and stick is elements that always appears in the double inverted pendulum setup. The goal is for the arm to apply force on their common joint, which would affect the position of the stick. The physical parameters for the stick and arm is listed cf. table \ref{DimensionsStick}.
+The arm and stick are elements that always appears in the double inverted pendulum setup. The goal is for the arm to apply force on their common joint, which would affect the position of the stick. The physical parameters for the stick and arm is listed cf. \autoref{DimensionsStick}.
 
 \begin{table}[htbp]
 \centering
+\caption{Physical parameters of the arm and sticks.}
+\label{DimensionsStick}
 \begin{tabular}{llll}
 \hline
 Piece           & Parameter & Value & Unit \\ \hline
@@ -58,32 +60,28 @@ Stick$_{short}$ & Weight    & 0.170 & [kg]    \\
 Arm             & Length    & 0.33  & [m]    \\
 Arm             & Weight    & 0.288   & [kg]   \\ 
 \end{tabular}
-\caption{Physical parameters of the arm and sticks.}
-\label{DimensionsStick}
 \end{table}
 \newpage
-Some feedback is needed to be able to control the stick trough the arm and gears. Sensors used is implemented as a integrated part of the setup, and will therefore be considered usable and will the choice of the will not be further discussed.
+Some feedback is needed to be able to control the stick through the arm and gears. The sensors used are implemented as an integrated part of the setup, and will therefore be the choice and will not be further discussed.
 
-A necessary feedback to know is the angle between the stick and arm. This is needed to balance the stick via the controller. The angle between the stick and arm is detected and sampled from a potentiometers rotational position. Equally the position of the arm is needed, this is to determine the amount of change needed to counteract the change in the stick. The position of each potentiometer can be seen cf. figure \ref{fig:InvertedPendulumSetUpPotmeter}. 
+A necessary feedback to know is the angle between the stick and arm. This is needed to balance the stick via the controller. The angle between the stick and arm is detected and sampled from a potentiometers rotational position. Equally the position of the arm is needed, this is to determine the amount of change needed to counteract the change in the stick. The position of each potentiometer can be seen \autoref{fig:InvertedPendulumSetUpPotmeter}. 
 
 \begin{figure} [htbp]
 	\centering
-	\includegraphics[width=0.35\linewidth]{figures/"Preanalysis&Requirement"/invertedPendulumWithPotmeter.png}
-	\caption{Diagram of the arm and stick with illustrated sensors.} \label{fig:InvertedPendulumSetUpPotmeter}
+	\includegraphics[width=0.35\textwidth]{figures/"Preanalysis&Requirement"/invertedPendulumWithPotmeter.png}
+	\caption{Diagram of the arm and stick with sensors illustrated.} \label{fig:InvertedPendulumSetUpPotmeter}
 \end{figure}
 \newpage
-The block diagram for the standard feedback control system with the known system plant is seen cf. figure \ref{fig:FeedbackSystem}. 
+The block diagram for the standard feedback control system with the known system plant is seen on \autoref{fig:FeedbackSystem}. 
 
 \begin{figure}[htbp]
 \hspace*{-2.5 cm} 
 	\centering
-	\includegraphics[width=0.95\paperwidth]{figures/modeling/MechanicalSystem}
-	\caption{Setup feedback loop.} \label{fig:FeedbackSystem}
+	\includegraphics[width=\textwidth]{figures/modeling/MechanicalSystem}
+	\caption{Block diagram of the setups feedback loop.} \label{fig:FeedbackSystem}
 \end{figure}
-\todo{Might be changed, was not sure how we would handle the feedback of the sensors.}
-\\
+\todo[inline]{Might be changed, was not sure how we would handle the feedback of the sensors.}
 
-The basics of each system in the Inverted Pendulum is now described with its specifications, and the dynamics of the system can therefore be modelled.
-
+The basics of each system in the Inverted Pendulum is now described with its specifications, and the dynamics of the system can be modelled. Each section will be modeled from the output to the input as the sections generate a torque that effects the previous sections of the system.
 
 \newpage
