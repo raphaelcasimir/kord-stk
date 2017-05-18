@@ -42,6 +42,8 @@ void calcPID()
 	/*refArm = outerkp * errorDist + intErrorDist - outerkd * dMeasDist; // Negative derivative. dSet - dMeas = -dMeas when setpoint doesn't change;
 	if(refArm > refArmMax) refArm = refArmMax;
 	else if(refArm < refArmMin) refArm = refArmMin;*/
+	refArm = KpOuter*(2/sampleTime+zO)/(2/sampleTime+pO)*measDist + gO*(zO-2/sampleTime)/(2/sampleTime+pO)*lastMeasDist - (pO-2/sampleTime)/(2/sampleTime+pO)*lastRefArm
+	lastRefArm = refArm;
 	
 
 	// Update previous values
