@@ -3,16 +3,16 @@
 \chapter{Test Journal: Servomotors}
 
 \begin{table}[!h]
-\begin{tabular}{l l}
-\textbf{Test participants:} & Romain \& Raphael   \\
-\textbf{Date:}  & 01/05-2017
-\end{tabular}
+	\begin{tabular}{l l}
+		\textbf{Test participants:} & Romain \& Raphael   \\
+		\textbf{Date:}  & 01/05-2017
+	\end{tabular}
 \end{table}
 
 \section*{Purpose}
-	
+
 The purpose of the test is to verify the proper functionment of the servomotors, and calculate the time constant of the servomotors' required tasks.
-	
+
 \section*{Test equipment and components}
 
 
@@ -20,20 +20,20 @@ The purpose of the test is to verify the proper functionment of the servomotors,
 	\centering
 	\caption{List of measurement equipment and components}\label{tab_appendix:Servo_equip2}
 	
-	\begin{tabularx}{\textwidth}{lXX}
-		Name & Brand	& Model \\ \toprule 
-		Servomotors	& SpringRc & SM-s2309s 	\\ \rowcolor{lightGrey}
-		Controller	& Arduino & Arduino Nano \\ 
-		Camera & Samsung & 0 \\ \rowcolor{lightGrey}
-		Media Player Classic & Gabest & Home Cinema\\ 
+	\begin{tabularx}{\textwidth}{lXXX}
+		Name 				& Brand	& Model 									\\ \toprule \rowcolor{lightGrey}
+		Servomotor	& SpringRc & SM-s2309s 	\\
+		Controller	& Arduino & Arduino Nano\\ \rowcolor{lightGrey}
+		Camera & Samsung & 0\\
+		Media Player Classic & Gabest & Home Cinema\\ \rowcolor{lightGrey}
 	\end{tabularx}
 \end{table}
 
 
 
 
-	\section*{Setup}
-	
+\section*{Setup}
+
 The servos are controlled and powered by an Arduino Uno. Three different position of the servo sticks are set up by code found in the attachements. The measurement setup is seen on the photos of the three different positions. \
 
 \begin{figure} [htbp]
@@ -55,55 +55,56 @@ The servos are controlled and powered by an Arduino Uno. Three different positio
 \end{figure}
 
 
-	\section*{Method}
-	
- The servos are controlled to go from one position to another set one. The process is filmed in slow motion in order to analyse it. An x/y basis is used with the base set at the rotation center.
-  
-		\subsubsection*{Angle variation}
-		
+\section*{Method}
+
+The servos are controlled to go from one position to another set one. The process is filmed in slow motion in order to analyse it. An x/y basis is used with the base set at the rotation center.
+
+\subsubsection*{Angle variation}
+
 The angle variation is found by measuring the angle difference betwwen the horizontal axis and the stick direction. The servomotors function properlly if the angles desired correspond to the real angles.
 
-		\subsubsection*{Time constant}
-		
+\subsubsection*{Time constant}
+
 In order to find the time constant, the time to go from one position to another is measured using the video software. The time constant is equal to 63 per cent of the total time from one position to another. 
 
 
 
-	\section*{Raw data}
-	
-		\subsubsection*{Angle variation}
+\section*{Raw data}
+
+\subsubsection*{Angle variation}
 
 
 \begin{table}[htbp]
 	\centering
 	\caption{Measurement time of different set points.}
 	\label{tab:AngleData}
-	\begin{tabularx}{\textwidth}{lX} 
-		Position & Angle{(}°{)}  \\ \toprule
-		Lowest & 122.05  \\ \rowcolor{lightGrey}
-		Middle & 92.54  \\ 
+	\begin{tabular}{lll}  \hline \hline
+		Position & Angle{(}°{)}  \\ \rowcolor{lightGrey}  \hline
+		Lowest & 122.05  \\
+		Middle & 92.54  \\ \rowcolor{lightGrey}
 		Highest & 67.50  \\
-	\end{tabularx}
+	\end{tabular}
 \end{table}
-		
-		
-		
-	
-		\subsubsection*{Time constant}
+
+
+
+
+\subsubsection*{Time constant}
 
 \begin{table}[htbp]
 	\centering
 	\caption{Measurment time of different set points.}
 	\label{tab:TimeData}
-	\begin{tabularx}{\textwidth}{lXXX} 
-		Test & Time of departure {(}s{)}& Time of arrival{(}s{)} & total time {(}s{)} \\  \toprule 
-		1     & 2.507              & 2.641             & 0.134                     \\   \rowcolor{lightGrey}
-		2     & 2.508              & 2.642 & 0.134                                 \\
-		3     & 60.066              & 61.133 & 0.133                                 \\ \rowcolor{lightGrey}
-		4     & 60.033             & 61.082            & 0.131                    \\ 
-	\end{tabularx}
+	\begin{tabular}{llll} \hline\hline
+		
+		Test & Time of departure {(}s{)}& Time of arrival{(}s{)} & total time {(}s{)} \\  \rowcolor{lightGrey}   \hline
+		1     & 2.507              & 2.641             & 0.134                     \\
+		2     & 2.508              & 2.642 & 0.134                                 \\  \rowcolor{lightGrey}
+		3     & 60.066              & 61.133 & 0.133                                 \\ 
+		4     & 60.033             & 61.082            & 0.131                    \\  \rowcolor{lightGrey} 
+	\end{tabular}
 \end{table}
-				
+
 %%				test table
 %\begin{table}[htbp]
 %	\begin{tabular}{|l||c|c|} \hline\hline
@@ -115,14 +116,14 @@ In order to find the time constant, the time to go from one position to another 
 %	\end{tabular}
 %\end{table}
 
-	\section*{Data processing}	
-	
-		\subsubsection*{Angle variation}
-		
+\section*{Data processing}	
+
+\subsubsection*{Angle variation}
+
 The angle variation is found by measuring the angle difference betwwen the horizontal axis and the stick direction. The desired angle difference between the different positon is $30$ \si{\degree}. The servomotors function properlly if the angles desired correspond to the measured angles.
 \begin{equation}
-		a_{mh} = 29.51 \si{\degree} \\  
-		a_{ml} = 25.04 \si{\degree}\\ 
+a_{mh} = 29.51 \si{\degree} \\  
+a_{ml} = 25.04 \si{\degree}\\ 
 \end{equation}
 \startexplain
 \explain{$a_{mh}$ is the angle difference between the middle to highest position of the servomotor's arm}{\si{\degree}}
@@ -130,25 +131,24 @@ The angle variation is found by measuring the angle difference betwwen the horiz
 \stopexplain
 The error comes from measure errors and to the servomotors lifting a weight.
 
-		\subsubsection*{Time constant}
-		
- In order to find the time constant, the time to go from one position to another is measured using the video software. The time constant is equal to 63 per cent of the mean value of the total time from one position to another : 
- \begin{equation}
- t_{constant} = \frac{63}{100} \cdot t_{mean} \\
- t_{constant} = \frac{63}{100} \cdot 0.133 = 0.084
- \end{equation} 
- \startexplain
- \explain{$ t_{constant}$ is the motor input voltage}{\si{\second}}
- \explain{$t_{mean}$ is the mean value of the total time from one position to another}{\si{\second}}
- \stopexplain
- 
- 
- 
+\subsubsection*{Time constant}
 
-	\section*{Conclusion}
-	
+In order to find the time constant, the time to go from one position to another is measured using the video software. The time constant is equal to 63 per cent of the mean value of the total time from one position to another : 
+\begin{equation}
+t_{constant} = \frac{63}{100} \cdot t_{mean} \\
+t_{constant} = \frac{63}{100} \cdot 0.133 = 0.084
+\end{equation} 
+\startexplain
+\explain{$ t_{constant}$ is the motor input voltage}{\si{\second}}
+\explain{$t_{mean}$ is the mean value of the total time from one position to another}{\si{\second}}
+\stopexplain
+
+
+
+
+\section*{Conclusion}
+
 The image analysis presents errors. The range of required angle movement of the servomotors is inferior to $30$ degrees, meaning that the servomotors are considered as meeting the requirements even thought errors are present. The time constant of the servomotors is $0.084$ and meets the requirement of a fast reaction to a controller command.
-
 
 
 
