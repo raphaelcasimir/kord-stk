@@ -76,7 +76,7 @@ The transfer function from the motor's angle velocity to the angle of the arm be
 	\frac{\Theta_a(s)}{\Omega_m(s)} =  \frac{N^3}{s}
 \end{equation}
 
-\subsection{Determining the Load Torque Produced by the Gears}
+\subsection{Determining the Load Torque Produced by the Gears}\label{sec:torqueGear}
 The torque of the load put on the motor is the sum of the torque produced by the gears and the torque produced by the arm and stick. As the torque from the arm and stick are considered negligible c.f. \autoref{sec:StickArm}, only the torque of the gears needs to be described.
 
 %Now that the relationship between $\theta_a$ and $\omega_m$ is found, $\tau_l$ is studied. In the inverted pendulum case the load is composed of the friction and the torque necessary to counter the gravity and the momentums which result in \autoref{eq:TauL}.
@@ -106,7 +106,7 @@ This means that the torque of the load produced by the gears is equal to $-F_1r$
 	J_w\dot{\omega}_{w} = -F_1R -\tau_L -b_{w}\omega_{w} \label{eq:TauW1}
 \end{flalign}
 
-Here $\tau_L$ is the load on wheel 1 that comes from the rest of the wheels connected to it. Wheel 2 is connected to wheel 1 similar to wheel 1 being connected to the motor. This means that the load torque on wheel 1 is related to $F_2$ and the load torque on wheel 2 is related to $F_3$. Substituting the load torque for the forces, the torques for each wheel is \autoref{eq:GiveMeAnOriginalName}.
+Here $\tau_L$ is the load on wheel 1 that comes from the rest of the wheels connected to it. Wheel 2 is connected to wheel 1 similar to how wheel 1 is connected to the motor. This means that the load torque on wheel 1 is related to $F_2$ and the load torque on wheel 2 is related to $F_3$. Substituting the load torque for the forces, the torques for each wheel is \autoref{eq:GiveMeAnOriginalName}.
 
 \begin{subequations}\label{eq:GiveMeAnOriginalName} 
 	\begin{flalign} 
@@ -116,87 +116,85 @@ Here $\tau_L$ is the load on wheel 1 that comes from the rest of the wheels conn
 	\end{flalign}
 \end{subequations}
 
-Using the relation in \autoref{eq:AngularVelRelation}, the angular velocity of each wheels can be found according to $\omega_m$:
-\begin{subequations} 
+Using the relation in \autoref{eq:AngularVelRelation}, the angular velocity of each wheels can be found to be \autoref{eq:WheelAngularVelocity}
+\begin{subequations} \label{eq:WheelAngularVelocity}
 	\begin{flalign}
-		&\omega_{w_1} = N \omega_m \addunit{\radian\per\second}\\
-		&\omega_{w_2} = N \omega_{w_1} = N^2 \omega_m \addunit{\radian\per\second}\\
-		&\omega_{w_3} = N \omega_{w_2} = N^3 \omega_m \addunit{\radian\per\second}
+		&\omega_{w_1} = N \omega_m \\
+		&\omega_{w_2} = N \omega_{w_1} = N^2 \omega_m \\
+		&\omega_{w_3} = N \omega_{w_2} = N^3 \omega_m 
 	\end{flalign}
 \end{subequations}
 
-The same equations are valid with angular accelerations.
-Which gives for Equations \ref{eq:GiveMeAnOriginalName}:
-\begin{subequations} 
+The same equations are valid with angular accelerations and are inserted in \autoref{eq:GiveMeAnOriginalName} giving \autoref{eq:TauWheelRelation}.
+\begin{subequations} \label{eq:TauWheelRelation}
 	\begin{flalign}  
-		&J_{w_1}N\dot{\omega}_m = -F_1R + F_2r -b_{w_1}N\omega_m \addunit{\newton\meter}\\ 
-		&J_{w_2}N^2\dot{\omega}_m = -F_2R + F_3r -b_{w_2}N^2\omega_m  \addunit{\newton\meter}\\ 
-		&J_{w_3}N^3\dot{\omega}_m = -F_3R - b_{w_3}N^3\omega_m  \addunit{\newton\meter}
+		&J_{w_1}N\dot{\omega}_m = -F_1R + F_2r -b_{w_1}N\omega_m \\ 
+		&J_{w_2}N^2\dot{\omega}_m = -F_2R + F_3r -b_{w_2}N^2\omega_m  \\ 
+		&J_{w_3}N^3\dot{\omega}_m = -F_3R - b_{w_3}N^3\omega_m  
 	\end{flalign}
 \end{subequations}
 
-In order to simplify the frictions, they are considered to be wet friction as such the frictions in the gear system are directly dependent on the angular velocity of the wheels. When the system is not moving:
-\begin{subequations} 
-	\begin{flalign}  \label{eq:TaufTgearConditions}
-	\tau_L &= \tau_{gear}\\
-	\omega_m &= 0
-	\end{flalign}
-\end{subequations}
+%In order to simplify the frictions, they are considered to be wet friction as such the frictions in the gear system are directly dependent on the angular velocity of the wheels. When the system is not moving:
+%\begin{subequations} 
+%	\begin{flalign}  \label{eq:TaufTgearConditions}
+%	\tau_L &= \tau_{gear}\\
+%	\omega_m &= 0
+%	\end{flalign}
+%\end{subequations}
+%
+%Inserting \autoref{eq:TaufTgearConditions} into \autoref{eq:MotorfreeBody}:
+%
+%\begin{equation} 
+%		\tau_{gear} = -F_1 \cdot r \addunit{\newton\meter}
+%		\label{eq:TaufF1r}
+%\end{equation}
 
-Inserting \autoref{eq:TaufTgearConditions} into \autoref{eq:MotorfreeBody}:
+The forces $F_1$, $F_2$ and $F_3$ are isolated giving \autoref{eq:F1F2F3}.
 
-\begin{equation} 
-		\tau_{gear} = -F_1 \cdot r \addunit{\newton\meter}
-		\label{eq:TaufF1r}
-\end{equation}
-
-$F_1$ needs to be isolated from \autoref{eq:GiveMeAnOriginalName}. Each forces $F_1$, $F_2$ and $F_3$ are then isolated, giving: 
-
-\begin{subequations} 
+\begin{subequations} \label{eq:F1F2F3}
 	\begin{flalign}
-		&F_1 = -\frac{1}{R} (b_{w_1}N\omega_m + J_{w_1}N\dot{\omega}_m - F_2r) \addunit{\newton} 	\label{eq:F1}\\ 
-		&F_2 = -\frac{1}{R} (b_{w_2}N^2\omega_m +  J_{w_2}N^2\dot{\omega}_m - F_3r) \addunit{\newton}	\label{eq:F2}\\
-		&F_3 = -\frac{1}{R} (b_{w_3}N^3\omega_m + J_{w_3}N^3\dot{\omega}_m)	\addunit{\newton}		\label{eq:F3}
+		&F_1 = -\frac{1}{R} N\left(b_{w_1}\omega_m + J_{w_1}\dot{\omega}_m - \frac{F_2r}{N}\right) \label{eq:F1} \\ 
+		&F_2 = -\frac{1}{R} N^2\left(b_{w_2}\omega_m + J_{w_2}\dot{\omega}_m - \frac{F_3r}{N^2}\right) \label{eq:F2} \\
+		&F_3 = -\frac{1}{R} N^3\left(b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m\right) \label{eq:F3}
 	\end{flalign}
 \end{subequations}
 
-Inserting \autoref{eq:F3} in \autoref{eq:F2}, then \autoref{eq:F2} in \autoref{eq:F1}, the expression of $F_1$ according to the friction and moment of inertia of each wheel is found:
+Inserting \autoref{eq:F3} in \autoref{eq:F2} gives \autoref{eq:F3F2}.
 
 \begin{flalign}
-	F_1 &=-\frac{1}{R} N(b_{w_1}\omega_m + J_{w_1}\dot{\omega}_m \notag \\
-	& +\frac{r}{R} N^2(b_{w_2}\omega_m + J_{w_2}\dot{\omega}_m \notag \\
-	& +\frac{r}{R} N^3(b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m))) \addunit{\newton}
+F_2=-\frac{1}{R}N^2\left(b_{w_2}\omega_m + J_{w_2}\dot{\omega}_m +\frac{r}{R}\frac{N^3}{N^2}\left(b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m\right)\right) \label{eq:F3F2}
 \end{flalign}
 
+\autoref{eq:F3F2} is then inserted in \autoref{eq:F1} giving \autoref{eq:F3F2F1} while remembering that the gear ratio is defined by \autoref{eq:GearRatio}.
+%Inserting \autoref{eq:F3} in \autoref{eq:F2}, then \autoref{eq:F2} in \autoref{eq:F1}, the expression of $F_1$ according to the friction and moment of inertia of each wheel is found:
 
-Using \autoref{eq:TaufF1r} and the gear ratio in \autoref{eq:GearRatio}, the total friction is given by: 
-\begin{align} \label{eq:TaufTimeDomain}
-	\tau_{gear} &= N^2 (b_{w_1}\omega_m + J_{w_1}\dot{\omega}_m \notag \\
-	& +N^3 (b_{w_2}\omega_m + J_{w_2}\dot{\omega}_m \notag \\
-	& +N^4 (b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m))) \addunit{\newton\meter}
-\end{align}
-
-
-\autoref{eq:TaufTimeDomain} is Laplace-transformed:
-
-\begin{flalign} \label{eq:TaufLaplaceDomain}
-	\mathcal{L}\{\tau_{gear}(t)\} = \tau_{gear}(s) &= N^2 (B_{w_1}\Omega_m + sJ_{w_1}\Omega_m \notag \\
-	& +N^3 (B_{w_2}\Omega_m + sJ_{w_2}\Omega_m \notag \\
-	& +N^4 (B_{w_3}\Omega_m + sJ_{w_3}\Omega_m))) \addunit{1}
+\begin{flalign}
+F_1 = -&\frac{1}{R}N\Big(b_{w_1}\omega_m + J_{w_1}\dot{\omega}_m \notag \\
++&N^2\big(b_{w_2}\omega_m + J_{w_2}\dot{\omega}_m \notag \\ 
++&N^2\left(b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m\right)\big)\Big) \label{eq:F3F2F1}
 \end{flalign}
 
+Since $\tau_l=-F1r$ and the torque of the load on the motor is the torque of the gears, $\tau_{gear}$ can be expressed by \autoref{eq:TaufTimeDomain}.
+\begin{flalign} 
+\tau_{gear} = N^2 & \Big(b_{w_1}\omega_m + J_{w_1}\dot{\omega}_m \notag \\
++N^2 & \big(b_{w_2}\omega_m + J_{w_2}\dot{\omega}_m \notag \\
++N^2 &(b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m)\big)\Big) \label{eq:TaufTimeDomain}
+\end{flalign}
+\autoref{eq:TaufTimeDomain} is Laplace-transformed and reorganized giving \autoref{eq:TaufReorganized}.
 
-\autoref{eq:TaufLaplaceDomain} is reorganized to find the final expression for $\tau_{gear}$ in \autoref{eq:TaufReorganized}:
-\begin{equation}
-	\tau_{gear} = \left[(N^2 J_1 + N^5 J_2 + N^9 J_3)s +( N^2 B_1 + N^5 B_2 + N^9 B_3)\right]\Omega_m \addunit{1}
-	\label{eq:TaufReorganized}
-\end{equation}
+\begin{subequations}
+\begin{flalign}
+\mathcal{L}\{\tau_{gear}(t)\} = \tau_{gear}(s) = N^2 & \Big(B_{w_1}\Omega_m + sJ_{w_1}\Omega_m \notag \\
++N^2 & \big(B_{w_2}\Omega_m + sJ_{w_2}\Omega_m \notag \\
++N^2 & (B_{w_3}\Omega_m + sJ_{w_3}\Omega_m)\big)\Big) \label{eq:TaufLaplaceDomain} \\
+\tau_{gear} = \Big(\big(N^2 J_{w_1} + N^4 J_{w_2} + N^6 J_{w_3})s + &\big( N^2 B_{w_1} + N^4 B_{w_2} + N^6 B_{w_3}\big)\Big)\Omega_m \label{eq:TaufReorganized}
+\end{flalign}
+\end{subequations}
 
-The moments of inertia and the frictions of each parts of the gear train will be grouped into two variables, respectively $J_{gear}$ and $B_{gear}$:
-\begin{equation}
-	\tau_{gear} = (J_{gear}s +B_{gear})\Omega_m \addunit{1}
-	\label{eq:TaufSimplified}
-\end{equation}
+The moments of inertia and the frictions for each wheel is grouped into two variables $J_{gear}$ and $B_{gear}$ respectively giving the torque for the gears in \autoref{eq:TaufSimplified}.
+\begin{flalign}
+\tau_{gear} = \left(J_{gear}s +B_{gear}\right)\Omega_m 	\label{eq:TaufSimplified}
+\end{flalign}
 
 
 
