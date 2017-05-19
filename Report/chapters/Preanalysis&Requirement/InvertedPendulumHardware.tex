@@ -4,16 +4,15 @@ Each part will be described with its specifications and use in the setup. The in
 \begin{figure} [htbp]
 %\hspace*{-3.5cm}  
 	\centering
-	\includegraphics[width=\textwidth]{figures/modeling/InputOutputSystem.png}
+	\includegraphics[width=\textwidth]{figures/modeling/InputOutputSystem.pdf}
 	\caption{Block diagram of the input/output relations of the system.} \label{fig:DCMotorRelation}
 \end{figure}
-
 \startexplain
 	\explain{$U_m$ is the motor input voltage}{\si{V}}
 	\explain{$\omega_m$ is the angular velocity of the motor}{\si{\radian\per\second}}
 	\explain{$\omega_w$ is the angular velocity of the gear connected to the arm}{\si{\radian\per\second}}
-	\explain{$\tau_{f_{gear}}$ is the total friction of the gear system}{\si{\newton\meter}}
-	\explain{$\tau_a$ is the load of the arm}{\si{\newton\meter}}
+	\explain{$\tau_l$ is the total friction of the gears, arm and stick}{\si{\newton\meter}}
+	\explain{$\tau_as$ is the load of the arm and the stick}{\si{\newton\meter}}
 	\explain{$\tau_s$ is the load of the stick}{\si{\newton\meter}}
 	\explain{$\theta_a$ is the angle from the arm to the y-axis}{\si{\radian}}
 	\explain{$\theta_s$ is the angle from the stick to the y-axis}{\si{\radian}}
@@ -75,7 +74,7 @@ A necessary feedback to know is the angle between the stick and arm. This is nee
 The block diagram for the standard feedback control system with the known system plant is seen on \autoref{fig:FeedbackSystem}. 
 
 \begin{figure}[htbp]
-\hspace*{-2.5 cm} 
+%\hspace*{-2.5 cm} 
 	\centering
 	\includegraphics[width=\textwidth]{figures/modeling/MechanicalSystem}
 	\caption{Block diagram of the setups feedback loop.} \label{fig:FeedbackSystem}
