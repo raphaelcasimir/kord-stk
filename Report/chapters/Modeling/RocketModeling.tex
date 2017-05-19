@@ -1,21 +1,27 @@
+
+
 \chapter{Rocket Analysis}
-		A rocket presents a large number of similarities with an inverted pendulum in terms of modeling and control as it will be demonstrated in this chapter. It also adds one degree of freedom compared to the inverted pendulum, since it can be controlled in two horizontal directions. A model of the rocket is made to be able to compare the two systems dynamics.
+
+\todo{Appendix refference not working, find a way to include path i guess.}{paperboy}
+		A rocket presents a large number of similarities with an inverted pendulum in terms of modeling and control as it will be demonstrated in this chapter. It also adds one degree of freedom compared to the inverted pendulum, since it can be controlled in two horizontal directions. A model of the rocket is made to be able to compare the two systems' dynamics.
 		\\
-		Two different parameters will be controlled in the rocket: the angle of its body compared to vertical and its position.
-		It will be sought to minimize the angle and to keep the initial position but not the initial altitude.
+		Two different parameters can be controlled in the rocket: the angle of its body compared to vertical and its position.
+		The purpose is to minimize the angle and to keep the initial position, but not the initial altitude.
+		
+%		The angle to position was taken out. if put back, change the intro
 		
 		\section{Modeling of the angle}
 		\begin{figure}[htbp]
 			\centering
 			\includegraphics[width=0.7\textwidth]{figures/modeling/Rocket/rocket_angle_diagram.png}
-			\caption{Diagram of the system for controlling the angle.}
+			\caption{Simplified sum of forces on the rocket.}
 			\label{fig:angle_diagram}
 		\end{figure}
 		
-		This part will focus on the forces acting perpendicularly to the rocket body, thus creating torques.
+		This section will focus on the forces acting perpendicularly to the rocket body, thus creating torques.
 		The resulting transfer function will take $\theta_t$, the thruster angle compared to the body, as an input and $\theta_b$, the body angle compared to vertical as an output.
 		
-		The thruster force $F_t$ will be considered as constant. See the rocket motor test experiment for details \todo[inline, author=Raph]{Add vref for SRB test experiment}. $F_g$ is the rocket's weight. The force of drag is neglected due to the low-speed conditions of the tests, and the absence of air in most real-life scenarios.
+		The thruster force $F_t$ will be considered as constant. See the rocket motor test experiment for details: \autoref{ThrusterTest}. $F_g$ is the rocket's weight. The force of drag is neglected due to the low-speed conditions of the tests, and the absence of air in most real-life scenarios.
 		
 %		Let's call $l_{Cg}$ the distance between the center of gravity and the end of the thruster.
 		Using Newton's second law the following equation can be derived.
@@ -46,7 +52,7 @@
 %		\label{eq:rocket_angle_model_tf_1}
 %		\end{equation}
 		
-		Calculating $I_r$ assuming that all the mass is concentrated at the electronics/battery stage of the rocket. 70\% of the weight is in fact concentrated on this part (rocket is about 300 grams and the electronics stage is around 210g). The rocket is rotating around its center of gravity.
+		Calculating $I_r$ assuming that all the mass is concentrated at the electronics/battery stage of the rocket. $70\%$ of the weight is in fact concentrated on this part (rocket is about $300$ grams and the electronics stage is around $0210$ grams). The rocket is rotating around its center of gravity.
 		
 		\begin{equation}
 		I_r=m_{Es} \cdot l_{Es}^2 \label{eq:rocket_angle_3}
@@ -56,7 +62,7 @@
 		\explain{$l_{Es}$ is the distance from the electronics stage to the center of gravity}{\si{\meter}}
 		\stopexplain
 		
-		Also the torque $\tau_t$ can be expressed as:
+		The torque $\tau_t$ can be expressed as:
 		\begin{equation}
 		\tau_t = F_t \cdot sin(\theta_t) \cdot l_{Cg} \addunit{\newton$\cdot$\meter} \label{eq:tau_t}
 		\end{equation}
@@ -67,7 +73,7 @@
 		\explain{$\tau_t$ is the torque created by the thruster on the rocket}{\si{\newton \meter}}
 		\stopexplain
 		
-		And using the small angle approximation:
+		The small angle approcimation is used on $\tau_t$:
 		\begin{equation}
 		\tau_t = F_t \cdot \theta_t \cdot l_{Cg} \addunit{\newton$\cdot$\meter} \label{eq:tau_t_lin}
 		\end{equation}
@@ -78,7 +84,7 @@
 		\label{eq:rocket_angle_model_tf_2}
 		\end{equation}
 		
-		The transfer function of the servo will be needed, which is first order system. Its time constant is determined in \todo[inline, author=Raph]{Add servo test experiment}
+		The servomotors also present a transfer function to be taken into consideration. The transfer function is obtained in \autoref{eq:servo_models}. It is a first order system. The time constant of the servomotors is determined in \autoref{ssc:Servomotors}.
 		
 		\begin{equation}
 		\frac{\theta_{out}}{\theta_{in}}=\frac{1}{\tau s + 1}  \label{eq:servo_model}
