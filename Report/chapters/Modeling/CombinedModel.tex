@@ -4,49 +4,38 @@ With a model for each individual part of the inverted pendulum derived, a combin
 \begin{flalign}
 \frac{\Omega_m(s)}{U_m(s)}\cdot \frac{\Theta_a(s)}{\Omega_m(s)}\cdot \frac{\Theta_s(s)}{\Theta_a(s)}=\frac{\Theta_s(s)}{U_m(s)} \label{eq:CombTF}
 \end{flalign}
-In block form this is simply done by putting each model sequentially after each other as shown in \autoref{fig:CombBlock}.
-\begin{figure}[htbp]
-\centering
-\missingfigure{Block diagram of the model for the inverted pendulum.}
-\label{fig:CombBlock}
-\end{figure}
 
-By combining \autoref{eq:UmThetaaTFSimplified} and \autoref{eq:tfArmStick} the model for the inverted pendulum becomes \autoref{eq:CombModel}.
+By combining \autoref{eq:DCModelNoL}, \autoref{eq:thetaOmega} and \autoref{eq:tfArmStick} the model for the inverted pendulum becomes \autoref{eq:CombModel}.
 \begin{flalign}
-\frac{\Theta_s(s)}{U_m(s)}=\frac{\nicefrac{K_t}{R_m}}{\left( \frac{J_{m}+J_{gear}}{N^3} - J_a \right)s^2 + \left( \frac{\left( \frac{K_e K_t}{R_m} + B_{gear} + B_{m}\right)}{N^3} \right) s + gl_a(M_s+M_a)} \cdot \frac{-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}} \label{eq:CombModel}
+\frac{\Theta_s(s)}{U_m(s)}=\frac{K_t}{J_tR_ms+B_tR_m+K_tK_e} \cdot \frac{N^3}{s} \cdot \frac{-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}} \label{eq:CombModel}
 \end{flalign}
 
- The values for each variable for the inverted pendulum is shown in \autoref{tab:IPModelVar}. The friction between the arm and the stick is assumed to be zero as the joint consists of a ball bearing. The other variables are found in \autoref{sec:IPDesc}, \autoref{} and \autoref{}.
+The values for all variables for the inverted pendulum along with their origin is shown in \autoref{tab:IPModelVar}. The friction between the arm and the stick is assumed to be zero as the joint consists of a ball bearing. 
 \begin{table}[htbp]
 \centering
-\caption{Parameters for the inverted pendulum.}
+\caption{Parameters for the inverted pendulum and their origin.}
 \label{tab:IPModelVar}
-\begin{tabular}{llll}
+\begin{tabular}{lllll}
 \hline
-Variable & Value & Parameter & Unit \\ \hline
-$K_t$ & 0.0293 & Mechanical motor constant & \si{\newton\meter\per\ampere} \\
-$K_e$ & 0.0355 & Electrical motor constant & \si{\volt\per(\radian\per\second)} \\
-$J_m$ & $2.9\cdot 10^{-5}$ & Moment of inertia of the motor & \si{\kilogram\square\meter} \\
-$J_{gear}$ & $1.53\cdot 10^{-4}$ & Moment of inertia of the gear & \si{\kilogram\square\meter} \\
-$J_a$ & $10.3\cdot 10^{-3}$ & Moment of inertia of the arm & \si{\kilogram\square\meter} \\
-$J_s$ & $1.95\cdot 10^{-3}$ & Moment of inertia of the stick & \si{\kilogram\square\meter} \\
-$L_m$ & $1.56\cdot 10^{-4}$ & Inductance & \si{\henry} \\
-$R_m$ & 1.02 & Resistance & \si{\ohm} \\
-$B_m$ & $1.59\cdot 10^{-4}$ & Friction in motor & \si{\newton\per(\radian\per\second)} \\
-$B_{gear}$ & $1.11\cdot 10^{-3}$ & Friction in the gears & \si{\newton\per(\radian\per\second)} \\
-$N$   & 0.3 & Gear ratio & [1] \\   
-$l_a$ & 0.33 & Length of arm & \si{\meter} \\
-$l_s$ & 0.8 & Length of stick & \si{\meter} \\
-$M_a $ & 0.288 & Mass of arm & \si{\kilogram} \\
-$M_s$ & 0.344 & Mass of stick & \si{\kilogram} \\
-$b_{as}$ & 0 & Friction between arm and stick & \si{\newton\per(\radian\per\second)} \\  
-$g$ & 9.8 & Standard gravitational acceleration & \si{\meter\per\square\second} 
+Variable & Value & Parameter & Unit & Origin\\ \hline
+$K_t$ & $29.3\cdot10^-3$ & Mechanical motor constant & \si{\newton\meter\per\ampere} & \autoref{sec:MeasKt} \\
+$K_e$ & $35.5\cdot10^-3$ & Electrical motor constant & \si{\volt\per(\radian\per\second)} & \autoref{sec:MeasKe} \\
+$J_m$ & $29.0\cdot 10^{-6}$ & Moment of inertia of motor & \si{\kilogram\square\meter} & \cite{datasheet:dcmotor} \\
+$J_{gear}$ & $0.153\cdot 10^{-3}$ & Moment of inertia of gear & \si{\kilogram\square\meter} & \autoref{sec:MeasJg} \\
+%$J_a$ & $10.3\cdot 10^{-3}$ & Moment of inertia of the arm & \si{\kilogram\square\meter} \\
+%$J_s$ & $1.95\cdot 10^{-3}$ & Moment of inertia of the stick & \si{\kilogram\square\meter} \\
+%$L_m$ & $1.56\cdot 10^{-4}$ & Inductance & \si{\henry} \\
+$R_m$ & 0.8 & Resistance & \si{\ohm} & \autoref{sec:MeasRm} \\
+$B_m$ & $0.159\cdot 10^{-3}$ & Friction in motor & \si{\newton\per(\radian\per\second)} & \autoref{sec:MeasBm} \\
+$B_{gear}$ & $1.11\cdot 10^{-3}$ & Friction in the gears & \si{\newton\per(\radian\per\second)} & \cite{web:BalancingStick2008} \\
+$N$   & 0.3 & Gear ratio & 1 & \autoref{GearSystemParameters} \\   
+$l_a$ & 0.33 & Length of arm & \si{\meter} & \autoref{DimensionsStick} \\
+$l_s$ & 0.8 & Length of stick & \si{\meter} & \autoref{DimensionsStick} \\
+$M_a $ & 0.288 & Mass of arm & \si{\kilogram} & \autoref{DimensionsStick} \\
+$M_s$ & 0.344 & Mass of stick & \si{\kilogram} & \autoref{DimensionsStick} \\
+$b_{as}$ & 0 & Friction in arm and stick & \si{\newton\per(\radian\per\second)} & Assumption \\  
+$g$ & 9.8 & Standard gravity & \si{\meter\per\square\second} & \cite{web:gravity}
 \end{tabular}
 \end{table}
-\todo[inline,author=maxime]{Ja, Js, Bgear has to be found or a reference to the previous report should be done}
-Inserting the numbers from \autoref{tab:IPModelVar} the transfer function of the model for the inverted pendulum becomes \autoref{eq:CombFinalTF}.
-\begin{flalign}\label{eq:CombFinalTF}
-\frac{\Theta_s(s)}{U_m(s)}=\frac{-8.0725}{s^2-23.8185s-416.1281}
-\end{flalign}
 
 With the mathematical model of the inverted pendulum found a controller for the system can be designed.
