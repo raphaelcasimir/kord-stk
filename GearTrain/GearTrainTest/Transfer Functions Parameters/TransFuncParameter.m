@@ -10,34 +10,21 @@ Bm=1.59e-4;
 Bgear=1.11e-3;
 N=0.3;
 La=0.33;
-Ls=0.4;
+Ls=0.8;
 Ms=0.334;
 Ma=0.288;
 Bas=0;%1e-3;
 g=9.8;
+Lalpha=2/3*Ls;
 
 %%Transfer Function Creation
 	s=tf('s');
 
-%% ThetaA/U parameters
-
-	A=(Jm+Jgear)/N^3+Ls*Ms*La/8-Ja;
-
-	B=((Kt*Ke)/Rm+Bgear+Bm)/N^3;
-
-	C=(-3*g)/(2*Ls)*((Jgear+Jm)/N^3-Ja)-g*La*(Ms/4+Ma);
-
-	D=3*g/(2*Ls*N^3)*(Bgear+Kt*Ke/Rm+Bm);
-
-	E=-3*g^2*La/(4*Ls)*(Ma+Ms);
-
-	Fua=(-Kt/Rm*(s^2-3/2*g/Ls))/(A*s^4+B*s^3+C*s^2+D*s+E)
-
 %% Without ThetaS
 
-	F=(Jm+Jgear)-N^3*Ja;
+	F=(Jm+Jgear);%-N^3*Ja;
 	G=(Kt*Ke/Rm+Bgear+Bm);
-	H=g*La*(Ms+Ma*N^3);
+	H=0;%g*La*(Ms+Ma*N^3);
 	Fuw=(Kt/Rm)*s/(s^2*F+s*G+H)
 
 %% Wm to Theta A
@@ -45,49 +32,49 @@ g=9.8;
 
 %% DistanceAlpha/ThetaA
 
-	Fda=(-La*3*g/(2*Ls))/(s^2-3*g/(2*Ls))
+	Fda=(s^2*(La-Lalpha*3*La/(2*Ls))-La*3*g/(2*Ls))/(s^2-3*g/(2*Ls))
 
 
 %% Controller Design
 
-	Karm=100;
-	Kmotor=1410;
-	Kstick=7.61;
-	ControllerArm=Karm*(1);
-	ControllerMotor=-Kmotor*(1+0.005*100/(1+100/s)+2/s)
-	ControllerStick=-Kstick*(1+0.1*100/(1+100/s)+2/s)
+	Karm=450;
+	Kmotor=10;
+	Kstick=19.1;
+	ControllerArm=Karm;%*(45+s)/(180+s);
+	ControllerMotor=Kmotor;%*(125+s)/(40+s)
+	ControllerStick=-Kstick*(4+s)/(20+s);
+    
 
 
 %% Full transfer functions of the system
-	ControlledSysStick = feedback(ControllerStick*Fda,1)
-	ControlledSysArm = feedback(ControllerArm*Fwa,1)
-	ControlledSysMotor = feedback(ControllerMotor*Fuw*Fwa,1)
+	ControlledSysArm = feedback(ControllerArm*ControlledSysMotor*Fwa,1)
+	ControlledSysStick = feedback(ControlledSysArm*Fda,ControllerStick)
+	ControlledSysMotor = feedback(ControllerMotor*Fuw,1)
 
 
 %% Root locus to simulate diffent controllers
 	figure ('Name','Root Locus Motor, Arm & Stick')
-		rlocus(ControllerArm*Fwa/Karm);
+		rlocus(ControllerMotor*Fuw/Kmotor);
 	hold on;
-		rlocus(ControllerStick*Fda/Kstick,'--');
-		rlocus(ControllerMotor*Fuw/Kmotor,'o');
-	legend('ArmLoop','StickLoop','MotorLoop','Location','southwest')
+		rlocus(ControllerArm*ControlledSysMotor*Fwa/Karm,'--');
+		rlocus(ControllerStick*ControlledSysArm*Fda/Kstick,'o');
+	legend('MotorLoop','ArmLoop','StickLoop','Location','southwest')
 	hold off;
 
 	figure ('Name','Root Locus Arm');
 	hold on
-		rlocus(ControllerArm*Fwa/Karm);
+		rlocus(ControllerArm*ControlledSysMotor*Fwa/Karm);
 	legend('ArmLoop','Location','southwest')
 	hold off
 
 	figure ('Name','Root Locus Motor');
 	hold on
-		rlocus(ControllerMotor*Fuw*Fwa/Kmotor);
+		rlocus(ControllerMotor*Fuw/Kmotor);
 	legend('ArmLoop','Location','southwest')
 	hold off
-
 	figure ('Name','Root Locus Stick');
 	hold on
-		rlocus(ControllerStick*Fda/Kstick);
+		rlocus(ControllerStick*ControlledSysArm*Fda/Kstick);
 	legend('StickLoop','Location','southwest')
 	hold off
 
@@ -104,12 +91,19 @@ g=9.8;
 
 %% Step response
 	figure ('Name','Step response Arm&Stick')
-		step(ControlledSysArm);
+		margin(ControlledSysArm);
 	hold on
-		step(ControlledSysStick);
-		step(ControlledSysMotor);
-	legend('ArmLoop','StickLoop','MotorLoop' ,'Location','southwest')
+        margin(ControlledSysMotor);
+        margin(feedback(ControllerStick*feedback(ControllerArm*ControlledSysMotor*Fwa,1)*Fda,1))
+
+	legend('ArmLoop','MotorLoop','whole system' ,'Location','southwest')
 	hold off
+   
+    figure ('Name','disturbance Stick')
+    impulse(ControlledSysStick);
+
+    figure ('Name','disturbance Stick whole system')
+    impulse(feedback(feedback(ControllerArm*ControlledSysMotor*Fwa,1)*Fda,ControllerStick))
 
 %% Natural frequencies and their influence
 	[WnArm,zetaArm] = damp(ControlledSysArm)
@@ -130,7 +124,7 @@ g=9.8;
 
 Fus = Fuw*Fwa*(-3*La/(2*Ls)*s^2/(s^2-3*g/(2*Ls)))
 
-ControllerFus=(1+0.003*100/(1+100/s)+0.75/s)
+ControllerFus=-(1+0.003*100/(1+100/s)+0.75/s)
 
 figure ('Name','Root Locus thetaS');
 rlocus(Fus*ControllerFus)
