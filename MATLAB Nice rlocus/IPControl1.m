@@ -5,18 +5,18 @@ Jm = 2.9*10^-5;     % Moment of inertia
 Ja = 10.3*10^-3;
 Jg = 1.53*10^-4;
 Lm = 0; %1.42*10^-4;     % Inductance
-Rm = 1.02;  % Resistance
+Rm = 0.82;  % Resistance
 Bm = 1.59*10^-4;     % Friction
 Bg = 1.11*10^-3;
 N = 0.3;   % Gear ratio
 la = 0.33;  % Length of arm
-ls = 0.8;   % Length of stick
+ls = 1.1;   % Length of stick
 Ms = 0.17;  % Mass of stick
 Ma = 0.288; % Mass of arm
 Bas = 0.0;   % Friction between A&S
 g = 9.8;    % Standard gravitational acceleration
 
-Ga2=tf([Kt/Rm 0], [(Jm+Jg) (Ke*Kt/Rm+Bg+Bm) 0]);
+Ga2=tf([Kt/Rm], [(Jm+Jg) (Ke*Kt/Rm+Bg+Bm)]);
 Ga=tf(Kt/Rm, [(Jm+Jg)/N^3-Ja (Ke*Kt/Rm+Bg+Bm)/N^3 g*la*(Ms+Ma)]);
 Gb=tf(N^3,[1 0]);
 Gc=tf([3*la/(2*ls) 3*Bas/(Ms*ls^2) 0],[1 3*Bas/(Ms*ls^2) -3*g/(2*ls)]); % Negative gain
@@ -27,14 +27,14 @@ s=tf([1 0],1);
 % Dc = tf([1 5],[1 -1]);
 %%
 figure
-h=rlocusplot(Gb*Ga2); %Gre*(s+6)
+h=rlocusplot(Gb); %Gre*(s+6)
 p=getoptions(h);
 p.ylabel.FontSize = 14;
 p.xlabel.FontSize = 14;
 p.title.FontSize = 16;
 p.title.String = 'Root Locus of Voltage to Arm Angle';
 p.ticklabel.FontSize = 12;
-%p.xlim=[-8 8];
+p.xlim=[-3 1];
 setoptions(h,p);
 axIm = findall(gcf,'String','Imaginary Axis (seconds^{-1})');
 axRe = findall(gcf,'String','Real Axis (seconds^{-1})');
@@ -43,10 +43,16 @@ set(axRe,'String','Real Axis');
 qq=findall(gcf,'type','line');
 qq(6).LineWidth=3;
 qq(7).LineWidth=3;
-qq(8).LineWidth=2;
-qq(9).LineWidth=2;
-qq(8).MarkerSize=18;
-qq(9).MarkerSize=18;
+qq(7).MarkerSize=18;
+
+figure
+CL=feedback(905*Gb,1);
+pzmap(CL);
+
+figure
+step(CL);
+
+%%
 figure
 CL=feedback(Gre*(s+6),1);
 pzmap(CL);
@@ -92,3 +98,7 @@ qq(end-1).LineWidth=2;
 qq(end-1).MarkerSize=18;
 qq(end).LineWidth=2;
 qq(end).MarkerSize=18;
+
+%%
+
+step(9.28*Gb*Ga2);

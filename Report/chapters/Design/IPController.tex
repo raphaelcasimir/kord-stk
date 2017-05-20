@@ -55,7 +55,7 @@ If the inner loop is fast enough compared to the outer loop, it is negligible to
 \begin{figure}[htbp]
 \centering
 	\begin{subfigure}{0.45\textwidth}
-	\includegraphics[width=\textwidth]{rlocusVArm}
+	\includegraphics[width=\textwidth]{rlocusVArmAlt}
 	\caption{Voltage as input and angle of the arm as output.}
 	\label{fig:locusVArm}
 	\end{subfigure}
@@ -71,9 +71,50 @@ With this split it's simpler to design a controller that can move the unstable p
 
 \section{Design of Inner Loop Controller}
 
-For the design of the inner loop controller it's important that it settles faster than the outer loop controller. This means the natural frequency of the system with the controller needs to be larger. The root locus for the motor to the arm on \autoref{fig:locusVArm} shows that a simple gain could increase the natural frequency. As such a P controller is good as it will increase the rise time and the settling time without affecting much the overshoot. With the help of \autoref{fig:VArm} a gain of 9.28 is chosen as it is the maximum gain obtainable without 
+For the design of the inner loop controller it's important that it settles faster than the outer loop controller without any overshoot. This means the natural frequency of the system with the controller needs to be larger and the poles close to the real axis. The root locus for the motor to the arm on \autoref{fig:locusVArm} shows that a simple gain can not increase the natural frequency without have any overshoot. As such a P controller is chosen as it will increase the rise time and the settling time. With the help of \autoref{fig:VArmGeneralPControllerRLocus} a gain of 9.28 is chosen as it is the maximum gain obtainable without having any overshoot.
+
+\begin{figure} [htbp] 
+	\centering
+	\includegraphics[width=0.7\textwidth]{rlocusVArmGeneralPController.eps}
+	\caption{Voltage as input and Arm's angle as the output}
+	\label{fig:VArmGeneralPControllerRLocus}
+\end{figure}
+
+However this system has only a natural frequency of \SI{6.97}{\radian\per\second} meaning the arm should be quite slow with this controller. This supposition is confirmed by the step response seen in \autoref{fig:VArmGeneralPControllerStepResp}.
+
+\begin{figure} [htbp] 
+	\centering
+	\includegraphics[width=\textwidth]{rlocusVArmGeneralPControllerStepResp.eps}
+	\caption{Step response of the arm with the voltage as the input}
+	\label{fig:VArmGeneralPControllerStepResp}
+\end{figure}
+\todo[inline,author=maxime]{add the characteristics of the step response as my computer can't do it for some reasons}
+
+In order to speed up the inner loop two options are available. The first one is to use more elaborate controller than the P controller such as a PD controller or a lead. The second one is to once again divide the inner loop into two loops. As the second one is simpler to implement and has also the advantage to add a control over the velocity, this method is chosen. The two new loops are respectively the voltage as the input and the velocity which will be called motor loop from now on, and the velocity as the input and the arm's angle as the output named as arm's loop.
+
+The first loop wich will be designed will be the motor loop as it is the most inner loop.
 
 %\input{Design/MotorLoop.tex}
+
+Now the arm's loop will be designed. The motor loop part has a settling time of \SI{0.0159}{\second}, so the settling time of the arm's loop has to be at least \SI{0.159}{\second} in order to make the assumption that the motor's loop transfer function is equal to 1 for the arm's loop.
+
+The root locus of the new transfer function of the arm, in \autoref{fig:WArmLoopRLocus}, shows that there is theoretically no gain limitation for the arm as the pole moves to left side plan making the system stable with a gain high enough. The pole is also always on the real axis which means there will be no overshoot no matter the gain.
+
+\begin{figure} [htbp] 
+	\centering
+	\includegraphics[width=0.7\textwidth]{WArmPControllerRLocus.eps}
+	\caption{Velocity as input and Arm's angle as the output}
+	\label{fig:WArmLoopRLocus}
+\end{figure}
+
+Since it is so our only limitation is the settling time os the motor as explained earlier. A gain of 905 is good enough as it gives a settling time of \SI{0.16}{\second} as seen in \autoref{fig:WArmLoopStepResp}.
+
+\begin{figure} [htbp] 
+	\centering
+	\includegraphics[width=\textwidth]{WArmPControllerStepResp.eps}
+	\caption{Step response of the arm's loop}
+	\label{fig:WArmLoopStepResp}
+\end{figure}
 
 %By moving the zero further into the left half plane gives a faster settling time but requires a higher gain and a faster sampling rate for a digital controller. Having a higher gain can give issues with saturating the motor and there may be limits from the sampling rate with very fast settling times. 
 

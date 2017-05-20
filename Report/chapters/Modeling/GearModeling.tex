@@ -134,20 +134,20 @@ The same equations are valid with angular accelerations and are inserted in \aut
 	\end{flalign}
 \end{subequations}
 
-%In order to simplify the frictions, they are considered to be wet friction as such the frictions in the gear system are directly dependent on the angular velocity of the wheels. When the system is not moving:
-%\begin{subequations} 
-%	\begin{flalign}  \label{eq:TaufTgearConditions}
-%	\tau_L &= \tau_{gear}\\
-%	\omega_m &= 0
-%	\end{flalign}
-%\end{subequations}
-%
-%Inserting \autoref{eq:TaufTgearConditions} into \autoref{eq:MotorfreeBody}:
-%
-%\begin{equation} 
-%		\tau_{gear} = -F_1 \cdot r \addunit{\newton\meter}
-%		\label{eq:TaufF1r}
-%\end{equation}
+In order to simplify the frictions, they are considered to be wet friction as such the frictions in the gear system are directly dependent on the angular velocity of the wheels. When the system is not moving:
+\begin{subequations} 
+	\begin{flalign}  \label{eq:TaufTgearConditions}
+	\tau_L &= \tau_{gear}\\
+	\omega_m &= 0
+	\end{flalign}
+\end{subequations}
+
+Inserting \autoref{eq:TaufTgearConditions} into \autoref{eq:MotorfreeBody}:
+
+\begin{equation} 
+		\tau_{gear} = -F_1 \cdot r \addunit{\newton\meter}
+		\label{eq:TaufF1r}
+\end{equation}
 
 The forces $F_1$, $F_2$ and $F_3$ are isolated giving \autoref{eq:F1F2F3}.
 
@@ -166,7 +166,7 @@ F_2=-\frac{1}{R}N^2\left(b_{w_2}\omega_m + J_{w_2}\dot{\omega}_m +\frac{r}{R}\fr
 \end{flalign}
 
 \autoref{eq:F3F2} is then inserted in \autoref{eq:F1} giving \autoref{eq:F3F2F1} while remembering that the gear ratio is defined by \autoref{eq:GearRatio}.
-%Inserting \autoref{eq:F3} in \autoref{eq:F2}, then \autoref{eq:F2} in \autoref{eq:F1}, the expression of $F_1$ according to the friction and moment of inertia of each wheel is found:
+Inserting \autoref{eq:F3} in \autoref{eq:F2}, then \autoref{eq:F2} in \autoref{eq:F1}, the expression of $F_1$ according to the friction and moment of inertia of each wheel is found:
 
 \begin{flalign}
 F_1 = -&\frac{1}{R}N\Big(b_{w_1}\omega_m + J_{w_1}\dot{\omega}_m \notag \\
@@ -206,157 +206,157 @@ The moments of inertia and the frictions for each wheel is grouped into two vari
 
 
 
-%\subsubsection*{Determining $\tau_{as}$}
-%
-%$\tau_{as}$ is the torque necessary for the motor to counter the load applied by the arm and the stick. It can be divided into two parts as in \autoref{eq:TauasBegin}.
-%
-%\begin{equation}\label{eq:TauasBegin}
-%	\tau_{as}=\tau_a+\tau_s \addunit{\newton\meter}
-%\end{equation}
-%\startexplain
-%\explain{$\tau_a$ is the load of the arm}{\si{\newton\meter}}
-%\explain{$\tau_s$ is the load of the stick}{\si{\newton\meter}}
-%\stopexplain
-%
-%The first part is the torque to counter the load of the arm, $\tau_a$.
-% 
-% \begin{figure}[htbp]
-% 	\centering
-% 	\includegraphics[width=0.5\textwidth]{PendulumWithWeightlessRod}
-% 	\caption{Approximation of the arm as a weightless rod pendulum}\label{fig:tauAgrav}
-% \end{figure}
-% \startexplain
-% \explain{$\vec{G}$ is the gravity force}{\si{\kilogram\meter\per\second\squared}}
-% \explain{$\vec{F}_r$ is the reaction force of the arm to the gravity}{\si{\kilogram\meter\per\second\squared}}
-% \explain{$\tau_{a_{gravity}}$ is the torque remaining of the gravity after substracting $\vec{F}_r$}{\si{\newton\meter}}
-% \explain{$l_a$ is the length of the arm}{\si{\meter}}
-% \stopexplain
-% 
-%According to \autoref{fig:tauAgrav}, the $2^{nd}$ and the $3^{rd}$ Newton's law \autoref{eq:tauA} can be deduced.
-%
-%\begin{equation}\label{eq:tauA}
-%	J_a \ddot{\theta}_a=\vec{G}_a-\tau_a \addunit{\newton\meter}
-%\end{equation}
-%\startexplain
-%\explain{$M_a$ is the mass of the arm}{\si{\kilogram}}
-%\explain{$\tau_a$ is the reaction torque from the motor}{\si{\newton\meter}}
-%\explain{$J_a$ is the moment of inertia of the arm}{\si{\kilogram\meter\squared}}
-%\stopexplain
-%
-%By assuming the arm to be a pendulum with a weightless rod and by geometry law \autoref{eq:tauA} can be derived into \autoref{eq:tauARot}
-%
-%\begin{equation}\label{eq:tauARot}
-%	\tau_a=-J_a\ddot{\theta}_a+\frac{l_a}{2}M_a g sin(\theta_a) \addunit{\newton\meter}
-%\end{equation}
-%
-%By linearizing \autoref{eq:tauA}, \autoref{eq:finalTauA} is derived.
-%
-%\begin{flalign}\label{eq:finalTauA}
-%	\tau_a&=-J_a \ddot{\theta}_a+M_a g \frac{l_a}{2} \theta_a \addunit{\newton\meter} \notag\\
-%	\mathcal{L}\{\tau_a\}=\tau_a(s)&=-J_a\Theta_a s^2+M_a g \frac{l_a}{2} \Theta_a \addunit{1}
-%\end{flalign}
-%
-%Now, the load of the stick $\tau_s$ is studied. Unlike the arm, it is not directly connected to the gear train, so it  has to be defined in a new base in order to be used with the arm. The Fresnel base has $\tau_s$ is on one of the axis as seen in \autoref{fig:loadStick}.
-%
-% \begin{figure}[htbp]
-% 	\centering
-% 	\includegraphics[width=0.5\textwidth]{loadOnThetaA}
-% 	\caption{Load applied by the stick translated in the Fresnel base}\label{fig:loadStick}
-% \end{figure}
-% \startexplain
-% \explain{$\vec{G}_s$ is the gravity force applied on the stick}{\si{\kilogram\meter\per\second\squared}}
-% \explain{$\vec{F}_{sr}$ is the reaction force of the arm to the load of the stick}{\si{\kilogram\meter\per\second\squared}}
-% \explain{$\vec{F}_{s\theta}$ is the force generated by the stick}{\si{\kilogram\meter\per\second\squared}}
-% \explain{$\tau_{s}$ is the load applied by the stick on the gear train}{\si{\newton\meter}}
-% \explain{$l_a$ is the length of the arm}{\si{\meter}}
-% \stopexplain
-%
-%This gives, by Newton's $2^{nd}$ law, \autoref{eq:tauSBase}
-%
-%\begin{subequations}\label{eq:tauSBase}
-%	\begin{flalign}
-%		J_s\vec{\ddot{\theta}}_{s\theta}&=\vec{G}_{s\theta}+\vec{F}_{s\theta} \addunit{\newton\meter}\\
-%		J_s\vec{\ddot{\theta}}_{sr}&=\vec{G}_{sr}+\vec{F}_{sr} \addunit{\newton\meter} \addunit{\newton\meter}
-%	\end{flalign}
-%\end{subequations}
-%
-%As said in \autoref{fig:loadStick}, $\vec{F}_{sr}$ is the reaction force from the arm, and since it is assumed that the arm is incompressible, this force is cancelled. This leaves only a dependency on $\vec{U}_{\theta}$, which, by applying geometric properties, gives \autoref{eq:Fso}.
-%
-%\begin{flalign}\label{eq:Fso}
-%	-cos(\theta_a-\theta_s)J_s\ddot{\theta}_s&=-M_sg\left(l_asin(\theta_a)+\frac{l_s}{2}sin(\theta_s)\right)cos(\theta_a) \notag\\
-%	&+l_aF_{s\theta} \addunit{\newton\meter}
-%\end{flalign}
-%
-%\autoref{eq:Fso} combined with Newton $3^{rd}$ law gives $\tau_s$ as explained in \autoref{eq:tauS}.
-%
-%\begin{subequations}\label{eq:tauS}
-%	\begin{flalign}
-%		\tau_s&=l_aF_{s\theta} \addunit{\newton\meter}\\
-%		\tau_s&=-cos(\theta_a-\theta_s)J_s\ddot{\theta}_s+M_sg\left(l_asin(\theta_a)+\frac{l_s}{2}sin(\theta_s)\right)cos(\theta_a)\addunit{\newton\meter}
-%	\end{flalign}
-%\end{subequations}
-%
-%By linearizing \autoref{eq:tauS}, \autoref{eq:LinTauS} is found.
-%
-%\begin{flalign}\label{eq:LinTauS}
-%	\tau_s = -J_s \ddot{\theta_s} s^2 + M_s g \left(\theta_a l_a+\frac{l_s}{2}\theta_s\right) \addunit{\newton\meter}    
-%\end{flalign}
-%
-%When controlling the equilibrium of the stick, $\theta_s$ grows up to only a couple degrees, not exceeding 10. Therefore, regarding the torque generated by the stick, $\theta_s$ can be considered as 0. Thus giving:
-%
-%\begin{equation}\label{eq:FinalTauS}
-%	\mathcal{L}\{\tau_{s}\}=\tau_{s}(s)=M_sgl_a\Theta_a \addunit{1}
-%\end{equation}
-%
-%
-%
-%At last $\tau_{as}$ is found by combining Equations \eqref{eq:finalTauA} and \eqref{eq:FinalTauS} in \autoref{eq:FinalTauAS}.
-%
-%\begin{subequations}\label{eq:FinalTauAS}
-%	\begin{flalign}
-%		\tau_{as} &=\tau_a+\tau_s \addunit{\newton\meter}\\
-%		&= -J_a\Theta_a s^2+M_a g \frac{l_a}{2} \Theta_a+M_sgl_a\Theta_a  \addunit{1}
-%	\end{flalign}
-%\end{subequations} 
-%
-%By combining Equations \eqref{eq:TauL}, \eqref{eq:FinalTauAS} and \eqref{eq:TaufSimplified}, $\tau_l$ is then defined as \autoref{eq:finalTauL}.
-%
-%\begin{equation}\label{eq:finalTauL}
-%	\tau_l=M_ag\frac{l_a}{2}\Theta_a-J_a\Theta_a s^2+M_sgl_a\Theta_a +(J_{gear}s +B_{gear})\Omega_m(s)
-%\end{equation}
-%
-%Now that $\tau_l$ is found, it is re-injected in \autoref{eq:Iinserted} giving \autoref{eq:begTFOaUm}.
-%
-%\begin{align}\label{eq:begTFOaUm}
-%s J_{m} \Omega_m(s) &=K_{t} \frac{U_m-K_e \Omega_m(s)}{R_m} - \Big(M_ag\frac{l_a}{2}\Theta_a-J_a\Theta_a s^2 +M_sgl_a\Theta_a \notag \\ 
-%&+ (J_{gear}s +B_{gear})\Omega_m(s)\Big) - B_{m} \Omega_m(s) 
-%\end{align}
-%
-%$\Omega_m(s)$ is expressed according to $\Theta_a$ with \autoref{eq:thetaOmega}.
-%
-%\begin{flalign}\label{eq:begTFOaUm2}
-%\frac{J_{m}}{N^3}\Theta_a s^2 &=K_{t} \frac{U_m-K_e \frac{s}{N^3}\Theta_a}{R_m}- \Big(M_ag\frac{l_a}{2}\Theta_a-J_a\Theta_as^2 +M_sgl_a\Theta_a   \notag \\ 
-%&+ (J_{gear}s +B_{gear})\frac{s}{N^3}\Theta_a\Big) - B_{m} \frac{s}{N^3}\Theta_a 
-%\end{flalign}
-%
-%
-%Factorizing \autoref{eq:begTFOaUm2} by $\Theta_a$ and $U_m$, \autoref{eq:midTFOaUm} is obtained.
-%
-%\begin{flalign}\label{eq:midTFOaUm}
-%\frac{K_t}{R_m}U_m	&= \Theta_a\Big[ \frac{J_{m}}{N^3}s^2 + \frac{K_e K_t}{R_mN^3}s + M_ag\frac{l_a}{2} - J_a s^2 + M_sgl_a \notag \\
-%					&+ \frac{J_{gear}}{N^3}s^2+\frac{B_{gear}}{N^3}s + \frac{B_{m}}{N^3}s \Big]
-%\end{flalign}
+\subsubsection*{Determining $\tau_{as}$}
 
-%\autoref{eq:midTFOaUm} is then organized to find $\nicefrac{\Theta_a}{U_m}$.
-%\begin{flalign}\label{eq:UmThetaaTFSimplified}
-%\frac{\Theta_a}{U_m}&= \frac{\nicefrac{K_t}{R_m}}{\left( \frac{J_{m}+J_{gear}}{N^3} - J_a \right)s^2 + \left( \nicefrac{\left( \frac{K_e K_t}{R_m} + B_{gear} + B_{m}\right)}{N^3} \right) s + gl_a(M_s+M_a)}
-%\end{flalign}
+$\tau_{as}$ is the torque necessary for the motor to counter the load applied by the arm and the stick. It can be divided into two parts as in \autoref{eq:TauasBegin}.
+
+\begin{equation}\label{eq:TauasBegin}
+	\tau_{as}=\tau_a+\tau_s \addunit{\newton\meter}
+\end{equation}
+\startexplain
+\explain{$\tau_a$ is the load of the arm}{\si{\newton\meter}}
+\explain{$\tau_s$ is the load of the stick}{\si{\newton\meter}}
+\stopexplain
+
+The first part is the torque to counter the load of the arm, $\tau_a$.
+ 
+ \begin{figure}[htbp]
+ 	\centering
+ 	\includegraphics[width=0.5\textwidth]{PendulumWithWeightlessRod}
+ 	\caption{Approximation of the arm as a weightless rod pendulum}\label{fig:tauAgrav}
+ \end{figure}
+ \startexplain
+ \explain{$\vec{G}$ is the gravity force}{\si{\kilogram\meter\per\second\squared}}
+ \explain{$\vec{F}_r$ is the reaction force of the arm to the gravity}{\si{\kilogram\meter\per\second\squared}}
+ \explain{$\tau_{a_{gravity}}$ is the torque remaining of the gravity after substracting $\vec{F}_r$}{\si{\newton\meter}}
+ \explain{$l_a$ is the length of the arm}{\si{\meter}}
+ \stopexplain
+ 
+According to \autoref{fig:tauAgrav}, the $2^{nd}$ and the $3^{rd}$ Newton's law \autoref{eq:tauA} can be deduced.
+
+\begin{equation}\label{eq:tauA}
+	J_a \ddot{\theta}_a=\vec{G}_a-\tau_a \addunit{\newton\meter}
+\end{equation}
+\startexplain
+\explain{$M_a$ is the mass of the arm}{\si{\kilogram}}
+\explain{$\tau_a$ is the reaction torque from the motor}{\si{\newton\meter}}
+\explain{$J_a$ is the moment of inertia of the arm}{\si{\kilogram\meter\squared}}
+\stopexplain
+
+By assuming the arm to be a pendulum with a weightless rod and by geometry law \autoref{eq:tauA} can be derived into \autoref{eq:tauARot}
+
+\begin{equation}\label{eq:tauARot}
+	\tau_a=-J_a\ddot{\theta}_a+\frac{l_a}{2}M_a g sin(\theta_a) \addunit{\newton\meter}
+\end{equation}
+
+By linearizing \autoref{eq:tauA}, \autoref{eq:finalTauA} is derived.
+
+\begin{flalign}\label{eq:finalTauA}
+	\tau_a&=-J_a \ddot{\theta}_a+M_a g \frac{l_a}{2} \theta_a \addunit{\newton\meter} \notag\\
+	\mathcal{L}\{\tau_a\}=\tau_a(s)&=-J_a\Theta_a s^2+M_a g \frac{l_a}{2} \Theta_a \addunit{1}
+\end{flalign}
+
+Now, the load of the stick $\tau_s$ is studied. Unlike the arm, it is not directly connected to the gear train, so it  has to be defined in a new base in order to be used with the arm. The Fresnel base has $\tau_s$ is on one of the axis as seen in \autoref{fig:loadStick}.
+
+ \begin{figure}[htbp]
+ 	\centering
+ 	\includegraphics[width=0.5\textwidth]{loadOnThetaA}
+ 	\caption{Load applied by the stick translated in the Fresnel base}\label{fig:loadStick}
+ \end{figure}
+ \startexplain
+ \explain{$\vec{G}_s$ is the gravity force applied on the stick}{\si{\kilogram\meter\per\second\squared}}
+ \explain{$\vec{F}_{sr}$ is the reaction force of the arm to the load of the stick}{\si{\kilogram\meter\per\second\squared}}
+ \explain{$\vec{F}_{s\theta}$ is the force generated by the stick}{\si{\kilogram\meter\per\second\squared}}
+ \explain{$\tau_{s}$ is the load applied by the stick on the gear train}{\si{\newton\meter}}
+ \explain{$l_a$ is the length of the arm}{\si{\meter}}
+ \stopexplain
+
+This gives, by Newton's $2^{nd}$ law, \autoref{eq:tauSBase}
+
+\begin{subequations}\label{eq:tauSBase}
+	\begin{flalign}
+		J_s\vec{\ddot{\theta}}_{s\theta}&=\vec{G}_{s\theta}+\vec{F}_{s\theta} \addunit{\newton\meter}\\
+		J_s\vec{\ddot{\theta}}_{sr}&=\vec{G}_{sr}+\vec{F}_{sr} \addunit{\newton\meter} \addunit{\newton\meter}
+	\end{flalign}
+\end{subequations}
+
+As said in \autoref{fig:loadStick}, $\vec{F}_{sr}$ is the reaction force from the arm, and since it is assumed that the arm is incompressible, this force is cancelled. This leaves only a dependency on $\vec{U}_{\theta}$, which, by applying geometric properties, gives \autoref{eq:Fso}.
+
+\begin{flalign}\label{eq:Fso}
+	-cos(\theta_a-\theta_s)J_s\ddot{\theta}_s&=-M_sg\left(l_asin(\theta_a)+\frac{l_s}{2}sin(\theta_s)\right)cos(\theta_a) \notag\\
+	&+l_aF_{s\theta} \addunit{\newton\meter}
+\end{flalign}
+
+\autoref{eq:Fso} combined with Newton $3^{rd}$ law gives $\tau_s$ as explained in \autoref{eq:tauS}.
+
+\begin{subequations}\label{eq:tauS}
+	\begin{flalign}
+		\tau_s&=l_aF_{s\theta} \addunit{\newton\meter}\\
+		\tau_s&=-cos(\theta_a-\theta_s)J_s\ddot{\theta}_s+M_sg\left(l_asin(\theta_a)+\frac{l_s}{2}sin(\theta_s)\right)cos(\theta_a)\addunit{\newton\meter}
+	\end{flalign}
+\end{subequations}
+
+By linearizing \autoref{eq:tauS}, \autoref{eq:LinTauS} is found.
+
+\begin{flalign}\label{eq:LinTauS}
+	\tau_s = -J_s \ddot{\theta_s} s^2 + M_s g \left(\theta_a l_a+\frac{l_s}{2}\theta_s\right) \addunit{\newton\meter}    
+\end{flalign}
+
+When controlling the equilibrium of the stick, $\theta_s$ grows up to only a couple degrees, not exceeding 10. Therefore, regarding the torque generated by the stick, $\theta_s$ can be considered as 0. Thus giving:
+
+\begin{equation}\label{eq:FinalTauS}
+	\mathcal{L}\{\tau_{s}\}=\tau_{s}(s)=M_sgl_a\Theta_a \addunit{1}
+\end{equation}
 
 
 
+At last $\tau_{as}$ is found by combining Equations \eqref{eq:finalTauA} and \eqref{eq:FinalTauS} in \autoref{eq:FinalTauAS}.
 
-%\input{chapters/"Modeling"/MotorGearsTFComplete}
-%\input{chapters/"Modeling"/MotorGearsTFSimplified}
+\begin{subequations}\label{eq:FinalTauAS}
+	\begin{flalign}
+		\tau_{as} &=\tau_a+\tau_s \addunit{\newton\meter}\\
+		&= -J_a\Theta_a s^2+M_a g \frac{l_a}{2} \Theta_a+M_sgl_a\Theta_a  \addunit{1}
+	\end{flalign}
+\end{subequations} 
+
+By combining Equations \eqref{eq:TauL}, \eqref{eq:FinalTauAS} and \eqref{eq:TaufSimplified}, $\tau_l$ is then defined as \autoref{eq:finalTauL}.
+
+\begin{equation}\label{eq:finalTauL}
+	\tau_l=M_ag\frac{l_a}{2}\Theta_a-J_a\Theta_a s^2+M_sgl_a\Theta_a +(J_{gear}s +B_{gear})\Omega_m(s)
+\end{equation}
+
+Now that $\tau_l$ is found, it is re-injected in \autoref{eq:Iinserted} giving \autoref{eq:begTFOaUm}.
+
+\begin{align}\label{eq:begTFOaUm}
+s J_{m} \Omega_m(s) &=K_{t} \frac{U_m-K_e \Omega_m(s)}{R_m} - \Big(M_ag\frac{l_a}{2}\Theta_a-J_a\Theta_a s^2 +M_sgl_a\Theta_a \notag \\ 
+&+ (J_{gear}s +B_{gear})\Omega_m(s)\Big) - B_{m} \Omega_m(s) 
+\end{align}
+
+$\Omega_m(s)$ is expressed according to $\Theta_a$ with \autoref{eq:thetaOmega}.
+
+\begin{flalign}\label{eq:begTFOaUm2}
+\frac{J_{m}}{N^3}\Theta_a s^2 &=K_{t} \frac{U_m-K_e \frac{s}{N^3}\Theta_a}{R_m}- \Big(M_ag\frac{l_a}{2}\Theta_a-J_a\Theta_as^2 +M_sgl_a\Theta_a   \notag \\ 
+&+ (J_{gear}s +B_{gear})\frac{s}{N^3}\Theta_a\Big) - B_{m} \frac{s}{N^3}\Theta_a 
+\end{flalign}
+
+
+Factorizing \autoref{eq:begTFOaUm2} by $\Theta_a$ and $U_m$, \autoref{eq:midTFOaUm} is obtained.
+
+\begin{flalign}\label{eq:midTFOaUm}
+\frac{K_t}{R_m}U_m	&= \Theta_a\Big[ \frac{J_{m}}{N^3}s^2 + \frac{K_e K_t}{R_mN^3}s + M_ag\frac{l_a}{2} - J_a s^2 + M_sgl_a \notag \\
+					&+ \frac{J_{gear}}{N^3}s^2+\frac{B_{gear}}{N^3}s + \frac{B_{m}}{N^3}s \Big]
+\end{flalign}
+
+\autoref{eq:midTFOaUm} is then organized to find $\nicefrac{\Theta_a}{U_m}$.
+\begin{flalign}\label{eq:UmThetaaTFSimplified}
+\frac{\Theta_a}{U_m}&= \frac{\nicefrac{K_t}{R_m}}{\left( \frac{J_{m}+J_{gear}}{N^3} - J_a \right)s^2 + \left( \nicefrac{\left( \frac{K_e K_t}{R_m} + B_{gear} + B_{m}\right)}{N^3} \right) s + gl_a(M_s+M_a)}
+\end{flalign}
+
+
+
+
+\input{chapters/"Modeling"/MotorGearsTFComplete}
+\input{chapters/"Modeling"/MotorGearsTFSimplified}
 
 %\newpage
 %Since it is a change in the small angles, the linearization of a cosine and a sine function gives \autoref{eq:BasLin}.

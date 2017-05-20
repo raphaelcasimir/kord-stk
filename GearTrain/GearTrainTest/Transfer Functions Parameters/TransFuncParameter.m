@@ -1,3 +1,5 @@
+clear all;
+
 Kt=0.0293;
 Ke=0.0355;
 Jm=2.9e-5;
@@ -22,10 +24,10 @@ Lalpha=2/3*Ls;
 
 %% Without ThetaS
 
-	F=(Jm+Jgear);%-N^3*Ja;
-	G=(Kt*Ke/Rm+Bgear+Bm);
+	F=(Jm+Jgear)*Rm;%-N^3*Ja;
+	G=(Kt*Ke/Rm+Bgear+Bm)*Rm;
 	H=0;%g*La*(Ms+Ma*N^3);
-	Fuw=(Kt/Rm)*s/(s^2*F+s*G+H)
+	Fuw=Kt/(s*F+G)
 
 %% Wm to Theta A
 	Fwa=N^3/s

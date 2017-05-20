@@ -13,7 +13,7 @@
 #define Lalpha 0.733
 
 //Conversion value
-#define analog2digit (1/204.8)
+#define analog2digit (1/204.6)
 
 #define deg2rad (31.415926 / 1800.0)
 #define avgFactor (2.0/10.0)
@@ -28,10 +28,10 @@
 
 //Mapping value
 //These values by were found by curve fitting on geogebra
-#define mappingSlopeArm (63.11/204.8)
+#define mappingSlopeArm (63.11/204.6)
 #define mappingConstArm (117.39)
 
-#define mappingSlopeStick (66.66/204.8)
+#define mappingSlopeStick (66.66/204.6)
 #define mappingConstStick (170.46)
 
 //Limits for safety
@@ -48,7 +48,7 @@
 #define sampleTime 10000.0 //in micro seconds
 
 //Controller characteristics
-#define KpInner -450.0
+#define KpInner -236.0
 #define KiInner (-0.0/1000000.0*sampleTime)
 #define KdInner (-0.0*1000000.0/sampleTime)
 
@@ -68,7 +68,7 @@
 #define KiOuter 0.0
 #define KdOuter 0.0
 
-#define KpVel 0.15
+#define KpVel 0.2
 #define KpVelFeedBack 1.5
 #define KiVel (50/1000000.0*sampleTime)
 
@@ -104,7 +104,7 @@ void setup()
   Timer1.initialize(350);
   Timer1.stop();        //stop the counter
   Timer1.restart();     //set the clock to zero
-  Timer1.pwm(PWM_PIN, 512, 20);
+  Timer1.pwm(PWM_PIN, 512, 350);
   Timer1.attachInterrupt(calcPID, sampleTime);
 
   //PINMODE
