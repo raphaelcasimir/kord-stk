@@ -1,0 +1,1 @@
+plot(Xfinal,Yfinal,Xfinal,finalfunction,X,Y)
