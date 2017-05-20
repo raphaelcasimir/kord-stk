@@ -21,8 +21,8 @@ The electrical circuit of the motor is presented in \autoref{fig:MotorCircuit}.
 Using Kirchhoff's voltage law, the electric model of the DC-motor is \autoref{eq:tech_ToA}.
 \begin{subequations} \label{eq:tech_ToA}
 	\begin{flalign}
-		U_m &= R_m \cdot i + L_m \frac{di}{dt} + e \\
-		e &= K_e \cdot \omega_m 
+		U_m &= R_m  i + L_m \frac{di}{dt} + e \\
+		e &= K_e  \omega_m 
 	\end{flalign}
 \end{subequations}
 \startexplain
@@ -84,7 +84,7 @@ First the electrical and mechanical equations of the motor are Laplace-transform
 \begin{subequations}\label{eq:MotorLaplace}
 \begin{flalign}
 &U_{m}(s) = R_{m}I(s) + sL_{m} I(s) + K_{e} \Omega_{m}(s) \label{eq:ElectricalLaplace}\\	
-&s\cdot J_{m} \Omega_{m}(s) = K_{t} I(s) - \tau_{gear} - B_{m} \Omega_{m}(s) 	\label{eq:MechanicalLaplace}
+&s J_{m} \Omega_{m}(s) = K_{t} I(s) - \tau_{gear} - B_{m} \Omega_{m}(s) 	\label{eq:MechanicalLaplace}
 	\end{flalign}
 \end{subequations}
 
@@ -97,14 +97,19 @@ First the electrical and mechanical equations of the motor are Laplace-transform
 %Then \autoref{eq:MotorCurrent} is inserted in \autoref{eq:MechanicalLaplace}:
 The current, $I(s)$, is isolated and inserted in \autoref{eq:MechanicalLaplace} giving \autoref{eq:Iinserted}.
 \begin{flalign}
-s\cdot J_{m} \Omega_{m}(s) = K_{t} \frac{U_m(s)-K_e\Omega_{m}(s)}{R_m+sL_m} - \tau_{gear} - B_{m} \Omega_{m}(s)	\label{eq:Iinserted}	
+s J_{m} \Omega_{m}(s) = K_{t} \frac{U_m(s)-K_e\Omega_{m}(s)}{R_m+sL_m} - \tau_{gear} - B_{m} \Omega_{m}(s)	\label{eq:Iinserted}	
 \end{flalign}
 
-\autoref{eq:TaufSimplified} is inserted in \autoref{eq:Iinserted} and rearranged giving \autoref{eq:DCModelYesL}.
+\autoref{eq:TaufSimplified} is inserted in \autoref{eq:Iinserted} and rearranged giving \autoref{eq:DCModelYesL}. The equation is simplified by setting $J_t=J_m+J_{gear}$ and $B_t=B_m+B_{gear}$.
 \begin{subequations}
 \begin{flalign}
 &\Omega_m(s)\left(\left(J_m+J_{gear}\right)s+\left(B_m+B_{gear}\right)\right)=K_t\frac{U_m(s)-K_e\Omega_m(s)}{R_m+sL_m} \\
-&\Omega_m(s)\left(\left(J_m+J_{gear}\right)L_ms^2+\left(J_m+J_{gear}+\left(B_m+B_{gear}\right)L_m\right)s+\left(B_m+B_{gear}\right)R_m+K_tK_e\right)=K_tU_m(s) \\
+&\Omega_m(s)\left(J_tL_ms^2+\left(J_t +B_tL_m\right)s+B_tR_m+K_tK_e\right)=K_tU_m(s) \\
+&\frac{\Omega_m(s)}{U_m(s)}=\frac{K_t}{J_tL_ms^2+(J_tR_m+B_tL_m)s+B_tR_m+K_tK_e} \label{eq:DCModelYesL}
 \end{flalign}
 \end{subequations}
 
+As $L_m$ is significantly smaller than $R_m$ it is assumed to be 0. This assumption is made to simplify the motor model and is fair as a small $L_m$ would have almost no influence on the system as seen in \autoref{eq:Iinserted}. This gives \autoref{eq:DCModelNoL} which is the final transfer function for the DC motor model.
+\begin{flalign}
+\frac{\Omega_m(s)}{U_m(s)}=\frac{K_t}{J_tR_ms+B_tR_m+K_tK_e} \label{eq:DCModelNoL}
+\end{flalign}

@@ -20,23 +20,23 @@ The purpose of the test is to determine the linearity and precision of the tacho
 		\rowcolor{lightGrey}	
 		DC motor & Alsthom BBC & F9M2& 08339\\
 		Tachometer & Compact \newline Instruments & A2108& 77087 \\ \rowcolor{lightGrey}
-		Tachometer & Shimpo& DT-205 & 18246
+		Tachometer & Internal in motor& - & -
 	\end{tabularx}
 \end{table}
 \section*{Setup}
-The powersupply is connected to the motor directly. Tachometer A2108 is connected to the oscilloscope to read its output voltage. Tachometer DT-215 is not connected to anything, it shows the RPM on in-built display.  
+The powersupply is connected to the motor directly. Both tachometers is connected to the oscilloscope to read output voltages. The internal tachometer functions as a generator, and will give a voltage depending on the motors RPM.  
 \section*{Method}
 Step by step of test, maybe in enumerate
 \begin{enumerate}
 \item Connect motor directly to the power supply.
-\item Connect A2108 tachometer to the oscilloscope.
+\item Connect tachometers to the oscilloscope.
 \item Place a reflective tape on the motor axle.
-\item Set holder for both tachometers so they point at the motor axle.
+\item Set holder for external tachometer so it lights at the motor axle.
 \item Set the power supply to 2 V.
-\item Note the voltage from the oscilloscope, and times the voltage with 1000 to find the number of rotations per minute.
-\item Note the Rotations Per Minute for the each tachometer.
+\item Note external tachometers voltage from the oscilloscope, and times the voltage with 1000 to find the number of rotations per minute.
+\item Note the internal tachometers voltage from the oscilloscope, and times the voltage with 333,33 RPM/V to get numbers of rotations per minute.
 \item Change the voltage with 1 V increments from 2 V - 10 V.
-\item Note the RPM with each increment.
+\item Note the Voltage and RPM with each increment.
 \end{enumerate}
 \section*{Raw data}
 \begin{table}[htbp]
@@ -44,7 +44,7 @@ Step by step of test, maybe in enumerate
 \caption{Rotations Per Minute of the both tachometers.}
 \label{RPMData}
 \begin{tabular}{llll}
-Voltage & DT-205 {(}RPM{)} & A2108 {(}RPM{)} & Difference {(}RPM{)} \\ \hline  \rowcolor{lightGrey}
+Motor Voltage & Internal Tachometer {(}RPM{)} & A2108 {(}RPM{)} & Difference {(}RPM{)} \\ \hline  \rowcolor{lightGrey}
 2 V     & 204              & 202             & 2                    \\
 3 V     & 506              & 502             & 4                    \\  \rowcolor{lightGrey}
 4 V     & 763              & 760             & 3                    \\ 
@@ -66,5 +66,5 @@ Voltage & DT-205 {(}RPM{)} & A2108 {(}RPM{)} & Difference {(}RPM{)} \\ \hline  \
 \end{figure}
 
 \section*{Conclusion}
-It its seen cf. figure \ref{fig:RPMTest} that the difference between the tachometers is so little, that the lines is on top of each other. The precision do not change with higher velocities and the A2108 tachometer is chosen, because this can output a analogue voltage which can be sampled by an Arduino.
+It its seen cf. figure \ref{fig:RPMTest} that the difference between the tachometers is so little, that the lines is on top of each other. The precision do not change with higher velocities and the internal tachometer is chosen, because it changes voltage faster because of the generator principle. The external optical tachometer needs some rotations to determine the RPM, and is not optimal when directions changes is needed.
 

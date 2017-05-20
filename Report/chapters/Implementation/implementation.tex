@@ -28,62 +28,44 @@ The system consist of multiple sensors, as decribed cf. section \ref{sec:IPDesc}
 The approximation for Pot$_{stick}$ is:
 
 \begin{equation}
-\theta_s\ =\ 64,03 \cdot \text{VPot}_{stick} - 167,42
+\theta_s\ =\ 66,66 \cdot \text{VPot}_{stick} - 170,46
 \end{equation}
 
 \startexplain
-	\explain{$\text{V}_{{Pot}_{arm}}$ is the output voltage of the stick potentiometer, but where zero degrees is when the stick has a zero degree deviation from the arm.}{V}
-	\explain{$\theta_s$ is the angle of the stick}{$^\circ$}
+	\explain{$\text{V}_{{Pot}_{stick}}$ is the output voltage of the stick potentiometer.}{V}
+	\explain{$\theta_s$ is the angle of the stick, but where zero degrees is when the stick has a zero degree deviation from the arm}{$^\circ$}
 \stopexplain
 
 An example of implementing this is done trough a pseudo-code which converts the not limits to degree. Mapping can be used because of the linearity of the potentiometer.
 \begin{lstlisting}
 void loop() {
-  // read the input on analog pin 0:
+  // read the input on A0 and A1:
   int PotArm = analogRead(A0);
   int PotStick = analogRead(A1);
-  if (PotArm >= 381 && PotArm <= 670)
-  {
-    int MappedPotArm1 = map(PotArm, 381, 670, 0, 90);
-  }
-  if (PotArm <= 380 && PotArm >= 89)
-  {
-    int MappedPotArm2 = map(PotArm, 380, 89, 0, -90);
-  }
-  if (PotStick >= 535 && PotStick <= 823)
-  {
-    int MappedPotStick1 = map(PotStick, 535, 823, 0, 90);
-  }
-  if (PotStick <= 534 && PotStick >= 248)
-  {
-    int MappedPotStick2 = map(PotStick, 534, 248, 0, -90);
-  }
-  delay(1);        // delay in between reads for stability
+
+  double VPotarm = PotArm / 204.8;
+  double ThetaA = 66.66 * VPotarm - 170.46;
+  
+  double VPotstick = PotStick / 204.8;
+  double ThetaS = 63.64 * VPotstick - 117.77;
 }
 \end{lstlisting}    
 
-In the code the approximations is not used, but can be implemented based on the execution time of the software.
-
-The sampling time of the sensors can be is an important aspect when ensuring stability of the control system. The sensor sampling can not be to slow. Considering that the sensor is a potentiometer which does not have any active components then the only limit is the Arduino. Arduino specifies that calling a analogRead takes approximately 100 $\upmu$s which corresponds to a sampling frequency of 10 kHz. 
+The sampling time of the sensors can be an important aspect when ensuring stability of the control system. The sensor sampling can not be to slow. Considering that the sensor is a potentiometer which does not have any active components then the only limit is the Arduino. Arduino specifies that calling a analogRead takes approximately 100 $\upmu$s which corresponds to a sampling frequency of 10 kHz. This is considered fast enough for the system and is not considered a problem. 
 
 \subsubsection*{Tachometer}
-The tachometer and its precision has been tested in appendix \ref{appendix:RPMTest}. The test concluded that the external optic A2108 tachometers precision is within the limit of what could implemented. The tachometer outputs a voltage which is linear with the number of revolutions per minute. It can be used in two modes, one where 1 V = 1000 rpm and one where 1 V = 10.000 rpm. This voltage can be used as an analogue input to the Arduino and then converted trough software. An example is seen in the following software sample: 
+The tachometer and its precision has been tested in appendix \ref{appendix:RPMTest}. The test concluded that the internal tachometers precision is within the limit of what could implemented. The tachometer outputs a voltage which is close to linear with the number of revolutions per minute.
 
-\begin{lstlisting}
-void loop() {
-  // read the input on analog pin 0:
-  int TachoMeter = analogRead(A0);
-  int VoltageTachoMeter = map(TachoMeter, 1, 1023, 0, 5) //Map the analog value back to a voltage so that the conversion is easier.
-  int RadS = (VoltageTachoMeter * 1000) * 0.104719755 //Convert from RPM to rad/s
-  Serial.println(RadS);
-  delay(1);        // delay in between reads for stability
-}
-\end{lstlisting}  
-
-Where the transfer function comes from datasheet and conversion from RPM to rad/s:
+The test concluded with the first order function:
 \begin{equation}
-H_{tm}\ =\ \dfrac{\dfrac{1000\ \text{RPM}}{1\ \text{V}} \cdot 2 \cdot \pi}{60\ \text{s}}\ =\ 104,72\ \text{rad/s}
+H_{tm}\ =\ \dfrac{\dfrac{1000\ \text{RPM}}{3\ \text{V}} \cdot 2 \cdot \pi}{60\ \text{s}}\ =\ 104,72\ \text{rad/s}
 \end{equation}
+
+
+The function can not directly be implemented with the Arduino. The tachometer will generate a negative and positiv voltage corresponding to the direction of the motor. Negative voltage can not be directly inputted to the Arduino without short circuiting it, and the positive voltage would be to high. Interfacing is therefore needed between tachometer and Arduino.
+This interfacing can be done trough the motor controller included in the inverted pendulum setup. The two outputs of the tachometer is inputted to the motor controller via two analogue inputs. The one acts as the positive connection and the other as the negative. How the motor controller is reacting to an input is configured trough the ESCON studio included. In the case it is set with the conversion ratio from voltage to RPM on 3,130 V/1000 RPM. The motor controller is set with a output that converts this RPM down between 1 and 4 V to the Arduino. Where 1 V is corresponding to -3000 RPM and 4 V corresponding to +3000 RPM. This gives the possibility to convert these values back to RPM in Arduino. How the motor controller converts the voltages is considered a black box.
+
+
 
 \subsection{Implementing Motor Velocity Controller}
 The following sections describes the implementation of the hardware motor controller with the Arduino. The motor driver in the setup is a Maxon Escon 50/5, which can be controlled with an Arduino trough PWM signals. 

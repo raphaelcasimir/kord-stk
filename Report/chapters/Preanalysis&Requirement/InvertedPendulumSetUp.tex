@@ -40,7 +40,7 @@ A diagram of the setup when fully assembled is seen on \autoref{fig:InvertedPend
 The goal of this section is to have a mathematical model for the behaviour of the angle of the stick in relation to the angle of the arm on the motor. The inputs and outputs of this system can be seen by the block diagram in \autoref{fig:StickBlock}.
 \begin{figure}[htbp]
 \centering
-\missingfigure{Make a block thing like in gear section or the stick part of figure 1.2}
+\includegraphics[width=0.4\textwidth]{InputOutputStick.pdf}
 \caption{Block diagram of the inputs and outputs of the stick section of the inverted pendulum setup.}
 \label{fig:StickBlock}
 \end{figure}
@@ -53,7 +53,6 @@ The angles, constants and forces used to describe the system are seen on \autore
 \caption{Diagram of the angles and forces acting on the arm and the stick.}
 \label{fig:ArmStick}
 \end{figure}
-\todo[inline,author=Jacob]{Add the reactionary forces where arm and stick connects. Fpx and Fpy.}
 \startexplain
 	\explain{$F_x$ is the force in the x direction}{\si{\newton}}
 	\explain{$F_y$ is the force in the y direction}{\si{\newton}}
@@ -64,6 +63,7 @@ The angles, constants and forces used to describe the system are seen on \autore
 	\explain{$\theta_a$ is the angle from the arm to the y-axis}{\si{\radian}}
 	\explain{$\theta_s$ is the angle from the stick to the y-axis}{\si{\radian}}
 \stopexplain
+\todo[inline,author=Jacob]{Add the reactionary forces where arm and stick connects. Fpx and Fpy.}
 All forces, constants and variables that relates to the arm and stick are denoted by a subscripted $a$ and $s$ respectively. 
 
 The behaviour of the stick can be fully described by three movements; two translatory and one rotary. It can move in the x and y direction and rotate around it's own axis. To fully describe the system two geometric equations are also needed.

@@ -73,10 +73,11 @@ With this split it's simpler to design a controller that can move the unstable p
 
 For the design of the inner loop controller it's important that it settles faster than the outer loop controller. This means the natural frequency of the system with the controller needs to be larger. The root locus for the motor to the arm on \autoref{fig:locusVArm} shows that a simple gain could increase the natural frequency. As such a P controller is good as it will increase the rise time and the settling time without affecting much the overshoot. With the help of \autoref{fig:VArm} a gain of 9.28 is chosen as it is the maximum gain obtainable without 
 
+%\input{Design/MotorLoop.tex}
 
 %By moving the zero further into the left half plane gives a faster settling time but requires a higher gain and a faster sampling rate for a digital controller. Having a higher gain can give issues with saturating the motor and there may be limits from the sampling rate with very fast settling times. 
 
-\todo[inline,author=Jacob]{Look into PID as it adds two zeros and is a well documented type of controller. Especially because lead control gives steady state error and the integration can remove it. SSE is terrible for the inner loop but ok for the outer as it's the position and not the angle.}
+\todo[inline,author=Jacob]{Maybe look into PID as it adds two zeros and is a well documented type of controller. Especially because lead control gives steady state error and the integration can remove it. SSE is terrible for the inner loop but ok for the outer as it's the position and not the angle.}
 
 
 \section{Design of Outer Loop Controller}
@@ -151,29 +152,43 @@ With the redefined transfer function the outer loop will control the transfer fu
 
 If the zero is positioned between the two poles both the right most will move towards the zero while the leftmost moves towards infinity; both along the real axis. Positioning the zero close to the origin doesn't allow for the pole to move far into the left half plane. If it's put far to the left of the stable pole the poles will move off the real axis and to the left of the zero with higher gain. This can move them very far into the left half plane before they come back to the real axis which could cause issues for making the inner loop faster than the outer loop. This is because the further away the poles are from origin the higher the natural frequency and a high natural frequency means small settling time. If the poles are off the real axis it'll introduce overshoot which needs to be under 10\% per the specifications. 
 
-Placing the zero close to and on the right of the leftmost pole would allow for the unstable pole to move further into the left half plane without an overly fast response or any overshoot. 
+Placing the zero close to the leftmost pole would allow for the unstable pole to move further into the left half plane without an overly fast response or any overshoot. 
 
 The zero could theoretically be placed on the pole to cancel it and allow the pole to move further into the left half plane along the real axis. This would be ideal but the true location of the pole of the real system is difficult to find as small variations in measurements of the system could move the pole slightly. 
 
-The zero will therefore initially be placed at -6 which is close to but on the right of the pole in the left half plane. This can be seen in \autoref{fig:rlocusZeroAdded}.
+The zero will initially be placed on the pole as it doesn't change the system drastically whether it's slightly off to either side. The pole is then placed at $-\sqrt{\frac{3g}{2l_s}}$. This can be seen in \autoref{fig:rlocusZeroAdded}.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\textwidth]{rlocusZeroAdded}
-\caption{Root locus of the outer loop system with a zero added at -6.}
+\caption{Root locus of the outer loop system with a zero cancelling the left pole.}
 \label{fig:rlocusZeroAdded}
 \end{figure}
 
-The unstable pole can now enter the stable region by selecting a gain large enough. \todo[inline,author=Jacob]{The zero amplifies high frequency noise which can be fixed with a pole more to the left ~10-20 times.} Selecting the gain too large will however move the other pole further into the left half plane making it more difficult to make the inner loop system faster than the outer loop. As both the zero placement and gain needs to be adjusted later in conjunction with the inner loop controller, the gain will be set to 1 as this puts the unstable pole in the left half plane without the other pole moving too far away as seen on the pole-zero plot on \autoref{fig:pzouterloop}.
+The unstable pole can now enter the stable region by selecting a gain large enough. Simply adding a zero to the system will however amplify high frequencies. This can be avoided by adding a pole further into the left half plane. This effectively makes the controller a lead controller. The position of the pole and the gain will determine the settling time and overshoot of the system. The settling time for the outer loop controller should be more than 10 times slower so the assumption, that the inner loop controller is much faster than the outer loop controller, holds true. As the gain increases the two poles move closer to each each other before meeting and moving into the imaginary plane. The gain will be selected to be however much is needed for the poles to meet. The pole can then be selected such that the place where the poles meet will give a settling time 10 times slower than the inner loop.
 
+As the settling time of the inner loop is \textbf{TBD!} the natural frequency of the outer loop needs to be \textbf{TBD/10}. To achieve that the lead controller pole needs to be placed so the halfway point between it and the unstable pole is \textbf{TBD/10}. The pole location then becomes \textbf{MAYBE AN EQUATION?!?}. This can be seen on \autoref{fig:rlocusLead}.
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.7\textwidth]{pzouterloop}
-\caption{Pole-zero plot of the system with the outer loop controller in feedback.}
-\label{fig:pzouterloop}
+\missingfigure{}
+\caption{Root locus of the outer loop with the lead controller.}
+\label{fig:rlocusLead}
 \end{figure}
 
-\todo[inline,author=Jacob]{Write about simulating this and how the zero and gain is implemented in simulink. Calculate what kp and kd should be to achieve the zero location and gain in simulink. Do a matlab graph of step response to see settling time and overshoot.}
+To make the two poles meet a gain of \textbf{TBDGain} is needed. This gives a lead controller of \autoref{eq:IPLead}.
+\begin{flalign}
+D_{x}=G\frac{s+\sqrt{\frac{3g}{2l_s}}}{s+p}\label{eq:IPLead}
+\end{flalign}
+
+%Selecting the gain too large will however move the other pole further into the left half plane making it more difficult to make the inner loop system faster than the outer loop. As both the zero placement and gain needs to be adjusted later in conjunction with the inner loop controller, the gain will be set to 1 as this puts the unstable pole in the left half plane without the other pole moving too far away as seen on the pole-zero plot on \autoref{fig:pzouterloop}.
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.7\textwidth]{pzouterloop}
+%\caption{Pole-zero plot of the system with the outer loop controller in feedback.}
+%\label{fig:pzouterloop}
+%\end{figure}
+
+
 
 
 
