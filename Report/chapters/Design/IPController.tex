@@ -71,20 +71,13 @@ With this split it's simpler to design a controller that can move the unstable p
 
 \section{Design of Inner Loop Controller}
 
+For the design of the inner loop controller it's important that it settles faster than the outer loop controller. This means the natural frequency of the system with the controller needs to be larger. The root locus for the motor to the arm on \autoref{fig:locusVArm} shows that a simple gain could increase the natural frequency. As such a P controller is good as it will increase the rise time and the settling time without affecting much the overshoot. With the help of \autoref{fig:VArm} a gain of 9.28 is chosen as it is the maximum gain obtainable without 
 
 
-%For the design of the inner loop controller it's important that it settles faster than the outer loop controller. This means the natural frequency of the system with the controller needs to be larger. The root locus for the motor to the arm on \autoref{fig:locusVArm} shows that a simple gain could increase the natural frequency, but will also increase the overshoot as the poles moves further away from the real axis. A compensator should be added to bring the poles closer to the real axis to limit the overshoot. This can be done by placing a zero far into the left half plane which forces both poles to the left of it and to the real axis. Placing the zero at -20 for example gives the root locus on \autoref{fig:locusVArmZero}.
-%
-%\begin{figure}[htbp]
-%\centering
-%\includegraphics[width=0.7\textwidth]{rlocusVArmZero}
-%\caption{Root locus of the inner loop with a zero in -20 added.}
-%\label{fig:locusVArmZero}
-%\end{figure}
-%
 %By moving the zero further into the left half plane gives a faster settling time but requires a higher gain and a faster sampling rate for a digital controller. Having a higher gain can give issues with saturating the motor and there may be limits from the sampling rate with very fast settling times. 
 
 \todo[inline,author=Jacob]{Look into PID as it adds two zeros and is a well documented type of controller. Especially because lead control gives steady state error and the integration can remove it. SSE is terrible for the inner loop but ok for the outer as it's the position and not the angle.}
+
 
 \section{Design of Outer Loop Controller}
 As the poles in feedback will eventually end up at the zeros with a large enough gain, there are two options to bring the unstable pole into the stable region: Remove all zeros in 0 so the pole can cross the into the stable region along the real axis or add another unstable open loop pole to force the poles off the real axis and then try to circumvent the zeros in 0. 
