@@ -32,7 +32,7 @@ p=getoptions(h);
 p.ylabel.FontSize = 14;
 p.xlabel.FontSize = 14;
 p.title.FontSize = 16;
-p.title.String = 'Root Locus of Voltage to Arm Angle';
+p.title.String = 'Root Locus of Velocity to Arm Angle';
 p.ticklabel.FontSize = 12;
 p.xlim=[-3 1];
 setoptions(h,p);
@@ -46,7 +46,7 @@ qq(7).LineWidth=3;
 qq(7).MarkerSize=18;
 
 figure
-CL=feedback(905*Gb,1);
+CL=feedback(9.17*Gb*Ga2,1);
 pzmap(CL);
 
 figure
