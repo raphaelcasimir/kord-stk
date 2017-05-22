@@ -233,7 +233,7 @@ The zero will initially be placed on the pole as it doesn't change the system dr
 
 The unstable pole can now enter the stable region by selecting a gain large enough. Simply adding a zero to the system will however amplify high frequencies. This can be avoided by adding a pole further into the left half plane. This effectively makes the controller a lead controller. The position of the pole and the gain will determine the settling time and overshoot of the system. The settling time for the outer loop controller should be more than 10 times slower so the assumption, that the inner loop controller is much faster than the outer loop controller, holds true. As the gain increases the two poles move closer to each each other before meeting and moving into the imaginary plane. The gain will be selected to be however much is needed for the poles to meet. The pole can then be selected such that the place where the poles meet will give a settling time 10 times slower than the inner loop.
 
-As the settling time of the inner loop is \textbf{TBD!}, the natural frequency of the outer loop can be found by \autoref{eq:outerWn}. 
+As the settling time of the inner loop is \textbf{TBD!}, the natural frequency of the outer loop can be approximated by \autoref{eq:outerWn}. 
 \begin{subequations} \label{eq:outerWn}
 \begin{flalign}
 T_{s_{outer}}(2\%) &=-\frac{\ln(0.02)}{\zeta\cdot \omega_n} \\
@@ -243,7 +243,8 @@ T_{s_{outer}}(2\%) &=-\frac{\ln(0.02)}{\zeta\cdot \omega_n} \\
 \end{flalign}
 \end{subequations}
 
-To achieve that the lead controller pole needs to be placed so the halfway point between it and the unstable pole is 2.49. This means that the end location of both poles will be in -2.49. The pole location is then found by \autoref{eq:outerLeadPole}.
+This approximation only holds true for 2nd order systems without zeros which this would only be if the zero placed exactly on the pole removes both which is not the case. The approximation will however still be a good start.
+To achieve a natural frequency of 2.49, the lead controller pole needs to be placed so the halfway point between it and the unstable pole is 2.49. This means that the end location of both poles will be in -2.49. The pole location is then found by \autoref{eq:outerLeadPole}.
 \begin{subequations} \label{eq:outerLeadPole}
 \begin{flalign}
 -2.49&=\frac{p_{unstable}+p_{lead}}{2} \\
@@ -264,9 +265,32 @@ To make the two poles meet a gain of 7.57 is needed. This gives a lead controlle
 \begin{flalign}
 D_{x}=7.57\frac{s+\sqrt{\frac{3g}{2l_s}}}{s+9.27}\label{eq:IPLead}
 \end{flalign}
-\todo[inline,author=Jacob]{All these numbers are calculated with inner loop settling time of 0.157 and ls=0.8 meters.}
 
-\todo[inline,author=Jacob]{Stepresponse shows that we don't get the settling time that we predicted. Cancelling the pole by adding a zero probably doesn't cancel exactly and both have an effect on the system. Find new pole value to get correct settling time.}
+The settling time is found by looking at the step response on \autoref{fig:stepOuterLead}.
+\begin{figure}[htbp]
+\centering
+\missingfigure{}
+\caption{Step response showing the settling time of the outer loop with a lead controller.}
+\label{fig:stepOuterLead}
+\end{figure}
+
+The settling time is slower than calculated and this is because the zero and pole at the same location still has an influence on the system. A bit of overshoot can also be added in this system to get a faster rise time but a similar settling time. This is okay as the specifications are only for overshoot of the angle of the stick. It's uncertain how an overshoot when controlling the distance to a point on the stick will affect the angle of the stick. A maximum overshoot for the distance is therefore arbitrarily chosen to be the same as the overshoot for the angle.
+To get a settling time of 1.6 seconds a new gain needs to be found to give a faster settling time but no more than 10\% overshoot. If it's not possible without more than 10\% overshoot the controller pole has to be moved further to the left
+
+The lead controller then becomes \autoref{eq:outerLeadController}.
+\begin{flalign}
+D_x=8.85\frac{s+\sqrt{\frac{3g}{2l_s}}}{s+9.27}\label{eq:outerLeadController}
+\end{flalign}
+
+This controller gives a fast rise time, a settling time of 1.6 seconds and overshoot of less than 10\%. This can be seen on the step response on \autoref{fig:stepOuterLeadOvershoot}.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{stepOuterOvershoot}
+\caption{Step response of the outer loop with the lead controller that gives less than 10\% of overshoot.}
+\label{fig:stepOuterLeadOvershoot}
+\end{figure}
+
+\todo[inline,author=Jacob]{All these numbers are calculated with inner loop settling time of 0.157 and ls=0.8 meters.}
 
 %Selecting the gain too large will however move the other pole further into the left half plane making it more difficult to make the inner loop system faster than the outer loop. As both the zero placement and gain needs to be adjusted later in conjunction with the inner loop controller, the gain will be set to 1 as this puts the unstable pole in the left half plane without the other pole moving too far away as seen on the pole-zero plot on \autoref{fig:pzouterloop}.
 %\begin{figure}[htbp]
