@@ -14,7 +14,7 @@ The goal of the controller is to balance the stick in an upright position. The s
 	\frac{\Theta_s}{U}=\frac{0.0004341 s^2}{0.001559 s^4 + 0.002537 s^3 - 0.0204 s^2 - 0.03391 s}
 \end{equation}
 
-The system is inherently unstable as is evident by the pole in the right half plane of the pole-zero plot as seen on \autoref{fig:pzip}.
+The system is inherently unstable as it is evident by the pole in the right half plane of the pole-zero plot in \autoref{fig:pzip}.
 
 \begin{figure}[htbp]
 \centering
@@ -55,7 +55,7 @@ The controller can be simplified by using cascade control. This means two contro
 \label{fig:IPCascade}
 \end{figure}
 
-If the inner loop is fast enough compared to the outer loop, it is negligible to the outer loop controller. This means the root locus of the can be split into two separate systems with a respective controller that needs to be designed. These two new loops which will be now referred as respectively inner loop and outer loop have their transfer function define in \autoref{eq:InnerOuterTF}.
+If the inner loop is fast enough compared to the outer loop, it is negligible to the outer loop controller. This means the root locus of the can be split into two separate systems with a respective controller that needs to be designed. These two new loops, which will be now referred as respectively inner loop and outer loop, have their transfer function define in \autoref{eq:InnerOuterTF}.
 
 \begin{subequations}\label{eq:InnerOuterTF}
 	\begin{flalign}

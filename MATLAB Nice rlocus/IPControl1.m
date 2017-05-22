@@ -19,7 +19,7 @@ g = 9.8;    % Standard gravitational acceleration
 Ga2=tf([Kt/Rm], [(Jm+Jg) (Ke*Kt/Rm+Bg+Bm)]);
 Ga=tf(Kt/Rm, [(Jm+Jg)/N^3-Ja (Ke*Kt/Rm+Bg+Bm)/N^3 g*la*(Ms+Ma)]);
 Gb=tf(N^3,[1 0]);
-Gc=tf([3*la/(2*ls) 3*Bas/(Ms*ls^2) 0],[1 3*Bas/(Ms*ls^2) -3*g/(2*ls)]); % Negative gain
+Gc=tf([-3*la/(2*ls) 3*Bas/(Ms*ls^2) 0],[1 3*Bas/(Ms*ls^2) -3*g/(2*ls)]); % Negative gain
 Gre=tf([-la*3*g/(2*ls)],[1 0 -3*g/(2*ls)]);
 s=tf([1 0],1);
 % Da = 1;
@@ -27,14 +27,14 @@ s=tf([1 0],1);
 % Dc = tf([1 5],[1 -1]);
 %%
 figure
-h=rlocusplot(Gc); %Gre*(s+6)
+h=rlocusplot(Ga2*Gb*Gc); %Gre*(s+6)
 p=getoptions(h);
 p.ylabel.FontSize = 14;
 p.xlabel.FontSize = 14;
 p.title.FontSize = 16;
-p.title.String = 'Root Locus of Velocity to Arm Angle';
+p.title.String = 'Root Locus of Voltage to Stick Angle';
 p.ticklabel.FontSize = 12;
-%p.xlim=[-10 10];
+p.xlim=[-10 10];
 setoptions(h,p);
 axIm = findall(gcf,'String','Imaginary Axis (seconds^{-1})');
 axRe = findall(gcf,'String','Real Axis (seconds^{-1})');
@@ -45,16 +45,16 @@ qq(6).LineWidth=3;
 qq(7).LineWidth=3;
 qq(8).LineWidth=3;
 qq(9).LineWidth=3;
-%qq(10).LineWidth=3;
+qq(10).LineWidth=3;
 qq(9).MarkerSize=18;
-qq(8).MarkerSize=18;
+qq(10).MarkerSize=18;
 
 figure
 P=pzoptions;
 P.ylabel.FontSize = 14;
 P.xlabel.FontSize = 14;
 P.title.FontSize = 16;
-P.title.String = 'Pole-Zero Plot of Outer Loop Controller in Feedback';
+P.title.String = 'Pole-Zero Plot of Voltage to Stick Angle';
 P.ticklabel.FontSize = 12;
 CL=feedback(Gb*Ga2*Gc,1);
 h=pzplot(CL,P);
