@@ -116,6 +116,7 @@ The first loop which will be designed will be the motor loop as it is the most i
 
 \input{chapters/Design/MotorLoop.tex}
 
+\subsection{Design of the Arm Loop Controller}
 Now the arm's loop will be designed. The motor loop part has a settling time of \SI{0.0159}{\second}, so the settling time of the arm's loop has to be at least \SI{0.159}{\second} in order to make the assumption that the motor's loop transfer function is equal to 1 for the arm's loop. The new transfer function derived from this approximation is \autoref{eq:WArmLoop}.
 
 \begin{equation}\label{eq:WArmLoop}
