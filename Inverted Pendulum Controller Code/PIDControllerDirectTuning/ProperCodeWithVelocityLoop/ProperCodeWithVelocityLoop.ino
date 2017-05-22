@@ -10,13 +10,13 @@
 
 //Physical values
 #define La 0.33
-#define Lalpha 0.533
+#define Lalpha 0.733
 
 //Conversion value
-#define analog2digit (1/204.8)
+#define analog2digit (1/204.6)
 
 #define deg2rad (31.415926 / 1800.0)
-#define avgFactor (2.0/9.0)
+#define avgFactor (2.0/10.0)
 
 #define curr0 512
 #define volt2amp 1.0
@@ -28,33 +28,33 @@
 
 //Mapping value
 //These values by were found by curve fitting on geogebra
-#define mappingSlopeArm (63.11/204.8)
+#define mappingSlopeArm (63.11/204.6)
 #define mappingConstArm (117.39)
 
-#define mappingSlopeStick (66.66/204.8)
+#define mappingSlopeStick (66.66/204.6)
 #define mappingConstStick (170.46)
 
 //Limits for safety
-#define refArmMax 1
-#define refArmMin -1
+#define refArmMax 0.9
+#define refArmMin -0.9
 
 #define refCurrentMin (-11.0)
 #define refCurrentMax (11.0)
 
-#define setVelocityMin -3000.0
-#define setVelocityMax 3000.0
+#define setVelocityMin (-3000.0*rpm2radSec)
+#define setVelocityMax (3000.0*rpm2radSec)
 
 // Time constant
-#define sampleTime 5000.0 //in micro seconds
+#define sampleTime 10000.0 //in micro seconds
 
 //Controller characteristics
-#define KpInner -450.0
+#define KpInner -236.0
 #define KiInner (-0.0/1000000.0*sampleTime)
 #define KdInner (-0.0*1000000.0/sampleTime)
 
-#define gO -19.1
-#define zO 4.0
-#define pO 20.0
+#define gO -12.0
+#define zO 3.58
+#define pO 17.89
 
 #define gI -1400.0
 #define zI 70.0
@@ -68,8 +68,9 @@
 #define KiOuter 0.0
 #define KdOuter 0.0
 
-#define KpVel 10.0
-#define KiVel (0.0*1000000.0/sampleTime)
+#define KpVel 0.2
+#define KpVelFeedBack 1.5
+#define KiVel (50/1000000.0*sampleTime)
 
 #define KpCurr 1.1
 
@@ -77,7 +78,7 @@
 double posStick=0, posArm=0;
 
 //Actual interesting value of the stick and the arm
-double distStick, angleArm ,angleStick, velocity=0;
+double distStick, angleArm ,angleStick, dVelocity=0, velocity=0;
 double lastDistStick=0, lastAngleArm=0, lastVelocity=0;
 
 //Set point for the controllers
@@ -100,10 +101,10 @@ void setup()
 {
   noInterrupts();
   // setup timerOne, we use this library to get 10bit resolution for PWM.
-  Timer1.initialize(200);
+  Timer1.initialize(350);
   Timer1.stop();        //stop the counter
   Timer1.restart();     //set the clock to zero
-  Timer1.pwm(PWM_PIN, 512, 200);
+  Timer1.pwm(PWM_PIN, 512, 350);
   Timer1.attachInterrupt(calcPID, sampleTime);
 
   //PINMODE
@@ -126,7 +127,7 @@ void calcPID()
 {
 	// Distance for the stick
 
-	distStick = La * sin(angleArm) + Lalpha * sin(angleStick);
+	distStick = 3*La/(2*1.1) * angleArm + angleStick;
 
 	// Outer loop controller first
 	// Compute error values
@@ -146,6 +147,8 @@ void calcPID()
 	if(refArm > refArmMax) refArm = refArmMax;
 	else if(refArm < refArmMin) refArm = refArmMin;*/
 	refArm = gO*(2*1000000/sampleTime+zO)/(2*1000000/sampleTime+pO)*errorDist + gO*(zO-2*1000000/sampleTime)/(2*1000000/sampleTime+pO)*lastDistStick - (pO-2*1000000/sampleTime)/(2*1000000/sampleTime+pO)*lastRefArm;
+	/*if(refArm > refArmMax) refArm = refArmMax;
+	else if(refArm < refArmMin) refArm = refArmMin;*/
 
 	// Update previous values
 	lastDistStick = errorDist;
@@ -168,25 +171,30 @@ void calcPID()
 	//Compute output
 	//setVelocity = gI*(2*1000000/sampleTime+zI)/(2*1000000/sampleTime+pI)*errorArm + gI*(zI-2*1000000/sampleTime)/(2*1000000/sampleTime+pI)*lastAngleArm - (pI-2*1000000/sampleTime)/(2*1000000/sampleTime+pI)*lastSetVelocity;
 	setVelocity = KpInner * errorArm; //+ intErrorArm - KdInner * dAngleArm;
-	
+	if(setVelocity > setVelocityMax) setVelocity = setVelocityMax;
+	else if(setVelocity < setVelocityMin) setVelocity = setVelocityMin;
+
+
 	//Update previous values
 	lastAngleArm = errorArm;
 	lastSetVelocity=setVelocity;
 
 	//	Velocity loop
-	errorVelocity=setVelocity-velocity;
+	errorVelocity=setVelocity-velocity*KpVelFeedBack;
 
 	//Integral part
-	intErrorVelocity += KiVel * errorVelocity;
+	//intErrorVelocity += KiVel * errorVelocity;
 	
 
+	// Derivative part
+	//dVelocity = velocity - lastVelocity;
 	//Limiting the integral part
 	if(intErrorVelocity > refCurrentMax) intErrorVelocity = refCurrentMax;
 	else if(intErrorVelocity < refCurrentMin) intErrorVelocity = refCurrentMin;
 
 	//Compute output
 	//refCurrent = gV*(2*1000000/sampleTime+zV)/(2*1000000/sampleTime+pV)*errorVelocity + gV*(zV-2*1000000/sampleTime)/(2*1000000/sampleTime+pV)*lastVelocity - (pV-2*1000000/sampleTime)/(2*1000000/sampleTime+pV)*lastRefCurrent;
-	refCurrent=errorVelocity*KpVel;
+	refCurrent=errorVelocity*KpVel;//+dVelocity*KdVel;
 	if(refCurrent > refCurrentMax) refCurrent = refCurrentMax;
 	else if(refCurrent < refCurrentMin) refCurrent = refCurrentMin;
 
@@ -211,7 +219,7 @@ void actualizeFeedbackValue(){
 	//current=(analogRead(CURRENT_INPUT)*analog2digit-2.5)*10/1.5; //10 amp for 1.5
 
 	//Actual angular velocity of the motor
-	velocity=(analogRead(VELOCITY_INPUT)*analog2digit-2.5)*volt2rpm*rpm2radSec;
+	velocity=((analogRead(VELOCITY_INPUT)&0xFFFC)*analog2digit-2.5)*volt2rpm*rpm2radSec;
 
 	//Actual position of the arm and the stick
 	posArm=int(posArm*(1-avgFactor)+analogRead(POTMETERARM)*avgFactor); // 
@@ -222,7 +230,7 @@ void actualizeFeedbackValue(){
 	angleStick = (mappingSlopeStick*posStick-mappingConstStick)*deg2rad;
 	//angle stick relative to the arm so change to it to correspond of the upright angle
 	angleStick = angleArm+angleStick;
-	//Serial.println(angleStick);
+	Serial.println(angleStick);
 }
 
 
@@ -234,8 +242,8 @@ void loop()
 	/*double now=millis();
 	//to check if it moves
 	if (now-previous>=5000){
-		if (test==true) refArm=0.4;
-		else refArm=-0.4;
+		if (test==true) refArm=0.7;
+		else refArm=-0.7;
 		test=!test;
 		previous=now;
 	}*/

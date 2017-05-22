@@ -1,0 +1,8 @@
+% Motorkonstant
+
+Xspan = double(tachoSort)/1000;
+Y = double(motorSort)/1000;
+X = (Xspan * (1000/3)) * 2 * pi / 60;
+Xfit = 0:1:300;
+Yfit=0.03079*Xfit+0.5;
+plot(X,Y)

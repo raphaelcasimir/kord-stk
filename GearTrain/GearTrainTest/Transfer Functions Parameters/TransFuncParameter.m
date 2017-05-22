@@ -1,3 +1,5 @@
+clear all;
+
 Kt=0.0293;
 Ke=0.0355;
 Jm=2.9e-5;
@@ -10,7 +12,7 @@ Bm=1.59e-4;
 Bgear=1.11e-3;
 N=0.3;
 La=0.33;
-Ls=0.8;
+Ls=1.2;
 Ms=0.334;
 Ma=0.288;
 Bas=0;%1e-3;
@@ -22,10 +24,10 @@ Lalpha=2/3*Ls;
 
 %% Without ThetaS
 
-	F=(Jm+Jgear);%-N^3*Ja;
-	G=(Kt*Ke/Rm+Bgear+Bm);
+	F=(Jm+Jgear)*Rm;%-N^3*Ja;
+	G=(Kt*Ke/Rm+Bgear+Bm)*Rm;
 	H=0;%g*La*(Ms+Ma*N^3);
-	Fuw=(Kt/Rm)*s/(s^2*F+s*G+H)
+	Fuw=Kt/(s*F+G)
 
 %% Wm to Theta A
 	Fwa=N^3/s
@@ -38,18 +40,18 @@ Lalpha=2/3*Ls;
 %% Controller Design
 
 	Karm=450;
-	Kmotor=10;
-	Kstick=19.1;
+	Kmotor=0.1;
+	Kstick=143;
 	ControllerArm=Karm;%*(45+s)/(180+s);
-	ControllerMotor=Kmotor;%*(125+s)/(40+s)
-	ControllerStick=-Kstick*(4+s)/(20+s);
+	ControllerMotor=Kmotor;%*(1+0.1*100/(1+s/100));
+	ControllerStick=-Kstick*(3.0+s)/(120+s);
     
 
 
 %% Full transfer functions of the system
+	ControlledSysMotor = feedback(ControllerMotor*Fuw,1)
 	ControlledSysArm = feedback(ControllerArm*ControlledSysMotor*Fwa,1)
 	ControlledSysStick = feedback(ControlledSysArm*Fda,ControllerStick)
-	ControlledSysMotor = feedback(ControllerMotor*Fuw,1)
 
 
 %% Root locus to simulate diffent controllers
@@ -91,16 +93,16 @@ Lalpha=2/3*Ls;
 
 %% Step response
 	figure ('Name','Step response Arm&Stick')
-		margin(ControlledSysArm);
+		step(ControlledSysArm);
 	hold on
-        margin(ControlledSysMotor);
-        margin(feedback(ControllerStick*feedback(ControllerArm*ControlledSysMotor*Fwa,1)*Fda,1))
+        step(ControlledSysMotor);
+        step(feedback(ControllerStick*feedback(ControllerArm*ControlledSysMotor*Fwa,1)*Fda,1))
 
 	legend('ArmLoop','MotorLoop','whole system' ,'Location','southwest')
 	hold off
    
     figure ('Name','disturbance Stick')
-    impulse(ControlledSysStick);
+    margin(ControlledSysStick);
 
     figure ('Name','disturbance Stick whole system')
     impulse(feedback(feedback(ControllerArm*ControlledSysMotor*Fwa,1)*Fda,ControllerStick))

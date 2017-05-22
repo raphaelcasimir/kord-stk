@@ -1,0 +1,84 @@
+# Kør <read `pind_model2.map`;> for at starte
+
+print(`Model for den lange pind`);
+
+readlib(mtaylor):
+readlib(unassign):
+readlib(isolate):
+
+cos(pi/2):=0:
+sin(pi/2):=1:
+
+print(`Position x`);
+x:=cos(pi/2-ta(t))*da+cos(pi/2-tap(t))*dp/2;
+print(`Hastighed dx`);
+dx:=diff(x,t);
+print(`Acceleration ddx`);
+ddx:=diff( diff(x,t), t);
+print(`Omskriver ddx til mtaylor funktionen (ddx2)`);
+
+ddx2:=subs(diff(diff(ta(t), t), t)=ddta, ddx):
+ddx2:=subs(diff(diff(tap(t), t), t)=ddtap, ddx2):
+ddx2:=subs(diff(ta(t), t)=dta, ddx2):
+ddx2:=subs(diff(tap(t), t)=dtap, ddx2):
+ddx2:=subs(ta(t)=ta, ddx2):
+ddx2:=subs(tap(t)=tap, ddx2);
+
+print(`Linearisering af ddx2`);
+ddx_lin:=mtaylor(ddx2, [ta, dta, ddta, tap, dtap, ddtap], 2);
+
+print(`Position y`);
+y:=sin(pi/2-ta(t))*da+sin(pi/2-tap(t))*dp/2;
+print(`Hastighed dy`);
+dy:=diff(y,t);
+print(`Acceleration ddy`);
+ddy:=diff( diff(y,t), t);
+print(`Omskriver ddy til mtaylor funktionen (ddy2)`);
+
+ddy2:=subs(diff(diff(ta(t), t), t)=ddta, ddy):
+ddy2:=subs(diff(diff(tap(t), t), t)=ddtap, ddy2):
+ddy2:=subs(diff(ta(t), t)=dta, ddy2):
+ddy2:=subs(diff(tap(t), t)=dtap, ddy2):
+ddy2:=subs(ta(t)=ta, ddy2):
+ddy2:=subs(tap(t)=tap, ddy2);
+
+print(`Linearisering af ddy2`);
+ddy_lin:=mtaylor(ddy2, [ta, dta, ddta, tap, dtap, ddtap], 2);
+
+print(`Kraftmoment`);
+moment:=(dp/2)*(-Fx*cos(-tap)-Fy*cos(-(pi/2+tap)));
+print(`Linearisering af kraftmoment`);
+moment2:=mtaylor(moment, [ta, dta, ddta, tap, dtap , ddtap], 2);
+print(`Indsættelse af krafter`);
+Fx:=Mp*ddx_lin;
+Fy:=Mp*(ddy_lin+g);
+ligning:=Jp*ddtap = moment2:
+print(`Ligning`);
+ligning;
+
+ligning:=subs( ddta=ta*s^2, ligning):
+ligning:=subs( ddtap=tap*s^2, ligning):
+ligning:=subs( dta=ta*s, ligning):
+ligning:=subs( dtap=tap*s, ligning):
+
+num:= denom( rhs( isolate(ligning, ta) ) ):
+den:= -1*denom( rhs( isolate(ligning, tap) ) ):
+
+tf:=tap/ta=num/den:
+print(`Transfer function`);
+simplify(tf);
+print(`Pindens længde`);
+# Vores værdier
+Mp:=0.0823;
+dp:=1.0;
+g:=9.81:
+da:=0.2917:
+Jp:=(1/12)*Mp*dp^2;
+
+print(`With values`);
+a1:=coeff( numer( rhs(tf) ), s, 2):
+b1:=coeff( denom( rhs(tf) ), s, 2):
+b2:=coeff( denom( rhs(tf) ), s, 0):
+
+tf2:=tap/ta=(a1/b1)*(s^2/(s^2+b2/b1)):
+tf2;

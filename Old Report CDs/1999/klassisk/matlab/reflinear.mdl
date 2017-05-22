@@ -1,0 +1,627 @@
+Model {
+  Name			  "reflinear"
+  Version		  2.20
+  SimParamPage		  Solver
+  SampleTimeColors	  off
+  InvariantConstants	  off
+  WideVectorLines	  off
+  ShowLineWidths	  off
+  StartTime		  "0.0"
+  StopTime		  "10"
+  Solver		  ode45
+  RelTol		  "1e-3"
+  AbsTol		  "1e-6"
+  Refine		  "1"
+  MaxStep		  "auto"
+  InitialStep		  "auto"
+  FixedStep		  "auto"
+  MaxOrder		  5
+  OutputOption		  RefineOutputTimes
+  OutputTimes		  "[]"
+  LoadExternalInput	  off
+  ExternalInput		  "[t, u]"
+  SaveTime		  on
+  TimeSaveName		  "tout"
+  SaveState		  off
+  StateSaveName		  "xout"
+  SaveOutput		  on
+  OutputSaveName	  "yout"
+  LoadInitialState	  off
+  InitialState		  "xInitial"
+  SaveFinalState	  off
+  FinalStateName	  "xFinal"
+  LimitMaxRows		  off
+  MaxRows		  "1000"
+  Decimation		  "1"
+  AlgebraicLoopMsg	  warning
+  MinStepSizeMsg	  warning
+  UnconnectedInputMsg	  warning
+  UnconnectedOutputMsg	  warning
+  UnconnectedLineMsg	  warning
+  ConsistencyChecking	  off
+  ZeroCross		  on
+  SimulationMode	  normal
+  RTWSystemTargetFile	  "grt.tlc"
+  RTWInlineParameters	  off
+  RTWPlaceOutputsASAP	  off
+  RTWRetainRTWFile	  off
+  RTWTemplateMakefile	  "grt_default_tmf"
+  RTWMakeCommand	  "make_rtw"
+  RTWGenerateCodeOnly	  off
+  ExtModeMexFile	  "ext_comm"
+  ExtModeBatchMode	  off
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "reflinear"
+    Location		    [-83, 102, 1019, 587]
+    Open		    on
+    ToolBar		    on
+    StatusBar		    on
+    ScreenColor		    white
+    PaperOrientation	    landscape
+    PaperPositionMode	    auto
+    PaperType		    A4
+    PaperUnits		    inches
+    Block {
+      BlockType		      Scope
+      Name		      "Armens vinkel. x-akse i sekunder og y-akse i gr"
+"ader"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [15, 335, 45, 365]
+      Orientation	      left
+      Floating		      off
+      Location		      [145, 129, 983, 674]
+      Open		      off
+      Grid		      on
+      TickLabels	      on
+      ZoomMode		      on
+      TimeRange		      "5"
+      YMin		      "-1              "
+      YMax		      "1               "
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant"
+      Position		      [20, 15, 40, 35]
+      Value		      "0.4"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Degrees to\nRadians"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [220, 15, 250, 45]
+      SourceBlock	      "simulink_extras/Transformations/Degrees to\nRad"
+"ians"
+      SourceType	      "DegreesToRadians"
+    }
+    Block {
+      BlockType		      Integrator
+      Name		      "Integrator"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [810, 100, 840, 130]
+      ExternalReset	      none
+      InitialConditionSource  internal
+      InitialCondition	      "0"
+      LimitOutput	      off
+      UpperSaturationLimit    "inf"
+      LowerSaturationLimit    "-inf"
+      ShowSaturationPort      off
+      ShowStatePort	      off
+      AbsoluteTolerance	      "auto"
+    }
+    Block {
+      BlockType		      TransferFcn
+      Name		      "Lead-regulator"
+      Position		      [145, 76, 230, 134]
+      Numerator		      "numr"
+      Denominator	      "denr"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [65, 287, 100, 323]
+      Orientation	      left
+      Inputs		      "2"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "N1*N2^2"
+      Position		      [860, 94, 915, 136]
+      Gain		      "0.0315"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "P"
+      Position		      [330, 87, 375, 123]
+      Gain		      "800"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "P1"
+      Position		      [155, 12, 200, 48]
+      Gain		      "1/kdc"
+    }
+    Block {
+      BlockType		      TransferFcn
+      Name		      "PI"
+      Position		      [445, 95, 510, 135]
+      Numerator		      "[0.18 6]"
+      Denominator	      "[0.03 0]"
+    }
+    Block {
+      BlockType		      TransferFcn
+      Name		      "Pinden"
+      Position		      [970, 180, 1080, 230]
+      Numerator		      "[-14.6927]"
+      Denominator	      "[1 0 -14.6927 ]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Radians\nto Degrees"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [945, 100, 975, 130]
+      SourceBlock	      "simulink_extras/Transformations/Radians\nto Deg"
+"rees"
+      SourceType	      "RadiansToDegrees"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Radians\nto Degrees1"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [235, 340, 265, 370]
+      Orientation	      left
+      SourceBlock	      "simulink_extras/Transformations/Radians\nto Deg"
+"rees"
+      SourceType	      "RadiansToDegrees"
+    }
+    Block {
+      BlockType		      Saturate
+      Name		      "Saturation"
+      Position		      [550, 100, 580, 130]
+      UpperLimit	      "5"
+      LowerLimit	      "-5"
+    }
+    Block {
+      BlockType		      Step
+      Name		      "Step"
+      Position		      [15, 50, 45, 80]
+      Time		      "5"
+      Before		      "0"
+      After		      "-0.7"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [395, 96, 425, 129]
+      Inputs		      "+-"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum1"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [80, 86, 110, 119]
+      Inputs		      "+-"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum2"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [280, 85, 310, 120]
+      Inputs		      "+-"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum3"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [70, 15, 100, 50]
+      Inputs		      "++"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "armvinkel"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [1005, 20, 1035, 50]
+      Floating		      off
+      Location		      [160, 38, 805, 503]
+      Open		      off
+      Grid		      on
+      TickLabels	      on
+      ZoomMode		      on
+      TimeRange		      "10"
+      YMin		      "-0.00065"
+      YMax		      "0"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "forstærker"
+      Position		      [620, 97, 665, 133]
+      Gain		      "1.3146"
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "linmotor"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [690, 80, 755, 150]
+      ShowPortLabels	      on
+      System {
+	Name			"linmotor"
+	Location		[486, 485, 951, 666]
+	Open			off
+	ToolBar			off
+	StatusBar		off
+	ScreenColor		white
+	PaperOrientation	landscape
+	PaperPositionMode	auto
+	PaperType		usletter
+	PaperUnits		inches
+	Block {
+	  BlockType		  Inport
+	  Name			  "Ua"
+	  Position		  [15, 28, 45, 42]
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  TransferFcn
+	  Name			  "Js+B"
+	  Position		  [280, 25, 395, 65]
+	  Numerator		  "[1]"
+	  Denominator		  "[9.98E-4 1.64E-3]"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Kemf"
+	  Position		  [155, 116, 215, 154]
+	  Orientation		  left
+	  Gain			  "4.97e-2"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Km"
+	  Position		  [190, 25, 250, 65]
+	  Gain			  "4.97e-2"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Ra"
+	  Position		  [120, 25, 165, 65]
+	  Gain			  "1/0.98"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [65, 27, 95, 58]
+	  Inputs		  "+-"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "omega"
+	  Position		  [425, 38, 455, 52]
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "Ra"
+	  SrcPort		  1
+	  DstBlock		  "Km"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "Ra"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Kemf"
+	  SrcPort		  1
+	  Points		  [-105, 0; 0, -85]
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Js+B"
+	  SrcPort		  1
+	  Points		  [5, 0]
+	  Branch {
+	    Points		    [0, 90]
+	    DstBlock		    "Kemf"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "omega"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Ua"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Km"
+	  SrcPort		  1
+	  DstBlock		  "Js+B"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "omega_m\n"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [835, 25, 865, 55]
+      Floating		      off
+      Location		      [162, 112, 830, 637]
+      Open		      off
+      Grid		      on
+      TickLabels	      on
+      ZoomMode		      on
+      TimeRange		      "10"
+      YMin		      "-0.00065"
+      YMax		      "0"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "styresignal"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [545, 20, 575, 50]
+      Orientation	      left
+      Floating		      off
+      Location		      [206, 281, 841, 646]
+      Open		      off
+      Grid		      on
+      TickLabels	      on
+      ZoomMode		      on
+      TimeRange		      "0.5"
+      YMin		      "0"
+      YMax		      "13"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Line {
+      SrcBlock		      "Sum"
+      SrcPort		      1
+      DstBlock		      "PI"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Saturation"
+      SrcPort		      1
+      DstBlock		      "forstærker"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Integrator"
+      SrcPort		      1
+      DstBlock		      "N1*N2^2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Radians\nto Degrees"
+      SrcPort		      1
+      Points		      [0, -80]
+      DstBlock		      "armvinkel"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "PI"
+      SrcPort		      1
+      DstBlock		      "Saturation"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "N1*N2^2"
+      SrcPort		      1
+      Points		      [10, 0]
+      Branch {
+	DstBlock		"Radians\nto Degrees"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 90]
+	Branch {
+	  DstBlock		  "Pinden"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [-665, 0]
+	  DstBlock		  "Sum2"
+	  DstPort		  2
+	}
+      }
+    }
+    Line {
+      SrcBlock		      "P"
+      SrcPort		      1
+      DstBlock		      "Sum"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum2"
+      SrcPort		      1
+      DstBlock		      "P"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Degrees to\nRadians"
+      SrcPort		      1
+      Points		      [65, 0; 0, 40; -260, 0; 0, 25]
+      DstBlock		      "Sum1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Lead-regulator"
+      SrcPort		      1
+      Points		      [30, 0]
+      DstBlock		      "Sum2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Pinden"
+      SrcPort		      1
+      Points		      [0, 60; -680, 0]
+      Branch {
+	Points			[-345, 0; 0, -155]
+	DstBlock		"Sum1"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, 90]
+	DstBlock		"Radians\nto Degrees1"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Sum1"
+      SrcPort		      1
+      DstBlock		      "Lead-regulator"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "P1"
+      SrcPort		      1
+      DstBlock		      "Degrees to\nRadians"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Step"
+      SrcPort		      1
+      Points		      [5, 0]
+      DstBlock		      "Sum3"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Constant"
+      SrcPort		      1
+      DstBlock		      "Sum3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum3"
+      SrcPort		      1
+      Points		      [20, 0]
+      Branch {
+	Points			[15, 0]
+	DstBlock		"P1"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 260]
+	DstBlock		"Mux"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Radians\nto Degrees1"
+      SrcPort		      1
+      Points		      [-115, 0]
+      DstBlock		      "Mux"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Mux"
+      SrcPort		      1
+      DstBlock		      "Armens vinkel. x-akse i sekunder og y-akse i gr"
+"ader"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "linmotor"
+      SrcPort		      1
+      Points		      [10, 0]
+      Branch {
+	Points			[25, 0]
+	Branch {
+	  DstBlock		  "Integrator"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [0, 70; -415, 0]
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+      }
+      Branch {
+	Points			[0, -75]
+	DstBlock		"omega_m\n"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "forstærker"
+      SrcPort		      1
+      DstBlock		      "linmotor"
+      DstPort		      1
+    }
+    Annotation {
+      Position		      [921, 392]
+      Text		      "Variabel reference af armens vinkel, med linær "
+"model for DC-motor"
+    }
+    Annotation {
+      Position		      [832, 406]
+      Text		      "Skal benyttes med leadreg.m"
+    }
+  }
+}

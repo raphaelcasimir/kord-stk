@@ -1,0 +1,1 @@
+plot(time,strom,time,strom,'x')

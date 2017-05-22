@@ -1,0 +1,61 @@
+-------------------------C-filer til driver-------------------------
+
+dt2811/:
+  dt2811.c                   Funktioner til styring af I/O-kort
+  dt2811.h                   Header
+
+---------------------C-filer klassiske regulatorer-------------------
+
+klassisk/c/:
+  klassisk_kort.c            Klassisk regulering af kort pind
+  klassisk_lang.c            Klassisk regulering af lang pind
+
+---------Matlab-filer til design af klassiske regulatorer----
+
+klassisk/matlab/:
+  ankerkarak.m               Behandling af data ved ankermodstands måling
+  dedcml2.mat                Output fra Senstools
+  dedcml3.mat                Output fra Senstools  
+  friktion.m                 Behandling af data ved friktionsmåling  
+  hstslojfe.m                Simulering af hastighedssløjfe
+  klassisk_lin.mdl           Lineær Simulink model, med klassisk regulering
+  leadreg.m                  Simulering af balancerende pind med klassisk regulering
+  linfit.m                   Lineær fit af motormodel
+  maal.m                     Måledata til ankerkark.m og friktion.m
+  maal35rf.m                 Måledata til lineær og ulineær fit af motormodel
+  reference.m                Simulering af variabel reference i Matlab
+  reflinear.mdl              Simulering af variabel reference med lineær motormodel i Simulink
+  refulinear.mdl             Simulering af variabel reference med ulineær motormodel i Simulink
+  sidcml3.m                  Lineær model af motor til brug i Senstools
+  sidcml2.m                  Ulineær model af motor til brug i Senstools
+  ulinfit.m                  Ulineær fit af motormodel
+
+---------------------C-filer til tilstandsregulatorer----------------------
+
+tilstand/c/:
+  tilstand_kort.c            Tilstandsregulering af kort pind
+  tilstand_lang.c            Tilstandsregulering af lang pind
+
+---------------Matlab-filer til design af tilstandsregulatorer-------------
+
+tilstand/matlab/:
+  ss_lin.mdl                 Lineær simulering i Simulink
+  ss_ulin.mdl                Ulineær simulering i Simulink
+  tilstandmodel_lang_pind.m  Simulering af tilstandsregulering
+
+------------------Maple-filer til bestemmelse af pindmodel-----------------
+
+maple/:
+  kort_pind.map              Model for den korte pind
+  kort_pind.mws              Session for udregning af den korte pind
+  lang_pind.map              Model for den lange pind
+  lang_pind.mws              Session for udregning af den lange pind
+
+-----------------------------PostScript-filer------------------------------
+
+rapport/:
+  rapport.ps                 Den samplede rapport i PostScript-format
+  forside.ps                 Forsiden i PostScript-format
+
+
+

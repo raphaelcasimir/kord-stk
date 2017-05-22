@@ -1,0 +1,12 @@
+% Hastighedsregulering
+
+Km = 0.022141706562986;
+Rm = 0.807790757873553;
+Js = 2.686970843428432e-04;
+Bs = 1.748817703686052e-04;
+tauc = 0.064;
+initU = 1.7;
+
+
+hastighedsregulering
+sim('hastighedsregulering')

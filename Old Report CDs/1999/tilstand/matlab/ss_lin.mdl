@@ -1,0 +1,654 @@
+Model {
+  Name			  "ss_lin"
+  Version		  2.20
+  SimParamPage		  Solver
+  SampleTimeColors	  off
+  InvariantConstants	  off
+  WideVectorLines	  off
+  ShowLineWidths	  off
+  StartTime		  "0.0"
+  StopTime		  "10.0"
+  Solver		  FixedStepDiscrete
+  RelTol		  "1e-3"
+  AbsTol		  "1e-6"
+  Refine		  "1"
+  MaxStep		  "auto"
+  InitialStep		  "auto"
+  FixedStep		  "auto"
+  MaxOrder		  5
+  OutputOption		  RefineOutputTimes
+  OutputTimes		  "[]"
+  LoadExternalInput	  off
+  ExternalInput		  "[t, u]"
+  SaveTime		  on
+  TimeSaveName		  "tout"
+  SaveState		  off
+  StateSaveName		  "xout"
+  SaveOutput		  on
+  OutputSaveName	  "yout"
+  LoadInitialState	  off
+  InitialState		  "xInitial"
+  SaveFinalState	  off
+  FinalStateName	  "xFinal"
+  LimitMaxRows		  off
+  MaxRows		  "1000"
+  Decimation		  "1"
+  AlgebraicLoopMsg	  warning
+  MinStepSizeMsg	  warning
+  UnconnectedInputMsg	  warning
+  UnconnectedOutputMsg	  warning
+  UnconnectedLineMsg	  warning
+  ConsistencyChecking	  off
+  ZeroCross		  on
+  SimulationMode	  normal
+  RTWSystemTargetFile	  "grt.tlc"
+  RTWInlineParameters	  off
+  RTWPlaceOutputsASAP	  off
+  RTWRetainRTWFile	  off
+  RTWTemplateMakefile	  "grt_default_tmf"
+  RTWMakeCommand	  "make_rtw"
+  RTWGenerateCodeOnly	  off
+  ExtModeMexFile	  "ext_comm"
+  ExtModeBatchMode	  off
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "ss_lin"
+    Location		    [4, 77, 1020, 738]
+    Open		    on
+    ToolBar		    on
+    StatusBar		    on
+    ScreenColor		    white
+    PaperOrientation	    landscape
+    PaperPositionMode	    auto
+    PaperType		    usletter
+    PaperUnits		    inches
+    Block {
+      BlockType		      Reference
+      Name		      "Band-Limited\nWhite Noise3"
+      Ports		      [0, 1, 0, 0, 0]
+      Position		      [60, 245, 90, 275]
+      SourceBlock	      "simulink/Sources/Band-Limited\nWhite Noise"
+      SourceType	      "Continuous White Noise."
+      Cov		      "[0.2]"
+      Ts		      "0.025"
+      seed		      "[23341]"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant"
+      Position		      [60, 180, 80, 200]
+      Value		      "ref"
+    }
+    Block {
+      BlockType		      Demux
+      Name		      "Demux"
+      Ports		      [1, 5, 0, 0, 0]
+      Position		      [370, 173, 405, 227]
+      Outputs		      "5"
+    }
+    Block {
+      BlockType		      DiscreteStateSpace
+      Name		      "Discrete State-Space"
+      Position		      [225, 182, 345, 218]
+      A			      "Phi"
+      B			      "Gamma"
+      C			      "C"
+      D			      "D"
+      X0		      "0"
+      SampleTime	      "0.025"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Gain"
+      Position		      [105, 175, 135, 205]
+      Gain		      "25"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Gain1"
+      Position		      [445, 240, 475, 270]
+      Orientation	      down
+      NamePlacement	      alternate
+      Gain		      "k2"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Gain2"
+      Position		      [275, 262, 330, 298]
+      Orientation	      left
+      NamePlacement	      alternate
+      Gain		      "-1/k3"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Gain3"
+      Position		      [465, 290, 495, 320]
+      Orientation	      down
+      NamePlacement	      alternate
+      Gain		      "kr1"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Gain4"
+      Position		      [515, 235, 545, 265]
+      Orientation	      down
+      NamePlacement	      alternate
+      Gain		      "kr2"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Gain5"
+      Position		      [565, 265, 595, 295]
+      Orientation	      down
+      NamePlacement	      alternate
+      Gain		      "kr3"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Gain6"
+      Position		      [625, 280, 655, 310]
+      Orientation	      down
+      NamePlacement	      alternate
+      Gain		      "Lr"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Gain7"
+      Position		      [715, 125, 745, 155]
+      Orientation	      up
+      Gain		      "180/pi"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Gain8"
+      Position		      [840, 395, 870, 425]
+      Orientation	      down
+      Gain		      "180/pi"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Matrix\nGain"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [170, 445, 200, 475]
+      Orientation	      left
+      SourceBlock	      "simulink/Linear/Matrix\nGain"
+      SourceType	      "Matrix Gain"
+      K			      "K"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux"
+      Ports		      [4, 1, 0, 0, 0]
+      Position		      [220, 427, 255, 488]
+      Orientation	      left
+      Inputs		      "4"
+    }
+    Block {
+      BlockType		      Saturate
+      Name		      "Saturation"
+      Position		      [140, 380, 170, 410]
+      Orientation	      up
+      UpperLimit	      "5"
+      LowerLimit	      "-5"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum"
+      Ports		      [3, 1, 0, 0, 0]
+      Position		      [170, 192, 200, 228]
+      Inputs		      "++-"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum1"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [355, 261, 385, 294]
+      Orientation	      left
+      Inputs		      "++"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum2"
+      Ports		      [3, 1, 0, 0, 0]
+      Position		      [390, 333, 420, 367]
+      Orientation	      left
+      Inputs		      "+++"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum3"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [315, 425, 345, 460]
+      Orientation	      left
+      Inputs		      "++"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum4"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [845, 70, 875, 105]
+      Inputs		      "++"
+    }
+    Block {
+      BlockType		      UnitDelay
+      Name		      "U4"
+      Position		      [345, 370, 375, 400]
+      Orientation	      down
+      ShowName		      off
+      X0		      "0"
+      SampleTime	      "0.025"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "u"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [75, 345, 105, 375]
+      Orientation	      left
+      Floating		      off
+      Location		      [15, 333, 537, 762]
+      Open		      off
+      Grid		      on
+      TickLabels	      on
+      ZoomMode		      on
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitMaxRows	      off
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "x1"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [910, 240, 940, 270]
+      Floating		      off
+      Location		      [238, 295, 983, 694]
+      Open		      off
+      Grid		      on
+      TickLabels	      on
+      ZoomMode		      on
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitMaxRows	      off
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "x2"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [880, 340, 910, 370]
+      Floating		      off
+      Location		      [72, 282, 942, 537]
+      Open		      off
+      Grid		      on
+      TickLabels	      on
+      ZoomMode		      on
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitMaxRows	      off
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "x3"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [870, 445, 900, 475]
+      Floating		      off
+      Location		      [497, 99, 996, 454]
+      Open		      off
+      Grid		      on
+      TickLabels	      on
+      ZoomMode		      on
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitMaxRows	      off
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "x4"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [850, 525, 880, 555]
+      Floating		      off
+      Location		      [188, 365, 1006, 721]
+      Open		      off
+      Grid		      on
+      TickLabels	      on
+      ZoomMode		      on
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitMaxRows	      off
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "y"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [920, 75, 950, 105]
+      Floating		      off
+      Location		      [6, 79, 490, 434]
+      Open		      off
+      Grid		      on
+      TickLabels	      on
+      ZoomMode		      yonly
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitMaxRows	      off
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Line {
+      SrcBlock		      "Constant"
+      SrcPort		      1
+      DstBlock		      "Gain"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Gain"
+      SrcPort		      1
+      Points		      [15, 0]
+      DstBlock		      "Sum"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum"
+      SrcPort		      1
+      Points		      [0, -10]
+      DstBlock		      "Discrete State-Space"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Demux"
+      SrcPort		      1
+      Points		      [10, 0]
+      Branch {
+	Points			[0, 90]
+	DstBlock		"Sum1"
+	DstPort			1
+      }
+      Branch {
+	Points			[310, 0]
+	DstBlock		"Gain7"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Demux"
+      SrcPort		      4
+      Points		      [50, 0]
+      Branch {
+	DstBlock		"Gain1"
+	DstPort			1
+      }
+      Branch {
+	Points			[120, 0]
+	Branch {
+	  Points		  [125, 0]
+	  Branch {
+	    Points		    [0, 265; -435, 0]
+	    DstBlock		    "Mux"
+	    DstPort		    3
+	  }
+	  Branch {
+	    Points		    [150, 0]
+	    DstBlock		    "Gain8"
+	    DstPort		    1
+	  }
+	}
+	Branch {
+	  DstBlock		  "Gain5"
+	  DstPort		  1
+	}
+      }
+    }
+    Line {
+      SrcBlock		      "Gain1"
+      SrcPort		      1
+      Points		      [0, 10]
+      DstBlock		      "Sum1"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Sum1"
+      SrcPort		      1
+      DstBlock		      "Gain2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Mux"
+      SrcPort		      1
+      DstBlock		      "Matrix\nGain"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Gain2"
+      SrcPort		      1
+      DstBlock		      "Mux"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum3"
+      SrcPort		      1
+      Points		      [-40, 0]
+      DstBlock		      "Mux"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Gain6"
+      SrcPort		      1
+      Points		      [0, 135]
+      DstBlock		      "Sum3"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Sum2"
+      SrcPort		      1
+      Points		      [-25, 0]
+      DstBlock		      "U4"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "U4"
+      SrcPort		      1
+      DstBlock		      "Sum3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Gain3"
+      SrcPort		      1
+      Points		      [0, 15]
+      DstBlock		      "Sum2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Gain4"
+      SrcPort		      1
+      Points		      [0, 80]
+      DstBlock		      "Sum2"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Gain5"
+      SrcPort		      1
+      Points		      [0, 60]
+      DstBlock		      "Sum2"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Matrix\nGain"
+      SrcPort		      1
+      Points		      [-10, 0]
+      DstBlock		      "Saturation"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Discrete State-Space"
+      SrcPort		      1
+      DstBlock		      "Demux"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Demux"
+      SrcPort		      5
+      Points		      [310, 0]
+      Branch {
+	Points			[115, 0]
+	DstBlock		"x4"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 280; -450, 0]
+	DstBlock		"Mux"
+	DstPort			4
+      }
+    }
+    Line {
+      SrcBlock		      "Demux"
+      SrcPort		      3
+      Points		      [120, 0]
+      Branch {
+	DstBlock		"Gain4"
+	DstPort			1
+      }
+      Branch {
+	Points			[335, 0]
+	DstBlock		"x2"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Gain7"
+      SrcPort		      1
+      Points		      [0, -40]
+      DstBlock		      "Sum4"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Gain8"
+      SrcPort		      1
+      Points		      [0, 5]
+      Branch {
+	DstBlock		"x3"
+	DstPort			1
+      }
+      Branch {
+	Points			[-25, 0]
+	DstBlock		"Sum4"
+	DstPort			2
+      }
+    }
+    Line {
+      SrcBlock		      "Sum4"
+      SrcPort		      1
+      DstBlock		      "y"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Demux"
+      SrcPort		      2
+      Points		      [70, 0]
+      Branch {
+	DstBlock		"Gain3"
+	DstPort			1
+      }
+      Branch {
+	Points			[160, 0]
+	Branch {
+	  Points		  [255, 0]
+	  DstBlock		  "x1"
+	  DstPort		  1
+	}
+	Branch {
+	  DstBlock		  "Gain6"
+	  DstPort		  1
+	}
+      }
+    }
+    Line {
+      SrcBlock		      "Band-Limited\nWhite Noise3"
+      SrcPort		      1
+      Points		      [45, 0; 0, -50]
+      DstBlock		      "Sum"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Saturation"
+      SrcPort		      1
+      Points		      [0, -15]
+      Branch {
+	DstBlock		"u"
+	DstPort			1
+      }
+      Branch {
+	DstBlock		"Sum"
+	DstPort			3
+      }
+    }
+    Annotation {
+      Position		      [518, 576]
+      Text		      "Skal køres med m-filen tilstandmodell"
+    }
+  }
+}
