@@ -3,7 +3,7 @@ Kt = 0.0293;     % Motor constant
 Ke = 0.0355;     % Motor constant
 Jm = 2.9*10^-5;     % Moment of inertia
 Ja = 10.3*10^-3;
-Jg = 1.53*10^-4;
+Jg = 1.53*10^-3;
 Lm = 0; %1.42*10^-4;     % Inductance
 Rm = 0.82;  % Resistance
 Bm = 1.59*10^-4;     % Friction
@@ -27,14 +27,14 @@ s=tf([1 0],1);
 % Dc = tf([1 5],[1 -1]);
 %%
 figure
-h=rlocusplot(Gb); %Gre*(s+6)
+h=rlocusplot(Gc); %Gre*(s+6)
 p=getoptions(h);
 p.ylabel.FontSize = 14;
 p.xlabel.FontSize = 14;
 p.title.FontSize = 16;
 p.title.String = 'Root Locus of Velocity to Arm Angle';
 p.ticklabel.FontSize = 12;
-p.xlim=[-3 1];
+%p.xlim=[-10 10];
 setoptions(h,p);
 axIm = findall(gcf,'String','Imaginary Axis (seconds^{-1})');
 axRe = findall(gcf,'String','Real Axis (seconds^{-1})');
@@ -43,11 +43,31 @@ set(axRe,'String','Real Axis');
 qq=findall(gcf,'type','line');
 qq(6).LineWidth=3;
 qq(7).LineWidth=3;
-qq(7).MarkerSize=18;
+qq(8).LineWidth=3;
+qq(9).LineWidth=3;
+%qq(10).LineWidth=3;
+qq(9).MarkerSize=18;
+qq(8).MarkerSize=18;
 
 figure
-CL=feedback(9.17*Gb*Ga2,1);
-pzmap(CL);
+P=pzoptions;
+P.ylabel.FontSize = 14;
+P.xlabel.FontSize = 14;
+P.title.FontSize = 16;
+P.title.String = 'Pole-Zero Plot of Outer Loop Controller in Feedback';
+P.ticklabel.FontSize = 12;
+CL=feedback(Gb*Ga2*Gc,1);
+h=pzplot(CL,P);
+axIm = findall(gcf,'String','Imaginary Axis (seconds^{-1})');
+axRe = findall(gcf,'String','Real Axis (seconds^{-1})');
+set(axIm,'String','Imaginary Axis');
+set(axRe,'String','Real Axis');
+qq=findall(gcf,'type','line');
+qq(7).MarkerSize=12; %Poles
+qq(7).LineWidth=2;
+qq(6).MarkerSize=12; %Zeros
+qq(6).LineWidth=2;
+CL
 
 figure
 step(CL);

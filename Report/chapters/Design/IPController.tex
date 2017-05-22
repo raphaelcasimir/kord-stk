@@ -2,13 +2,17 @@
 \chapter{Design of the Inverted Pendulum Controller}\label{sec:IPController}
 \todo[inline,author=Jacob]{Start with a blockdiagram that has the actual transfer functions.}
 
-The goal of the controller is to balance the stick in an upright position. The system is seen as a block diagram on \autoref{BlockSystemNoControl}. Which gives the transfer function seen in \autoref{eq:CombModel}
+The goal of the controller is to balance the stick in an upright position. The system is seen as a block diagram on \autoref{BlockSystemNoControl}. Which gives the transfer function seen in \autoref{eq:OneGeneralLoop}
 \begin{figure}[htbp]
 \centering
 \missingfigure{}
 \caption{Block diagram of the system the controller will attempt to stabilize.}
 \label{fig:BlockSystemNoControl}
 \end{figure}
+
+\begin{equation}\label{eq:OneGeneralLoop}
+	\frac{\Theta_s}{U}=\frac{0.0004341 s^2}{0.001559 s^4 + 0.002537 s^3 - 0.0204 s^2 - 0.03391 s}
+\end{equation}
 
 The system is inherently unstable as is evident by the pole in the right half plane of the pole-zero plot as seen on \autoref{fig:pzip}.
 
@@ -55,8 +59,8 @@ If the inner loop is fast enough compared to the outer loop, it is negligible to
 
 \begin{subequations}\label{eq:InnerOuterTF}
 	\begin{flalign}
-		\frac{\Theta_a}{U}&=\\
-		\frac{\Theta_s}{\Theta_a}&=
+		\frac{\Theta_a}{U}&= \frac{0.0009648}{0.001559 s^2 + 0.002537 s + 0.0009648}\\
+		\frac{\Theta_s}{\Theta_a}&=\frac{0.45 s^2}{1.45 s^2 - 13.36}
 	\end{flalign}
 \end{subequations}
 
@@ -108,7 +112,7 @@ The first loop wich will be designed will be the motor loop as it is the most in
 Now the arm's loop will be designed. The motor loop part has a settling time of \SI{0.0159}{\second}, so the settling time of the arm's loop has to be at least \SI{0.159}{\second} in order to make the assumption that the motor's loop transfer function is equal to 1 for the arm's loop. The new transfer function derived from this approximation is \autoref{eq:WArmLoop}.
 
 \begin{equation}\label{eq:WArmLoop}
-	\frac{\Theta_a}{\Omega_m}=\frac{N^3}{s}
+	\frac{\Theta_a}{\Omega_m}=\frac{0.027}{s}
 \end{equation}
 
 The root locus of \autoref{eq:WArmLoop}, in \autoref{fig:WArmLoopRLocus}, shows that there is theoretically no gain limitation for the arm as the pole moves to the left side plan making the system stable, as long as the gain is high enough. The pole is also always on the real axis which means there will be no overshoot no matter the gain.
