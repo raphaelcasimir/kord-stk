@@ -232,18 +232,40 @@ The zero will initially be placed on the pole as it doesn't change the system dr
 
 The unstable pole can now enter the stable region by selecting a gain large enough. Simply adding a zero to the system will however amplify high frequencies. This can be avoided by adding a pole further into the left half plane. This effectively makes the controller a lead controller. The position of the pole and the gain will determine the settling time and overshoot of the system. The settling time for the outer loop controller should be more than 10 times slower so the assumption, that the inner loop controller is much faster than the outer loop controller, holds true. As the gain increases the two poles move closer to each each other before meeting and moving into the imaginary plane. The gain will be selected to be however much is needed for the poles to meet. The pole can then be selected such that the place where the poles meet will give a settling time 10 times slower than the inner loop.
 
-As the settling time of the inner loop is \textbf{TBD!} the natural frequency of the outer loop needs to be \textbf{TBD/10}. To achieve that the lead controller pole needs to be placed so the halfway point between it and the unstable pole is \textbf{TBD/10}. The pole location then becomes \textbf{MAYBE AN EQUATION?!?}. This can be seen on \autoref{fig:rlocusLead}.
+As the settling time of the inner loop is \textbf{TBD!}, the natural frequency of the outer loop can be found by \autoref{eq:outerWn}. 
+\begin{subequations} \label{eq:outerWn}
+\begin{flalign}
+T_{s_{outer}}(2\%) &=-\frac{\ln(0.02)}{\zeta\cdot \omega_n} \\
+\omega_n &=-\frac{\ln(0.02)}{\zeta\cdot T_{s_{inner}}\cdot 10} \\
+\omega_n &=-\frac{\ln(0.02)}{1\cdot 0.157 \cdot 10} \\
+\omega_n &=2.49
+\end{flalign}
+\end{subequations}
+
+To achieve that the lead controller pole needs to be placed so the halfway point between it and the unstable pole is 2.49. This means that the end location of both poles will be in -2.49. The pole location is then found by \autoref{eq:outerLeadPole}.
+\begin{subequations} \label{eq:outerLeadPole}
+\begin{flalign}
+-2.49&=\frac{p_{unstable}+p_{lead}}{2} \\
+p_{lead} &=-2.49\cdot 2-\sqrt{\frac{3g}{2l_s}} \\
+p_{lead} &=-9.27 
+\end{flalign}
+\end{subequations}
+
+This can be seen on \autoref{fig:rlocusLead}.
 \begin{figure}[htbp]
 \centering
-\missingfigure{}
+\includegraphics[width=0.6\textwidth]{rlocusOuterLead}
 \caption{Root locus of the outer loop with the lead controller.}
 \label{fig:rlocusLead}
 \end{figure}
 
-To make the two poles meet a gain of \textbf{TBDGain} is needed. This gives a lead controller of \autoref{eq:IPLead}.
+To make the two poles meet a gain of 7.57 is needed. This gives a lead controller of \autoref{eq:IPLead}.
 \begin{flalign}
-D_{x}=G\frac{s+\sqrt{\frac{3g}{2l_s}}}{s+p}\label{eq:IPLead}
+D_{x}=7.57\frac{s+\sqrt{\frac{3g}{2l_s}}}{s+9.27}\label{eq:IPLead}
 \end{flalign}
+\todo[inline,author=Jacob]{All these numbers are calculated with inner loop settling time of 0.157 and ls=0.8 meters.}
+
+\todo[inline,author=Jacob]{Stepresponse shows that we don't get the settling time that we predicted. Cancelling the pole by adding a zero probably doesn't cancel exactly and both have an effect on the system. Find new pole value to get correct settling time.}
 
 %Selecting the gain too large will however move the other pole further into the left half plane making it more difficult to make the inner loop system faster than the outer loop. As both the zero placement and gain needs to be adjusted later in conjunction with the inner loop controller, the gain will be set to 1 as this puts the unstable pole in the left half plane without the other pole moving too far away as seen on the pole-zero plot on \autoref{fig:pzouterloop}.
 %\begin{figure}[htbp]
