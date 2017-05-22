@@ -1,8 +1,15 @@
 		\chapter{Gyroscope test}
 
+\begin{table}[!h]
+	\begin{tabular}{l l}
+		\textbf{Test participants:} & Romain   \\
+		\textbf{Date:}  & 10/04-2017
+	\end{tabular}
+\end{table}
+
 	\section{Purpose}
 
-The objective of this test is to determine the precision of the gyroscope, accelerometer, compass, barometer pressure and temperature sensor chosen for this project.
+The objective of this test is to determine the precision of the gyroscope sensor chosen for this project.
 
 	\section{Equipment}
 	
@@ -21,64 +28,64 @@ The Analog pin 4 on the Arduino Nano is connected to the SDA pin on the multi-se
 
 	\section{Code]
 
-The code is written on the Arduino code Software. The Inter-Integreted Circuit (I2C) is used to simplify the code for the testing. The code is found from in an online-tutorial.
+The code is written on the Arduino code Software. The Inter-Integreted Circuit (I2C) is used to simplify the code for the testing. The code is found from an online-tutorial.
 
 Temporary code: 
-#include <Wire.h>
-
-#include <ADXL345.h>
-
-
-
-
-
-
-const float alpha = 0.5;
-
-double fXg = 0;
-double fYg = 0;
-double fZg = 0;
-
-ADXL345 acc;
-
-void setup()
-{
-	acc.begin();
-	Serial.begin(9600);
-	delay(100);
-}
-
-
-void loop()
-{
-	double pitch, roll, Xg, Yg, Zg;
-	acc.read(&Xg, &Yg, &Zg);
-	
-	//Low Pass Filter to smooth out data
-	fXg = Xg * alpha + (fXg * (1.0 - alpha));
-	fYg = Yg * alpha + (fYg * (1.0 - alpha));
-	fZg = Zg * alpha + (fZg * (1.0 - alpha));
-	
-	//Roll and Pitch Equations
-	roll = (atan2(-fYg, fZg)*180.0)/M_PI;
-	pitch = (atan2(fXg, sqrt(fYg*fYg + fZg*fZg))*180.0)/M_PI;
-	
-	Serial.flush();
-	Serial.print(Xg);
-	Serial.print("   ");
-	Serial.print(Yg);
-	Serial.print("   ");
-	Serial.println(Zg);
-	//Serial.println(' ');
-	//Serial.println(roll);
-	
-	delay(50);
-}
+%#include <Wire.h>
+%
+%#include <ADXL345.h>
+%
+%
+%
+%
+%
+%
+%const float alpha = 0.5;
+%
+%double fXg = 0;
+%double fYg = 0;
+%double fZg = 0;
+%
+%ADXL345 acc;
+%
+%void setup()
+%{
+%	acc.begin();
+%	Serial.begin(9600);
+%	delay(100);
+%}
+%
+%
+%void loop()
+%{
+%	double pitch, roll, Xg, Yg, Zg;
+%	acc.read(&Xg, &Yg, &Zg);
+%	
+%	//Low Pass Filter to smooth out data
+%	fXg = Xg * alpha + (fXg * (1.0 - alpha));
+%	fYg = Yg * alpha + (fYg * (1.0 - alpha));
+%	fZg = Zg * alpha + (fZg * (1.0 - alpha));
+%	
+%	//Roll and Pitch Equations
+%	roll = (atan2(-fYg, fZg)*180.0)/M_PI;
+%	pitch = (atan2(fXg, sqrt(fYg*fYg + fZg*fZg))*180.0)/M_PI;
+%	
+%	Serial.flush();
+%	Serial.print(Xg);
+%	Serial.print("   ");
+%	Serial.print(Yg);
+%	Serial.print("   ");
+%	Serial.println(Zg);
+%	//Serial.println(' ');
+%	//Serial.println(roll);
+%	
+%	delay(50);
+%}
 
 	\section{Test}
 	
 The breadboard is moved and rotated in the three different axis in order to test the pitch, roll and yawn as shown in sketch:
-Graph of 3D and rocket
+\todo{Graph of 3D and rocket}
 
 The outputs of x, y and z are expressed in degree (°). The rotation around the Y axis is the yaw. To mesure the yawn implies the measure of the tilting of the rocket, thus the direction variaton.  
 There are three distinc cases of rocket direction variaton of the desired zenith axis : tilting left, tilting right, no tilting. They are respectively represented in figures:
@@ -87,15 +94,11 @@ The Y axis outputs for different postion of the gyroscope parralel to the rocket
 
 The measurments of negative and positive angles can not be distinguished.
 
-The Y axis outputs for different postion of the gyroscope perpendicular to the rocket body are modified to attend our requirements. The equivalent of measurement of 90° are added. Due to a test surface not "straight?" (cant find a word for it), the error is mesured in degree and added to the measurments. The modified outputs are shown in table:
+The Y axis outputs for different postion of the gyroscope perpendicular to the rocket body are modified to attend our requirements. The equivalent of measurement of 90° are added. Due to a test surface not straight, the error is mesured in degree and added to the measurments. The modified outputs are shown in table:
 
 -90° :  -100
--80° :  -97
--70° :  
--60° :
--50° :
+%-80° :  -97
 -45° :  -60
--40° :  
 -30° :  -48
 -20  :  -33
 -10° :  -15 
@@ -105,8 +108,8 @@ The Y axis outputs for different postion of the gyroscope perpendicular to the r
 +45° :  +60
 +90° :  +100
 
-Some error can however appear in the gyroscope measurments but are consided as negligeable.
+Some errors can however appear in the gyroscope measurements, but are consided as negligeable.
 
 	\section{Conclusion}
 	
-The values of Y when the gyroscope is placed parrarel to the rocket body are not usable. When the gyroscope is perpendicular to the rocket body, the measurments can be modified to mesure the tilting of the rocket. Thus the gyroscope will be placed perpendiculary to the rocket body.
+When the gyroscope is placed parrallely to the rocket body the values of Y are not usable. When the gyroscope is perpendicular to the rocket body, the measurements can be modified to mesure the tilting of the rocket. Thus the gyroscope will be placed perpendiculary to the rocket body.

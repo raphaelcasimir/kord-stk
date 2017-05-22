@@ -1,10 +1,8 @@
-Implementing Inertial Measurement Unit
-
-
 The system consists of an Inertial measurment Unit (IMU) GY - 80. This implies that multiple integreted sensors can be used, as seen in \autoref{sec:Rocket_sencor_choice}. The PCB created and used is seen in appendix \todo{appendix of PCB to do}. 
 Mulitple physical and software constraints have to be taken into account when implementing the system.
 
-The rise time and setling time of the sensors are an important feature when ensuring the stability of the rocket. It cannot be too slow, otherwise the system will react to late to any angle variation. The rise time and setling time of the servomotors and rocket transfer function are described in \auto{tab:TableStepr}. The is then considered fast enough for the system, not interfering with the angle control process.
+The rise time and setling time of the sensors are an important feature when ensuring the stability of the rocket. It cannot be too slow, otherwise the system will react to late to any angle variation. The rise time and setling time of the servomotors and rocket transfer function are described in %\auto{tab:TableStepr}.
+ The process of the servomotors is then considered fast enough for the system, not interfering with the angle control process.
 
 The vibration of the rocket is a physical difficulty for the sensors as the measurements might be distorted. The placement and fixation must be carefully thought, as described in appendix \todo{appendix to do}.
 
