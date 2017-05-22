@@ -1,0 +1,1720 @@
+Model {
+  Name			  "ss_ulinsys_itae_sim_ikke_ramp"
+  Version		  5.0
+  SaveDefaultBlockParams  on
+  SampleTimeColors	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  off
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ExecutionOrder	  off
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  Created		  "Tue May 18 10:29:52 2004"
+  Creator		  "ubha02"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "mikkel"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Fri May 21 16:28:10 2004"
+  ModelVersionFormat	  "1.%<AutoIncrement:30>"
+  ConfigurationManager	  "None"
+  SimParamPage		  "Solver"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  ExtModeMexFile	  "ext_comm"
+  ExtModeBatchMode	  off
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock off
+  BufferReuse		  on
+  RTWExpressionDepthLimit 5
+  SimulationMode	  "normal"
+  Solver		  "ode4"
+  SolverMode		  "Auto"
+  StartTime		  "0.0"
+  StopTime		  "30"
+  MaxOrder		  5
+  MaxStep		  "auto"
+  MinStep		  "auto"
+  MaxNumMinSteps	  "-1"
+  InitialStep		  "auto"
+  FixedStep		  "auto"
+  RelTol		  "1e-3"
+  AbsTol		  "1e-6"
+  OutputOption		  "RefineOutputTimes"
+  OutputTimes		  "[]"
+  Refine		  "1"
+  LoadExternalInput	  off
+  ExternalInput		  "[t, u]"
+  LoadInitialState	  off
+  InitialState		  "xInitial"
+  SaveTime		  on
+  TimeSaveName		  "tout"
+  SaveState		  off
+  StateSaveName		  "xout"
+  SaveOutput		  on
+  OutputSaveName	  "yout"
+  SaveFinalState	  off
+  FinalStateName	  "xFinal"
+  SaveFormat		  "Array"
+  Decimation		  "1"
+  LimitDataPoints	  on
+  MaxDataPoints		  "1000"
+  SignalLoggingName	  "sigsOut"
+  ConsistencyChecking	  "none"
+  ArrayBoundsChecking	  "none"
+  AlgebraicLoopMsg	  "warning"
+  BlockPriorityViolationMsg "warning"
+  MinStepSizeMsg	  "warning"
+  InheritedTsInSrcMsg	  "warning"
+  DiscreteInheritContinuousMsg "warning"
+  MultiTaskRateTransMsg	  "error"
+  SingleTaskRateTransMsg  "none"
+  CheckForMatrixSingularity "none"
+  IntegerOverflowMsg	  "warning"
+  Int32ToFloatConvMsg	  "warning"
+  ParameterDowncastMsg	  "error"
+  ParameterOverflowMsg	  "error"
+  ParameterPrecisionLossMsg "warning"
+  UnderSpecifiedDataTypeMsg "none"
+  UnnecessaryDatatypeConvMsg "none"
+  VectorMatrixConversionMsg "none"
+  InvalidFcnCallConnMsg	  "error"
+  SignalLabelMismatchMsg  "none"
+  UnconnectedInputMsg	  "warning"
+  UnconnectedOutputMsg	  "warning"
+  UnconnectedLineMsg	  "warning"
+  SfunCompatibilityCheckMsg "none"
+  RTWInlineParameters	  off
+  BlockReductionOpt	  on
+  BooleanDataType	  on
+  ConditionallyExecuteInputs on
+  ParameterPooling	  on
+  OptimizeBlockIOStorage  on
+  ZeroCross		  on
+  AssertionControl	  "UseLocalSettings"
+  ProdHWDeviceType	  "Microprocessor"
+  ProdHWWordLengths	  "8,16,32,32"
+  RTWSystemTargetFile	  "grt.tlc"
+  RTWTemplateMakefile	  "grt_default_tmf"
+  RTWMakeCommand	  "make_rtw"
+  RTWGenerateCodeOnly	  off
+  RTWRetainRTWFile	  off
+  TLCProfiler		  off
+  TLCDebug		  off
+  TLCCoverage		  off
+  TLCAssertion		  off
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      DeadZone
+      LowerValue	      "-0.5"
+      UpperValue	      "0.5"
+      SaturateOnIntegerOverflow	on
+      LinearizeAsGain	      on
+      ZeroCross		      on
+    }
+    Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
+      BlockType		      Derivative
+    }
+    Block {
+      BlockType		      FromWorkspace
+      VariableName	      "simulink_input"
+      SampleTime	      "-1"
+      Interpolate	      on
+      OutputAfterFinalValue   "Extrapolation"
+    }
+    Block {
+      BlockType		      Gain
+      Gain		      "1"
+      Multiplication	      "Element-wise(K.*u)"
+      ShowAdditionalParam     off
+      ParameterDataTypeMode   "Same as input"
+      ParameterDataType	      "sfix(16)"
+      ParameterScalingMode    "Best Precision: Matrix-wise"
+      ParameterScaling	      "2^0"
+      OutDataTypeMode	      "Same as input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      ShowAdditionalParam     off
+      LatchInput	      off
+      DataType		      "auto"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Integrator
+      ExternalReset	      "none"
+      InitialConditionSource  "internal"
+      InitialCondition	      "0"
+      LimitOutput	      off
+      UpperSaturationLimit    "inf"
+      LowerSaturationLimit    "-inf"
+      ShowSaturationPort      off
+      ShowStatePort	      off
+      AbsoluteTolerance	      "auto"
+      ZeroCross		      on
+    }
+    Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Product
+      Inputs		      "2"
+      Multiplication	      "Element-wise(.*)"
+      ShowAdditionalParam     off
+      InputSameDT	      on
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+    }
+    Block {
+      BlockType		      Saturate
+      UpperLimit	      "0.5"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+    }
+    Block {
+      BlockType		      Scope
+      Floating		      off
+      ModelBased	      off
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitDataPoints	      on
+      MaxDataPoints	      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      on
+      Permissions	      "ReadWrite"
+      RTWSystemCode	      "Auto"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
+    Block {
+      BlockType		      Sum
+      IconShape		      "rectangular"
+      Inputs		      "++"
+      ShowAdditionalParam     off
+      InputSameDT	      on
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+    }
+    Block {
+      BlockType		      TransferFcn
+      Numerator		      "[1]"
+      Denominator	      "[1 2 1]"
+      AbsoluteTolerance	      "auto"
+      Realization	      "auto"
+    }
+    Block {
+      BlockType		      Trigonometry
+      Operator		      "sin"
+      OutputSignalType	      "auto"
+    }
+    Block {
+      BlockType		      UnitDelay
+      X0		      "0"
+      SampleTime	      "1"
+      RTWStateStorageClass    "Auto"
+    }
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  System {
+    Name		    "ss_ulinsys_itae_sim_ikke_ramp"
+    Location		    [2, 70, 1022, 720]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "rotated"
+    PaperPositionMode	    "auto"
+    PaperType		    "a4letter"
+    PaperUnits		    "inches"
+    ZoomFactor		    "100"
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      Gain
+      Name		      "-Kr4"
+      Position		      [600, 210, 630, 240]
+      Orientation	      "down"
+      Gain		      "loopsysd.a(2,1)-Lr*loopsysd.a(1,1)"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "-a+1"
+      Position		      [620, 110, 650, 140]
+      Orientation	      "down"
+      NamePlacement	      "alternate"
+      Gain		      "-a+1"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "1/-ab"
+      Position		      [465, 130, 495, 160]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+      Gain		      "1/(-a*b)"
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "H_A"
+      Ports		      [1, 1]
+      Position		      [325, 47, 430, 93]
+      TreatAsAtomicUnit	      off
+      System {
+	Name			"H_A"
+	Location		[-2, 74, 1010, 699]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "M. vinkelhast"
+	  Position		  [60, 198, 90, 212]
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator3"
+	  Ports			  [1, 1]
+	  Position		  [495, 190, 525, 220]
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "N1"
+	  Position		  [405, 190, 435, 220]
+	  Gain			  "1/37.04"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Armvinkel"
+	  Position		  [895, 193, 925, 207]
+	}
+	Line {
+	  SrcBlock		  "M. vinkelhast"
+	  SrcPort		  1
+	  DstBlock		  "N1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "N1"
+	  SrcPort		  1
+	  DstBlock		  "Integrator3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Integrator3"
+	  SrcPort		  1
+	  Points		  [350, 0]
+	  DstBlock		  "Armvinkel"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "H_FM"
+      Ports		      [1, 1]
+      Position		      [170, 46, 300, 94]
+      TreatAsAtomicUnit	      off
+      System {
+	Name			"H_FM"
+	Location		[-4, 29, 1008, 654]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "V_in"
+	  Position		  [15, 233, 45, 247]
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "1/J"
+	  Position		  [620, 226, 675, 254]
+	  Gain			  "1/0.00066"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Forst."
+	  Position		  [155, 225, 185, 255]
+	  Gain			  "1.31"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Gain2"
+	  Position		  [635, 165, 665, 195]
+	  Orientation		  "left"
+	  Gain			  "0.2933"
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator"
+	  Ports			  [1, 1]
+	  Position		  [695, 225, 725, 255]
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator3"
+	  Ports			  [1, 1]
+	  Position		  [850, 220, 880, 250]
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "K_e"
+	  Position		  [385, 360, 415, 390]
+	  Orientation		  "left"
+	  Gain			  "0.029"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "K_m"
+	  Position		  [455, 225, 485, 255]
+	  Gain			  "0.029"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "N1"
+	  Position		  [790, 220, 820, 250]
+	  Gain			  "1/37.04"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "R_a_1"
+	  Position		  [350, 225, 380, 255]
+	  Gain			  "1/1.8"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "R_a_1 og R_a_3"
+	  Position		  [350, 300, 380, 330]
+	  Gain			  "1/0.22"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "Saturation"
+	  Position		  [520, 315, 550, 345]
+	  UpperLimit		  "0.3712"
+	  LowerLimit		  "-0.3712"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [3, 1]
+	  Position		  [575, 230, 595, 250]
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "|++-"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum1"
+	  Ports			  [2, 1]
+	  Position		  [210, 230, 230, 250]
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "|+-"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum2"
+	  Ports			  [2, 1]
+	  Position		  [575, 290, 595, 310]
+	  Orientation		  "up"
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "|++"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum5"
+	  Ports			  [2, 1]
+	  Position		  [400, 230, 420, 250]
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "|++"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	}
+	Block {
+	  BlockType		  Trigonometry
+	  Name			  "Trigonometric\nFunction"
+	  Ports			  [1, 1]
+	  Position		  [780, 165, 810, 195]
+	  Orientation		  "left"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Viskos friktion"
+	  Position		  [630, 289, 690, 321]
+	  Orientation		  "left"
+	  Gain			  "0.0009"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "la1"
+	  Position		  [705, 165, 735, 195]
+	  Orientation		  "left"
+	  Gain			  "0.3/2"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "mætning_V"
+	  Position		  [95, 225, 125, 255]
+	  UpperLimit		  "5"
+	  LowerLimit		  "-5"
+	}
+	Block {
+	  BlockType		  DeadZone
+	  Name			  "sektion 1og 3"
+	  Position		  [260, 300, 290, 330]
+	  LowerValue		  "-1"
+	  UpperValue		  "1"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "sektion 2"
+	  Position		  [260, 225, 290, 255]
+	  UpperLimit		  "1"
+	  LowerLimit		  "-1"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Motor vinkelhast. ud"
+	  Position		  [940, 313, 970, 327]
+	}
+	Line {
+	  SrcBlock		  "V_in"
+	  SrcPort		  1
+	  DstBlock		  "mætning_V"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Forst."
+	  SrcPort		  1
+	  DstBlock		  "Sum1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "mætning_V"
+	  SrcPort		  1
+	  DstBlock		  "Forst."
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "1/J"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "1/J"
+	  SrcPort		  1
+	  DstBlock		  "Integrator"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Integrator"
+	  SrcPort		  1
+	  Points		  [0, -5; 5, 0]
+	  Branch {
+	    Points		    [0, 70]
+	    DstBlock		    "Viskos friktion"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [25, 0]
+	    Branch {
+	      DstBlock		      "N1"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, 85]
+	      Branch {
+		Points			[0, 55]
+		DstBlock		"K_e"
+		DstPort			1
+	      }
+	      Branch {
+		DstBlock		"Motor vinkelhast. ud"
+		DstPort			1
+	      }
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "sektion 1og 3"
+	  SrcPort		  1
+	  DstBlock		  "R_a_1 og R_a_3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "R_a_1"
+	  SrcPort		  1
+	  DstBlock		  "Sum5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "R_a_1 og R_a_3"
+	  SrcPort		  1
+	  Points		  [25, 0]
+	  DstBlock		  "Sum5"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Sum5"
+	  SrcPort		  1
+	  DstBlock		  "K_m"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "sektion 2"
+	  SrcPort		  1
+	  DstBlock		  "R_a_1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum1"
+	  SrcPort		  1
+	  Points		  [0, 0; 10, 0]
+	  Branch {
+	    DstBlock		    "sektion 2"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "sektion 1og 3"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "K_e"
+	  SrcPort		  1
+	  Points		  [-160, 0]
+	  DstBlock		  "Sum1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "N1"
+	  SrcPort		  1
+	  DstBlock		  "Integrator3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "la1"
+	  SrcPort		  1
+	  DstBlock		  "Gain2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Gain2"
+	  SrcPort		  1
+	  Points		  [-66, 0]
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "K_m"
+	  SrcPort		  1
+	  Points		  [0, 0; 5, 0]
+	  Branch {
+	    Points		    [30, 0; 0, 12]
+	    DstBlock		    "Sum"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, 90]
+	    DstBlock		    "Saturation"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Sum2"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Viskos friktion"
+	  SrcPort		  1
+	  Points		  [-5, 0; 0, -5]
+	  DstBlock		  "Sum2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Saturation"
+	  SrcPort		  1
+	  Points		  [30, 0]
+	  DstBlock		  "Sum2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Integrator3"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -55]
+	  DstBlock		  "Trigonometric\nFunction"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Trigonometric\nFunction"
+	  SrcPort		  1
+	  DstBlock		  "la1"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Kr2"
+      Position		      [650, 170, 680, 200]
+      Orientation	      "down"
+      NamePlacement	      "alternate"
+      Gain		      "loopsysd.b(2)-Lr*loopsysd.b(1)"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Kr3"
+      Position		      [485, 315, 515, 345]
+      NamePlacement	      "alternate"
+      Gain		      "(loopsysd.a(2,2)-Lr*loopsysd.a(1,2))"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Lr"
+      Position		      [435, 200, 465, 230]
+      Orientation	      "down"
+      Gain		      "Lr"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "Matrix\nGain\n"
+      Position		      [160, 275, 190, 305]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+      Gain		      "K_itae_d"
+      Multiplication	      "Matrix(K*u)"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux"
+      Ports		      [4, 1]
+      Position		      [245, 255, 270, 320]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+      ShowName		      off
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Pindvinkel [rad]"
+      Ports		      [1]
+      Position		      [245, 195, 275, 225]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+      Location		      [5, 53, 1029, 743]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		SelectedSignals
+	axes1			""
+      }
+      SaveToWorkspace	      on
+      SaveName		      "pindvinkel"
+      DataFormat	      "Array"
+      LimitDataPoints	      off
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Støj"
+      Tag		      "STV Subsys"
+      Ports		      [0, 1]
+      Position		      [125, 125, 185, 165]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+      CopyFcn		      "sigbuilder_block('copy');"
+      DeleteFcn		      "sigbuilder_block('delete');"
+      ModelCloseFcn	      "sigbuilder_block('modelClose');"
+      PreSaveFcn	      "sigbuilder_block('preSave');"
+      StartFcn		      "sigbuilder_block('start');"
+      StopFcn		      "sigbuilder_block('stop');"
+      NameChangeFcn	      "sigbuilder_block('namechange');"
+      ClipboardFcn	      "sigbuilder_block('clipboard');"
+      OpenFcn		      "sigbuilder_block('open',[50 50 520 400 ]);"
+      CloseFcn		      "sigbuilder_block('close');"
+      TreatAsAtomicUnit	      off
+      MaskType		      "Sigbuilder block"
+      MaskDescription	      "Sigbuilder GUI"
+      MaskInitialization      "if ~strcmp(get_param(bdroot,'SimulationStatus')"
+",'stopped') tuvar = sigbuilder_block('maskInit'); end"
+      MaskDisplay	      "plot(0,0,100,100,[10,10,40,40,10],[80,20,20,80,"
+"80],[40,10],[50,50], [40,27,10],[65,72,56],[40,25,25,10],[28,28,43,43]);"
+      MaskIconFrame	      on
+      MaskIconOpaque	      off
+      MaskIconRotate	      "port"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Støj"
+	Location		[480, 85, 980, 386]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Tag			  "STV Demux"
+	  Ports			  [1, 1]
+	  Position		  [150, 38, 160, 612]
+	  Outputs		  "1"
+	}
+	Block {
+	  BlockType		  FromWorkspace
+	  Name			  "FromWs"
+	  Tag			  "STV FromWs"
+	  Position		  [30, 300, 115, 350]
+	  VariableName		  "tuvar"
+	  SampleTime		  "0"
+	  SigBuilderData	  "DataTag0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Signal 3"
+	  Tag			  "STV Outport"
+	  Position		  [280, 30, 300, 40]
+	}
+	Line {
+	  SrcBlock		  "FromWs"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  DstBlock		  "Signal 3"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Subsystem"
+      Ports		      [1, 2]
+      Position		      [460, 49, 560, 91]
+      TreatAsAtomicUnit	      off
+      System {
+	Name			"Subsystem"
+	Location		[48, 170, 984, 580]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "armvinkel"
+	  Position		  [15, 28, 45, 42]
+	}
+	Block {
+	  BlockType		  Trigonometry
+	  Name			  "\n"
+	  Ports			  [1, 1]
+	  Position		  [250, 130, 280, 160]
+	  Orientation		  "up"
+	  NamePlacement		  "alternate"
+	  Operator		  "cos"
+	  OutputSignalType	  "real"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "\n\n"
+	  Ports			  [2, 1]
+	  Position		  [139, 75, 186, 110]
+	  Orientation		  "down"
+	  NamePlacement		  "alternate"
+	  InputSameDT		  off
+	}
+	Block {
+	  BlockType		  Trigonometry
+	  Name			  "\n\n\n\n"
+	  Ports			  [1, 1]
+	  Position		  [575, 105, 605, 135]
+	  Orientation		  "left"
+	  OutputSignalType	  "real"
+	}
+	Block {
+	  BlockType		  TransferFcn
+	  Name			  "\n\n\n\n\n\n"
+	  Position		  [500, 27, 560, 63]
+	  Denominator		  "[-1/3*1.1771]"
+	  Port {
+	    PortNumber		    1
+	    Name		    "T_p pp"
+	    TestPoint		    off
+	    LinearAnalysisOutput    off
+	    LinearAnalysisInput	    off
+	    RTWStorageClass	    "Auto"
+	    DataLogging		    off
+	    DataLoggingNameMode	    "SignalName"
+	    DataLoggingDecimateData off
+	    DataLoggingDecimation   "2"
+	    DataLoggingLimitDataPoints off
+	    DataLoggingMaxPoints    "5000"
+	  }
+	}
+	Block {
+	  BlockType		  TransferFcn
+	  Name			  "\n\n\n\n\n\n\n\n"
+	  Position		  [385, 27, 445, 63]
+	  Numerator		  "[0.2858]"
+	  Denominator		  "[1]"
+	}
+	Block {
+	  BlockType		  Trigonometry
+	  Name			  "\n1"
+	  Ports			  [1, 1]
+	  Position		  [350, 125, 380, 155]
+	  Orientation		  "up"
+	  ShowName		  off
+	  OutputSignalType	  "real"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "\n2"
+	  Ports			  [2, 1]
+	  Position		  [329, 70, 376, 105]
+	  Orientation		  "up"
+	  ShowName		  off
+	  InputSameDT		  off
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "\n3"
+	  Ports			  [2, 1]
+	  Position		  [280, 26, 325, 59]
+	  ShowName		  off
+	  InputSameDT		  off
+	}
+	Block {
+	  BlockType		  Derivative
+	  Name			  "Diferentiator"
+	  Position		  [100, 20, 130, 50]
+	  Port {
+	    PortNumber		    1
+	    Name		    "T_a p"
+	    TestPoint		    off
+	    LinearAnalysisOutput    off
+	    LinearAnalysisInput	    off
+	    RTWStorageClass	    "Auto"
+	    DataLogging		    off
+	    DataLoggingNameMode	    "SignalName"
+	    DataLoggingDecimateData off
+	    DataLoggingDecimation   "2"
+	    DataLoggingLimitDataPoints off
+	    DataLoggingMaxPoints    "5000"
+	  }
+	}
+	Block {
+	  BlockType		  Derivative
+	  Name			  "Diferentiator1"
+	  Position		  [200, 20, 230, 50]
+	  Port {
+	    PortNumber		    1
+	    Name		    "T_a pp"
+	    TestPoint		    off
+	    LinearAnalysisOutput    off
+	    LinearAnalysisInput	    off
+	    RTWStorageClass	    "Auto"
+	    DataLogging		    off
+	    DataLoggingNameMode	    "SignalName"
+	    DataLoggingDecimateData off
+	    DataLoggingDecimation   "2"
+	    DataLoggingLimitDataPoints off
+	    DataLoggingMaxPoints    "5000"
+	  }
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator"
+	  Ports			  [1, 1]
+	  Position		  [605, 30, 635, 60]
+	  Port {
+	    PortNumber		    1
+	    Name		    "T_p p"
+	    TestPoint		    off
+	    LinearAnalysisOutput    off
+	    LinearAnalysisInput	    off
+	    RTWStorageClass	    "Auto"
+	    DataLogging		    off
+	    DataLoggingNameMode	    "SignalName"
+	    DataLoggingDecimateData off
+	    DataLoggingDecimation   "2"
+	    DataLoggingLimitDataPoints off
+	    DataLoggingMaxPoints    "5000"
+	  }
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator1"
+	  Ports			  [1, 1]
+	  Position		  [680, 30, 710, 60]
+	  Port {
+	    PortNumber		    1
+	    Name		    "T_p"
+	    TestPoint		    off
+	    LinearAnalysisOutput    off
+	    LinearAnalysisInput	    off
+	    RTWStorageClass	    "Auto"
+	    DataLogging		    off
+	    DataLoggingNameMode	    "SignalName"
+	    DataLoggingDecimateData off
+	    DataLoggingDecimation   "2"
+	    DataLoggingLimitDataPoints off
+	    DataLoggingMaxPoints    "5000"
+	  }
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [2, 1]
+	  Position		  [465, 35, 485, 55]
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "|+-"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum1"
+	  Ports			  [2, 1]
+	  Position		  [805, 255, 825, 275]
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "+-"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum2"
+	  Ports			  [2, 1]
+	  Position		  [345, 35, 365, 55]
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "|++"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum3"
+	  Ports			  [2, 1]
+	  Position		  [310, 185, 330, 205]
+	  Orientation		  "up"
+	  NamePlacement		  "alternate"
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "-+"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	}
+	Block {
+	  BlockType		  TransferFcn
+	  Name			  "Transfer Fcn"
+	  Position		  [490, 102, 550, 138]
+	  Orientation		  "left"
+	  Numerator		  "[9.82]"
+	  Denominator		  "[1]"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Pind_arm_out"
+	  Position		  [855, 258, 885, 272]
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Pind"
+	  Position		  [865, 38, 895, 52]
+	  Port			  "2"
+	}
+	Line {
+	  Name			  "T_a p"
+	  SrcBlock		  "Diferentiator"
+	  SrcPort		  1
+	  Points		  [0, 0; 15, 0]
+	  Branch {
+	    Labels		    [1, 0]
+	    Points		    [25, 0]
+	    Branch {
+	      DstBlock		      "Diferentiator1"
+	      DstPort		      1
+	    }
+	    Branch {
+	      DstBlock		      "\n\n"
+	      DstPort		      2
+	    }
+	  }
+	  Branch {
+	    DstBlock		    "\n\n"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  Name			  "T_a pp"
+	  Labels		  [0, 1]
+	  SrcBlock		  "Diferentiator1"
+	  SrcPort		  1
+	  DstBlock		  "\n3"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "T_p p"
+	  Labels		  [1, 0]
+	  SrcBlock		  "Integrator"
+	  SrcPort		  1
+	  DstBlock		  "Integrator1"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "T_p pp"
+	  Labels		  [1, 0]
+	  SrcBlock		  "\n\n\n\n\n\n"
+	  SrcPort		  1
+	  DstBlock		  "Integrator"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "T_p"
+	  Labels		  [1, 0]
+	  SrcBlock		  "Integrator1"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, 75]
+	    Branch {
+	      DstBlock		      "\n\n\n\n"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, 75]
+	      DstBlock		      "Sum3"
+	      DstPort		      2
+	    }
+	  }
+	  Branch {
+	    Points		    [80, 0]
+	    Branch {
+	      DstBlock		      "Sum1"
+	      DstPort		      1
+	    }
+	    Branch {
+	      DstBlock		      "Pind"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "\n\n\n\n"
+	  SrcPort		  1
+	  DstBlock		  "Transfer Fcn"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "\n\n\n\n\n\n\n\n"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "\n\n\n\n\n\n"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "\n"
+	  SrcPort		  1
+	  DstBlock		  "\n3"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Sum2"
+	  SrcPort		  1
+	  DstBlock		  "\n\n\n\n\n\n\n\n"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "\n3"
+	  SrcPort		  1
+	  DstBlock		  "Sum2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "\n\n"
+	  SrcPort		  1
+	  Points		  [0, 5]
+	  DstBlock		  "\n2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "\n1"
+	  SrcPort		  1
+	  DstBlock		  "\n2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "\n2"
+	  SrcPort		  1
+	  DstBlock		  "Sum2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Sum3"
+	  SrcPort		  1
+	  Points		  [0, 0; 0, -5]
+	  Branch {
+	    Points		    [45, 0]
+	    DstBlock		    "\n1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "\n"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "armvinkel"
+	  SrcPort		  1
+	  Points		  [5, 0]
+	  Branch {
+	    Points		    [20, 0]
+	    Branch {
+	      DstBlock		      "Diferentiator"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, 160]
+	      DstBlock		      "Sum3"
+	      DstPort		      1
+	    }
+	  }
+	  Branch {
+	    Points		    [0, 255]
+	    DstBlock		    "Sum1"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "Transfer Fcn"
+	  SrcPort		  1
+	  Points		  [-10, 0]
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Sum1"
+	  SrcPort		  1
+	  DstBlock		  "Pind_arm_out"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum"
+      Ports		      [3, 1]
+      Position		      [570, 249, 595, 281]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+      ShowName		      off
+      Inputs		      "+++"
+      InputSameDT	      off
+      OutDataTypeMode	      "Inherit via internal rule"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum1"
+      Ports		      [2, 1]
+      Position		      [105, 50, 145, 85]
+      ShowName		      off
+      Inputs		      "+-"
+      InputSameDT	      off
+      OutDataTypeMode	      "Inherit via internal rule"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum2"
+      Ports		      [2, 1]
+      Position		      [445, 290, 465, 315]
+      Orientation	      "down"
+      NamePlacement	      "alternate"
+      ShowName		      off
+      InputSameDT	      off
+      OutDataTypeMode	      "Inherit via internal rule"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum3"
+      Ports		      [2, 1]
+      Position		      [545, 126, 570, 159]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+      ShowName		      off
+      InputSameDT	      off
+      OutDataTypeMode	      "Inherit via internal rule"
+    }
+    Block {
+      BlockType		      UnitDelay
+      Name		      "Unit Delay"
+      Position		      [495, 245, 535, 285]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+      SampleTime	      "Ts"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "armvinkel [rad]1"
+      Ports		      [1]
+      Position		      [245, 135, 275, 165]
+      Orientation	      "left"
+      NamePlacement	      "alternate"
+      Location		      [5, 53, 1027, 743]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		SelectedSignals
+	axes1			""
+      }
+      SaveToWorkspace	      on
+      SaveName		      "armvinkel"
+      DataFormat	      "Array"
+      LimitDataPoints	      off
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "styrespænding"
+      Ports		      [1]
+      Position		      [120, 205, 150, 235]
+      NamePlacement	      "alternate"
+      Location		      [5, 53, 1029, 743]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		SelectedSignals
+	axes1			""
+      }
+      TimeRange		      "30"
+      SaveToWorkspace	      on
+      SaveName		      "styrespaending"
+      DataFormat	      "Array"
+      LimitDataPoints	      off
+    }
+    Line {
+      SrcBlock		      "H_FM"
+      SrcPort		      1
+      Points		      [0, 0; 5, 0]
+      Branch {
+	DstBlock		"H_A"
+	DstPort			1
+      }
+      Branch {
+	Labels			[2, 0]
+	Points			[0, 195]
+	DstBlock		"Mux"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "H_A"
+      SrcPort		      1
+      Points		      [0, 0; 5, 0]
+      Branch {
+	Points			[0, 35; -45, 0; 0, 45]
+	DstBlock		"armvinkel [rad]1"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -25; 195, 0; 0, 25]
+	Branch {
+	  DstBlock		  "-a+1"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [30, 0]
+	  Branch {
+	    DstBlock		    "Kr2"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [20, 0; 0, 285; -345, 0; 0, -75]
+	    DstBlock		    "Mux"
+	    DstPort		    2
+	  }
+	}
+      }
+      Branch {
+	DstBlock		"Subsystem"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Subsystem"
+      SrcPort		      1
+      Points		      [20, 0]
+      DstBlock		      "Sum3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum3"
+      SrcPort		      1
+      DstBlock		      "1/-ab"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "1/-ab"
+      SrcPort		      1
+      Points		      [-35, 0; 0, 30]
+      Branch {
+	Points			[25, 0]
+	Branch {
+	  Points		  [0, 0]
+	  DstBlock		  "Lr"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [165, 0]
+	  DstBlock		  "-Kr4"
+	  DstPort		  1
+	}
+      }
+      Branch {
+	Points			[0, 135]
+	DstBlock		"Mux"
+	DstPort			4
+      }
+    }
+    Line {
+      SrcBlock		      "-a+1"
+      SrcPort		      1
+      Points		      [0, 5]
+      DstBlock		      "Sum3"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Matrix\nGain\n"
+      SrcPort		      1
+      Points		      [-65, 0; 0, -70]
+      Branch {
+	DstBlock		"Sum1"
+	DstPort			2
+      }
+      Branch {
+	DstBlock		"styrespænding"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Sum"
+      SrcPort		      1
+      DstBlock		      "Unit Delay"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Unit Delay"
+      SrcPort		      1
+      Points		      [0, 10]
+      DstBlock		      "Sum2"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Lr"
+      SrcPort		      1
+      DstBlock		      "Sum2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Kr3"
+      SrcPort		      1
+      Points		      [95, 0; 0, -55]
+      DstBlock		      "Sum"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Kr2"
+      SrcPort		      1
+      Points		      [0, 60]
+      DstBlock		      "Sum"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "-Kr4"
+      SrcPort		      1
+      Points		      [0, 10]
+      DstBlock		      "Sum"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum2"
+      SrcPort		      1
+      Points		      [0, 0; 0, 10]
+      Branch {
+	DstBlock		"Kr3"
+	DstPort			1
+      }
+      Branch {
+	Points			[-170, 0]
+	DstBlock		"Mux"
+	DstPort			3
+      }
+    }
+    Line {
+      SrcBlock		      "Subsystem"
+      SrcPort		      2
+      Points		      [0, 35; -155, 0; 0, 95]
+      DstBlock		      "Pindvinkel [rad]"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Mux"
+      SrcPort		      1
+      DstBlock		      "Matrix\nGain\n"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sum1"
+      SrcPort		      1
+      DstBlock		      "H_FM"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Støj"
+      SrcPort		      1
+      Points		      [-45, 0; 0, -85]
+      DstBlock		      "Sum1"
+      DstPort		      1
+    }
+    Annotation {
+      Name		      "x4"
+      Position		      [409, 296]
+    }
+    Annotation {
+      Name		      "x3"
+      Position		      [424, 342]
+    }
+    Annotation {
+      Name		      "x2"
+      Position		      [297, 343]
+    }
+    Annotation {
+      Name		      "x1"
+      Position		      [296, 252]
+    }
+  }
+}
+MatData {
+  NumRecords		  1
+  DataRecord {
+    Tag			    DataTag0
+    Data		    "  %)30     .    , H   8    (     @         %    "
+"\"     $    !     0         %  0 #     $   !(    9W)I9%-E='1I;F< 8VAA;FYE;', "
+"    87AE<P          8V]M;6]N        9&%T85-E=       9&%T85-E=$ED>   #@   #@  "
+"  &    \"     0         !0    @    !     P    $         !     8   !O &8 9@   "
+" X   # !   !@    @    \"          4    (     0    $    !          4 !  *     "
+"0   ((   !X1&%T80      >41A=&$      '-T97!8      !S=&5P60      >4UI;@       '"
+"E-87@       !C;VQO<@      ;&EN95-T>6QE &QI;F57:61T: !L86)E;       ;W5T26YD97@"
+"  &%L;%A$871A  !A;&Q91&%T80          #@   %     &    \"     8         !0    @"
+"    !    !     $         \"0   \"               +H>A>M1N*X_NAZ%ZU&XKC\\      "
+"  ^0 X   !0    !@    @    &          4    (     0    0    !          D    @  "
+"  *ER/PO4H%D J7(_\"]2@60                      .    .     8    (    !@        "
+" %    \"     $    !     0         )    \"               #@   #@    &    \"   "
+"  8         !0    @    !     0    $         \"0    @               X    P    "
+"!@    @    &          4    (               !          D         #@   #     & "
+"   \"     8         !0    @               $         \"0         .    2     8 "
+"   (    !@         %    \"     $    #     0         )    &    -B!<T:4]N8_    "
+"      #8@7-&E/;F/PX    P    !@    @    $          4    (     0    $    !     "
+"     0  @ M    #@   #@    &    \"     8         !0    @    !     0    $      "
+"   \"0    @           #X/PX   !     !@    @    $          4    (     0    @  "
+"  !          0    0    4P!I &< ;@!A &P (  S  X    X    !@    @    &          "
+"4    (     0    $    !          D    (            \\#\\.    @     8    (     "
+"0         %    \"     $    !     0         .    4     8    (    !@         % "
+"   \"     $    $     0         )    (               NAZ%ZU&XKC^Z'H7K4;BN/P   "
+"    #Y #@   (     &    \"     $         !0    @    !     0    $         #@   "
+"%     &    \"     8         !0    @    !    !     $         \"0   \"     J7(_"
+"\"]2@60\"I<C\\+U*!9                       X   \"P 0  !@    @    \"          4"
+"    (     0    $    !          4 !  +     0   #<   !C:&%N;F5L<P   'E,:6T     "
+"    ;&%B96Q0;W,   !L86)E;$@      &QA8F5L4&%T8V@   X    X    !@    @    &     "
+"     4    (     0    $    !          D    (            \\#\\.    0     8    ("
+"    !@         %    \"     $    \"     0         )    $    .:TM#=B8/\"_]$WKQ%"
+"(Y%T .    ,     8    (    !          %    \"     $    \"     0         $  0 5"
+" !,  X    X    !@    @    &          4    (     0    $    !          D    (  "
+"      0 -@@4 .    .     8    (    !@         %    \"     $    !     0        "
+" )    \"        $ #6(% #@   &@!   &    \"     (         !0    @    !     0   "
+" $         !0 $  D    !    )    &1I<W!4:6UE &1I<W!-;V1E &UI;E1I;64  &UA>%1I;6"
+"4        .    0     8    (    !@         %    \"     $    \"     0         ) "
+"   $               U'RMGAV\"%4 .    .     8    (    !@         %    \"     $ "
+"   !     0         )    \"            / _#@   #@    &    \"     8         !0 "
+"   @    !     0    $         \"0    @               X    X    !@    @    &   "
+"       4    (     0    $    !          D    (            /D .    . $   8    ("
+"     @         %    \"     $    !     0         %  0 #@    $    J    86-T:79E"
+"1&ES<$ED> !T:6UE4F%N9V4      &YA;64                     #@   #@    &    \"   "
+"  8         !0    @    !     0    $         \"0    @           #P/PX   !     "
+"!@    @    &          4    (     0    (    !          D    0                 "
+"      ^0 X   !     !@    @    $          4    (     0    <    !          0   "
+" .    1P!R &\\ =0!P \"  ,0    X    X    !@    @    &          4    (     0   "
+" $    !          D    (            \\#\\"
+  }
+}

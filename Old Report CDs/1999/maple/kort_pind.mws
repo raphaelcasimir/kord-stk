@@ -1,0 +1,65 @@
+{VERSION 2 3 "SUN SPARC SOLARIS" "2.3" }
+{USTYLETAB {CSTYLE "Maple Input" -1 0 "Courier" 0 1 255 0 0 1 0 1 0 0 
+1 0 0 0 0 }{CSTYLE "2D Math" -1 2 "Times" 0 1 0 0 0 0 0 0 2 0 0 0 0 0 
+0 }{CSTYLE "2D Output" 2 20 "" 0 1 0 0 255 1 0 0 0 0 0 0 0 0 0 }
+{PSTYLE "Normal" -1 0 1 {CSTYLE "" -1 -1 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 
+0 0 }0 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }{PSTYLE "Maple Output" 0 11 1 
+{CSTYLE "" -1 -1 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 }3 3 0 -1 -1 -1 0 0 
+0 0 0 0 -1 0 }{PSTYLE "" 11 12 1 {CSTYLE "" -1 -1 "" 0 1 0 0 0 0 0 0 
+0 0 0 0 0 0 0 }1 0 0 -1 -1 -1 0 0 0 0 0 0 -1 0 }}
+{SECT 0 {EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 8 "restart;" }}}{EXCHG 
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 21 "read `kort_pind.map`;" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "6#%9Model~for~den~korte~pindG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%+Position~xG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%\"xG
+,&*&-%$cosG6#,&%#piG#\"\"\"\"\"#-%#taG6#%\"tG!\"\"F-%#daGF-F-*&-F(6#,&
+F+F,-%$tapGF1F3F-%#dpGF-F," }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%-Hastig
+hed~dxG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%#dxG,&*(-%$sinG6#,&%#piG#
+\"\"\"\"\"#-%#taG6#%\"tG!\"\"F--%%diffG6$F/F2F-%#daGF-F-*(-F(6#,&F+F,-
+%$tapGF1F3F--F56$F<F2F-%#dpGF-F," }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%1
+Acceleration~ddxG" }}{PARA 12 "" 1 "" {XPPMATH 20 "6#>%$ddxG,**(-%$cos
+G6#,&%#piG#\"\"\"\"\"#-%#taG6#%\"tG!\"\"F--%%diffG6$F/F2F.%#daGF-F3*(-
+%$sinGF)F--F56$F4F2F-F7F-F-*(-F(6#,&F+F,-%$tapGF1F3F--F56$FAF2F.%#dpGF
+-#F3F.*(-F:F?F--F56$FCF2F-FEF-F," }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%L
+Omskriver~ddx~til~mtaylor~funktionen~(ddx2)G" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#>%%ddx2G,**(-%$cosG6#,&%#piG#\"\"\"\"\"#%#taG!\"\"F-%$d
+taGF.%#daGF-F0*(-%$sinGF)F-%%ddtaGF-F2F-F-*(-F(6#,&F+F,%$tapGF0F-%%dta
+pGF.%#dpGF-#F0F.*(-F5F9F-%&ddtapGF-F=F-F," }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%6Linearisering~af~ddx2G" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#>%(ddx_linG,&*&%&ddtapG\"\"\"%#dpGF(#F(\"\"#*&%%ddtaGF(%#daGF(F(
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%+Position~yG" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#>%\"yG,&*&-%$sinG6#,&%#piG#\"\"\"\"\"#-%#taG6#%\"tG!\"
+\"F-%#daGF-F-*&-F(6#,&F+F,-%$tapGF1F3F-%#dpGF-F," }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%-Hastighed~dyG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%#d
+yG,&*(-%$cosG6#,&%#piG#\"\"\"\"\"#-%#taG6#%\"tG!\"\"F--%%diffG6$F/F2F-
+%#daGF-F3*(-F(6#,&F+F,-%$tapGF1F3F--F56$F<F2F-%#dpGF-#F3F." }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#%1Acceleration~ddyG" }}{PARA 12 "" 1 "" 
+{XPPMATH 20 "6#>%$ddyG,**(-%$sinG6#,&%#piG#\"\"\"\"\"#-%#taG6#%\"tG!\"
+\"F--%%diffG6$F/F2F.%#daGF-F3*(-%$cosGF)F--F56$F4F2F-F7F-F3*(-F(6#,&F+
+F,-%$tapGF1F3F--F56$FAF2F.%#dpGF-#F3F.*(-F:F?F--F56$FCF2F-FEF-FF" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#%LOmskriver~ddy~til~mtaylor~funktionen
+~(ddy2)G" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%%ddy2G,**(-%$sinG6#,&%#p
+iG#\"\"\"\"\"#%#taG!\"\"F-%$dtaGF.%#daGF-F0*(-%$cosGF)F-%%ddtaGF-F2F-F
+0*(-F(6#,&F+F,%$tapGF0F-%%dtapGF.%#dpGF-#F0F.*(-F5F9F-%&ddtapGF-F=F-F>
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%6Linearisering~af~ddy2G" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#>%(ddy_linG\"\"!" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#%,KraftmomentG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%'mo
+mentG,$*&%#dpG\"\"\",&*&%#FxGF(-%$cosG6#%$tapGF(!\"\"*&%#FyGF(-F-6#,&%
+#piG#F(\"\"#F/F(F(F0F(F7" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%=Linearis
+ering~af~kraftmomentG" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%(moment2G,&
+*&%#dpG\"\"\"%#FxGF(#!\"\"\"\"#*(F'F(%#FyGF(%$tapGF(#F(F," }}{PARA 11 
+"" 1 "" {XPPMATH 20 "6#%7Inds|ayttelse~af~krafterG" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#>%#FxG*&%#MpG\"\"\",&*&%&ddtapGF'%#dpGF'#F'\"\"#*&%%d
+dtaGF'%#daGF'F'F'" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%#FyG*&%#MpG\"\"
+\"%\"gGF'" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%(LigningG" }}{PARA 11 "
+" 1 "" {XPPMATH 20 "6#/*&%#JpG\"\"\"%&ddtapGF&,&*(%#dpGF&%#MpGF&,&*&F'
+F&F*F&#F&\"\"#*&%%ddtaGF&%#daGF&F&F&#!\"\"F/**F*F&F+F&%\"gGF&%$tapGF&F
+." }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%2Transfer~functionG" }}{PARA 11 
+"" 1 "" {XPPMATH 20 "6#/*&%$tapG\"\"\"%#taG!\"\",$*,%#dpGF&%#MpGF&%\"s
+G\"\"#%#daGF&,(*&%#JpGF&F-F.\"\"%*(F+F&F,F&%\"gGF&!\"#*(F-F.F+F.F,F&F&
+F(F6" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%/Pindens~l|ayngdeG" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#>%#MpG\"\"&" }}{PARA 11 "" 1 "" {XPPMATH 20 
+"6#>%#dpG$\"\"&!\"\"" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#%,With~valuesG
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&%$tapG\"\"\"%#taG!\"\",$*&%\"sG
+\"\"#,&*$F+F,F&$!+*****H%H!\")F&F($!+)****4v)!#5" }}}{EXCHG {PARA 0 ">
+ " 0 "" {MPLTEXT 1 0 0 "" }}}}{MARK "2 0 0" 0 }{VIEWOPTS 1 1 0 1 1 
+1803 }
