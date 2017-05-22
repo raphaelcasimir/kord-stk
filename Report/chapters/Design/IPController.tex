@@ -2,7 +2,7 @@
 \chapter{Design of the Inverted Pendulum Controller}\label{sec:IPController}
 \todo[inline,author=Jacob]{Start with a blockdiagram that has the actual transfer functions.}
 
-The goal of the controller is to balance the stick in an upright position. The system is seen as a block diagram on \autoref{BlockSystemNoControl}.
+The goal of the controller is to balance the stick in an upright position. The system is seen as a block diagram on \autoref{BlockSystemNoControl}. Which gives the transfer function seen in \autoref{eq:CombModel}
 \begin{figure}[htbp]
 \centering
 \missingfigure{}
@@ -51,7 +51,16 @@ The controller can be simplified by using cascade control. This means two contro
 \label{fig:IPCascade}
 \end{figure}
 
-If the inner loop is fast enough compared to the outer loop, it is negligible to the outer loop controller. This means the root locus of the can be split into two separate systems with a respective controller that needs to be designed. The root locus of the two subsystems is seen on \autoref{fig:locusSplit}.
+If the inner loop is fast enough compared to the outer loop, it is negligible to the outer loop controller. This means the root locus of the can be split into two separate systems with a respective controller that needs to be designed. These two new loops which will be now referred as respectively inner loop and outer loop have their transfer function define in \autoref{eq:InnerOuterTF}.
+
+\begin{subequations}\label{eq:InnerOuterTF}
+	\begin{flalign}
+		\frac{\Theta_a}{U}&=\\
+		\frac{\Theta_s}{\Theta_a}&=
+	\end{flalign}
+\end{subequations}
+
+The root locus of the two subsystems is seen on \autoref{fig:locusSplit}.
 \begin{figure}[htbp]
 \centering
 	\begin{subfigure}{0.45\textwidth}
@@ -99,7 +108,7 @@ The first loop wich will be designed will be the motor loop as it is the most in
 Now the arm's loop will be designed. The motor loop part has a settling time of \SI{0.0159}{\second}, so the settling time of the arm's loop has to be at least \SI{0.159}{\second} in order to make the assumption that the motor's loop transfer function is equal to 1 for the arm's loop. The new transfer function derived from this approximation is \autoref{eq:WArmLoop}.
 
 \begin{equation}\label{eq:WArmLoop}
-	\frac{\Theta_a}{\Omega_m}=\frac{0.027}{s}
+	\frac{\Theta_a}{\Omega_m}=\frac{N^3}{s}
 \end{equation}
 
 The root locus of \autoref{eq:WArmLoop}, in \autoref{fig:WArmLoopRLocus}, shows that there is theoretically no gain limitation for the arm as the pole moves to the left side plan making the system stable, as long as the gain is high enough. The pole is also always on the real axis which means there will be no overshoot no matter the gain.
