@@ -1,15 +1,6 @@
 \subsection{Design of the Motor Loop Controller}\label{sec:MotorLoop}
 
-The very first loop control is the one adjusting the motor velocity, $\omega_m$, according to the voltage. The loop is seen as a block diagram on \autoref{fig:BlockMotorLoop}.
-
-\begin{figure} [htbp]
-	%\hspace*{-3.5cm}
-	\centering
-	\includegraphics[width=\textwidth]{figures/FigureIsComing}
-	\caption{Block diagram of the input/output of the motor loop.}
-\end{figure}
-
-The transfer function from $U_m$ to $\omega_{m}$ is taken from \autoref{sec:ModelDCMotor}. \autoref{eq:DCModelNoL} is used with the values for each of its variables: 
+The very first loop control is the one adjusting the motor velocity, $\omega_m$, according to the voltage. The transfer function from $U_m$ to $\omega_{m}$ is taken from \autoref{sec:ModelDCMotor}. \autoref{eq:DCModelNoL} is used with the values for each of its variables: 
 \begin{flalign}
 \frac{\Omega_m(s)}{U_m(s)}=\frac{0.0293}{3.633\text{e}^{-5}s+0.03138} 
 \end{flalign} 
