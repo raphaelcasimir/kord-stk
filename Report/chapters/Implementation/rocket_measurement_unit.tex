@@ -1,0 +1,28 @@
+Implementing Inertial Measurement Unit
+
+
+The system consists of an Inertial measurment Unit (IMU) GY - 80. This implies that multiple integreted sensors can be used, as seen in \autoref{sec:Rocket_sencor_choice}. The PCB created and used is seen in appendix \todo{appendix of PCB to do}. 
+Mulitple physical and software constraints have to be taken into account when implementing the system.
+
+The rise time and setling time of the sensors are an important feature when ensuring the stability of the rocket. It cannot be too slow, otherwise the system will react to late to any angle variation. The rise time and setling time of the servomotors and rocket transfer function are described in \auto{tab:TableStepr}. The is then considered fast enough for the system, not interfering with the angle control process.
+
+The vibration of the rocket is a physical difficulty for the sensors as the measurements might be distorted. The placement and fixation must be carefully thought, as described in appendix \todo{appendix to do}.
+
+Of all the sensors available, only the gyroscope will be used in this project. This is due to the conditions of the rocket launch : the rocket will be attached to the ground, and will therefore have no use of all the potential of the IMU GY -80.
+
+\subsection*{Gyroscope}
+
+The system includes a L3G4200D 3-axis gyroscope. The gyroscope is described in appendix \todo{appendix to do}. 
+
+An example of implementing is done through a pseudo-code which converts in degree the output of the sensor in order to trace the rotation and mouvement of the system. The angle are then analyzed to measure the angle variation, and then enable the system to correct the variation.
+
+\subsection{Test of simulated flight}
+
+The system is connected to the servomotors. The goal is to simulate manually an angle variation of the rocket body and see the reaction of the system on the servomotors and the thruster. If the real thruster angle is equal to the desired one, then the controller is deemed acceptable and the system as fullfilling the requirements.
+
+The expirement set up is described in appendix \todo{appendix to do}. An example of implementing is done through 
+\todo{do the code/expirement to finish that part}.
+
+\subsection{Test of attached-rocket flight}
+
+The expirement set up is described in appendix . 
