@@ -1,4 +1,5 @@
 \graphicspath{{figures/Design/IPController/}}
+
 \chapter{Design of the rocket Controller}\label{sec:IPController}
 The goal of the controller is to balance the rocket body in an upright position. 
 
@@ -8,7 +9,7 @@ As seen in the modeling of the rocket, the system presents poles and zeros in th
 \begin{figure}[htbp]
 	\centering
 	
-		\includegraphics[width=\textwidth]{figures/Rocket/design/initial_transfer_function}
+		\includegraphics[width=\textwidth]{figures/Rocket/design/initial_transfer_function_vf}
 		\caption{Root locus of the initial rocket angle transfer function.}
 		\label{fig:Rinitialtf}
 	
@@ -19,7 +20,7 @@ However the real system is influenced by the servomotors. The transfer function 
 				% Figure of tf + servo
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_servo}
+		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_servo_vf}
 		\caption{System with the servomotors.}
 		\label{fig:SystemServo}
 \end{figure}
@@ -30,26 +31,26 @@ To direct the root locus to a stable state, a controller C1, adding a zero and a
 \begin{figure}[htbp]
 	\centering
 	\begin{subfigure}{0.45\textwidth}
-		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controller_1C_1}
+		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controllerC1}
 		\caption{Total view of the poles and zeros.}
 		\label{fig:SystemC1}
 	\end{subfigure}
 	\begin{subfigure}{0.45\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_C1_zoom}
+		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controllerC1_zoom}
 		\caption{Focus on low frequencies.}
 		\label{fig:SystemC1zoom}
 	\end{subfigure}
 	\caption{Root locus of the system with C1 implemented.}
 \end{figure}
 
-Another controller C2 is needed to attract the two poles going to infinity along the imaginary axis. The pole and zeros of C2 are set at higher frequencies than the first controller C1. 
+Another controller C2 is needed to attract the two poles going to infinity along the imaginary axis. The pole and zeros of C2 are set at higher frequencies than the first controller C1.
 
 				% Figure of final tf with controllers 
 \begin{figure}[htbp]
 	\centering
 	
-		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controller_1}
+		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controller_1_vf2}
 		\caption{Root locus of the rocket transfer function.}
 		\label{fig:SystemC1C2}
 		
@@ -57,55 +58,63 @@ Another controller C2 is needed to attract the two poles going to infinity along
 
 The rocket requires a fast settling time and rise time in order to act as soon as possible and control the rocket's stability. Lead compensaters enable the modulation of the rise time, but impact the overshoot. The overshoot is considered as an inferrior error, being in part countered by the play of the gimbal system. 
 
-To improve the setling time, the gain is set at $2.15 * 10^3$ \si{\dB}. This value is chosen by observing the root locus and the gain of a set point as shown on \autoref{fig:SystemC1C2Zoom}.
+To improve the setling time, the gain is set at $161$ \si{\dB}. This value is chosen by observing the root locus and the gain of a set point as shown on \autoref{fig:SystemC1C2Zoom}.
 
 				% Figure of chosen point, and of final tf with 2.15*10^3
 \begin{figure}[htbp]
 	\centering
 	\begin{subfigure}{0.45\textwidth}
-		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controller_1_zoom}
+		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controller_1_zoom_v2}
 		\caption{Set point at the start of the circle.}
 		\label{fig:SystemC1C2Zoom}
 	\end{subfigure}
 	\begin{subfigure}{0.45\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controller_215}
-		\caption{Additional gain of $2.15*10^3$ \si{\dB}.}
+		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controller_161}
+		\caption{Additional gain of $161$ \si{\dB}.}
 		\label{fig:SystemGain215}
 	\end{subfigure}
-	\caption{Root locus of the rocket transfer function with additional gain of respectively $1$ and $2.15*10^3$ \si{\dB}.}
+	\caption{Root locus of the rocket transfer function with additional gain of respectively $1$ and $161$ \si{\dB}.}
 \end{figure}
 
 
-The servomotors can have a faster rising time according to the step response of the servomotors, as shown in \autoref{tab:TableStepr}. The gain is then doubled to improve the rise time and setling time. The new adjusted transfer function is observed on \autoref{fig:FinalRocketTf} and \autoref{fig:FinalRocketTfZoom}.
+The servomotors can have a faster rising time according to the step response of the servomotors, as shown in \autoref{tab:TableStepr}. The gain is then tripled to improve the rise time and setling time. The new adjusted transfer function is observed on \autoref{fig:FinalRocketTf} and \autoref{fig:FinalRocketTfZoom}.
 
 \begin{table}[htbp]
 	\centering
 	\caption{Simulated step responses.}
-	\label{TableStepr}
+	\label{tab:TableStepr}
 	\begin{tabular}{llll}
 		Transfer function & Rise time{(}s{)} & Setling time{(}s{)} & Overshoot{(}percentage{)} \\ \hline  \rowcolor{lightGrey}
 		Servomotors     & 0.0589 & 0.0782 & 0\\  
-		Gain of $2.15*10^3$     & 0.1669 & 1.2075 & 14.5609  \\  
+		Gain of $1$     & 3.6620 & 128.1862 & 77.1429  \\  
 		\rowcolor{lightGrey}           
-		Gain of $5*10^3$     & 0.0854 & 0.7845 & 12.0162      \\     
+		Gain of $161$     & 0.1667 & 1.2066 & 14.5481  \\
+		Gain of $483$     & 0.0697 & 0.6496 & 12.1797      \\  
+		\rowcolor{lightGrey}     
 	\end{tabular}
 \end{table}
+
+%Overshoot{(}percentage{)} \\ \hline  \rowcolor{lightGrey}
+%Servomotors     & 0.0589 & 0.0782 & 0\\  
+%Gain of $2.15*10^3$     & 0.1669 & 1.2075 & 14.5609  \\  
+%\rowcolor{lightGrey}           
+%Gain of $5*10^3$     & 0.0854 & 0.7845 & 12.0162      \\   
 
 				% Figure of final tf with 5*10^3
 \begin{figure}[htbp]
 	\centering
 	\begin{subfigure}{0.45\textwidth}
-		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controller_5}
-		\caption{Root locus of the rocket transfer function with an additional gain of $5 * 10^3$ \si{\dB}.}
+		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controller_483}
+		\caption{Root locus of the rocket transfer function with an additional gain of $483$ \si{\dB}.}
 		\label{fig:FinalRocketTf}
 	\end{subfigure}
 	\begin{subfigure}{0.45\textwidth}
-		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controller_5_zoom}
+		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controller_483_zoom}
 		\caption{Focus on lower frequencies.}
 		\label{fig:FinalRocketTfZoom}
 	\end{subfigure}
-	\caption{Root locus of the rocket transfer function with additional gain of $5*10^3$ \si{\dB}.}	
+	\caption{Root locus of the rocket transfer function with additional gain of $483$ \si{\dB}.}	
 \end{figure}
 
 
@@ -121,9 +130,10 @@ The frequency correponds to a complete rotation of the servomotors. At low frequ
 
 The controlled rocket transfer function is shown on equation \autoref{eq:RocketTfEqu} and figure \autoref{fig:FinalChart}.
 
-\begin{equation}    \label{RocketTfEqu}
-R = 5 \cdot 10^3 \cdot \frac{s + 2}{s + 1000} \cdot \frac{s + 50}{s + 1100} \cdot \frac{1}{s \cdot \uptau + 1} \cdot \frac{F_t \cdot L_{Cg} \cdot \frac{1}{M_r \cdot L_{Es}^2}}{s^2}  
+\begin{equation}    
+R = 483 \cdot \frac{s + 2}{s + 1000} \cdot \frac{s + 50}{s + 1100} \cdot \frac{1}{s \cdot \uptau + 1} \cdot \frac{F_t \cdot L_{Cg} \cdot \frac{1}{M_r \cdot L_{Es}^2}}{s^2}  
 \end{equation}
+\label{eq:RocketTfEqu}
 
 \begin{figure}[htbp]
 	\centering

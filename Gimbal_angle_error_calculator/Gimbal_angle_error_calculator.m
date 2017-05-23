@@ -22,5 +22,5 @@ a=(Max_Servo_Angle/180)*pi;
 F1=asin( (R1*sin(a)-b+sqrt(b^2-(R1*(1-cos(a))).^2))/R2 );
 F2=(R1/R2)*a;
 
-disp('Error in degrees:');
+disp('Max error in degrees:');
 disp(abs(F1-F2)/pi*180);
