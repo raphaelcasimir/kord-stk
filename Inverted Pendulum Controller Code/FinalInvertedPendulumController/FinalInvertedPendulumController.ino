@@ -5,7 +5,6 @@
 #define ENABLE_PIN 7
 #define POTMETERARM A0
 #define POTMETERSTICK A1
-#define CURRENT_INPUT A5
 #define VELOCITY_INPUT A4
 #define Digit 6
 
@@ -16,7 +15,6 @@
 #define analog2digit (1/204.8)
 
 #define deg2rad (31.415926 / 1800.0)
-#define avgFactor (2.0/2.0)
 
 #define curr0 512
 #define volt2amp 1.0
@@ -48,31 +46,16 @@
 #define sampleTime 2.0 //in milli seconds
 
 //Controller characteristics
-#define KpInner -905.0
-#define KiInner (-0.0/1000000.0*sampleTime)
-#define KdInner (-0.0*1000000.0/sampleTime)
+//Velocity controller
+#define KpVel 10.0
 
+//Arm controller
+#define KpInner -905.0
+
+//Stick controller
 #define gO -8.85	//nice value 0.8 stick -8.85 	| 	0.4 stick -6.8
 #define zO 4.29		//nice value 0.8 stick 4.29 	| 	0.4 stick 6.06
 #define pO 9.27		//nice value 0.8 stick 9.27 	| 	0.4 stick 11.06
-
-#define gI -1400.0
-#define zI 70.0
-#define pI 60.0
-
-#define gV 0.4
-#define zV 125
-#define pV 40
-
-#define KpOuter 0.0
-#define KiOuter 0.0
-#define KdOuter 0.0
-
-#define KpVel 10.0
-#define KpVelFeedBack 1.0
-#define KiVel (50/1000000.0*sampleTime)
-
-#define KpCurr 1.1
 
 //Analog reading of the potentiometer
 double posStick=0, posArm=0;
@@ -147,7 +130,7 @@ void calcPID()
 	else if(setVelocity < setVelocityMin) setVelocity = setVelocityMin;
 
 	//	Velocity loop
-	errorVelocity=setVelocity-velocity*KpVelFeedBack;
+	errorVelocity=setVelocity-velocity;
 
 	//Compute output
 	refCurrent=errorVelocity*KpVel;//+dVelocity*KdVel;
@@ -168,8 +151,8 @@ void actualizeFeedbackValue(){
 	velocity=((analogRead(VELOCITY_INPUT))*analog2digit-2.5)*volt2rpm*rpm2radSec;
 
 	//Actual position of the arm and the stick
-	posArm=int(posArm*(1-avgFactor)+analogRead(POTMETERARM)*avgFactor); // 
-	posStick=int(posStick*(1-avgFactor)+analogRead(POTMETERSTICK)*avgFactor); // 
+	posArm=analogRead(POTMETERARM); // 
+	posStick=analogRead(POTMETERSTICK); // 
 
 	//Mapping the value of the potentiometer to physical value (stick distance and arm angle)
 	angleArm = (mappingSlopeArm*posArm-mappingConstArm)*deg2rad;
@@ -187,16 +170,6 @@ void loop()
 	double now=millis();
 	digitalWrite(Digit, HIGH);
 	actualizeFeedbackValue();
-	Serial.print(posArm);
-	Serial.print(',');
-	Serial.println(posStick);
-	//to check if it moves
-	/*if (now-previous>=10000){
-		if (test==true) refArm=0.4;
-		else refArm=-0.4;
-		test=!test;
-		previous=now;
-	}*/
 	
 	calcPID();
 	
@@ -208,55 +181,13 @@ void loop()
 
 
 
-
-
-//If jacob solution has problem
-/*
-
-
-
-
-
-//to check if it moves
-	if (now-previous>=5000){
+// Arm Test
+// into the void loop before calcPID
+	//to check if it moves
+	//to check if it moves
+	/*if (now-previous>=10000){
 		if (test==true) refArm=0.4;
 		else refArm=-0.4;
 		test=!test;
 		previous=now;
-	}
-#include "PID_v1.h"
-
-//PID ENABLING
-PID outerController(&distStick, &refArm, &setPointDist, KpOuter, KiOuter, KdOuter, DIRECT);
-PID innerController(&angleArm, &current, &refArm, KpInner, KiInner, KdInner, DIRECT);
-
-void setup{
-	//PID initialization
-  	myPID.SetMode(AUTOMATIC);
-  	myPID.SetOutputLimits(-11, 11);
-  	myPID.SetSampleTime(5);
-  	myPD.SetSampleTime(5);
-  	myPD.SetMode(AUTOMATIC);
-  	myPD.SetOutputLimits(-0.7, 0.7);
-}
-
-void loop(){
-	//Outer loop control
-	outerController.compute();
-	//Minus the output of the controller
-	if (outerState == true){
-		refArm = -refArm;
-	}
-
-	//Inner loop control
-	innerState = innerController.compute();
-	//Conversion from current to PWM signal
-	if (innerState == true){
-		PWM = 512+current*512/11;
-		//Minus the output
-		PWM = 1024-PWM;
-	}
-
-	//Mesure so that the arm does not do circles
-	if (posArm < 100 || posArm > 750) PWM = 512;
-}*/
+	}*/
