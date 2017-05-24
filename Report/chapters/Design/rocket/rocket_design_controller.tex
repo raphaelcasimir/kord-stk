@@ -1,7 +1,16 @@
 \graphicspath{{figures/Design/IPController/}}
 
 \chapter{Design of the rocket Controller}\label{sec:IPController}
-The goal of the controller is to balance the rocket body in an upright position. 
+The goal of the controller is to balance the rocket body in an upright position. The system can be decomposed in a block diagram as shown in \autoref{fig:FinalChartName}.
+
+\begin{figure}[htbp]
+	\centering
+	
+	\includegraphics[width=\textwidth]{figures/Rocket/design/final_chart}
+	\caption{Rocket transfer function.}
+	\label{fig:FinalChartName}
+	
+\end{figure}
 
 As seen in the modeling of the rocket and on \autoref{eq:RocketInitTf}, the system presents two poles in the origin of the pole-zero plot. 
 
@@ -30,18 +39,7 @@ The system is unstable and goes to infinity on the imaginary axis, as shown on \
 	
 \end{figure}
 
-However the real system is influenced by the servomotor. The system can be decomposed in a block diagram as shown in \autoref{fig:FinalChartName}.
-
-\begin{figure}[htbp]
-	\centering
-	
-	\includegraphics[width=\textwidth]{figures/Rocket/design/final_chart}
-	\caption{Rocket transfer function.}
-	\label{fig:FinalChartName}
-	
-\end{figure}
-
-The transfer function of the servomotors is shown on \autoref{eq:TfServo}. 
+However the real system is influenced by the servomotor. The transfer function of the servomotors is shown on \autoref{eq:TfServo}. 
 
 \begin{subequations}
 	\begin{flalign}

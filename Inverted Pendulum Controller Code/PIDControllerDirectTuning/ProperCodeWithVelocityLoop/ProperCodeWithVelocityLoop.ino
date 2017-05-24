@@ -7,16 +7,17 @@
 #define POTMETERSTICK A1
 #define CURRENT_INPUT A5
 #define VELOCITY_INPUT A4
+#define Digit 6
 
 //Physical values
 #define La 0.33
-#define Lalpha 0.733
+#define Lalpha 0.267
 
 //Conversion value
-#define analog2digit (1/204.6)
+#define analog2digit (1/204.8)
 
 #define deg2rad (31.415926 / 1800.0)
-#define avgFactor (2.0/10.0)
+#define avgFactor (2.0/2.0)
 
 #define curr0 512
 #define volt2amp 1.0
@@ -28,11 +29,11 @@
 
 //Mapping value
 //These values by were found by curve fitting on geogebra
-#define mappingSlopeArm (63.11/204.6)
-#define mappingConstArm (117.39)
+#define mappingSlopeArm (63.11/204.8)
+#define mappingConstArm (117.0)
 
-#define mappingSlopeStick (66.66/204.6)
-#define mappingConstStick (170.46)
+#define mappingSlopeStick (66.66/204.8)
+#define mappingConstStick (163.9)
 
 //Limits for safety
 #define refArmMax 0.9
@@ -45,16 +46,16 @@
 #define setVelocityMax (3000.0*rpm2radSec)
 
 // Time constant
-#define sampleTime 10000.0 //in micro seconds
+#define sampleTime 2.0 //in milli seconds
 
 //Controller characteristics
-#define KpInner -236.0
+#define KpInner -905.0
 #define KiInner (-0.0/1000000.0*sampleTime)
 #define KdInner (-0.0*1000000.0/sampleTime)
 
-#define gO -12.0
-#define zO 3.58
-#define pO 17.89
+#define gO -6.8 //nice value 0.8 stick 8.85
+#define zO 6.06//Nice value 0.8 stick 4.29
+#define pO 11.06 //nice value 0.8 stick 9.27
 
 #define gI -1400.0
 #define zI 70.0
@@ -68,8 +69,8 @@
 #define KiOuter 0.0
 #define KdOuter 0.0
 
-#define KpVel 0.2
-#define KpVelFeedBack 1.5
+#define KpVel 10.0
+#define KpVelFeedBack 1.0
 #define KiVel (50/1000000.0*sampleTime)
 
 #define KpCurr 1.1
@@ -101,15 +102,16 @@ void setup()
 {
   noInterrupts();
   // setup timerOne, we use this library to get 10bit resolution for PWM.
-  Timer1.initialize(350);
+  Timer1.initialize(200);
   Timer1.stop();        //stop the counter
   Timer1.restart();     //set the clock to zero
-  Timer1.pwm(PWM_PIN, 512, 350);
-  Timer1.attachInterrupt(calcPID, sampleTime);
+  Timer1.pwm(PWM_PIN, 512, 200);
+  //Timer1.attachInterrupt(calcPID, sampleTime);
 
   //PINMODE
   pinMode(PWM_PIN, OUTPUT);
   pinMode(ENABLE_PIN, OUTPUT);
+  pinMode(Digit, OUTPUT);
 
   //Enable ESCON driver
   digitalWrite(ENABLE_PIN, LOW);  // disable ESCON to clear any errors
@@ -126,8 +128,7 @@ void setup()
 void calcPID()
 {
 	// Distance for the stick
-
-	distStick = 3*La/(2*1.1) * angleArm + angleStick;
+	distStick =sin(angleArm)*La+sin(angleStick)*Lalpha;
 
 	// Outer loop controller first
 	// Compute error values
@@ -146,7 +147,9 @@ void calcPID()
 	/*refArm = KpOuter * errorDist + intErrorDist - KdOuter * ddistStick; // Negative derivative. dSet - dMeas = -dMeas when setpoint doesn't change;
 	if(refArm > refArmMax) refArm = refArmMax;
 	else if(refArm < refArmMin) refArm = refArmMin;*/
-	refArm = gO*(2*1000000/sampleTime+zO)/(2*1000000/sampleTime+pO)*errorDist + gO*(zO-2*1000000/sampleTime)/(2*1000000/sampleTime+pO)*lastDistStick - (pO-2*1000000/sampleTime)/(2*1000000/sampleTime+pO)*lastRefArm;
+	
+	refArm = gO*(2*1000/sampleTime+zO)/(2*1000/sampleTime+pO)*errorDist + gO*(zO-2*1000/sampleTime)/(2*1000/sampleTime+pO)*lastDistStick - (pO-2*1000/sampleTime)/(2*1000/sampleTime+pO)*lastRefArm;
+	
 	/*if(refArm > refArmMax) refArm = refArmMax;
 	else if(refArm < refArmMin) refArm = refArmMin;*/
 
@@ -219,7 +222,7 @@ void actualizeFeedbackValue(){
 	//current=(analogRead(CURRENT_INPUT)*analog2digit-2.5)*10/1.5; //10 amp for 1.5
 
 	//Actual angular velocity of the motor
-	velocity=((analogRead(VELOCITY_INPUT)&0xFFFC)*analog2digit-2.5)*volt2rpm*rpm2radSec;
+	velocity=((analogRead(VELOCITY_INPUT))*analog2digit-2.5)*volt2rpm*rpm2radSec;
 
 	//Actual position of the arm and the stick
 	posArm=int(posArm*(1-avgFactor)+analogRead(POTMETERARM)*avgFactor); // 
@@ -229,24 +232,33 @@ void actualizeFeedbackValue(){
 	angleArm = (mappingSlopeArm*posArm-mappingConstArm)*deg2rad;
 	angleStick = (mappingSlopeStick*posStick-mappingConstStick)*deg2rad;
 	//angle stick relative to the arm so change to it to correspond of the upright angle
+	//Serial.println(angleArm);
 	angleStick = angleArm+angleStick;
-	Serial.println(angleStick);
 }
 
 
 bool test=true;
 double previous=0;
+double prevCont=0;
 void loop()
 {
+	double now=millis();
+	digitalWrite(Digit, HIGH);
 	actualizeFeedbackValue();
-	/*double now=millis();
 	//to check if it moves
-	if (now-previous>=5000){
-		if (test==true) refArm=0.7;
-		else refArm=-0.7;
+	/*if (now-previous>=10000){
+		if (test==true) refArm=0.4;
+		else refArm=-0.4;
 		test=!test;
 		previous=now;
 	}*/
+	
+	calcPID();
+	
+	digitalWrite(Digit,LOW);
+	while ((prevCont + sampleTime) > millis())
+  	{} // wait
+  	prevCont = millis();
 }
 
 
