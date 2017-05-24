@@ -122,28 +122,34 @@ In order to find the time constant, the time to go from one position to another 
 		\subsubsection*{Angle variation}
 		
 The angle variation is found by measuring the angle difference betwwen the horizontal axis and the stick direction. The desired angle difference between the different positon is $30$ \si{\degree}. The servomotors function properlly if the angles desired correspond to the measured angles.
-\begin{equation}
-		a_{mh} = 29.51 \si{\degree} \\  
-		a_{ml} = 25.04 \si{\degree}\\ 
-\end{equation}
+
+\begin{subequations}
+	\begin{flalign}
+		& a_{mh} = 29.51 \si{\degree} \\  
+		& a_{ml} = 25.04 \si{\degree}
+	\end{flalign}
+\end{subequations}
 \startexplain
 \explain{$a_{mh}$ is the angle difference between the middle to highest position of the servomotor's arm}{\si{\degree}}
 \explain{$a_{ml}$ is the angle difference between the middle to lowest position of the servomotor's arm}{\si{\degree}}
 \stopexplain
+
 The error comes from measure errors and to the servomotors lifting a weight.
 
 		\subsubsection*{Time constant}
 		
  In order to find the time constant, the time to go from one position to another is measured using the video software. The time constant is equal to $63$ per cent of the mean value of the total time from one position to another : 
- \begin{equation}
- t_{constant} = \frac{63}{100} \cdot t_{mean} \\
- t_{constant} = \frac{63}{100} \cdot 0.133 = 0.084
- \end{equation} 
+ \begin{subequations}
+ 	\begin{flalign}
+ 		& t_{constant} = \frac{63}{100} \cdot t_{mean} \\
+ 		& t_{constant} = \frac{63}{100} \cdot 0.133 = 0.084
+ 		\label{eq:TfC1C2}
+ 	\end{flalign}
+ \end{subequations}
  \startexplain
- \explain{$ t_{constant}$ is the motor input voltage}{\si{\second}}
- \explain{$t_{mean}$ is the mean value of the total time from one position to another}{\si{\second}}
- \stopexplain
- 
+\explain{$ t_{constant}$ is the motor input voltage}{\si{\second}}
+\explain{$t_{mean}$ is the mean value of the total time from one position to another}{\si{\second}}
+\stopexplain
  
  
 
