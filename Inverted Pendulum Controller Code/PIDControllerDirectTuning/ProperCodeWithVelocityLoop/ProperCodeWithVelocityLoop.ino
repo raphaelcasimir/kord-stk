@@ -11,8 +11,7 @@
 
 //Physical values
 #define La 0.33
-#define Lalpha 0.267
-
+#define Lalpha 0.533 //0.8 stick 0.533 | 0.4 stick 0.267
 //Conversion value
 #define analog2digit (1/204.8)
 
@@ -53,9 +52,9 @@
 #define KiInner (-0.0/1000000.0*sampleTime)
 #define KdInner (-0.0*1000000.0/sampleTime)
 
-#define gO -6.8 //nice value 0.8 stick 8.85
-#define zO 6.06//Nice value 0.8 stick 4.29
-#define pO 11.06 //nice value 0.8 stick 9.27
+#define gO -8.85	//nice value 0.8 stick -8.85 	| 	0.4 stick -6.8
+#define zO 4.29		//nice value 0.8 stick 4.29 	| 	0.4 stick 6.06
+#define pO 9.27		//nice value 0.8 stick 9.27 	| 	0.4 stick 11.06
 
 #define gI -1400.0
 #define zI 70.0
@@ -79,21 +78,15 @@
 double posStick=0, posArm=0;
 
 //Actual interesting value of the stick and the arm
-double distStick, angleArm ,angleStick, dVelocity=0, velocity=0;
-double lastDistStick=0, lastAngleArm=0, lastVelocity=0;
+double distStick, angleArm ,angleStick, velocity=0;
+double lastDistStick=0, lastAngleArm=0, lastRefArm=0;
 
 //Set point for the controllers
-double setPointDist=0, refArm=0, lastRefArm=0, setVelocity=0, lastSetVelocity=0, refCurrent=0, lastRefCurrent=0;
-
-//Controllers state
-bool outerState=false, innerState=false;
+double setPointDist=0, refArm=0, setVelocity=0, refCurrent=0;
 
 //Value of the controllers
-double intErrorArm=0, 	intErrorDist=0;
-double dAngleArm=0, 	ddistStick=0;
 double errorArm=0,		errorDist=0;
-double errorVelocity=0, intErrorVelocity=0;
-double errorCurrent=0;
+double errorVelocity=0;
 
 //PWM signal
 int PWM;
@@ -134,24 +127,10 @@ void calcPID()
 	// Compute error values
 	errorDist = setPointDist - distStick;
 	
-	//Integral part
-	//intErrorDist += KiOuter * errorDist;
-	//Limiting the integral part
-	//if(intErrorDist > refArmMax) intErrorDist = refArmMax;
-	//else if(intErrorDist < refArmMin) intErrorDist = refArmMin;
-	
-	//Derivative part
-	//ddistStick = distStick - lastDistStick;
-	
-	// Compute output
-	/*refArm = KpOuter * errorDist + intErrorDist - KdOuter * ddistStick; // Negative derivative. dSet - dMeas = -dMeas when setpoint doesn't change;
-	if(refArm > refArmMax) refArm = refArmMax;
-	else if(refArm < refArmMin) refArm = refArmMin;*/
-	
 	refArm = gO*(2*1000/sampleTime+zO)/(2*1000/sampleTime+pO)*errorDist + gO*(zO-2*1000/sampleTime)/(2*1000/sampleTime+pO)*lastDistStick - (pO-2*1000/sampleTime)/(2*1000/sampleTime+pO)*lastRefArm;
 	
-	/*if(refArm > refArmMax) refArm = refArmMax;
-	else if(refArm < refArmMin) refArm = refArmMin;*/
+	if(refArm > refArmMax) refArm = refArmMax;
+	else if(refArm < refArmMin) refArm = refArmMin;
 
 	// Update previous values
 	lastDistStick = errorDist;
@@ -162,54 +141,18 @@ void calcPID()
 	// Compute error values
 	errorArm = refArm - angleArm;
 	
-	//Integral part
-	intErrorArm += KiInner * errorArm;
-	//Limiting the integral part
-	if(intErrorArm > setVelocityMax) intErrorArm = setVelocityMax;
-	else if(intErrorArm < setVelocityMin) intErrorArm = setVelocityMin;
-	
-	//Derivative part
-	dAngleArm = angleArm - lastAngleArm;
-	
 	//Compute output
-	//setVelocity = gI*(2*1000000/sampleTime+zI)/(2*1000000/sampleTime+pI)*errorArm + gI*(zI-2*1000000/sampleTime)/(2*1000000/sampleTime+pI)*lastAngleArm - (pI-2*1000000/sampleTime)/(2*1000000/sampleTime+pI)*lastSetVelocity;
-	setVelocity = KpInner * errorArm; //+ intErrorArm - KdInner * dAngleArm;
+	setVelocity = KpInner * errorArm;
 	if(setVelocity > setVelocityMax) setVelocity = setVelocityMax;
 	else if(setVelocity < setVelocityMin) setVelocity = setVelocityMin;
-
-
-	//Update previous values
-	lastAngleArm = errorArm;
-	lastSetVelocity=setVelocity;
 
 	//	Velocity loop
 	errorVelocity=setVelocity-velocity*KpVelFeedBack;
 
-	//Integral part
-	//intErrorVelocity += KiVel * errorVelocity;
-	
-
-	// Derivative part
-	//dVelocity = velocity - lastVelocity;
-	//Limiting the integral part
-	if(intErrorVelocity > refCurrentMax) intErrorVelocity = refCurrentMax;
-	else if(intErrorVelocity < refCurrentMin) intErrorVelocity = refCurrentMin;
-
 	//Compute output
-	//refCurrent = gV*(2*1000000/sampleTime+zV)/(2*1000000/sampleTime+pV)*errorVelocity + gV*(zV-2*1000000/sampleTime)/(2*1000000/sampleTime+pV)*lastVelocity - (pV-2*1000000/sampleTime)/(2*1000000/sampleTime+pV)*lastRefCurrent;
 	refCurrent=errorVelocity*KpVel;//+dVelocity*KdVel;
 	if(refCurrent > refCurrentMax) refCurrent = refCurrentMax;
 	else if(refCurrent < refCurrentMin) refCurrent = refCurrentMin;
-
-	//Update previous values
-	lastVelocity=errorVelocity;
-	lastRefCurrent=refCurrent;
-
-	//Current loop
-	//errorCurrent=refCurrent-current;
-
-	//output
-	//setCurrent=KpCurr*errorCurrent;
 
 	//Calculate and set output PWM
 	PWM = round(curr0 + refCurrent*amp2pwm); // 0.82 motor resistance and PWM sets current.
@@ -232,7 +175,6 @@ void actualizeFeedbackValue(){
 	angleArm = (mappingSlopeArm*posArm-mappingConstArm)*deg2rad;
 	angleStick = (mappingSlopeStick*posStick-mappingConstStick)*deg2rad;
 	//angle stick relative to the arm so change to it to correspond of the upright angle
-	//Serial.println(angleArm);
 	angleStick = angleArm+angleStick;
 }
 
@@ -245,6 +187,9 @@ void loop()
 	double now=millis();
 	digitalWrite(Digit, HIGH);
 	actualizeFeedbackValue();
+	Serial.print(posArm);
+	Serial.print(',');
+	Serial.println(posStick);
 	//to check if it moves
 	/*if (now-previous>=10000){
 		if (test==true) refArm=0.4;
