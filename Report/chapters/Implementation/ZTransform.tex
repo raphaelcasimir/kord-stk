@@ -1,4 +1,4 @@
-\subsection{Implementing continuous controller on Arduino}
+\subsection{Implementing Continuous Controller on Arduino}
 As the Arduino is a microprocessor the continuous controller found in \autoref{sec:IPController} needs to be transformed into a discrete controller. This also means a sample time needs to be determined. The sample time needs to be faster than the settling time of the fastest subsystem i.e. the motor loop. The motor loop has a settling time of 0.0137 seconds. The sample time is selected to be 0.002 seconds as it's faster than the motor loop. This gives a sampling frequency of \autoref{eq:ArduinoFs}.
 \begin{flalign}
 F_s=500\text{ Hz}\label{eq:ArduinoFs}
