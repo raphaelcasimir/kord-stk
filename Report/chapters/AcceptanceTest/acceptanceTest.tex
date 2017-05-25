@@ -6,18 +6,28 @@ In this section the tests to check whether the controllers designed for the inve
 
 \subsection{Acceptance Test 2.}
 
-The goal of this test is to see if the inverted pendulum's stick and arm stay within the limits set in Requirement 2 and 3 describe in \autoref{sec:InvPendReq}. \autoref{fig:AccTest2} plots the angles of the arm and the stick over a period of \SI{30}{\second} the maximum and the minimum angles are put in evidence so that it is easy to compare them with the requirements.
+The goal of this test is to see if the inverted pendulum's stick and arm stay within the limits set in Requirement 2 and 3 describe in \autoref{sec:InvPendReq}. \autoref{fig:AccTest2Arm} and \ref{fig:AccTest2Stick} plots the angles of the arm and the stick over a period of \SI{30}{\second} the maximum and the minimum angles are put in evidence so that it is easy to compare them with the requirements.
 
-\begin{figure}[htbp]
+\begin{figure} [htbp]
 	\centering
-	\begin{subfigure}{0.45\textwidth}
-		\includegraphics[width=\textwidth]{AngleArmplot}
-		\caption{Plot of the angle of the arm.}
-	\end{subfigure}
-	\begin{subfigure}{0.45\textwidth}
-		\includegraphics[width=\textwidth]{AngleStickplot}
-		\caption{Plot of the angle of the arm.}
-	\end{subfigure}
-	\caption{Plot of the angle over time with the limits set by the requirement.}
-	\label{fig:AccTest2}
+	\includegraphics[width=0.7\textwidth]{AngleArmplot}
+	\caption{Plot of the angle of the arm over time with the limits set by the Requirement 1.}
+	\label{fig:AccTest2Arm}
 \end{figure}
+
+From \autoref{fig:AccTest2Arm} it can be easily seen that the arm is within the requirements by a large margin of \SI{0.68}{\radian} or \SI{38.96}{\degree}. This result is due to the transformation of the outer loop described in \autoref{subsec:InvPendOuterLoopRedef}. Indeed the reference is not anymore the upright angle of the stick but the distance of a point on the stick compared with its position when both the arm and the stick are in upright position. Due to this the controller will try to also keep the arm in the upright angle which explains the very low angle variation of the arm compared to the requirement.
+
+\begin{figure} [htbp]
+	\centering
+	\includegraphics[width=0.7\textwidth]{AngleStickplot}
+	\caption{Plot of the angle of the Stick over time with the limits set by the Requirement 2.}
+	\label{fig:AccTest2Stick}
+\end{figure}
+
+In \autoref{fig:AccTest2Stick} the largest angle the stick takes is \SI{0.05}{\radian} while the Requirement 2 precise a limit of \SI{0.9}{\radian} which is almost twice as big.
+
+From the results seen it can be concluded that the second acceptance test is a success.
+
+\subsection{Acceptance Test 3.}
+
+Unfortunately a method to precisely hold and release the stick for this test is not found as such no precise data were able to be collected. However a video was taken during the test and will be joined with the report. This video shows the reactions of stick when different push are applied to it, but as explained before the magnitude of the pushes is unknown resulting with no real conclusive data appart from the fact that the stick keeps its balance from it.
