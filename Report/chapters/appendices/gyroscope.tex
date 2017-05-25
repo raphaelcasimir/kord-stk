@@ -9,18 +9,21 @@
 
 	\section{Purpose}
 
-The objective of this test is to determine the precision of the gyroscope sensor chosen for this project.
+The objective of this test is to undestand and approve the usage of the gyroscope sensor chosen for this project.
 
-	\section{Equipment}
-	
-\begin{itemize}
-	\item breadboard
-	\item Arduino Nano v3.0
-	\item GY-80  Multi Sensor Board
-	\item wires
-	\item Arduino 1-8-1 (IDE) software
-	\item micro usb cable
-\end{itemize}
+	\section{Test equipment and components}
+
+\begin{table}[htbp]
+	\centering
+	\caption{List of measurement equipment and components}
+	\label{tab_appendix:GyroEquip}
+	\begin{tabularx}{\textwidth}{lX}
+		& Name & Brand & Model\\ \toprule
+		& breadboard &  &  \\
+		& Controller & Arduino & Nano v3.0 \\ \rowcolor{lightGrey}
+		& Gyroscope & & GY-80 Multi Sensor Board \\
+	\end{tabularx}
+\end{table}
 
 	\section{Setup}
 
@@ -28,7 +31,7 @@ The Analog pin 4 on the Arduino Nano is connected to the SDA pin on the multi-se
 
 	\section{Code]
 
-The code is written on the Arduino code Software. The Inter-Integreted Circuit (I2C) is used to simplify the code for the testing. The code is found from an online-tutorial.
+The code is written on the Arduino code Software. The Inter-Integreted Circuit (I2C) is used to simplify the code for the testing. The code is adapted from an online tutorial. The output is the angular speed. In orther to 
 
 Temporary code: 
 %#include <Wire.h>
@@ -84,8 +87,7 @@ Temporary code:
 
 	\section{Test}
 	
-The breadboard is moved and rotated in the three different axis in order to test the pitch, roll and yawn as shown in sketch:
-\todo{Graph of 3D and rocket}
+The breadboard is moved and rotated in the three different axis in order to test the pitch and roll. The yawn is not needed for the purpose of the project.
 
 The outputs of x, y and z are expressed in degree (°). The rotation around the Y axis is the yaw. To mesure the yawn implies the measure of the tilting of the rocket, thus the direction variaton.  
 There are three distinc cases of rocket direction variaton of the desired zenith axis : tilting left, tilting right, no tilting. They are respectively represented in figures:
