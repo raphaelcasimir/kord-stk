@@ -16,7 +16,7 @@ The controller requirements will be based on speed, precision and stability, whi
 
 Each parameter would affect each other, and therefore a discussion of the best combination will be considered.
 \newpage
-\subsection{Requirements for the Inverted Pendulum}
+\subsection{Requirements for the Inverted Pendulum}\label{sec:InvPendReq}
 The requirements are based on figure \ref{fig:InvertedPendulumSetUp}, and the modeling behind where the angle relations and positions is described between the gears, arm and stick. It is yet decided that the main requirement set is to balance the stick. But requirements have to be set considering when the stick is balanced and when not. \todo{The figure can be added, to simplify the explanation.}
 
 \setlength{\parindent}{0pt}
@@ -44,7 +44,7 @@ This only apply when considering the worst case position of the stick when the a
 \end{equation}
 
 
-\subsubsection*{3. Deviation from the upright position of the stick must not exceed $\pm$ $\dfrac{\pi}{180}$ radians when considered balanced.}
+\subsubsection*{3. Deviation from the upright position of the stick must not exceed $\pm$ $\dfrac{\pi}{36}$ radians when considered balanced.}
 \forceindent A choice made to ensure stability and avoid oscillation around the equilibrium position.
 This means that if the angle is exceeded the controller needs to react. The requirement is mainly set to ensure that the stick balancing precision is within the sampling precision of the sensors. The controller will be designed based on a steady state error of zero, which means that errors from balanced position are from disturbance and not from the controller's steady state error.
 
@@ -96,7 +96,7 @@ Weight       & 0.3   & [kg]
 
 \forceindent  A choice made to ensure flight stability even if the rocket is influenced by a external disturbance.
 
-\section{Acceptance Test Specification}	
+\section{Acceptance Test Specification}	\label{sec:TestDesc}
 The following section describes how the requirements can be tested. This verification is made to ensure that the system fulfils the set requirements.
 
 \subsubsection*{Acceptance Test 1.}
@@ -105,9 +105,11 @@ The following section describes how the requirements can be tested. This verific
 
 \subsubsection*{Acceptance Test 2.}
 
-\forceindent Requirement 2 and 3 is tested based on placing the stick and arm in vertical balanced position. The controller is engaged and the system is ran for ten minutes. The feedback data of the sensors will be collected to determine if the sticks angle have exceeded the requirement. As well is the sampled data from the motor used to compare with the position changes of the stick and see if the controller consider the stick balanced when the angle of the stick is within $\pm$ $\dfrac{\pi}{180}$ of 0 radians. 
+\forceindent Requirement 2 and 3 is tested based on placing the stick and arm in vertical balanced position. The controller is engaged and the system is ran for ten minutes. The feedback data of the sensors will be collected to determine if the sticks angle have exceeded the requirement. As well is the sampled data from the motor used to compare with the position changes of the stick and see if the controller consider the stick balanced when the angle of the stick is within $\pm$ $\dfrac{\pi}{36}$ of 0 radians. 
 
 \subsubsection*{Acceptance Test 3.}
-\forceindent Requirement 4 is tested from holding the stick in $\pm\ \dfrac{\pi}{18}$ radians when the arm is at 0 radians vertical position. The control system is activated and the stick is released. The test is repeated 5 times and the sensor data is sampled and saved each time.   
+\forceindent Requirement 4 is tested from holding the stick in $\pm\ \dfrac{\pi}{18}$ radians when the arm is at 0 radians vertical position. The control system is activated and the stick is released. The test is repeated 5 times and the sensor data is sampled and saved each time.
+
+\todo[inline,author=Maxime]{Should we try again for the last test?}
 
 \todo{Mathias - Add rocket test if it will be testable}

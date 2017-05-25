@@ -18,8 +18,8 @@ Each part will be described with its specifications and use in the setup. The in
 	\explain{$\theta_s$ is the angle from the stick to the y-axis}{\si{\radian}}
 \stopexplain
 
-\subsubsection{DC Motor}
-An Axem DC servo motor model F9M2 is attached to the gears to create an angular velocity in the system. The integrated tachometer of the motor is used as feedback to ensure control precision. This is done so it is possible to see the velocity and direction of the motor and relate it to the position of the arm. Using the DC motor also means implementing a motor controller. Already implemented in the setup is a Maxon Escon 50/5 Servocontroller, which can be controlled trough PWM \cite{datasheet:maxon}. The servocontroller is supplied trough a 230 V regulator that can supply the servocontroller with up to 56 V and 15 A. The regulator in itself will be considered a blackbox, because of user limitations when working with 230 V at the university. The DC motor and servocontroller will in system diagrams be evaluated as one unit, but further considered when implementing a system controller. 
+\subsubsection{DC Motor}\label{DCMotor}
+An Axem DC servo motor model F9M2 is attached to the gears to create an angular velocity in the system. The integrated tachometer of the motor is used as feedback to ensure control precision. This is done so it is possible to see the velocity and direction of the motor and relate it to the position of the arm. Using the DC motor also means implementing a motor controller. Already implemented in the setup is a Maxon Escon 50/5 Servocontroller, which can be controlled trough PWM \cite{datasheet:maxon}. The servocontroller is supplied trough a 230 V regulator that can supply the servocontroller with up to 56 V and 15 A depending the power supply. The regulator in itself will be considered a blackbox, because of user limitations when working with 230 V at the university. The DC motor and servocontroller will in system diagrams be evaluated as one unit, but further considered when implementing a system controller. 
 
 %http://www.maxonmotor.com/maxon/view/product/control/4-Q-Servokontroller/409510
 	

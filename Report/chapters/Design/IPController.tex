@@ -147,7 +147,7 @@ Removing the zeros in 0 can't be done by adding poles as $\infty \cdot 0$ isn't 
 
 %Cancelling zeros in 0 by adding poles can be dangerous as the steady state error will no longer be zero which is critical for a stable inverted pendulum. The system is difficult to control as the transfer function was derived with an attempt to control the angle of the stick. This is only really possible in the special case where the reference is exactly 0 at all times. The system can instead be redefined as trying to control the position of a point on the stick in relation to the vertical axis. By controlling the position instead of the angle would mean the system would still have to balance the stick but not be forced to use a reference of 0 at all times. This could make the system easier to control.
 
-\subsection{Redefining the Inverted Pendulums Output}
+\subsection{Redefining the Inverted Pendulums Output} \label{subsec:InvPendOuterLoopRedef}
 The inverted pendulum model will be redefined so the output is the distance from a point on the stick to the vertical axis instead of the angle of the stick. The point, $\alpha$, and the distance to the vertical axis, $x_\alpha$, are seen on \autoref{fig:modelDist}.
 
 \begin{figure}[htbp]

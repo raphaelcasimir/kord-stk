@@ -1,0 +1,30 @@
+\subsection{Implementing continuous controller on Arduino}
+As the Arduino is a microprocessor the continuous controller found in \autoref{sec:IPController} needs to be transformed into a discrete controller. This also means a sample time needs to be determined. The sample time needs to be faster than the settling time of the fastest subsystem i.e. the motor loop. The motor loop has a settling time of 0.0137 seconds. The sample time is selected to be 0.002 seconds as it's faster than the motor loop. This gives a sampling frequency of \autoref{eq:ArduinoFs}.
+\begin{flalign}
+F_s=500\text{ Hz}\label{eq:ArduinoFs}
+\end{flalign}
+
+With the sampling time determined the continuous controller needs to be transformed to a discrete controller. For the two P-controllers it's as simple as multiplying the sampled input with the gain to get the discrete output. For the outer loop controller it's not as simple and is done by using the Z-transform. There are a couple of different options for performing the Z-transform each with their own nuances but the differences won't be discussed and the bilinear transform will be used. For the bilinear transform $s$ in \autoref{eq:outerLeadController} will be substituted with \autoref{eq:s=z}.
+\begin{flalign}
+s=2F_s\frac{z-1}{z+1}\label{eq:s=z}
+\end{flalign}
+
+\autoref{eq:outerLeadController} then becomes \autoref{eq:DxBilinear}.
+\begin{subequations}\label{eq:DxBilinear}
+\begin{flalign}
+&D_x=8.8\frac{2F_s\frac{z-1}{z+1}+4.29}{2F_s\frac{z-1}{z+1}+9.19} \\
+&D_x=8.8\frac{2F_s(z-1)+4.29(z+1)}{2F_s(z-1)+9.19(z+1)} \\
+&D_x=8.8\frac{(2F_s+4.29)z+4.29-2F_S}{(2F_s+9.19)z+9.19-2F_s} \\
+&D_x=\frac{Y(z)}{X(z)}=8.8\frac{2F_s+4.29+(4.29-2F_S)z^-1}{2F_s+9.19+(9.19-2F_s)z^-1} \\
+&Y(z)\left(2F_s+9.19+(9.19-2F_s)z^-1\right)=8.8X(z)\left(2F_s+4.29+(4.29-2F_S)z^-1\right) 
+\end{flalign}
+\end{subequations}
+
+The Z-transformed controller can then be made discrete by substituting $aY(z)z^m$ with $ay[k+m]$ and similarly for $X(z)$. This is gives the discrete controller ready to be implemented in the Arduino in \autoref{eq:DxDiscrete}.
+\begin{subequations}
+\begin{flalign}
+&(2F_s+9.19)y[k]+(9.19-2F_s)y[k-1]=8.8(2F_s+4.29)x[k]+8.8(4.29-2F_S)x[k-1] \\
+&y[k]=8.8\frac{2F_s+4.29}{2F_s+9.19}x[k]+8.8\frac{4.29-2F_S}{2F_s+9.19}x[k-1]-\frac{9.19-2F_s}{2F_s+9.19}y[k-1] \label{eq:DxDiscrete}
+\end{flalign}
+\end{subequations}
+
