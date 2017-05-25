@@ -65,6 +65,11 @@ Motor Voltage & Internal Tachometer {(}RPM{)} & A2108 {(}RPM{)} & Difference {(}
 	\caption{Plot of RPM found for both tachometers}\label{fig:RPMTest}
 \end{figure}
 
+Which based on the know conversions gives a transfer function for the tachometer that is a relation between the tachometer voltage and motor velocity:
+\begin{equation}
+\dfrac{\dfrac{1000\ \text{RPM}}{3.130\ \text{V}} \cdot 2 \cdot \pi}{60\ \text{s}}\ \cdot\ T_{Voltage}\ =\ M_{Velocity}\ \text{rad/s}
+\end{equation}
+
 \section*{Conclusion}
 It its seen cf. figure \ref{fig:RPMTest} that the difference between the tachometers is so little, that the lines is on top of each other. The precision do not change with higher velocities and the internal tachometer is chosen, because it changes voltage faster because of the generator principle. The external optical tachometer needs some rotations to determine the RPM, and is not optimal when directions changes is needed.
 

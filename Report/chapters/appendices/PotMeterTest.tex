@@ -20,8 +20,8 @@ The purpose of the test is to find the angle which corresponds to the voltages o
 		Power supply	& Agilent & E3631A & 78577\\ 
 		\rowcolor{lightGrey}	
 		DC motor & Alsthom BBC & F9M2& 08339\\
-		Potentiometer & Bourns & Linear 100 k$\Omega$\newline 0,5\% linearity&\\ 		\rowcolor{lightGrey}
-		Potentiometer & Bourns & Linear 100 k$\Omega$\newline 1\% linearity&\\
+		Potentiometer & Bourns & Linear 10 k$\Omega$\newline 0,5\% linearity&\\ 		\rowcolor{lightGrey}
+		Potentiometer & Bourns & Linear 10 k$\Omega$\newline 1\% linearity&\\
 		Protractor & & &\\ \rowcolor{lightGrey}
 		Spirit level & & &
 	\end{tabularx}
@@ -112,7 +112,7 @@ Sampling the sensor with an Arduino will be done trough reading the voltage on a
 \dfrac{1024\ \text{units}}{5\ \text{V}} = 204,8\ \text{units/V}
 \end{equation}     
 Considering that the precision of the measurements and using an Arduino, all values would be rounded to the nearest integer.
-
+The linear approximations might be calibrated during implementation to minimize offsets.
 Further implementation is processed cf. section \ref{section:PotmeterImplementation}.
 
 \section*{Conclusion}
