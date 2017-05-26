@@ -1,6 +1,4 @@
-
-
-\chapter{Rocket Analysis}
+\chapter{Rocket Analysis}\label{chap:RockAnalyis}
 
 \todo{Appendix refference not working, find a way to include path i guess.}
 		A rocket presents a large number of similarities with an inverted pendulum in terms of modeling and control as it will be demonstrated in this chapter. It also adds one degree of freedom compared to the inverted pendulum, since it can be controlled in two horizontal directions. A model of the rocket is made to be able to compare the two systems' dynamics.
@@ -96,6 +94,11 @@
 		\explain{$\theta_{out}$ is the angle outputed by the servo}{1}
 		\stopexplain
 		
+\section{Comparison of the Inverted Pendulum and Rocket Models}\label{sec:ModelComp}
+
+From \autoref{chap:IPAnalysis} and \autoref{chap:RockAnalyis} it is found, that the models are slightly different. First of all, opposite angles were chosen in the beginning of the modeling process. Moreover, the inverted pendulum is fixed to the gears and motor, while the rocket is floating in the air, and thus canceling the gravity. The inverted pendulum has two more zeros in 0 and two real poles equidistant from zero, whereas the rocket has two poles in 0. The difference in poles is due to the absence of gravity into the rocket modeling, while the difference in zeros might be due to the fact that the arm is rigidly attached compared to the thruster.
+
+Due to this difference a different controller needs to be designed for each model.
 		
 %		
 %		\section{Modeling of the horizontal position}
