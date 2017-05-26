@@ -30,7 +30,7 @@
 #define mappingConstArm (117.0)
 
 #define mappingSlopeStick (66.66/204.8)
-#define mappingConstStick (163.9)
+#define mappingConstStick (150.92)
 
 //Limits for safety
 #define refArmMax 0.9
@@ -50,12 +50,12 @@
 #define KpVel 10.0
 
 //Arm controller
-#define KpInner -905.0
+#define KpInner -900.0
 
 //Stick controller
-#define gO -8.85	//nice value 0.8 stick -8.85 	| 	0.4 stick -6.8
+#define gO -8.8	//nice value 0.8 stick -8.85 	| 	0.4 stick -6.8
 #define zO 4.29		//nice value 0.8 stick 4.29 	| 	0.4 stick 6.06
-#define pO 9.27		//nice value 0.8 stick 9.27 	| 	0.4 stick 11.06
+#define pO 9.19		//nice value 0.8 stick 9.27 	| 	0.4 stick 11.06
 
 //Analog reading of the potentiometer
 double posStick=0, posArm=0;
@@ -103,9 +103,6 @@ void setup()
 
 void calcPID()
 {
-	// Distance for the stick
-	distStick =sin(angleArm)*La+sin(angleStick)*Lalpha;
-
 	// Outer loop controller first
 	// Compute error values
 	errorDist = setPointDist - distStick;
@@ -144,9 +141,6 @@ void calcPID()
 
 //Functions to simplify the program
 void actualizeFeedbackValue(){
-	//Actual current
-	//current=(analogRead(CURRENT_INPUT)*analog2digit-2.5)*10/1.5; //10 amp for 1.5
-
 	//Actual angular velocity of the motor
 	velocity=((analogRead(VELOCITY_INPUT))*analog2digit-2.5)*volt2rpm*rpm2radSec;
 
@@ -159,6 +153,9 @@ void actualizeFeedbackValue(){
 	angleStick = (mappingSlopeStick*posStick-mappingConstStick)*deg2rad;
 	//angle stick relative to the arm so change to it to correspond of the upright angle
 	angleStick = angleArm+angleStick;
+
+	// Distance for the stick
+	distStick =sin(angleArm)*La+sin(angleStick)*Lalpha;
 }
 
 
