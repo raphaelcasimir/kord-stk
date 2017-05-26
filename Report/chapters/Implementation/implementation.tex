@@ -1,19 +1,11 @@
 \chapter{Implementation}
 This chapter includes the implementation of controllers and components. The chapter will be seperated into two section, a section for the inverted pendulum and another section for the rocket. An Arduino will be used as the platform to implement the hardware and software on.    
 
-
-\subsection{MCU}\label{sec:MCU}
-TBD
-
-\todo{Sampling speed for both system, and argument that the arduino is fine with its 16 MHz clock speed.}
-
 \section{Inverted Pendulum Implementation}
 This section describes the hardware and software implementation of the controllers designed cf. section \ref{sec:IPController}. The goal is to determine if the designed controllers will balance the stick in the real world application. The section is separated into three different parts about sensors, hardware controller and software controller. The first part is to implement the feedback for the controllers which in the case is sensors. 
 
 \subsection{Implementing Sensors}
-The following section describes the implementation of the sensors   
-\todo{Consider the sampling speed of the sensors, when having the complete closed loop transfer function. - Mathias}
-
+The following section describes the implementation of the sensors with an Arduino Uno and the double inverted pendulum setup.   
 
 \subsubsection*{Potentiometer}\label{section:PotmeterImplementation}
 The system consist of multiple sensors, as decribed cf. section \ref{sec:IPDesc}, where two of these are potentiometers. The potentiometers is tested cf. appendix \ref{appendix:PotMeterTest}. The appendix concluded with a first order approximation of both potentiometers. During implementation it is realized that a slight calibration were needed because of the potentiometer had shifted place in the setup. The approximation for Pot$_{arm}$ is:
@@ -146,7 +138,7 @@ The implementing on the hardware has been described in the chapter, and therefor
 \input{chapters/Implementation/ZTransform.tex}
 
 \subsubsection{Controller Software}
-This sections describes the softwre implemented on the Arduino. 
+This sections describes the software implemented on the Arduino. The structure and processes is represented with a flowchart cf. figure \ref{fig:Flowchart}. The software can be found in the attached materials under "Attachment/Implementation/Arduino Software/InvertedPendulumControlSoftware"  
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=1\linewidth]{figures/Flowchart.pdf}
@@ -154,6 +146,7 @@ This sections describes the softwre implemented on the Arduino.
 \label{fig:Flowchart}
 \end{figure}
 \newpage
+
 \subsection{Implementation Evaluation}
 This following sections describes the different problems that occurred with the hardware and software trough out the implementation. They will be explained to show the progress trough out the implementation.
 \\
