@@ -1,10 +1,9 @@
-The system consists of an Inertial measurment Unit (IMU) GY - 80. This implies that multiple integreted sensors can be used, as seen in \autoref{sec:Rocket_sencor_choice}. The PCB created and used is seen in appendix \todo{appendix of PCB to do}. 
-Mulitple physical and software constraints have to be taken into account when implementing the system.
+The system consists of an Inertial measurment Unit (IMU) GY - 87. It was readily available from the university's supplies.
+Multiple physical and software constraints have to be taken into account when implementing the system.
 
-The rise time and setling time of the sensors are an important feature when ensuring the stability of the rocket. It cannot be too slow, otherwise the system will react to late to any angle variation. The rise time and setling time of the servomotors and rocket transfer function are described in %\auto{tab:TableStepr}.
- The process of the servomotors is then considered fast enough for the system, not interfering with the angle control process.
+The response time of the sensors are an important feature when ensuring the stability of the rocket. It cannot be too slow, otherwise the system will react to late to any angle variation. The servomotors system dynamics are described in \autoref{ssc:Servomotors}.
 
-The vibration of the rocket is a physical difficulty for the sensors as the measurements might be distorted. The placement and fixation must be carefully thought, as described in appendix \todo{appendix to do}.
+As it can be seen in the Arduino code "rocket controller code" included with this report, the gyroscope/angle sensor needs to write 14 bytes into the Arduino register. The code to use the MPU 6050 was done by Brainergizer \cite{web:gyro_angle}. Since the gyroscope has an internal clock of 1MHz \cite{datasheet:MPU-6050}, the sampling time for the angle sensor is $\frac{14 \cdot 8}{1 \cdot 10^{6}} = 1.12 \cdot 10^{-4}$ seconds.
 
 Of all the sensors available, only the gyroscope will be used in this project. This is due to the conditions of the rocket launch : the rocket will be attached to the ground, and will therefore have no use of all the potential of the IMU GY -80.
 
