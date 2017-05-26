@@ -1,12 +1,12 @@
 \graphicspath{{figures/AcceptanceTest/}}
 
-\section{Inverted Pendulum Acceptance Tests}\label{sec:InvPendAccTest}
+\chapter{Inverted Pendulum Acceptance Tests}\label{sec:InvPendAccTest}
 
-In this section the tests to check whether the controllers designed for the inverted pendulum fit the requirements or not. As said in \autoref{sec:TestDesc} the first acceptance test will not be documented as it more an implementation requirement than a test.
+In this section the tests to check whether the controllers designed for the inverted pendulum fit the requirements or not. As said in \autoref{sec:TestDesc} the first acceptance test will not be documented as it is more an implementation requirement than a test.
 
-\subsection{Acceptance Test 2.}
+\section{Acceptance Test 2.}
 
-The goal of this test is to see if the inverted pendulum's stick and arm stay within the limits set in Requirement 2 and 3 describe in \autoref{sec:InvPendReq}. \autoref{fig:AccTest2Arm} and \ref{fig:AccTest2Stick} plots the angles of the arm and the stick over a period of \SI{30}{\second} the maximum and the minimum angles are put in evidence so that it is easy to compare them with the requirements.
+The goal of this test is to see if the inverted pendulum's stick and arm stay within the limits set in Requirement 2 and 3 described in \autoref{sec:InvPendReq}. \autoref{fig:AccTest2Arm} and \ref{fig:AccTest2Stick} plots the angles of the arm and the stick over a period of \SI{30}{\second} the maximum and the minimum angles are put in evidence so that it is easy to compare them with the requirements.
 
 \begin{figure} [htbp]
 	\centering
@@ -15,7 +15,7 @@ The goal of this test is to see if the inverted pendulum's stick and arm stay wi
 	\label{fig:AccTest2Arm}
 \end{figure}
 
-From \autoref{fig:AccTest2Arm} it can be easily seen that the arm is within the requirements by a large margin of \SI{0.68}{\radian} or \SI{38.96}{\degree}. This result is due to the transformation of the outer loop described in \autoref{subsec:InvPendOuterLoopRedef}. Indeed the reference is not anymore the upright angle of the stick but the distance of a point on the stick compared with its position when both the arm and the stick are in upright position. Due to this the controller will try to also keep the arm in the upright angle which explains the very low angle variation of the arm compared to the requirement.
+From \autoref{fig:AccTest2Arm} it can be easily seen that the arm is within the requirements by a large margin of \SI{0.68}{\radian} or \SI{38.96}{\degree}. This result is due to the transformation of the outer loop described in \autoref{subsec:InvPendOuterLoopRedef}. Indeed the reference is not anymore the upright angle of the stick but the distance of a point on the stick compared with its position when both the arm and the stick are in upright position. Due to this the controller will try to keep both the arm and the stick in the upright angle which explains the very low angle variation of the arm compared to the requirement.
 
 \begin{figure} [htbp]
 	\centering
@@ -24,10 +24,12 @@ From \autoref{fig:AccTest2Arm} it can be easily seen that the arm is within the 
 	\label{fig:AccTest2Stick}
 \end{figure}
 
-In \autoref{fig:AccTest2Stick} the largest angle the stick takes is \SI{0.05}{\radian} while the Requirement 2 precise a limit of \SI{0.9}{\radian} which is almost twice as big.
+In \autoref{fig:AccTest2Stick} the largest angle the stick takes is \SI{0.05}{\radian} while the Requirement 2 precise a limit of \SI{0.9}{\radian}. So once again the requirement is respected by a large margin.
 
 From the results seen it can be concluded that the second acceptance test is a success.
 
-\subsection{Acceptance Test 3.}
+\section{Acceptance Test 3.}
 
-Unfortunately a method to precisely hold and release the stick for this test is not found as such no precise data were able to be collected. However a video was taken during the test and will be joined with the report. This video shows the reactions of stick when different push are applied to it, but as explained before the magnitude of the pushes is unknown resulting with no real conclusive data appart from the fact that the stick keeps its balance from it.
+Unfortunately a method to precisely hold and release the stick was not found, as such no precise data were able to be collected for this test. However, a video was taken during the test and will be joined with the report. This video shows the reactions of the stick when different pushes are applied to it. The maximum angle for the stick set in the requirements are present and can be used as reference points. It can be noted that during the whole video the stick keeps its balance.
+
+The results for the acceptance tests of the stick are a success.

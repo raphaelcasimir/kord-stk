@@ -119,15 +119,16 @@ A gyroscope is on the other hand measuring the angular velocity changes in three
 Combining these gives a Inertial Measurement Unit(IMU), which is commonly used in model planes and quad-copters. The application of this is to obtain the objects position through measuring velocity, orientation, rotation with the gyroscope and accelerometer. Both types of components are dependent of temperature and barometric pressure, so often an IMU includes multiple types of additional sensors for calibration purposes. A choice is made to use an IMU, given that its application in similar types of flying systems verifies that it is suitable for a rocket.    	  
 Some performance factors must be considered when choosing a IMU. For example is the g-force range of the IMU important. If the maximum ratings is lower than the acceleration of the rocket, then the sensor would not be able to give sufficient data at maximum acceleration. As well is the sensitivity of the accelerometer important. The rocket is a system with a high amplitude g-force when launching, and therefore a accelerometer with low sensitivity is preferable.
 
-\subsubsection{Inertial Measurement Unit - GY-80}
-GY-80\cite{web:GY80} is an IMU made available for use. It includes ADXL345 3-axis accelerometer, L3G4200D 3-axis gyroscope, BMP085 thermometer/barometer, and MC5883L 3-axis magnetometer. Is chosen based on its combination of components, low power consumption of $\approx$ 6,5 mA in measurement mode. It is designed so it can be implemented with the Arduino Nano through I2C communication. 
-I2C is a two wire protocol which is working trough serial communication. I2C is based on having two wires between the Arduino and the GY-80. The one wire SCL is the serial clock, and the other wire SDA is the data wire. All components on the GY-80 are convenient to implement with the Arduino. Further analysis is described cf. section \textbf{[ref]} \todo{Ref to to implementation part when it is done.}
+\subsubsection{Inertial Measurement Unit - GY-87}
+GY-87\cite{web:GY80} is an IMU made available for use. It includes an MPU6050, which combines a 3-axis accelerometer and a 3-axis gyroscope, a BMP180 thermometer/barometer, and a HMC5883 3-axis magnetometer. It is chosen based on its combination of components, low power consumption of $\approx$ 6,5 mA in measurement mode. It is designed so it can be implemented with the Arduino Nano through I2C communication. 
+I2C is a two wire protocol which is working trough serial communication. I2C is based on having two wires between the Arduino and the GY-87. The one wire SCL is the serial clock, and the other wire SDA is the data wire. All components on the GY-87 are convenient to implement with the Arduino. Further analysis is described cf. section \textbf{[ref]} \todo{Ref to to implementation part when it is done.}
 
 
 
 \section{Rocket Controller Design}\label{sec:RocketControllerDesign}
 The following sections explains the design procedure behind fitting the transfer function and dynamics of the rocket with a feedback controller. The controllers goal is to change the orientation of the thruster trough regulating the thrust vectoring system.    
 
+\input{chapters/Design/rocket/rocket_design_controller.tex}
 
 \subsection{Design of Thrust Vectoring System}
 \todo{Raphael task describe gimbal. - Mathias}

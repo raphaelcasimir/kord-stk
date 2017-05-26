@@ -1,19 +1,11 @@
 \chapter{Implementation}
 This chapter includes the implementation of controllers and components. The chapter will be seperated into two section, a section for the inverted pendulum and another section for the rocket. An Arduino will be used as the platform to implement the hardware and software on.    
 
-
-\subsection{MCU}\label{sec:MCU}
-TBD
-
-\todo{Sampling speed for both system, and argument that the arduino is fine with its 16 MHz clock speed.}
-
-\section{Inverted Pendulum Implementation}
+\section{Inverted Pendulum Implementation}\label{sec:InvPendImp}
 This section describes the hardware and software implementation of the controllers designed cf. section \ref{sec:IPController}. The goal is to determine if the designed controllers will balance the stick in the real world application. The section is separated into three different parts about sensors, hardware controller and software controller. The first part is to implement the feedback for the controllers which in the case is sensors. 
 
 \subsection{Implementing Sensors}
-The following section describes the implementation of the sensors   
-\todo{Consider the sampling speed of the sensors, when having the complete closed loop transfer function. - Mathias}
-
+The following section describes the implementation of the sensors with an Arduino Uno and the double inverted pendulum setup.   
 
 \subsubsection*{Potentiometer}\label{section:PotmeterImplementation}
 The system consist of multiple sensors, as decribed cf. section \ref{sec:IPDesc}, where two of these are potentiometers. The potentiometers is tested cf. appendix \ref{appendix:PotMeterTest}. The appendix concluded with a first order approximation of both potentiometers. During implementation it is realized that a slight calibration were needed because of the potentiometer had shifted place in the setup. The approximation for Pot$_{arm}$ is:
@@ -74,7 +66,13 @@ The following sections describes the implementation of the hardware motor contro
 The Maxon ESCON 50/5 is a PWM servo controller, that can be used to control DC and EC motors. The application is to amplify signals and control systems trough different control operations. It can also be used with a PWM input signal that can be outputted as an amplified and higher frequency PWM signal to a motor. The servo controller can be used in three different modes which can be configured trough the included Maxon ESCON studio. It can be configured in two modes for speed control with open and closed loops with feedback from sensors trough the board, and one mode for motor current control trough inputs from other modules such as an Arduino. In the setup the Escon controller is set to current control.
 
 
-It is setup trough the ESCON studio with current control, and with a external controlled PWM signal. It then gives the possibility to input a PWM signal from the Arduino, which will be amplified so that 90\% duty cycle equals 11 A and 10\% equals -11 A. This means that 50\% will give 0 A. The configuration file is included in the attachment files under "/Attachment/Implementation/Motor Controller/Motor Controller Configuration File". It can be imported into the ESCON studio and loaded onto any 50/5 controller.
+It is setup trough the ESCON studio with current control, and with a external controlled PWM signal. It then gives the possibility to input a PWM signal from the Arduino, which will be amplified so that 90\% duty cycle equals 11 A and 10\% equals -11 A. This means that 50\% will give 0 A.
+
+
+The Arduino uses a 8-bit timer for PWM as standard so to get a better resolution the TimerOne library is implemented. TimerOne is a 16-bit hardware timer which can be downscaled to give the possibility to have a 10-bit resolution on the PWM signal. A better resolution gives a higher number of duty cycle values which makes the control more precise than with 8-bit. 
+
+
+The configuration file for the ESCON studio is included in the attachment files under "/Attachment/Implementation/Motor Controller/Motor Controller Configuration File". It can be imported into the ESCON studio and loaded onto any 50/5 controller.
 
 The main specifications of the ESCON is listed cf. table \ref{MaxonSpecifications}.
 
@@ -101,8 +99,9 @@ They wiring for the setup can be seen cf. figure \ref{fig:EsconWiring}.
 \caption{Wiring for the control setup.}
 \label{fig:EsconWiring}
 \end{figure}
-
-The control PWM signal from the Arduino is set with a frequency of 5 kHz because that it is the maximum input frequency the motor controller will accept. It is set to 5 kHz so that the PWM avoids interference with the sampling frequency for the system. The input PWM signal is then amplified and made faster. The output PWM frequency of the motor controller is 53,6 kHz with a duty cycle from 10 - 90\% which can not be changed in the ESCON studio. It is considered that the switching frequency of the ESCON is close to optimal when considering that the PWM frequencies is within the limit of what its datasheet specifies.   The main concern of a switching frequency of 53,6 kHz on the motor would be heat dissipation. Therefore the minimum PWM frequency for the motor is calculated to see if the motor controllers PWM frequency fits the motor.
+\newpage
+The control PWM signal from the Arduino is set with a frequency of 5 kHz because that it is the maximum input frequency the motor controller will accept. It is set to 5 kHz so that the PWM avoids interference with the sampling frequency for the system.
+The input PWM signal is then amplified and made faster. The output PWM frequency of the motor controller is 53,6 kHz with a duty cycle from 10 - 90\% which can not be changed in the ESCON studio. It is considered that the switching frequency of the ESCON is close to optimal when considering that the PWM frequencies is within the limit of what its datasheet specifies.   The main concern of a switching frequency of 53,6 kHz on the motor would be heat dissipation. Therefore the minimum PWM frequency for the motor is calculated to see if the motor controllers PWM frequency fits the motor.
 
 \subsubsection{Calculating Minimum PWM Frequency}
 The only PWM frequency considered is the minimum switching frequency for the motor. This is done by considering the motor resistance and inductance versus the maximum amount of current ripple wanted on the motor. The values for the resistance and the inductance of the motor are calculated in appendix \ref{tab_appendix:KeSetUp}. The formula is seen cf. \ref{eq:PWMSwitch} [Palle Andersen, 2016].
@@ -128,18 +127,68 @@ The maximum ripple in the motor is determined by making the ripple the unknown f
 \begin{equation}
     53,6 \text{kHz} = \frac{-1}{2 \cdot ln(1-\frac{P_{ripple}}{100})}\cdot\frac{0,82\ \Omega}{156\cdot10^-6 \ \cdot \text{H}}\ =\ P_{ripple}\ = 4,785\%  
 \end{equation}
-This gives that the maximum current ripple is 4,785\% if considering a PWM frequency on 53,6 kHz. A general rule is that the ripple should be less than 10\% of the current, so considering that is less than 5\% is good considering that the system is implemented with current control.   
+This gives that the maximum current ripple is 4,785\% if considering a PWM frequency on 53,6 kHz. A general rule is that the ripple should be less than 10\% of the current, so considering that is less than 5\% is good considering that the system is implemented with current control.
+
+
+%https://playground.arduino.cc/Code/Timer1
  
 \subsection{Implementing Controllers}
 The implementing on the hardware has been described in the chapter, and therefore the implementation can proceed to the implementing the controllers on an Arduino. 
 
-\subsubsection{Implementing Controller for the Arm Loop}
-TBD
+\input{chapters/Implementation/ZTransform.tex}
 
-\subsubsection{Implementing Controller for the Motor Loop}
-TBD
-\subsubsection{Implementing Controller for the Stick Loop}
-TBD
+\subsubsection{Controller Software}
+This sections describes the software implemented on the Arduino.  The software can be found in the attached materials under "Attachment/Implementation/Arduino Software/InvertedPendulumControlSoftware". The structure and processes is represented with a flowchart cf. figure \ref{fig:Flowchart}.   
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{figures/Flowchart.pdf}
+\caption{Flowchart for the implemented software on Arduino.}
+\label{fig:Flowchart}
+\end{figure}
+
+\startexplain
+\explain{$\theta_a$ is the angle of the arm.}{\si{\radian}}
+\explain{$\theta_s$ is the angle of the stick.}{\si{\radian}}
+\explain{$x_{\alpha}$ is the distance to initial upright position.}{\si{\meter}}
+\explain{$Ref_{x_\alpha}$ is the reference distance error to initial upwards position.}{\si{\meter}}
+\explain{$x_{\alpha}Err$ is the distance error from initial upright position.}{\si{\meter}}
+\explain{$Ref_{\theta_a}$ is the reference angle of the arm.}{\si{\radian}}
+\explain{$\theta_{a}Err$ is the angle error of the arm.}{\si{\radian}}
+\explain{$Ref_{\omega_m}$ is the reference velocity of the motor.}{\si{\radian\per\second}}
+\explain{$\omega_{m}Err$ is the velocity error of the motor.}{\si{\radian\per\second}}
+\stopexplain
+
+
+\newpage
+
+
+\subsection{Implementation Evaluation}
+This following sections describes the different problems that occurred with the hardware and software trough out the implementation. They will be explained to show the progress trough out the implementation.
+\\
+\subsubsection{Filtering Sensors}
+During implementation of the Arm Loop it was found that a shaking occurred trough the motor, gear and out to the arm. From testing higher gains it was found that the shaking was amplified and became more unstable with the higher gains. Testing of the hardware and software was done to determine from where this shaking was sourced. To start with the sensors was checked for noise and floating. This was done to remove incorrect readings and unstable sensors. The sensors was read trough a oscilloscope and it was found that the ESCON motor controllers PWM frequency was represented in the sensor signal. This can occur from incorrect ground or wires not correctly isolated. This problem was solved by adding a capacitor to the sensors as seen cf. figure \ref{fig:EsconWiring}. The capacitor is connected from signal wires to ground to make a low pass filter. 1 $\upmu$F is chosen, one for each signal wire and considering that it is two 10 k$\Omega$ potentiometers it will give a varying cut of frequency. The cut-off frequency is calculated to:       
+
+\begin{equation}
+\frac{1}{2\cdot \pi \cdot 10000\ \Omega \cdot 1 \cdot 10^{-6}\  \text{F}}\ =\ 15,92\ \text{Hz}
+\end{equation}
+
+\begin{equation}
+\frac{1}{2\cdot \pi \cdot 2,97\ \Omega \cdot 1 \cdot 10^{-6}\  \text{F}}\ =\ 53,6\ \text{Hz}
+\end{equation}
+
+Considering that the resistance changes we need to go under $\approx$ 2,97 $\Omega$ before the cut-off frequency exceeds the frequency of the noise, and that any resistance higher will dampen with more than -3 dB. It is noticeable that the resistance values of the potentiometers is in between both limits of resistances and the noise is therefore dampened. The conclusions of adding these filters removed high frequency noise that made the arm shake less. There was still a small-amplitude shaking around the setpoint when the arm was at a position and kept there. This could be down to bad range and bad optimisation of bits in the software. The software is made with scaling from analogue values down to radians, which means that reading the arm potentiometer and having a analogue value from 235 to 527 and converting it down to -0,785 to 0,785 radians will mean that that first two bits is not optimized, because they are static or close to. This gives that the 10-bit resolution of the PWM is not used optimally when two is static, but it is still better than having 8-bit with two static. This can be optimize by either changing the range of the potentiometers to that the radian range was optimized to cover from 0-1023 and have a better bit/radians resolution. This solution could be done by having a operational amplifier with a gain of 4 and a 5 V saturation. The potentiometer should then be turned to that -0,785 is at the 0 point for the potentiometer. It can also be solved by changing the model and with the conversion trough out the software. Meaning that the analogue value would not be converted which would give a better resolution for the PWM output. Equally they can be combined for the best resolution. It is chosen to only implement the resolution optimization if and only if the acceptance test show that the system does not fulfil the set requirements.
+
+\subsubsection{PWM Frequency Problems}
+The stick control loop was implemented. The simulations gave gains and results that could be implemented on the system. When implemented it was found that the arm did not control correctly when the stick moved. Repetitive test gave the conclusions that the speed of the arm was to slow. Higher gains was implemented but did not give the wanted result and the gains was set back to the simulated. A oscilloscope test was made on the Arduino PWM frequency by measuring the input frequency on the motor controller. The test showed that the frequency was 100 Hz and not 5 kHz as expected. The software was revised and determined that TimerOne was used as timer twice, one for controlling PWM frequency and one for controlling the sampling time with an interrupt. The interrupt was removed and changed to a wait so that the sampling time was kept constant. The PWM frequency was then measured to be 5 kHz and the arm then behaved as wanted with the simulated gains.    
+
+\subsubsection{I2T Limitation}
+Another problem observed where a run time limit on the control system. The system would slow down after around approximately a minut but it was easily observed trough the ESCON studio that a I2T limit was reached on the motor controller. An I2T limit is an algorithm that is described by the nominal current, the motor peak current in rms, and the motor peak current in seconds. It is used to secure the motor and driver from damage and over heating. The parameters for the algorithm was set trough the ESCON studio, with a nominal current on 5 A, a peak current on 11 A, and a thermal time constant on 200 seconds. When the limit is reached the motor current only goes to 5 A so the motor controller is shut off so that it cools down and can then be used again.  
+
+\subsubsection{Controller tuning}
+An initial test showed that the controller designed could balance the stick however it was balanced when the arm was closer to 30$^\circ$ than 0$^\circ$. This is likely caused by a steady state error somewhere in the system. As the motor loop controller had a steady state error the gain was increased to reduce the error. This made the stick balance closer to the upright position. The new motor loop controller becomes \autoref{eq:newDmotor}.
+\begin{flalign}
+D_{motor}=10\label{eq:newDmotor}
+\end{flalign}
 
 \section{Rocket Implementation}
 

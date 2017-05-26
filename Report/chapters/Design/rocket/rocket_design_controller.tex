@@ -1,6 +1,7 @@
-\graphicspath{{figures/Design/IPController/}}
+%\graphicspath{{figures/Design/IPController/}}
+\graphicspath{{figures/Rocket/design/}}
 
-\chapter{Design of the rocket Controller}\label{sec:IPController}
+%\chapter{Design of the rocket Controller}\label{sec:IPController}
 The goal of the controller is to balance the rocket body in an upright position. The system can be decomposed in a block diagram as shown in \autoref{fig:FinalChartName}.
 
 \begin{figure}[htbp]
@@ -27,24 +28,20 @@ As seen in the modeling of the rocket and on \autoref{eq:RocketInitTf}, the syst
 \explain{$L_{Es}$ is the distance from the electronics stage to the center of gravity}{\si{\meter}}
 \stopexplain
 
-The system is unstable and goes to infinity on the imaginary axis, as shown on \autoref{fig:Rinitialtf}. To solve this problem a zero could be added at a higher frenquency to attract the poles.
-
-				% Figure of original tf
+Looking at the root locus of the system on \autoref{fig:Rinitialtf} shows the poles goes to infinity on the imaginary axis. This means that any oscillations or noise will never be damped solely by adding a gain. 
 \begin{figure}[htbp]
-	\centering
-	
-		\includegraphics[width=\textwidth]{figures/Rocket/design/initial_transfer_function_vf}
-		\caption{Root locus of the initial rocket angle transfer function.}
-		\label{fig:Rinitialtf}
-	
+\centering
+\includegraphics[width=0.7\textwidth]{figures/Rocket/design/initial_transfer_function_vf}
+\caption{Root locus of the rocket angle transfer function.}
+\label{fig:Rinitialtf}
 \end{figure}
 
-However the real system is influenced by the servomotor. The transfer function of the servomotors is shown on \autoref{eq:TfServo}. 
+However the real system is also influenced by the servomotor. The transfer function of the servomotors is shown on \autoref{eq:TfServo}. 
 
 \begin{subequations}
 	\begin{flalign}
-& H_s = \frac{1}{s \cdot \uptau + 1}	\\
-& H_s = \frac{1}{s \cdot 0.04 + 1}
+& H_s = \frac{1}{\uptau s+ 1}	\\
+& H_s = \frac{1}{0.04s + 1}
 \label{eq:TfServo}
 	\end{flalign}
 \end{subequations}
@@ -52,43 +49,42 @@ However the real system is influenced by the servomotor. The transfer function o
 \explain{$\uptau$ is the time constant of the servomotors}{\si{\second}}
 \stopexplain
 
-This function then adds a pole to the initial transfer function, resulting in an unstable system moving towards infinity on the imaginary axis. This is shown on \autoref{fig:SystemServo}.
-				
-				% Figure of tf + servo
+This function then adds a pole to the initial transfer function, resulting in an unstable system. This is shown on \autoref{fig:SystemServo}.
 \begin{figure}[htbp]
-	\centering
-		\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_servo_vf}
-		\caption{System with the servomotors.}
-		\label{fig:SystemServo}
+\centering
+\includegraphics[width=0.7\textwidth]{figures/Rocket/design/tf_with_servo_vf}
+\caption{Root locus of the system with the pole from the servomotors.}
+\label{fig:SystemServo}
 \end{figure}
 
-To direct the root locus to a stable state, a controller C1, adding a zero and a pole on the left side, is implemented to the rocket transfer function. This is shown on \autoref{fig:SystemC1}. The zero of the controller is chosen to be near the system in order to attract the poles, as shown on \autoref{fig:SystemC1zoom}. The pole of the controller is set at high frequency to not temper with the system. The controller C1 is shown on \autoref{eq:TfC1}.
+This system could be controlled similarly to the inverted pendulum by doing cascade control. By having an inner loop that controls the servomotors as fast as possible the pole added can be assumed to have no effect. This would make the rocket control design nearly identical to the inverted pendulum by having an inner loop with a simple gain and an outer loop where a compensator in form of a zero needs to be added. 
 
+The rocket built however doesn't have any sensors to measure the servomotors so this isn't an option. If the rocket was built differently this would be the preferred way to control it.
+
+Instead an attempt to control the system using an inner loop.
+
+\subsection{Controlling the Rocket Angle without Cascade Control}
+To move the poles to the left half plane, a controller C1, adding a zero and a pole on the left side, is implemented to the rocket transfer function. The zero of the controller is chosen to be near the system in order to attract the poles. The pole of the controller is set at high frequency to not temper with the system. Common practice recommends placing the pole at a location 20-40 times larger than the zero. The controller C1 is shown on \autoref{eq:TfC1}.
 \begin{equation}
-		C1 = \frac{s + 2}{s + 1000}	\\
-		\label{eq:TfC1}
+C1 = \frac{s + 2}{s + 40}	\label{eq:TfC1}
 \end{equation}
+\todo[inline,author=Jacob]{Please check these values!}
 
-
-				% Figure of tf + servo + C1, and zoom of tf + servo + C1
 \begin{figure}[htbp]
-	\centering
-	
-	\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controllerC1}
-	\caption{Total view of the poles and zeros.}
-	\label{fig:SystemC1}
-	
+\centering
+\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controllerC1}
+\caption{Root locus of the system with a lead controller, C1, added.}
+\label{fig:SystemC1}
 \end{figure}
 
 \begin{figure}[htbp]
-	\centering
-	
-	\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controllerC1_zoom}
-	\caption{Focus on low frequencies.}
-	\label{fig:SystemC1zoom}
-	
+\centering
+\includegraphics[width=\textwidth]{figures/Rocket/design/tf_with_controllerC1_zoom}
+\caption{Focus on low frequencies.}
+\label{fig:SystemC1zoom}
 \end{figure}
 
+\todo[inline,author=Jacob]{The second controller is useless so you should clean this up. I didn't read any further than here. I can do the root locus graphs once you are sure about your lead controller pole-zero locations.}
 Another controller C2 is needed to attract the two poles going to infinity along the imaginary axis. The controller and the new rocket transfer function are shown on \autoref{eq:TfC1C2}.
 
 \begin{subequations}
