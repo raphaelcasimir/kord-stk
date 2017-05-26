@@ -10,4 +10,6 @@ The inverted pendulum as it is does fulfill all requirements. Furthermore, the p
 
 \section{Differences between the Rocket and the Inverted Pendulum}
 
-As explained in \autoref{chap:ModelComp} the models are lightly
+As explained in \autoref{sec:ModelComp} the models are slightly different. First of all, opposite angles were chosen in the beginning of the modeling process. Moreover, the inverted pendulum is fixed to the gears and motor, while the rocket is floating in the air, and thus canceling the gravity. The inverted pendulum has two more zeros in 0 and two real poles equidistant from zero, whereas the rocket has two poles in 0. The difference in poles is due to the absence of gravity into the rocket modeling, while the difference in zeros might be due to the fact that the arm is rigidly attached compared to the thruster.
+
+Unfortunately even if the systems are close, an identical model could not be found. This difference might come from the setup and its extra arm, which introduce a rotational force instead of a horizontal force e.g an inverted pendulum with a cart.
