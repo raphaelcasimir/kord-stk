@@ -138,14 +138,29 @@ The implementing on the hardware has been described in the chapter, and therefor
 \input{chapters/Implementation/ZTransform.tex}
 
 \subsubsection{Controller Software}
-This sections describes the software implemented on the Arduino. The structure and processes is represented with a flowchart cf. figure \ref{fig:Flowchart}. The software can be found in the attached materials under "Attachment/Implementation/Arduino Software/InvertedPendulumControlSoftware"  
+This sections describes the software implemented on the Arduino.  The software can be found in the attached materials under "Attachment/Implementation/Arduino Software/InvertedPendulumControlSoftware". The structure and processes is represented with a flowchart cf. figure \ref{fig:Flowchart}.   
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=1\linewidth]{figures/Flowchart.pdf}
 \caption{Flowchart for the implemented software on Arduino.}
 \label{fig:Flowchart}
 \end{figure}
+
+\startexplain
+\explain{$\theta_a$ is the angle of the arm.}{\si{\radian}}
+\explain{$\theta_s$ is the angle of the stick.}{\si{\radian}}
+\explain{$x_{\alpha}$ is the distance to initial upright position.}{\si{\meter}}
+\explain{$Ref_{x_\alpha}$ is the reference distance error to initial upwards position.}{\si{\meter}}
+\explain{$x_{\alpha}Err$ is the distance error from initial upright position.}{\si{\meter}}
+\explain{$Ref_{\theta_a}$ is the reference angle of the arm.}{\si{\radian}}
+\explain{$\theta_{a}Err$ is the angle error of the arm.}{\si{\radian}}
+\explain{$Ref_{\omega_m}$ is the reference velocity of the motor.}{\si{\radian\per\second}}
+\explain{$\omega_{m}Err$ is the velocity error of the motor.}{\si{\radian\per\second}}
+\stopexplain
+
+
 \newpage
+
 
 \subsection{Implementation Evaluation}
 This following sections describes the different problems that occurred with the hardware and software trough out the implementation. They will be explained to show the progress trough out the implementation.
@@ -169,6 +184,11 @@ The stick control loop was implemented. The simulations gave gains and results t
 \subsubsection{I2T Limitation}
 Another problem observed where a run time limit on the control system. The system would slow down after around approximately a minut but it was easily observed trough the ESCON studio that a I2T limit was reached on the motor controller. An I2T limit is an algorithm that is described by the nominal current, the motor peak current in rms, and the motor peak current in seconds. It is used to secure the motor and driver from damage and over heating. The parameters for the algorithm was set trough the ESCON studio, with a nominal current on 5 A, a peak current on 11 A, and a thermal time constant on 200 seconds. When the limit is reached the motor current only goes to 5 A so the motor controller is shut off so that it cools down and can then be used again.  
 
+\subsubsection{Controller tuning}
+An initial test showed that the controller designed could balance the stick however it was balanced when the arm was closer to 30$^\circ$ than 0$^\circ$. This is likely caused by a steady state error somewhere in the system. As the motor loop controller had a steady state error the gain was increased to reduce the error. This made the stick balance closer to the upright position. The new motor loop controller becomes \autoref{eq:newDmotor}.
+\begin{flalign}
+D_{motor}=10\label{eq:newDmotor}
+\end{flalign}
 
 \section{Rocket Implementation}
 
