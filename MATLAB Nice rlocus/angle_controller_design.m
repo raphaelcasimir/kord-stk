@@ -15,15 +15,15 @@ opt=stepDataOptions('StepAmplitude',2/180*pi);
 
 %%          Transfer functions
 
-H = (f_t*l_Cg*1/(m_r*l_Es^2))/s^2
+H = (f_t*l_Cg*1/(m_r*l_Es^2))/s^2;
 
 Servo = 1/(s*Tau+1);
 
-H1 = H*Servo
+H1 = H*Servo;
 C1 = (s+2)/(s+1000);
 C2 = (s+50)/(s+1100);
-CTRLC1 = 1*H*Servo*C1
-CTRL = 1*H*Servo*C1*C2
+CTRLC1 = 1*H*Servo*C1;
+CTRL = 1*H*Servo*C1*C2;
 
 %%          Root locus / step response / bodeplot
 
@@ -57,22 +57,29 @@ CTRL = 1*H*Servo*C1*C2
 
 %       Try 2
 % 
-h=rlocusplot(CTRL); 
+
+h=rlocusplot(H1); 
 p=getoptions(h);
+
+% p=pzoptions;
+
 p.ylabel.FontSize = 14;
 p.xlabel.FontSize = 14;
 p.title.FontSize = 16;
-p.title.String = 'Root Locus of the rocket';
+p.title.String = 'Root Locus of the Rocket Angle with Servomotors';
 p.ticklabel.FontSize = 12;
-p.xlim=[-100 5];
+p.xlim=[-30 15];
 p.ylim=[-45 45];
+
 setoptions(h,p);
+% h=pzplot(H,p)
+
 axIm = findall(gcf,'String','Imaginary Axis (seconds^{-1})');
 axRe = findall(gcf,'String','Real Axis (seconds^{-1})');
 set(axIm,'String','Imaginary Axis');
 set(axRe,'String','Real Axis');
 qq=findall(gcf,'type','line');
-qq(end-5).LineWidth=3;
+% qq(end-5).LineWidth=3;
 qq(end-4).LineWidth=3;
 qq(end-3).LineWidth=3;
 qq(end-2).LineWidth=3;
