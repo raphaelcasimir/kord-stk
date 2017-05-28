@@ -59,7 +59,7 @@ This function then adds a pole to the initial transfer function, resulting in an
 
 This system could be controlled similarly to the inverted pendulum by doing cascade control. By having an inner loop that controls the servomotors as fast as possible the pole added can be assumed to have no effect. This would make the rocket control design nearly identical to the inverted pendulum by having an inner loop with a simple gain and an outer loop where a compensator in form of a zero needs to be added. 
 
-The rocket built however doesn't have any sensors to measure the servomotors so this isn't an option. If the rocket was built differently this would be the preferred way to control it.
+The rocket built however does not have any sensors to measure the servomotors so this is not an option. If the rocket was built differently this would be the preferred way to control it.
 
 Instead an attempt to control the system using an inner loop.
 
@@ -111,12 +111,12 @@ The bodeplot of the controlled rocket transfer function is shown on \autoref{fig
 		\label{fig:BodeplotFinalTf}
 \end{figure}
 
-The controlled rocket transfer function obtained is shown on equation \autoref{eq:RocketTfEqu} and  \autoref{fig:FinalChartNumbers}.
+The controlled rocket transfer function obtained is shown on  \autoref{fig:FinalChartNumbers}.
 
-\begin{equation}    
-H = 0.404 \cdot \frac{s + 1.7}{s + 68} \cdot \frac{1}{s \cdot \uptau + 1} \cdot \frac{F_t \cdot L_{Cg} \cdot \frac{1}{M_r \cdot L_{Es}^2}}{s^2}  
-\end{equation}
-\label{eq:RocketTfEqu}
+%\begin{equation}    
+%H = 0.404 \cdot \frac{s + 1.7}{s + 68} \cdot \frac{1}{s \cdot \uptau + 1} \cdot \frac{F_t \cdot L_{Cg} \cdot \frac{1}{M_r \cdot L_{Es}^2}}{s^2}  
+%\end{equation}
+%\label{eq:RocketTfEqu}
 
 \begin{figure}[htbp]
 	\centering
