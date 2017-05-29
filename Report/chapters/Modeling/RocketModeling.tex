@@ -1,12 +1,13 @@
 \section{Rocket Modeling}\label{chap:RockAnalyis}
 
-\todo{Appendix refference not working, find a way to include path i guess.}
-		A rocket presents a large number of similarities with an inverted pendulum in terms of modeling and control as it will be demonstrated in this chapter. It also adds one degree of freedom compared to the inverted pendulum, since it can be controlled in two horizontal directions. A model of the rocket is made to be able to compare the two systems' dynamics.
-		\\
-		Two different parameters can be controlled in the rocket: the angle of its body compared to vertical and its position.
-		The purpose is to minimize the angle and to keep the initial position, but not the initial altitude.
+		A rocket model needs to be done in order to compare the rocket with the inverted pendulum.. It also adds one degree of freedom compared to the inverted pendulum, since it can be controlled in two horizontal directions. A model of the rocket is made to be able to compare the two systems' dynamics.
+		In order to keeps the rocket project as close as possible of the inverted pendulum, the goal of the rocket model is to control the angle of the body $\theta_b$ by changing the angle of the thruster $\theta_t$.
 		
 %		The angle to position was taken out. if put back, change the intro
+		
+		All the forces applied to the rocket body can be decomposed into two forces: one parallel to the rocket body and another perpendicular to it. It is considered that the rocket body is incompressible as well as unstretchable, therefore the parallel forces are null.
+		
+		Since the project is about controlling a rocket in its initial stage of flight, the speed is considered low enough to neglect the drag force produced by it. The gravity is also neglected as it is mainly canceled by the thrust. These approximation results of having the thruster force as the only acting force on the rocket as showed in \autoref{fig:angle_diagram}.
 		
 		\section{Modeling of the angle}
 		\begin{figure}[htbp]
@@ -16,25 +17,41 @@
 			\label{fig:angle_diagram}
 		\end{figure}
 		
-		This section will focus on the forces acting perpendicularly to the rocket body, thus creating torques.
-		The resulting transfer function will take $\theta_t$, the thruster angle compared to the body, as an input and $\theta_b$, the body angle compared to vertical as an output.
-		
-		The thruster force $F_t$ will be considered as constant. See the rocket motor test experiment for details: \autoref{ThrusterTest}. $F_g$ is the gravity force on the rocket's center of gravity. The force of drag is neglected due to the low-speed conditions of the tests, and the absence of air in most real-life scenarios.
-
-
-		
-%		Let's call $l_{Cg}$ the distance between the center of gravity and the end of the thruster.
-		Using Newton's second law the following equation can be derived.
-
-		\begin{equation}
-			I_r \cdot \ddot{\theta_b}=\tau_t \addunit{\newton$\cdot$\meter} \label{eq:rocket_angle_1}
-		\end{equation}
 		\startexplain
-			\explain{$I_r$ is the inertia of the rocket}{\si{\kilo\gram$\cdot$\meter^2}}
-			\explain{$\ddot{\theta_b}$ is the angular acceleration of the rocket body}{\si{\second^{-2}}}
-			\explain{$\tau_t$ is the torque created by the thruster on the rocket}{$\si{\kilo\gram \cdot\meter^{2}\cdot\sec^{-2}}$}
+		\explain{$\theta_t$ is the thruster angle compared to the body}{\si{\radian}}
+		\explain{$\theta_b$ is the body angle compared to vertical}{\si{\radian}}
+		\explain{$l_{Es}$ is the distance from the electronics stage to the center of gravity}{\si{\meter}}
+		\explain{$l_{Cg}$ is the distance from the thruster end to the center of gravity}{\si{\meter}}
+		\explain{$F_t$ is the thruster force}{\si{\newton}}
+		\explain{$F_pa$ is the thruster force}{\si{\newton}}
+		\explain{$F_pe$ is the thruster force}{\si{\newton}}
+		\explain{$\tau_t$ is the torque created by the thruster on the rocket}{\si{\newton\meter}}
 		\stopexplain
 		
+%		Let's call $l_{Cg}$ the distance between the center of gravity and the end of the thruster.
+		Using Newton's second law the \autoref{eq:rocket_angle_1} can be derived.
+
+		\begin{equation} \label{eq:rocket_angle_1}
+			J_r \ddot{\theta}_b=\tau_t \addunit{\newton$\cdot$\meter}
+		\end{equation}
+		\startexplain
+		\explain{$J_r$ is the moment of inertia of the rocket}{\si{\kilogram\meter\squared}}
+		\stopexplain
+		
+		By using geometry, $\tau_t$ is found in \autoref{eq:tau_t}.
+		
+		\begin{equation}\label{eq:tau_t}
+		\tau_t = F_t sin(\theta_t) l_{Cg} \addunit{\si{\newton\meter}}
+		\end{equation}
+		
+		\SI{70}{\percent} of the weight is in fact concentrated on the electronic's stage (rocket is about \SI{0.300}{\kilogram} and the electronics stage is around \SI{0.210}{\kilogram}). Therefore it is assumed, that apart from this stage everything is weightless. Consequently the rocket can be approximated as a pendulum where the electronics stage is mass rotating around the gravity center. The center of gravity position is determined by simply balancing the rocket on a finger \cite{web:CenterGravityDet}. The moment of inertia is then found in \autoref{eq:rocket_angle_3} \cite{web:PendulumMomentOfInertia}.
+		
+		\begin{equation} \label{eq:rocket_angle_3}
+		I_r=m_{Es} l_{Es}^2 \addunit{\si{\kilogram\meter\squared}}
+		\end{equation}
+		\startexplain
+		\explain{$m_{Es}$ is the mass of the electronics stage}{\si{\kilogram}}
+		\stopexplain
 %		$\tau_t$ can be expressed as:
 %		
 %		\begin{equation}
@@ -44,55 +61,46 @@
 %		\explain{$\theta_t$ is the angle of the truster compared to the rocket body}{1}
 %		\explain{$f_t$ is the thrust force}{\si{\newton}}
 %		\stopexplain
+		By combining \autoref{eq:rocket_angle_1} with \autoref{eq:tau_t} and \autoref{eq:rocket_angle_3}, \autoref{eq:UnlinearRockAngle} is obtained.
 		
-		By going to the Laplace domain and grouping elements the following transfer function is obtained:
-%		
-%		\begin{equation}
-%		\frac{\theta_b}{\theta_t} = \frac{f_t \cdot l_{Cg} \cdot \frac{1}{I_r}}{s^2}
-%		\label{eq:rocket_angle_model_tf_1}
-%		\end{equation}
+		\begin{equation}\label{eq:UnlinearRockAngle}
+			m_{Es} l_{Es}^2 \ddot{\theta}_b = F_t sin(\theta_t) l_{Cg} \addunit{\si{\newton\meter}}
+		\end{equation}
 		
-		Calculating $I_r$ assuming that all the mass is concentrated at the electronics/battery stage of the rocket. $70\%$ of the weight is in fact concentrated on this part (rocket is about $300$ grams and the electronics stage is around $0210$ grams). The rocket is rotating around its center of gravity.
+		The thruster force $F_t$ will be considered as constant. See the rocket motor test experiment for details in \autoref{ThrusterTest}.
 		
-		\begin{equation}
-		I_r=m_{Es} \cdot l_{Es}^2 \label{eq:rocket_angle_3}
+		\autoref{eq:UnlinearRockAngle} needs to be linearized in order to go into to Laplace domain. To do so a first order Taylor approximation around the null angle is done in \autoref{eq:linearRockAngle}.
+		
+		\begin{equation}\label{eq:linearRockAngle}
+			m_{Es} l_{Es}^2 \ddot{\theta}_b = F_t \theta_t l_{Cg} \addunit{\si{\newton\meter}}
+		\end{equation}
+		
+		By going to the Laplace domain and grouping elements the transfer function of the rocket is found in \autoref{eq:RockTansFunc}.
+		
+		\begin{subequations} \label{eq:RockTansFunc}
+			\begin{flalign}
+				s^2 m_{Es} l_{Es}^2 \Theta_b(s)	&=F_t l_{Cg} \Theta_t(s) \addunit{1} \\
+				\frac{\Theta_b(s)}{\Theta_t(s)}		&=\frac{F_t l_{Cg}}{s^2 m_{Es} l_{Es}^2} \addunit{1}
+			\end{flalign}
+		\end{subequations}
+		
+		The servomotors introduce a delay between the controller output and the rocket system. This delay is modeled in \autoref{eq:servo_model}.
+		
+		\begin{equation}\label{eq:servo_model}
+		\frac{\Theta_{b}(s)}{\Theta_{b_{in}}(s)}=\frac{1}{\tau s + 1} \addunit{1}
 		\end{equation}
 		\startexplain
-		\explain{$m_{Es}$ is the mass of the electronics stage}{\si{\kilo\gram}}
-		\explain{$l_{Es}$ is the distance from the electronics stage to the center of gravity}{\si{\meter}}
+		\explain{$\Theta_{b_{in}(s)}$ is the angle sent to the servo by the controller}{1}
+		\explain{$\tau$ is the time constant}{1}
 		\stopexplain
 		
-		The torque $\tau_t$ can be expressed as:
-		\begin{equation}
-		\tau_t = F_t \cdot sin(\theta_t) \cdot l_{Cg} \addunit{\newton$\cdot$\meter} \label{eq:tau_t}
-		\end{equation}
-		\startexplain
-		\explain{$F_t$ is the thruster force}{\si{\newton}}
-		\explain{$\theta_t$ is the angle of the thruster compared to the body's longitudinal axis}{1}
-		\explain{$l_{Cg}$ is the distance from the thruster end to the center of gravity}{m}
-		\explain{$\tau_t$ is the torque created by the thruster on the rocket}{\si{\newton \meter}}
-		\stopexplain
+		The time constant of the servomotors is determined in \autoref{ssc:Servomotors}, while the final transfer function of the rocket model is found to be \autoref{eq:RockTansFuncFinal}.
 		
-		The small angle approcimation is used on $\tau_t$:
-		\begin{equation}
-		\tau_t = F_t \cdot \theta_t \cdot l_{Cg} \addunit{\newton$\cdot$\meter} \label{eq:tau_t_lin}
+		\begin{equation}\label{eq:RockTansFuncFinal}
+			\frac{\Theta_b(s)}{\Theta_t(s)}=\frac{1}{\tau s + 1}\frac{F_t l_{Cg}}{s^2 m_{Es} l_{Es}^2}
 		\end{equation}
 		
-		The transfer function becomes:
-		\begin{equation}
-		H=\frac{\theta_b}{\theta_t} = \frac{F_t \cdot l_{Cg} \cdot \frac{1}{m_{Es} \cdot l_{Es}^2}}{s^2}
-		\label{eq:rocket_angle_model_tf_2}
-		\end{equation}
-		
-		The servomotors also present a transfer function to be taken into consideration. The transfer function is obtained in \autoref{eq:servo_models}. It is a first order system. The time constant of the servomotors is determined in \autoref{ssc:Servomotors}.
-		
-		\begin{equation}
-		\frac{\theta_{out}}{\theta_{in}}=\frac{1}{\tau s + 1}  \label{eq:servo_model}
-		\end{equation}
-		\startexplain
-		\explain{$\theta_{in}$ is the angle sent to the servo by the controller}{1}
-		\explain{$\theta_{out}$ is the angle outputed by the servo}{1}
-		\stopexplain
+		Now that the model of the rocket is done a comparison is done with the model of the inverted pendulum.
 		
 \section{Comparison of the Inverted Pendulum and Rocket Models}\label{sec:ModelComp}
 
