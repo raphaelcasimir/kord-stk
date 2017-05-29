@@ -145,10 +145,10 @@ This following sections describes the different problems that occurred with the 
 \subsection{Filtering Sensors}
 During implementation of the arm loop, it was found that a shaking occurred through the motor, gear and out to the arm. From testing higher gains it was found that the shaking was amplified and became more unstable with the higher gains. Testing of the hardware and software was done to determine the source of the shaking. To start with, the sensors were checked for noise and floating. This was done to remove incorrect readings and unstable sensors. The sensors were read through an oscilloscope and it was found that the ESCON motor controllers PWM frequency was represented in the sensor signal. This can occur from incorrect ground or wires not correctly isolated. This problem was solved by adding a capacitor to the sensors as seen on \autoref{fig:EsconWiring}. The capacitor is connected from signal wires to ground to make a low pass filter. 1 $\upmu$F is chosen, one for each signal wire and considering that it is two 10 k$\Omega$ potentiometers it will give a varying cut of frequency. The cut-off frequency is calculated to be:       
 \begin{subequations}
-\begin{flalign}}
+\begin{flalign}
 \frac{1}{2\cdot \pi \cdot 10000\ \Omega \cdot 1 \cdot 10^{-6}\  \text{F}}\ =\ 15.92\ \text{Hz} \\
 \frac{1}{2\cdot \pi \cdot 2.97\ \Omega \cdot 1 \cdot 10^{-6}\  \text{F}}\ =\ 53.6\ \text{kHz}
-\end{flalign}}
+\end{flalign}
 \end{subequations}
 
 The resistance changes needs to go under $\approx$ 2.97 $\Omega$ before the cut-off frequency exceeds the frequency of the noise, and any resistance change higher will dampen with more than -3 dB. It is noticeable that the resistance values of the potentiometers are in between both limits of resistances and the noise is therefore dampened. The conclusion of adding these filters, is that the high frequency noise that made the arm shake is reduced. There was still a small-amplitude shaking around the setpoint when the arm was at a position and kept there. This could due to non-optimal range and bad optimization of bits in the software. The software is made with scaling from analogue values to radians, which means that reading the arm potentiometer and having an analogue value from 235 to 527 and converting it to -0,785 to 0,785 radians means that that first two bits are not used. This gives that the 10-bit resolution of the PWM is not used optimally when two are static, but it is still better than having 8-bit with two static. 
