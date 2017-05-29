@@ -22,7 +22,7 @@ Servo = 1/(s*Tau+1);
 H1 = H*Servo;
 C1 = (s+1.7)/(s+68);
 C2 = (s+50)/(s+1100);
-D_Rocket = 1*H1*C1;
+CTRLC1 = 1*H*Servo*C1;
 CTRL = 1*H*Servo*C1*C2;
 
 %%          Root locus / step response / bodeplot
@@ -58,7 +58,7 @@ CTRL = 1*H*Servo*C1*C2;
 %       Try 2
 % 
 
-h=rlocusplot(D_Rocket); 
+h=rlocusplot(H1*C1); 
 p=getoptions(h);
 
 % p=pzoptions;
@@ -66,10 +66,10 @@ p=getoptions(h);
 p.ylabel.FontSize = 14;
 p.xlabel.FontSize = 14;
 p.title.FontSize = 16;
-p.title.String = 'Root Locus of the Rocket with a Lead Controller';
+p.title.String = 'Root Locus of the Rocket Angle with Servomotors';
 p.ticklabel.FontSize = 12;
 p.xlim=[-80 5];
-p.ylim=[-30 30];
+p.ylim=[-10 10];
 
 setoptions(h,p);
 % h=pzplot(H,p)
@@ -84,27 +84,6 @@ qq(end-4).LineWidth=3;
 qq(end-3).LineWidth=3;
 qq(end-2).LineWidth=3;
 qq(end-1).LineWidth=2;
-qq(end-1).MarkerSize=12;
+qq(end-1).MarkerSize=18;
 qq(end).LineWidth=2;
-qq(end).MarkerSize=12;
-
-%%
-%step(feedback(Gre*DLead*8.85,1));
-h=stepplot(feedback(D_Rocket*0.404,1));% h=impulseplot(feedback(1,Gre*DLead*8.8*feedback(Garm*900*feedback(Gmotor*1.35,1),1)));
-title('Step Response of Rocket with Lead Controller')
-p=getoptions(h);
-p.ylabel.FontSize = 14;
-p.xlabel.FontSize = 14;
-p.ticklabel.FontSize = 10;
-%p.xlim=[0 0.045];
-setoptions(h,p);
-qq=findall(gcf,'type','line');
-%qq(end-5).LineWidth=3;
-%qq(end-4).LineWidth=3;
-%qq(end-3).LineWidth=3;
-%qq(end-2).LineWidth=3;
-qq(end-1).LineWidth=2;
-qq(end-1).MarkerSize=12;
-qq(end).LineWidth=2;
-qq(end).MarkerSize=12;
-
+qq(end).MarkerSize=18;

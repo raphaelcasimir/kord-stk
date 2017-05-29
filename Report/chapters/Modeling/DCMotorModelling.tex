@@ -1,10 +1,11 @@
+\newpage
 \section{Modeling of the DC-Motor}
 \label{sec:ModelDCMotor}
 The purpose of this section is to establish a dynamic model of the DC-motor. The inputs and outputs of the model can be seen on the block diagram on \autoref{fig:MotorBlock}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.5\textwidth]{figures/modeling/Motor/InputOutputMotor.pdf}
-\caption{Block diagram showing the inputs and outputs of the DC motor part of the inverted pendulum setup.}
+\caption{Block diagram showing the inputs and outputs of a DC motor.}
 \label{fig:MotorBlock}
 \end{figure}
 
@@ -36,7 +37,7 @@ Using Kirchhoff's voltage law, the electric model of the DC-motor is \autoref{eq
 	\explain{$\omega_m$ is the angular velocity of the motor}{\si{\radian\per\second}}
 \stopexplain
 
-This is all that's needed for the electrical part to find the model of the motor.
+This is all that is needed for the electrical part to find the model of the motor.
 
 \subsection{Mechanical Model of the Motor}
 The mechanical free body diagram of the motor is presented in \autoref{fig:MotorBodyDiagram}.
@@ -48,7 +49,7 @@ The mechanical free body diagram of the motor is presented in \autoref{fig:Motor
  	\label{fig:MotorBodyDiagram}
 \end{figure}
 
-From \autoref{fig:MotorBodyDiagram}, the sum of the torques for the mechanical part of the motor is \autoref{eq:MotorMechanical}.
+From \autoref{fig:MotorBodyDiagram}, the sum of the torques for the mechanical part of the motor is ddescribed in  \autoref{eq:MotorMechanical}.
 
 \begin{flalign}
 J_{m} \dot{\omega}_{m} = \tau_{m} - \tau_{l} - \tau_{fm} \label{eq:MotorMechanical}
@@ -58,7 +59,7 @@ J_{m} \dot{\omega}_{m} = \tau_{m} - \tau_{l} - \tau_{fm} \label{eq:MotorMechanic
 	%\explain{$\omega_m$ is the angular velocity of the DC-motor}{\si{\radian\per\second}}
 	\explain{$\tau_m$ is the torque of the DC-motor}{\si{\newton\meter}}
 	\explain{$\tau_l$ is the torque of the load}{\si{\newton\meter}}
-	\explain{$\tau_{fm}$ is the torque of the friction}{\si{\newton\meter}}
+	\explain{$\tau_{fm}$ is the torque of the friction of the motor}{\si{\newton\meter}}
 \stopexplain
 
 The motor's torque and the friction's torque, respectively $\tau_m$ and $\tau_f$, are defined by \autoref{eq:tauLm} while $\tau_l$ is the torque of the gears, $\tau_{gear}$, found in \autoref{sec:torqueGear}.
@@ -105,7 +106,7 @@ s J_{m} \Omega_{m}(s) = K_{t} \frac{U_m(s)-K_e\Omega_{m}(s)}{R_m+sL_m} - \tau_{g
 \begin{subequations}
 \begin{flalign}
 &\Omega_m(s)\left(\left(J_m+J_{gear}\right)s+\left(B_m+B_{gear}\right)\right)=K_t\frac{U_m(s)-K_e\Omega_m(s)}{R_m+sL_m} \\
-&\Omega_m(s)\left(J_tL_ms^2+\left(J_t +B_tL_m\right)s+B_tR_m+K_tK_e\right)=K_tU_m(s) \\
+&\Omega_m(s)\left(J_tL_ms^2+\left(R_m +B_tL_m\right)s+B_tR_m+K_tK_e\right)=K_tU_m(s) \\
 &\frac{\Omega_m(s)}{U_m(s)}=\frac{K_t}{J_tL_ms^2+(J_tR_m+B_tL_m)s+B_tR_m+K_tK_e} \label{eq:DCModelYesL}
 \end{flalign}
 \end{subequations}

@@ -10,7 +10,7 @@ By combining \autoref{eq:DCModelNoL}, \autoref{eq:thetaOmega} and \autoref{eq:tf
 \frac{\Theta_s(s)}{U_m(s)}=\frac{K_t}{J_tR_ms+B_tR_m+K_tK_e} \cdot \frac{N^3}{s} \cdot \frac{-\frac{3l_a}{2l_s}s^2+\frac{3b_{as}}{M_sl_s^2}s}{s^2+\frac{3b_{as}}{M_sl_s^2}s-\frac{3g}{2l_s}} \label{eq:CombModel}
 \end{flalign}
 
-The values for all variables for the inverted pendulum along with their origin is shown in \autoref{tab:IPModelVar}. The friction between the arm and the stick is assumed to be zero as the joint consists of a ball bearing. 
+The values for all constants of the inverted pendulum along with their origin is shown in \autoref{tab:IPModelVar}. The friction between the arm and the stick is assumed to be zero as the joint consists of a ball bearing. 
 \begin{table}[htbp]
 \centering
 \caption{Parameters for the inverted pendulum and their origin.}
@@ -38,4 +38,4 @@ $g$ & 9.8 & Standard gravity & \si{\meter\per\square\second} & \cite{web:gravity
 \end{tabular}
 \end{table}
 
-With the mathematical model of the inverted pendulum found a controller for the system can be designed.
+The inverted pendulum model is determined. The rocket model will then be found to made the comparison between them, and conclude if the models share similarities.

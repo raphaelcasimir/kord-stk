@@ -14,11 +14,11 @@
 #include <Servo.h>
 #include <Wire.h>
 
-#define STRIM_P 95.0 // Center point for pitch servo
-#define STRIM_R 70.0
+#define STRIM_P 60.0 // Center point for pitch servo
+#define STRIM_R 60.0
 
 // Controller
-#define gO 2.0
+#define gO 1.0 //2
 #define zO 2.0
 #define pO 300.0
 
