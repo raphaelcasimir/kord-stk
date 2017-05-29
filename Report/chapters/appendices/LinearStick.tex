@@ -11,7 +11,7 @@ f\left(\theta_a, \dot{\theta}_a, \ddot{\theta}_a, \theta_s, \ddot{\theta}_s\righ
 &-\frac{l_s}{2}\ddot{\theta}_s -g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as}-J_s\ddot{\theta}_s
 \end{flalign}
 
-Generally all equilibriums can be found by setting \autoref{eq:nonlinearmodel} equal to 0 and the derivatives to 0 and solving for $\theta_a=\bar{\theta}_a$ and $\theta_s=\bar{\theta}_s$. For the pendulum it's easy to see the only two equilibriums are the stick pointing straight up and straight down. 
+Generally all equilibriums can be found by setting \autoref{eq:nonlinearmodel} equal to 0 and the derivatives to 0 and solving for $\theta_a=\bar{\theta}_a$ and $\theta_s=\bar{\theta}_s$. For the pendulum it is easy to see the only two equilibriums are the stick pointing straight up and straight down. 
 
 The 1st order Taylor approximation of an equation with multiple variables is seen in \autoref{eq:1stTaylor}.
 \begin{flalign}
@@ -24,7 +24,7 @@ The 1st order Taylor approximation of an equation with multiple variables is see
 	\explain{$\hat{\theta}$ denotes the angle of the small signal variances}{\si{\radian}}
 \stopexplain
 
-The 3 terms with sin or cos in \autoref{eq:JsShort} will be approximated individually using \autoref{eq:1stTaylor}, remembering that $\bar{\theta}=\bar{\dot{\theta}}=\bar{\ddot{\theta}}=0$ in the equilibrium.
+The three terms with sin or cos in \autoref{eq:JsShort} will be approximated individually using \autoref{eq:1stTaylor}, remembering that $\bar{\theta}=\bar{\dot{\theta}}=\bar{\ddot{\theta}}=0$ in the equilibrium.
 \begin{subequations}
 \begin{flalign}
  -l_a\ddot{\theta}_a\cos\left(\theta_a-\theta_s\right)  \approx & \ 0 + l_a\bar{\ddot{\theta}}_a\sin\left(\bar{\theta}_a-\bar{\theta}_s\right)\hat{\theta}_a  \notag \\ 

@@ -1,4 +1,17 @@
 \subsection{Internal Resistance of the DC Motor $R_m$}\label{sec:MeasRm}
+\begin{table}[htbp]
+	\centering
+	\caption{List of measurement equipment and components}\label{tab_appendix:RMSetUp}
+	
+	\begin{tabularx}{\textwidth}{lXXXX}
+		Name 				& Brand	& Model & AAU-number									\\ \toprule \rowcolor{lightGrey}
+		Oscilloscope	& Agilent & 54621D & 33941 	\\
+		Powersupply	& Agilent & E3631A & 78577\\ \rowcolor{lightGrey}
+		DC motor & Alsthom BBC & F9M2& 08339
+	\end{tabularx}
+\end{table}
+
+
 The first parameter to be tested is the internal resistance of the motor $R_m$. This resistance is needed in the motor's transfer function and will be used to determine the other parameters of the motor. 
 \subsubsection*{Setup}
 \autoref{fig:RmMeasurementSetup} shows a diagram and photo of the measurement set up
@@ -6,11 +19,11 @@ The first parameter to be tested is the internal resistance of the motor $R_m$. 
 	\centering
 	\begin{subfigure}{0.50\textwidth}
 		\includegraphics[width=1\textwidth]{figures/appendix/Motor&GearTests/RmTestSetUpDiagram}
-		\caption{Diagram of the setup.} \label{fig:LaMeasurementDiagram}
+		\caption{Diagram of the setup.} \label{fig:RmMeasurementDiagram}
 	\end{subfigure}
 	\begin{subfigure}{0.40\textwidth}
-			\includegraphics[width=\textwidth]{KtTestSetUp}
-		\caption{Picture of the setup.} \label{fig:LaMeasurementPictures}
+			\includegraphics[width=\textwidth]{figures/appendix/Motor&GearTests/KtTestPic}
+		\caption{Picture of the setup.} \label{fig:RmMeasurementPictures}
 	\end{subfigure}
 	\caption{The measurement setup.} \label{fig:RmMeasurementSetup}   
 \end{figure} 
@@ -71,7 +84,7 @@ $R_m$ is the slope of the linear approximation (in dashed yellow) of the voltage
 	\end{flalign}
 \end{subequations}
 
-
+\newpage
 \subsection{Internal Inductance of the DC Motor $L_m$}
 \begin{table}[htbp]
 	\centering
@@ -110,6 +123,7 @@ This test consists of having the motor shaft locked while a step is applied. The
 	\caption{Plot of the current step response in respect to time}\label{fig:LaTestCurrentPlot}
 \end{figure}
 
+\newpage
 \subsubsection*{Data processing}
 When the shaft is locked and a step is applied the DC motor's electric equation can be resumed as in \autoref{eq:LmEquation}.
 \begin{equation}
@@ -123,21 +137,21 @@ When the shaft is locked and a step is applied the DC motor's electric equation 
 \explain{$L_m$ is the internal inductance of the motor}{\si{\henry}}
 \stopexplain
 
-When a unit step response is applied to the system \autoref{eq:LaEquation} becomes \autoref{eq:LmEquationStep}.
+When a unit step response is applied to the system \autoref{eq:LmEquation} becomes \autoref{eq:LmEquationStep}.
 
 \begin{equation}
 F(s)=\frac{\frac{1}{R_m}}{\frac{L_m}{R_m} s+1}\frac{1}{s}=\frac{-\frac{1}{R_m}}{s+\frac{R_m}{L_m}}+\frac{1}{R_m s} \addunit{1}
 \label{eq:LmEquationStep}
 \end{equation}
 
-\autoref{eq:LaEquationStep} is then put in the continuous time domain to get \autoref{eq:LmEquationStepTime}.
+\autoref{eq:LmEquationStep} is then put in the continuous time domain to get \autoref{eq:LmEquationStepTime}.
 
 \begin{equation}
 f(t)= \frac{1}{R_m} \left(1-e^{-\frac{R_m}{L_m} t}\right) \addunit{1}
 \label{eq:LmEquationStepTime}
 \end{equation}
 
-\autoref{eq:LmEquationStepTime} means that at $t=\frac{L_m}{R_m}$ the function would give $1-e^{-1} \approx \SI{63.2}{\percent}$ of its settling value given that the step start at 0 seconds. Therefore, at \SI{63.2}{\percent} of the settling value $t=\frac{L_m}{R_m}$. \\
+\autoref{eq:LmEquationStepTime} means that at $t=\frac{L_m}{R_m}$ the function would give $1-e^{-1} \approx \SI{63.2}{\percent}$ of its settling value given that the step starts at 0 seconds. Therefore, at \SI{63.2}{\percent} of the settling value $t=\frac{L_m}{R_m}$. \\
 Since $R_m=\SI{0.82}{\ohm}$ is known, finding $L_m$ becomes trivial. Here, the step starts at 0.00348 s.
 
 \subsubsection*{Conclusion}
