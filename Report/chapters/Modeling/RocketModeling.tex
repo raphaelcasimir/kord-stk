@@ -9,24 +9,23 @@
 		
 		Since the project is about controlling a rocket in its initial stage of flight, the speed is considered low enough to neglect the drag force produced by it. The gravity is also neglected as it is mainly canceled by the thrust. These approximation results of having the thruster force as the only acting force on the rocket as showed in \autoref{fig:angle_diagram}.
 		
-		\section{Modeling of the angle}
 		\begin{figure}[htbp]
 			\centering
-			\includegraphics[width=0.7\textwidth]{figures/modeling/Rocket/rocket_angle_diagram.png}
+			\includegraphics[width=0.7\textwidth]{figures/modeling/Rocket/"Rocket diagram".pdf}
 			\caption{Simplified sum of forces on the rocket.}
 			\label{fig:angle_diagram}
 		\end{figure}
-		
 		\startexplain
 		\explain{$\theta_t$ is the thruster angle compared to the body}{\si{\radian}}
 		\explain{$\theta_b$ is the body angle compared to vertical}{\si{\radian}}
 		\explain{$l_{Es}$ is the distance from the electronics stage to the center of gravity}{\si{\meter}}
 		\explain{$l_{Cg}$ is the distance from the thruster end to the center of gravity}{\si{\meter}}
 		\explain{$F_t$ is the thruster force}{\si{\newton}}
-		\explain{$F_pa$ is the thruster force}{\si{\newton}}
-		\explain{$F_pe$ is the thruster force}{\si{\newton}}
-		\explain{$\tau_t$ is the torque created by the thruster on the rocket}{\si{\newton\meter}}
+		\explain{$F_{Pa}$ is the parallel force resulting from the decomposition of the thruster force}{\si{\newton}}
+		\explain{$F_{Pe}$ is the perpendicular force resulting from the decomposition of the thruster force}{\si{\newton}}
 		\stopexplain
+		
+		\subsection{Modeling of the Angle}
 		
 %		Let's call $l_{Cg}$ the distance between the center of gravity and the end of the thruster.
 		Using Newton's second law the \autoref{eq:rocket_angle_1} can be derived.
@@ -36,12 +35,13 @@
 		\end{equation}
 		\startexplain
 		\explain{$J_r$ is the moment of inertia of the rocket}{\si{\kilogram\meter\squared}}
+		\explain{$\tau_t$ is the torque exerted by the thrust of the rocket}{\si{\newton\meter}}
 		\stopexplain
 		
 		By using geometry, $\tau_t$ is found in \autoref{eq:tau_t}.
 		
 		\begin{equation}\label{eq:tau_t}
-		\tau_t = F_t sin(\theta_t) l_{Cg} \addunit{\si{\newton\meter}}
+		\tau_t = F_t \sin(\theta_t) l_{Cg} \addunit{\si{\newton\meter}}
 		\end{equation}
 		
 		\SI{70}{\percent} of the weight is in fact concentrated on the electronic's stage (rocket is about \SI{0.300}{\kilogram} and the electronics stage is around \SI{0.210}{\kilogram}). Therefore it is assumed, that apart from this stage everything is weightless. Consequently the rocket can be approximated as a pendulum where the electronics stage is mass rotating around the gravity center. The center of gravity position is determined by simply balancing the rocket on a finger \cite{web:CenterGravityDet}. The moment of inertia is then found in \autoref{eq:rocket_angle_3} \cite{web:PendulumMomentOfInertia}.
@@ -64,7 +64,7 @@
 		By combining \autoref{eq:rocket_angle_1} with \autoref{eq:tau_t} and \autoref{eq:rocket_angle_3}, \autoref{eq:UnlinearRockAngle} is obtained.
 		
 		\begin{equation}\label{eq:UnlinearRockAngle}
-			m_{Es} l_{Es}^2 \ddot{\theta}_b = F_t sin(\theta_t) l_{Cg} \addunit{\si{\newton\meter}}
+			m_{Es} l_{Es}^2 \ddot{\theta}_b = F_t \sin(\theta_t) l_{Cg} \addunit{\si{\newton\meter}}
 		\end{equation}
 		
 		The thruster force $F_t$ will be considered as constant. See the rocket motor test experiment for details in \autoref{ThrusterTest}.
