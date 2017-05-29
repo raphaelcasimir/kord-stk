@@ -1,29 +1,19 @@
 \chapter{Requirements and Specifications}
-The following chapter describes requirements and specifications determined for controlling both the rocket and the inverted pendulum. The requirements are set to obtain a system which fulfils the problem statement \todo{Ref to section - Mathias and might be changed in formulation}.
+The following chapter describes requirements and specifications determined for controlling both the rocket and the inverted pendulum. The requirements are set to obtain a system which fulfils the problem statement.
 
 As described previously the goal of both systems is to react to deviations from its stable position. The goal of the rocket is the launch and a stable flight, versus the inverted pendulum where the goal is to balance the stick in vertical upwards position.  
 
 Both systems will be described with physical and control requirements in separate sections. The physical requirements will be set based on the limits of the models. 
 %The requirements for the controllers will be set based on the approximations of best possible control parameters for each model.  
-The controller requirements will be based on speed, precision and stability, which means that control parameters would be set for:
 
-\begin{itemize}[noitemsep]
-\item Settling Time
-\item Overshoot
-\item Rise Time
-\item Steady State Error
-\end{itemize}
-
-Each parameter would affect each other, and therefore a discussion of the best combination will be considered.
-\newpage
 \subsection{Requirements for the Inverted Pendulum}\label{sec:InvPendReq}
-The requirements are based on figure \ref{fig:InvertedPendulumSetUp}, and the modeling behind where the angle relations and positions is described between the gears, arm and stick. It is yet decided that the main requirement set is to balance the stick. But requirements have to be set considering when the stick is balanced and when not. \todo{The figure can be added, to simplify the explanation.}
+The requirements are based on figure \ref{fig:InvertedPendulumSetUp}, and the modeling behind where the angle relations and positions is described between the gears, arm and stick. It is yet decided that the main requirement is to balance the stick. But requirements have to be set considering when the stick is balanced and when not. 
 
 \setlength{\parindent}{0pt}
 \newcommand{\forceindent}{\leavevmode{\parindent=1em\indent}}
 
 \subsubsection*{1. The control position of the arm must not exceed $\pm$ $\dfrac{\pi}{4}$ radians from the 0 radians vertical position.} 
-\forceindent A choice made to limit the arms movements around vertical upwards position which will act as the initial position. The arm should not exceeded the limit because the control of the stick will become more vertical than horizontal. It is therefore considered that the arm is not able to control the stick in a stable manor.  
+\forceindent A choice made to limit the arm's movements around vertical upwards position which will act as the initial position. The arm should not exceeded the limit because the control of the stick will become more vertical than horizontal. It is therefore considered that the arm is not able to control the stick in a stable manor.  
 
 
 \subsubsection*{2. The angle of the stick must not exceed $\pm$ $\dfrac{\pi}{18}$ radians from vertical position.}
@@ -37,7 +27,7 @@ The requirements are based on figure \ref{fig:InvertedPendulumSetUp}, and the mo
 \frac{\dfrac{7\pi}{36}}{\dfrac{\pi}{18}}\ =\ 350\ \% 
 \end{equation}
 
-This only apply when considering the worst case position of the stick when the arm is still in vertical position. It means that arm should be able to catch the stick without overshooting more than 350\%. The overshoot is limit, because 350\% is considered unstable when the goal is to balance the stick. The maximum overshoot is limited to a tenth of the sticks angular position $\dfrac{\pi}{180}$. And may therefore not exceed:
+This only apply when considering the worst case position of the stick when the arm is still in vertical position. It means that arm should be able to catch the stick without overshooting more than 350\%. The overshoot is limited, because 350\% is considered unstable when the goal is to balance the stick. The maximum overshoot is limited to a tenth of the sticks angular position $\dfrac{\pi}{180}$. And may therefore not exceed:
 
 \begin{equation}
 \frac{\dfrac{\pi}{180}}{\dfrac{\pi}{18}}\ =\ 10\ \% 
@@ -88,9 +78,9 @@ Weight       & 0.2   & [kg]
 \label{RocketDimensions}
 \end{table}
 
-As tested in \autoref{ssc:ThrusterTest}, the thruster force is approximatively 3 Newtons. 0.2 Kg corresponds to approximately 2N towards the ground (Weight force is mass time gravity acceleration (\SI{9.8}{m/s^2})), so the rocket should lift off.
+As tested in \autoref{ssc:ThrusterTest}, the thruster force is approximatively 3 Newtons. 0.2 Kg corresponds to approximately 2 N towards the ground.
 
-\subsubsection*{5. Deviation from the rockets initial trajectory must not exceed $\pm$ $\dfrac{\pi}{18}$ radians.} \todo{Might be changed based on resolution and precision of gyroscope}
+\subsubsection*{5. Deviation from the rockets initial trajectory must not exceed $\pm$ $\dfrac{\pi}{18}$ radians.} 
 
 \forceindent A choice made to limit the movement of the rocket during flight. If the limit is exceeded the rocket controller will not guarantee stability, but might stabilize the rocket none the less. 
 
@@ -98,23 +88,25 @@ As tested in \autoref{ssc:ThrusterTest}, the thruster force is approximatively 3
 
 \forceindent  A choice made to ensure flight stability even if the rocket is influenced by a external disturbance.
 
-\subsubsection*{5. Setling time of the rocket should be less than $1.5$ seconds, and an optimal choice of rise time.} 
+\subsubsection*{7. Settling time of the rocket should be less than $\frac{1}{3}$ of the flight time.} 
 
-\forceindent A choice made to ensure the stabilisation of the rocket during the short duration of flight.The rise time should be as short permited without influencing greatly the overshoot. In order to satisfy those demands a maximum of 25\% of overshoot will be considered. 
+\forceindent A choice made to ensure the stabilisation of the rocket during the short duration of flight. The rise time should be as fast as permitted without influencing greatly the overshoot. 
+
+
 
 \section{Acceptance Test Specification}	\label{sec:TestDesc}
 The following section describes how the requirements can be tested. This verification is made to ensure that the system fulfils the set requirements.
 
 \subsubsection*{Acceptance Test 1.}
 
-\forceindent Verification of requirement 1 will not be proceeded, but simply implemented in the software based on feedback from the arm potentiometer. The software will, if the angle exceeds $\pm$ $\dfrac{\pi}{4}$ radians, set the arm to initial vertical position and no longer react on feedback from the stick, until the stick has been balanced around $\pm$ $\dfrac{\pi}{18}$ radians in at least 5 seconds. The controller will then again react to changes on the stick.    
+\forceindent Verification of requirement 1 will not be proceeded, but simply implemented in the software based on feedback from the arm potentiometer. The software will, if the angle exceeds $\pm$ $\dfrac{\pi}{4}$ radians, no longer react on feedback from the stick and shut off.
 
 \subsubsection*{Acceptance Test 2.}
 
-\forceindent Requirement 2 and 3 is tested based on placing the stick and arm in vertical balanced position. The controller is engaged and the system is ran for ten minutes. The feedback data of the sensors will be collected to determine if the sticks angle have exceeded the requirement. As well is the sampled data from the motor used to compare with the position changes of the stick and see if the controller consider the stick balanced when the angle of the stick is within $\pm$ $\dfrac{\pi}{36}$ of 0 radians. 
+\forceindent Requirement 2 and 3 is tested based on placing the stick and arm in vertical balanced position. The controller is engaged and the system is ran for one minute. The feedback data of the sensors will be collected to determine if the sticks angle have exceeded the requirement. As well is the sampled data from the motor used to compare with the position changes of the stick and see if the controller consider the stick balanced when the angle of the stick is within $\pm$ $\dfrac{\pi}{36}$ of 0 radians. 
 
 \subsubsection*{Acceptance Test 3.}
-\forceindent Requirement 4 is tested from holding the stick in $\pm\ \dfrac{\pi}{18}$ radians when the arm is at 0 radians vertical position. The control system is activated and the stick is released. The test is repeated 5 times and the sensor data is sampled and saved each time.
+\forceindent Requirement 4 is tested from holding the stick in $\pm\ \dfrac{\pi}{18}$ radians when the arm is at 0 radians vertical position. The control system is activated and the stick is released. Sensor data is sampled and saved.
 
 \subsubsection*{Acceptance tests for the Rocket.}
-\forceindent There will be no acceptance test for the Rocket. The decision has been taken in order to prevent a rushed experiment and to ensure a safe flight for the rocket and for the witnesses. A test will be experimented outside of this report.
+\forceindent The acceptance test will only be proceeded if the rocket implementation proves successful. The specification will be set prior of testing.  

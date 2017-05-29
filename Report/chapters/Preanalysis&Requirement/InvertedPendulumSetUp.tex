@@ -2,7 +2,7 @@
 
 
 \section{Inverted Pendulum Description}\label{sec:IPDesc}
-For this project an inverted pendulum set up is given. It consists of:
+For this project an inverted pendulum setup is given. It consists of:
 \begin{itemize}
 	\item A DC motor
 	\item A gear system
@@ -14,7 +14,7 @@ A diagram of the setup when fully assembled is seen on \autoref{fig:InvertedPend
 \begin{figure} [htbp]
 	\centering
 	\includegraphics[width=0.6\linewidth]{figures/"Preanalysis&Requirement"/invertedPendulumDiagram}
-	\caption{Diagram of the set up fully assembled.} \label{fig:InvertedPendulumSetUp}
+	\caption{Diagram of the mechanical system\cite{web:BalancingStick2008}.} \label{fig:InvertedPendulumSetUp}
 \end{figure}
 
 \input{chapters/"Preanalysis&Requirement"/InvertedPendulumHardware.tex}
@@ -37,7 +37,7 @@ A diagram of the setup when fully assembled is seen on \autoref{fig:InvertedPend
 %\end{description}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \graphicspath{{figures/modeling/ArmStick/}}
-The goal of this section is to have a mathematical model for the behaviour of the angle of the stick in relation to the angle of the arm on the motor. The inputs and outputs of this system can be seen by the block diagram in \autoref{fig:StickBlock}.
+The goal of this section is to have a mathematical model for the behaviour of the angle of the stick in relation to the angle of the arm. The inputs and outputs of this system can be seen by the block diagram in \autoref{fig:StickBlock}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.4\textwidth]{InputOutputStick.pdf}
@@ -53,9 +53,12 @@ The angles, constants and forces used to describe the system are seen on \autore
 \caption{Diagram of the angles and forces acting on the arm and the stick.}
 \label{fig:ArmStick}
 \end{figure}
+
 \startexplain
 	\explain{$F_x$ is the force in the x direction}{\si{\newton}}
 	\explain{$F_y$ is the force in the y direction}{\si{\newton}}
+	\explain{$F_{px}$ is the x direction's reaction force for the arm and stick connection}{\si{\newton}}
+	\explain{$F_{py}$ is the y direction's reaction force for the arm and stick connection}{\si{\newton}}
 	\explain{$x_s$ is the position of the center of mass of the stick in the x direction}{\si{\meter}}
 	\explain{$y_s$ is the position of the center of mass of the stick in the y direction}{\si{\meter}}
 	\explain{$l_a$ is the length of the arm}{\si{\meter}}
@@ -63,10 +66,10 @@ The angles, constants and forces used to describe the system are seen on \autore
 	\explain{$\theta_a$ is the angle from the arm to the y-axis}{\si{\radian}}
 	\explain{$\theta_s$ is the angle from the stick to the y-axis}{\si{\radian}}
 \stopexplain
-\todo[inline,author=Jacob]{Add the reactionary forces where arm and stick connects. Fpx and Fpy.}
+\linebreak
 All forces, constants and variables that relates to the arm and stick are denoted by a subscripted $a$ and $s$ respectively. 
 
-The behaviour of the stick can be fully described by three movements; two translatory and one rotary. It can move in the x and y direction and rotate around it's own axis. To fully describe the system two geometric equations are also needed.
+The behaviour of the stick can be fully described by three movements; two translatory and one rotary. It can move in the x and y direction and rotate around its center of gravity. To fully describe the system two geometric equations are also needed.
 
 %To find the relation between the angles, the free body diagram of the joint of the arm and stick is made on \autoref{fig:freebodystick}.
 %\begin{figure}[htbp]
@@ -124,9 +127,9 @@ Finally the position of the center of mass of the stick in the x and y direction
 \end{flalign}
 \end{subequations}
 
-\autoref{eq:transx}, \autoref{eq:transy}, \autoref{eq:rotaryforce}, \autoref{eq:geox} and \autoref{eq:geoy} are all the equations neccessary to fully describe the behaviour of the system. The goal of the modeling is to end with a transfer function that relates the angle of the stick to the angle of the arm. There are 6 unknown variables in the 5 equations: $F_x$, $F_y$, $x_s$, $y_s$, $\theta_a$ and $\theta_s$. It should therefore be possible to end with one equation with the two unknowns $\theta_a$ and $\theta_s$ i.e. the transfer function.
+\autoref{eq:transx}, \autoref{eq:transy}, \autoref{eq:rotaryforce}, \autoref{eq:geox} and \autoref{eq:geoy} are all the equations neccessary to fully describe the behaviour of the system. The goal of the modeling is to determine a transfer function that relates the angle of the stick to the angle of the arm. There are six unknown variables in the five equations: $F_x$, $F_y$, $x_s$, $y_s$, $\theta_a$ and $\theta_s$. It should therefore be possible to end with one equation with the two unknowns $\theta_a$ and $\theta_s$ i.e. the transfer function.
 
-The derivatives of $x_s$ and $y_s$ is found in \autoref{eq:diffxy}.
+The derivatives of $x_s$ and $y_s$ are found in \autoref{eq:diffxy}.
 \begin{subequations}\label{eq:diffxy} 
 \begin{flalign}
 \hspace{30pt} & \dot{x}_s=-l_a\dot{\theta}_a\cos(\theta_a)-\frac{l_s}{2}\dot{\theta}_s\cos(\theta_s) & [\si{\meter\per\second}] \\
@@ -136,7 +139,7 @@ The derivatives of $x_s$ and $y_s$ is found in \autoref{eq:diffxy}.
 \end{flalign}
 \end{subequations}
 
-The forces $F_x$ and $F_y$ have an equal and opposite force at the point where the arm and stick connect. These can be decomposed into perpendicular and parallel forces. The parallel forces are negligible when assuming the stick is perfectly solid and unable to stretch or compress. The perpendicular forces are found by using geometry and shows up in \autoref{eq:rotaryforce} for the rotary force and are seen on \autoref{fig:ArmStick}.
+The forces $F_x$ and $F_y$ have an equal and opposite force at the point where the arm and stick connect. These can be decomposed into perpendicular and parallel forces. The parallel forces are negligible when assuming the stick is perfectly solid and unable to stretch or compress. The perpendicular forces are found by using geometry and show up in \autoref{eq:rotaryforce} for the rotary force and are seen on \autoref{fig:ArmStick}.
 
 %\begin{figure}[htbp]
 %\centering
@@ -178,7 +181,7 @@ J_s\ddot{\theta}_s = \frac{l_s}{2}M_s \Big( &-l_a\ddot{\theta}_a \cos(\theta_a-\
 &-\frac{l_s}{2}\ddot{\theta}_s +g\sin(\theta_s) \Big)-b_{as}\dot{\theta}_{as} \label{eq:JsShort}
 \end{flalign}
 
-This is the nonlinear mathematical model for the system. This will be linearized in order to perform a Laplace transformation. The linearization is found in \autoref{sec:LinearStick}.
+This is the nonlinear mathematical model for the system. This will be linearized in order to perform a Laplace transformation. The linearization can be seen cf. \autoref{sec:LinearStick}.
 
 The linearized model is \autoref{eq:LinStick}.
 \begin{flalign}
@@ -204,9 +207,9 @@ The linearized model is now Laplace transformed in \autoref{eq:tfArmStick} in or
 \end{flalign}
 \end{subequations}
 
-The system has a zero in 0 (two if the friction is considered negligible) which gives a 0 dB DC gain. This makes sense as the stick shouldn't move if the angle of the arm is constant. The poles show that the natural frequency of the system depends only on the gravity and length of the stick. This is similar to \autoref{eq:pendulum} for the frequency of a simple pendulum \cite{web:Pendulum}.
+The system has a zero in 0 (two if the friction is considered negligible) which gives a 0 dB DC gain. This makes sense as the stick should not move if the angle of the arm is constant. The poles show that the natural frequency of the system depends only on the gravity and length of the stick. This is similar to \autoref{eq:pendulum} for the frequency of a simple pendulum \cite{web:Pendulum}.
 \begin{flalign}\label{eq:pendulum}
 \omega_n=\sqrt{\frac{g}{L}}
 \end{flalign}
 
-A linearized model in the Laplace domain for the arm and the stick has been derived and the model for the motor and gears is now derived. The load torque generated by the arm and stick is significantly smaller than that of the gear system at the DC motor and is therefore assumed negligible.
+A linearized model in the Laplace domain for the arm and the stick has been derived and the model for the motor and gears is now derived. The load torque generated by the arm and stick is significantly smaller than the torque of the gear system, at the DC motor, and is therefore assumed negligible. Equally the friction between the arm and the stick is assumed to be zero as the joint consists of a ball bearing. 
