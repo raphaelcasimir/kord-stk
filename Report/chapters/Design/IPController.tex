@@ -22,9 +22,9 @@ The system is inherently unstable as it is evident by the pole in the right half
 \end{figure}
 %\todo[inline,author=Jacob]{Check constants found by test and transfer function at the end.}
 
-In order to achieve a stable system the right half plane pole needs to be moved to the left half plane.
+In order to achieve a stable system, the right half plane pole needs to be moved to the left half plane.
 \newpage
-There's a plethora of different options for the controller to use; the simplest being a proportional controller. A simple way to check whether the proportional controller is feasible is by examining the root locus of the transfer function in \autoref{fig:locusIP}. The pole in the right half plane moving towards infinity is caused by the transfer function being negative and can be fixed with a negative gain as shown on figure \autoref{fig:locusNegative}.
+There is a plethora of different options for the controller to use; the simplest being a proportional controller. A simple way to check whether the proportional controller is feasible is by examining the root locus of the transfer function in \autoref{fig:locusIP}. The pole in the right half plane moving towards infinity is caused by the transfer function being negative and can be fixed with a negative gain as shown on figure \autoref{fig:locusNegative}.
 \begin{figure}[htbp]
 \centering
 	\begin{subfigure}{0.45\textwidth}
@@ -41,7 +41,7 @@ There's a plethora of different options for the controller to use; the simplest 
 \caption{Root locus of the inverted pendulums transfer function.}
 \end{figure}
 
-The proportional controller isn't feasible as the pole in the right half plane never enters the stable region even with a negative gain. This is because the pole will always end at a zero if available. The zero in 0 blocks the unstable pole from moving into the stable region.
+The proportional controller is not feasible as the pole in the right half plane never enters the stable region even with a negative gain. This is because the pole will always end at a zero if available. The zero in 0 blocks the unstable pole from moving into the stable region.
 
 The controller can be simplified by using cascade control. This means two controllers should be designed; one that controls the angle of the arm and one that controls the angle of the stick. The cascade control system can be seen on \autoref{fig:IPCascade}.
 \begin{figure}[htbp]
@@ -51,7 +51,7 @@ The controller can be simplified by using cascade control. This means two contro
 \label{fig:IPCascade}
 \end{figure}
 
-If the inner loop is fast enough compared to the outer loop, it is negligible to the outer loop controller. This means the root locus of the can be split into two separate systems with a respective controller that needs to be designed. The two new loops will be referred to as the inner loop and outer loop and their transfer function is seen in \autoref{eq:InnerOuterTF}.
+If the inner loop is fast enough compared to the outer loop, it is negligible to the outer loop controller. This means the root locus can be split into two separate systems with a respective controller that needs to be designed. The two new loops will be referred to as the inner loop and outer loop and their transfer function is seen in \autoref{eq:InnerOuterTF}.
 \begin{subequations}\label{eq:InnerOuterTF}
 	\begin{flalign}
 		\frac{\Theta_a}{U_m}&= \frac{5.43}{s^2 + 14.11 s} \\
@@ -75,7 +75,7 @@ The root locus of the two subsystems is seen on \autoref{fig:locusSplit}.
 \label{fig:locusSplit}
 \end{figure}
 
-With this split it's simpler to design a controller that can move the unstable pole to the stable region. The inner loop controller will be designed first as it's essential to this split that the inner loop is faster than the outer loop. The inner loop controller will be designed to be as fast as possible before the outer loop controller is designed.
+With this split it is simpler to design a controller that can move the unstable pole to the stable region. The inner loop controller will be designed first as it is essential to this split that the inner loop is faster than the outer loop. The inner loop controller will be designed to be as fast as possible before the outer loop controller is designed.
 %\newpage
 \section{Design of Inner Loop Controller}
 For the design of the inner loop controller, it is important that it settles faster than the outer loop controller without any overshoot. This means the natural frequency of the system with the controller needs to be larger and the poles close to the real axis. With the help of \autoref{fig:VArmGeneralPControllerRLocus} a gain of 9.17 is chosen as it is the maximum gain obtainable without having any overshoot.
@@ -86,7 +86,7 @@ For the design of the inner loop controller, it is important that it settles fas
 	\label{fig:VArmGeneralPControllerRLocus}
 \end{figure}
 
-However this system the two poles are still very close to the outer loop system. 
+However in this system the two poles are still very close to the outer loop system. 
 %This supposition is confirmed by the step response seen in \autoref{fig:VArmGeneralPControllerStepResp}.
 %\begin{figure}[htbp] 
 %	\centering
@@ -95,12 +95,12 @@ However this system the two poles are still very close to the outer loop system.
 %	\label{fig:VArmGeneralPControllerStepResp}
 %\end{figure}
 
-In order to speed up the inner loop two options are available. The first one is to use a more elaborate controller than the P controller such as a PD controller or a lead. The second one is to once again divide the inner loop into two loops. The second method is as the motor has already a tachometer integrated, and it is simpler to implement this method. Furthermore when testing for the motor parameters, the driver did not deliver a constant speed for a constant voltage. A feedback loop of the velocity would be able to reduce the inconsistencies generated by the driver. 
+In order to speed up the inner loop, two options are available. The first one is to use a more elaborate controller than the P controller such as a PD- or a lead controller. The second one is to once again divide the inner loop into two loops. The second method is preferred as the integrated tachometer in the motor can be used to control the velocity. Furthermore when testing for the motor parameters, the driver did not deliver a constant speed for a constant voltage. A feedback loop of the velocity would be able to reduce the inconsistencies generated by the driver. 
 
 The two new loops will thus control the motor velocity and angle of the arm and will be called motor loop and arm loop respectively.
 %The two new loops are respectively the voltage as the input and the velocity as the output which will be called motor loop from now on, and the velocity as the input and the arm's angle as the output named as arm's loop.
 
-The first loop which will be designed will be the motor loop as it is the most inner loop. The new control loop is added to \autoref{fig:IPCascade} to form the final block diagram presented in \autoref{fig:BlockAllLoops}.
+The first loop to be designed will be the motor loop as it is the most inner loop. The new control loop is added to \autoref{fig:IPCascade} to form the final block diagram presented in \autoref{fig:BlockAllLoops}.
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth]{BlockAllLoops}
@@ -112,7 +112,7 @@ The first loop which will be designed will be the motor loop as it is the most i
 
 \subsection{Design of the Arm Loop Controller}
 
-The motor loop part has a settling time of \SI{0.0137}{\second}, so the settling time of the arm's loop has to be at least \SI{0.137}{\second} in order to make the assumption that the motor's loop transfer function is equal to 1 for the arm's loop. The transfer function for the arm loop is found by inserting the values in \autoref{eq:thetaOmega} giving \autoref{eq:WArmLoop}.
+The motor loop has a settling time of \SI{0.0137}{\second}, so the settling time of the arm loop has to be slower than \SI{0.137}{\second} in order to make the assumption that the motor loop transfer function is equal to 1 for the arm loop. The transfer function for the arm loop is found by inserting the values in \autoref{eq:thetaOmega} giving \autoref{eq:WArmLoop}.
 \begin{equation}\label{eq:WArmLoop}
 	\frac{\Theta_a}{\Omega_m}=\frac{0.027}{s}
 \end{equation}
@@ -141,9 +141,9 @@ The arm loop controller then becomes \autoref{eq:ArmLoopController}.
 D_{arm}=900
 \end{flalign}
 \section{Design of Outer Loop Controller}
-As the poles in feedback will eventually end up at the zeros with a large enough gain, there are two options to bring the unstable pole into the stable region: Remove all zeros in 0 so the pole can cross the into the stable region along the real axis or add another unstable open loop pole to force the poles off the real axis and then try to circumvent the zeros in 0. 
+As the poles will eventually end up at the zeros with a large enough gain when the loop is closed, there are two options to bring the unstable pole into the stable region: Remove all zeros in 0 so the pole can cross the into the stable region along the real axis or add another unstable open loop pole to force the poles off the real axis and then try to circumvent the zeros in 0. 
 
-Removing the zeros in 0 can't be done by adding poles as $\infty \cdot 0$ isn't defined. Instead it's better to try and redefine the model output to something with a DC gain but at the same time requires the stick to be balanced to achieve the new output. This could be by attempting to control the position of a point on the stick. The stick would need to be balanced in order to have the point always be in the correct position.
+Removing the zeros in 0 can not be done by adding poles as $\infty \cdot 0$ is not defined. Instead it is better to try and redefine the model output to something with a DC gain but at the same time requires the stick to be balanced to achieve the new output. This could be done by attempting to control the position of a point on the stick. The stick would need to be balanced in order to always have the point in the correct position.
 
 %Cancelling zeros in 0 by adding poles can be dangerous as the steady state error will no longer be zero which is critical for a stable inverted pendulum. The system is difficult to control as the transfer function was derived with an attempt to control the angle of the stick. This is only really possible in the special case where the reference is exactly 0 at all times. The system can instead be redefined as trying to control the position of a point on the stick in relation to the vertical axis. By controlling the position instead of the angle would mean the system would still have to balance the stick but not be forced to use a reference of 0 at all times. This could make the system easier to control.
 
@@ -173,7 +173,7 @@ This will then be Laplace transformed in \autoref{eq:xaLaplace}.
 X_\alpha(s)=l_a\Theta_a(s)+l_\alpha\Theta_s(s) 
 \end{flalign}
 
-By isolating $\Theta_s(s)$ in \autoref{eq:tfArmStick} and inserting it into \autoref{eq:xaLaplace}, the transfer function in \eqref{eq:xatf} is found. The friction part is removed per \autoref{tab:IPModelVar}.
+By isolating $\Theta_s(s)$ in \autoref{eq:tfArmStick} and inserting it into \autoref{eq:xaLaplace}, the transfer function in \eqref{eq:xatf} is found. The friction part is removed according to \autoref{tab:IPModelVar}.
 
 \begin{subequations}
 \begin{flalign}
@@ -182,7 +182,7 @@ By isolating $\Theta_s(s)$ in \autoref{eq:tfArmStick} and inserting it into \aut
 & \frac{X_\alpha(s)}{\Theta_a(s)} = \frac{s^2\left(l_a-l_\alpha\frac{3l_a}{2l_s}\right)-l_a\frac{3g}{2l_s}}{s^2-\frac{3g}{2l_s}} \label{eq:xatf}
 \end{flalign}
 \end{subequations}
-The transfer function still ends up with 2 zeros but it's possible to remove them by selecting the point $\alpha$ so $l_\alpha=\frac{2l_s}{3}$. Inserting this into \autoref{eq:xatf} the transfer function becomes \autoref{eq:xaTF}.
+The transfer function still ends up with 2 zeros but it is possible to remove them by selecting the point $\alpha$ so $l_\alpha=\frac{2l_s}{3}$. Inserting this into \autoref{eq:xatf} the transfer function becomes \autoref{eq:xaTF}.
 \begin{flalign}\label{eq:xaTF}
 & \frac{X_\alpha(s)}{\Theta_a(s)} = \frac{-l_a\frac{3g}{2l_s}}{s^2-\frac{3g}{2l_s}}
 \end{flalign}
@@ -210,13 +210,13 @@ With the redefined transfer function the outer loop will control the transfer fu
 \label{fig:locusxa}
 \end{figure}
 
-If the zero is positioned between the two poles both the right most will move towards the zero while the leftmost moves towards infinity; both along the real axis. Positioning the zero close to the origin doesn't allow for the pole to move far into the left half plane. If it's put far to the left of the stable pole the poles will move off the real axis and to the left of the zero with higher gain. This can move them very far into the left half plane before they come back to the real axis which could cause issues for making the inner loop faster than the outer loop. This is because the further away the poles are from origin the higher the natural frequency and a high natural frequency means small settling time. If the poles are off the real axis it'll introduce overshoot which needs to be under 10\% per the specifications. 
+If the zero is positioned between the two poles, the rightmost will move towards the zero while the leftmost moves towards infinity; both along the real axis. Positioning the zero close to the origin does not allow for the pole to move far into the left half plane. If it is put far to the left of the stable pole the poles will move off the real axis and to the left of the zero with higher gain. This can move them far into the left half plane before they return to the real axis which could cause issues for making the inner loop faster than the outer loop. This is because the further away the poles are from origin, the higher the natural frequency which means a low settling time. If the poles are off the real axis it will introduce overshoot which needs to be under 10\% per \autoref{sec:InvPendReq}. 
 
 Placing the zero close to the leftmost pole would allow for the unstable pole to move further into the left half plane without an overly fast response or any overshoot. 
 
 The zero could theoretically be placed on the pole to cancel it and allow the pole to move further into the left half plane along the real axis. This would be ideal but the true location of the pole of the real system is difficult to find as small variations in measurements of the system could move the pole slightly. 
 
-The zero will initially be placed on the pole as it doesn't change the system drastically whether it's slightly off to either side. The pole is then placed at $-\sqrt{\frac{3g}{2l_s}}$. This can be seen in \autoref{fig:rlocusZeroAdded}.
+The zero will initially be placed on the pole as it does not change the system drastically whether it is slightly off to either side. The pole is then placed at $-\sqrt{\frac{3g}{2l_s}}$. This can be seen in \autoref{fig:rlocusZeroAdded}.
 
 \begin{figure}[htbp]
 \centering
@@ -225,7 +225,7 @@ The zero will initially be placed on the pole as it doesn't change the system dr
 \label{fig:rlocusZeroAdded}
 \end{figure}
 
-The unstable pole can now enter the stable region by selecting a gain large enough. Simply adding a zero to the system will however amplify high frequencies. This can be avoided by adding a pole further into the left half plane. This effectively makes the controller a lead controller. The position of the pole and the gain will determine the settling time and overshoot of the system. The settling time for the outer loop controller should be more than 10 times slower so the assumption, that the inner loop controller is much faster than the outer loop controller, holds true. As the gain increases the two poles move closer to each each other before meeting and moving into the imaginary plane. The gain will be selected to be however much is needed for the poles to meet. The pole can then be selected such that the place where the poles meet will give a settling time 10 times slower than the inner loop.
+The unstable pole can now enter the stable region by selecting a gain large enough. Simply adding a zero to the system will however amplify high frequencies. This can be avoided by adding a pole further into the left half plane. This effectively makes the controller a lead controller. The position of the pole and the gain will determine the settling time and overshoot of the system. The settling time for the outer loop controller should be more than 10 times slower so the assumption, that the inner loop controller is much faster than the outer loop controller, holds true. As the gain increases the two poles move closer to each each other before meeting and moving into the imaginary plane. The gain will be selected to be as high as necessary for the poles to meet. The pole can then be selected such that the place where the poles meet will give a settling time 10 times slower than the inner loop.
 
 As the settling time of the inner loop is 0.16 seconds, the natural frequency of the outer loop can be approximated by \autoref{eq:outerWn}. 
 \begin{subequations} \label{eq:outerWn}
@@ -237,7 +237,7 @@ T_{s_{outer}}(2\%) &=-\frac{\ln(0.02)}{\zeta\cdot \omega_n} \\
 \end{flalign}
 \end{subequations}
 
-This approximation only holds true for 2nd order systems without zeros which this would only be if the zero placed exactly on the pole removes both. This is not the case however it is still a good place to start.
+This approximation only holds true for 2nd order systems without zeros which is only the case if the zero placed exactly on the pole removes both. This is not the case however it is still a good place to start.
 To achieve a natural frequency of 2.45, the lead controller pole needs to be placed so the halfway point between it and the unstable pole is -2.45. The pole location is then found by \autoref{eq:outerLeadPole}.
 \begin{subequations} \label{eq:outerLeadPole}
 \begin{flalign}
@@ -255,21 +255,21 @@ This can be seen on \autoref{fig:rlocusLead}.
 \label{fig:rlocusLead}
 \end{figure}
 
-To make the two poles meet a gain of 7.48 is needed. This gives a lead controller of \autoref{eq:IPLead}.
+To make the two poles meet, a gain of 7.48 is needed. This gives a lead controller of \autoref{eq:IPLead}.
 \begin{flalign}
 D_{x}=7.48\frac{s+\sqrt{\frac{3g}{2l_s}}}{s+9.19}\label{eq:IPLead}
 \end{flalign}
 
-The settling time is found by looking at the step response on \autoref{fig:stepOuterLead}.
+The settling time is determined by looking at the impulse response on \autoref{fig:stepOuterLead}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\textwidth]{stepOuterLoop}
 \caption{Step response showing the settling time of the outer loop with a lead controller.}
 \label{fig:stepOuterLead}
 \end{figure}
-
-The settling time is slower than the 1.6 seconds that was expected and this is because the zero placed on the pole still has an influence on the system. A bit of overshoot can also be added in this system to get a faster rise time but a similar settling time. This is okay as the specifications are only for overshoot of the angle of the stick. It's uncertain how an overshoot when controlling the distance to a point on the stick will affect the angle of the stick. A maximum overshoot for the distance is therefore arbitrarily chosen to be the same as the overshoot for the angle.
-To get a settling time of 1.6 seconds a new gain needs to be found to give a faster settling time but no more than 10\% overshoot. If it's not possible without more than 10\% overshoot the controller pole has to be moved further to the left
+\newpage
+The settling time is slower than the 1.6 seconds that was expected and this is because the zero placed on the pole still has an influence on the system. A bit of overshoot can also be added in this system to get a faster rise time but a similar settling time. This is acceptable as the specifications are only for overshoot of the angle of the stick. It is uncertain how an overshoot when controlling the distance to a point on the stick will affect the angle of the stick. A maximum overshoot for the distance is therefore arbitrarily chosen to be the same as the overshoot for the angle.
+To get a settling time of 1.6 seconds a new gain needs to be found to give a faster settling time but no more than 10\% overshoot. If it is not possible without more than 10\% overshoot the controller pole has to be moved further to the left.
 
 The lead controller then becomes \autoref{eq:outerLeadController}.
 \begin{subequations}
@@ -286,9 +286,17 @@ This controller gives a fast rise time, a settling time of 1.61 seconds and over
 \caption{Step response of the outer loop with the lead controller that gives less than 10\% of overshoot.}
 \label{fig:stepOuterLeadOvershoot}
 \end{figure}
+
+The steady state error is not an issue as the reference is never changed and all disturbances will be impulses. The impulse response gives no overshoot as seen on \autoref{fig:impulseOuter}. The impulse is applied on the output as it corresponds to a push on the stick.
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{impulseOuter}
+\caption{Impulse response of the outer loop controller with the impulse applied on the output.}
+\label{fig:impulseOuter}
+\end{figure}
 \newpage
 
-\section{Verifying the total controller}
+\section{Verifying the Total Controller}
 The final controller consists of the motor loop controller, the arm loop controller and the outer loop controller and are seen in \autoref{eq:FinalController}.
 \begin{subequations}\label{eq:FinalController}
 \begin{flalign}
@@ -298,7 +306,7 @@ The final controller consists of the motor loop controller, the arm loop control
 \end{flalign}
 \end{subequations}
 
-These are implemented as shown on \autoref{fig:BlockAllLoops} and the entire system has the pole-zero plot on \autoref{fig:finalpzip} which shows it should be stable as all poles are in the left half plane.
+These are implemented as shown on \autoref{fig:IPBlock} and the entire system has the pole-zero plot on \autoref{fig:finalpzip} which shows it should be stable as all poles are in the left half plane.
 \begin{figure}[htbp]
 \centering
 	\begin{subfigure}{0.45\textwidth}
@@ -313,12 +321,20 @@ These are implemented as shown on \autoref{fig:BlockAllLoops} and the entire sys
 \label{fig:finalpzip}
 \end{figure}
 
-The step response for the inverted pendulum with the final controller is seen on \autoref{fig:finalStep}.
-\begin{figure}
+The impulse response for the inverted pendulum with the final controller is seen on \autoref{fig:finalStep}.
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.7\textwidth]{finalStep}
-\caption{Step response of the inverted pendulum with the final controller.}
+\includegraphics[width=0.7\textwidth]{impulseFinal}
+\caption{Impulse response of the final controller with the impulse applied on the output.}
 \label{fig:finalStep}
 \end{figure}
 
-The controller has a settling time of 3.15 seconds and shows it can balance a point on the stick sufficiently. The controller is deemed satisfactory and will be implemented.
+The controller has a settling time of 3.15 seconds and shows it can balance a point on the stick sufficiently. The final block diagram can be seen on \autoref{fig:FinalBlockControllers}.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{FinalBlockControllers}
+\caption{Block diagram of the final system with all controllers.}
+\label{fig:FinalBlockControllers}
+\end{figure}
+
+The controller is deemed satisfactory and will be implemented.
