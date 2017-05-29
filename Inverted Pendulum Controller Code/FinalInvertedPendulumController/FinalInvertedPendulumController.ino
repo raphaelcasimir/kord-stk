@@ -82,7 +82,6 @@ void setup()
   Timer1.stop();        //stop the counter
   Timer1.restart();     //set the clock to zero
   Timer1.pwm(PWM_PIN, 512, 200);
-  //Timer1.attachInterrupt(calcPID, sampleTime);
 
   //PINMODE
   pinMode(PWM_PIN, OUTPUT);
