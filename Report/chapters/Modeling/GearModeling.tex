@@ -26,7 +26,14 @@ Two transfer functions are going to be determined in this section:
 \subsection{Relation between Motor Velocity and Angle of the Arm}
 The motor is connected to the first wheel of the gear system by a belt as shown on \autoref{fig:Belt&Pulley}. The first wheel has a smaller wheel rigidly attached on its axis. Both gears are turning in the same direction. The smallest wheel on the wheel 1 is connected to a second wheel with a belt. Wheel 2 has the same small wheel attached to its axis. The relation between Wheel 2 and 3 are the same as wheel 1 and 2.
 
-The entire system can thus be described by \autoref{fig:Belt&Pulley} by replacing the motor wheel with the smaller wheels on wheel 1 and 2 and the larger wheel 1 with the larger wheels 2 and 3.\todo{Geoff needs to make explanation figure}
+The entire system shown on \autoref{fig:LabelledWheels} can thus be described by \autoref{fig:Belt&Pulley} translated to each small to large wheel connection.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/modeling/gearTrain/LabelledWheels.pdf}
+	\caption{Diagram of the gear train.}
+	\label{fig:LabelledWheels}
+\end{figure}
 
 \begin{figure}[htbp]
 	\centering
@@ -34,17 +41,18 @@ The entire system can thus be described by \autoref{fig:Belt&Pulley} by replacin
 	\caption{Free body diagram of the motor wheel system.}
 	\label{fig:Belt&Pulley}
 \end{figure}
-\todo{J1 should be Jw1}
+
 \startexplain
 \explain{$J_m$ is the moment of inertia of the motor}{\si{\kilogram\meter\squared}}
 \explain{$J_w$ is the moment of inertia of the wheel}{\si{\kilogram\meter\squared}}
 \explain{$\omega_m$ is the motor's angular velocity}{\si{\meter\per\second}}
-\explain{$\tau_m$ is the torque of the motor}{\si{\newton\meter}}
+\explain{$\omega_w$ is the wheel's angular velocity}{\si{\meter\per\second}}
 \explain{$F_1$ is the force transferred from the motor to the wheel}{\si{\newton}}
 \explain{$r$ is the radius of the motor's wheel}{\si{\meter}}
 \explain{$R$ is the radius of the wheel}{\si{\meter}}
-\explain{$\tau_f$ is the torque of the gear train friction}{\si{\newton\meter}}
-\explain{$\tau_L$ is the torque of the wheel's load}{\si{\newton\meter}}
+\explain{$\tau_m$ is the torque of the motor}{\si{\newton\meter}}
+\explain{$\tau_{gears}$ is the torque of the wheel's load}{\si{\newton\meter}}
+\explain{$b_m$ is the viscous friction coefficient of the motor}{\si{\newton\meter\second}}
 \explain{$b_w$ is the viscous friction coefficient of the wheel}{\si{\newton\meter\second}}
 \stopexplain
 
@@ -101,7 +109,7 @@ The torque of the load put on the motor is the sum of the torque produced by the
 %The gear train is composed by three identical belt and pulley system. \autoref{fig:Belt&Pulley} corresponds to the first system between the motor and the first wheel. 
 
 %Using the previously stated $2^{nd}$ law of motion, the mechanical equation for the motor wheel can be found from \autoref{fig:MotorBodyDiagram}:
-The torque on the wheel of the motor can be described by \autoref{eq:MotorfreeBody}.
+The torque on the motor shaft can be described by \autoref{eq:MotorfreeBody}.
 \begin{flalign}
 J_{m} \dot{\omega}_{m} &= \tau_{m} - \tau_{l} - \tau_{fm} \\
 J_m \dot{\omega}_m &= \tau_m + F_1r - b_m\omega_m \label{eq:MotorfreeBody}
@@ -117,7 +125,7 @@ J_m \dot{\omega}_m &= \tau_m + F_1r - b_m\omega_m \label{eq:MotorfreeBody}
 
 This means that the torque of the load produced by the gears is equal to $-F_1r$. To find $F_1$ the torque on the wheel is examined and seen in \autoref{eq:TauW1}.
 \begin{flalign}
-	J_w\dot{\omega}_{w} = -F_1R -\tau_L -b_{w}\omega_{w} \label{eq:TauW1}
+	J_w\dot{\omega}_{w} = -F_1R -\tau_{gears} -b_{w}\omega_{w} \label{eq:TauW1}
 \end{flalign}
 
 Here $\tau_L$ is the load on wheel 1 that comes from the rest of the wheels connected to it. Wheel 2 is connected to wheel 1 similar to how wheel 1 is connected to the motor. This means that the load torque on wheel 1 is related to $F_2$ and the load torque on wheel 2 is related to $F_3$. Substituting the load torque for the forces, the torques for each wheel is \autoref{eq:GiveMeAnOriginalName}.
@@ -189,7 +197,7 @@ F_1 = -&\frac{1}{R}N\Big(b_{w_1}\omega_m + J_{w_1}\dot{\omega}_m \notag \\
 +&N^2\left(b_{w_3}\omega_m + J_{w_3}\dot{\omega}_m\right)\big)\Big) \label{eq:F3F2F1}
 \end{flalign}
 
-Since $\tau_l=-F_1r$ and the torque of the load on the motor is the torque of the gears, $\tau_{gear}$ can be expressed by \autoref{eq:TaufTimeDomain}.
+Since $\tau_{gears}=-F_1r$ and the torque of the load on the motor is the torque of the gears, $\tau_{gear}$ can be expressed by \autoref{eq:TaufTimeDomain}.
 \begin{flalign} 
 \tau_{gear} = N^2 & \Big(b_{w_1}\omega_m + J_{w_1}\dot{\omega}_m \notag \\
 +N^2 & \big(b_{w_2}\omega_m + J_{w_2}\dot{\omega}_m \notag \\
