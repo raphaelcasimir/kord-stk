@@ -1,11 +1,14 @@
 \subsection{Design of the Motor Loop Controller}\label{sec:MotorLoop}
 
-The very first loop control is the one adjusting the motor velocity, $\omega_m$, according to the voltage. The transfer function from $U_m$ to $\omega_{m}$ is taken from \autoref{sec:ModelDCMotor}. The values for the variables in \autoref{eq:DCModelNoL} is inserted giving \autoref{eq:MotorWithValues}.
-\begin{flalign}\label{eq:MotorWithValues}
-\frac{\Omega_m(s)}{U_m(s)}=\frac{201.24}{s+14.11} 
+The first loop controller is the one adjusting the motor velocity, $\omega_m$, according to the voltage. The transfer function from $U_m$ to $\omega_{m}$ is determined in \autoref{sec:ModelDCMotor}. The values for the variables in \autoref{eq:DCModelNoL} is inserted giving \autoref{eq:MotorWithValues}.
+\begin{subequations}
+\begin{flalign}
+\frac{\Omega_m(s)}{U_m(s)}=\frac{K_t}{J_tR_ms+B_tR_m+K_tK_e} \\
+\frac{\Omega_m(s)}{U_m(s)}=\frac{201.24}{s+14.11} \label{eq:MotorWithValues}
 \end{flalign} 
+\end{subequations}
 
-As it is the most inner loop of the system, the step response has to be faster than the outer loops controlling the arm and the stick. The transfer function has a negative pole making the system stable. It also has a pretty large gain already so simply closing the loop is enough to get a faster response. The step response of the closed motor loop is seen on \autoref{fig:MotorStepClosed}.
+As it is the most inner loop of the system, the step response has to be faster than the outer loops controlling the arm and the stick. The transfer function has a negative pole making the system stable. It also has a large gain already, so closing the loop is enough to get a faster response. The step response of the closed motor loop is seen on \autoref{fig:MotorStepClosed}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\textwidth]{MotorStepClosed}
@@ -13,7 +16,7 @@ As it is the most inner loop of the system, the step response has to be faster t
 \label{fig:MotorStepClosed}
 \end{figure}
 
-There is a small steady state error that will be corrected slightly by increasing the gain. The gain is increased until the steady state error is less than 5\%. The gain required is 1.35. The step response of the closed motor loop with a gain of 1.35 can be seen on \autoref{fig:MotorStepGain}. This has a settling time of 0.0137 seconds.
+There is a small steady state error that will be corrected slightly by increasing the gain. The gain is increased until the steady state error is less than 5\%. The gain required is 1.35. The step response of the closed motor loop with a gain of 1.35 can be seen on \autoref{fig:MotorStepGain}, and gives a settling time of 0.0137 seconds.
 
 \begin{figure}[htbp]
 \centering
